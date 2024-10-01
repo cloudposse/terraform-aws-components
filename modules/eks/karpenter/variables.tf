@@ -51,17 +51,6 @@ variable "resources" {
   description = "The CPU and memory of the deployment's limits and requests"
 }
 
-variable "create_namespace" {
-  type        = bool
-  description = "Create the namespace if it does not yet exist. Defaults to `false`"
-  default     = null
-}
-
-variable "kubernetes_namespace" {
-  type        = string
-  description = "The namespace to install the release into"
-}
-
 variable "timeout" {
   type        = number
   description = "Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds"
@@ -106,11 +95,10 @@ variable "eks_component_name" {
 
 variable "interruption_handler_enabled" {
   type        = bool
-  default     = false
+  default     = true
   description = <<EOD
   If `true`, deploy a SQS queue and Event Bridge rules to enable interruption handling by Karpenter.
-
-  https://karpenter.sh/v0.27.5/concepts/deprovisioning/#interruption
+  https://karpenter.sh/docs/concepts/disruption/#interruption
   EOD
 }
 
@@ -120,15 +108,38 @@ variable "interruption_queue_message_retention" {
   description = "The message retention in seconds for the interruption handler SQS queue."
 }
 
-variable "legacy_create_karpenter_instance_profile" {
-  type        = bool
+variable "replicas" {
+  type        = number
+  description = "The number of Karpenter controller replicas to run"
+  default     = 2
+}
+
+variable "settings" {
+  type = object({
+    batch_idle_duration = optional(string, "1s")
+    batch_max_duration  = optional(string, "10s")
+  })
   description = <<-EOT
-    When `true` (the default), this component creates an IAM Instance Profile
-    for nodes launched by Karpenter, to preserve the legacy behavior.
-    Set to `false` to disable creation of the IAM Instance Profile, which
-    avoids conflict with having `eks/cluster` create it.
-    Use in conjunction with `eks/cluster` component `legacy_do_not_create_karpenter_instance_profile`,
-    which see for further details.
-    EOT
-  default     = true
+  A subset of the settings for the Karpenter controller.
+  Some settings are implicitly set by this component, such as `clusterName` and
+  `interruptionQueue`. All settings can be overridden by providing a `settings`
+  section in the `chart_values` variable. The settings provided here are the ones
+  mostly likely to be set to other than default values, and are provided here for convenience.
+  EOT
+  default     = {}
+  nullable    = false
+}
+
+variable "logging" {
+  type = object({
+    enabled = optional(bool, true)
+    level = optional(object({
+      controller = optional(string, "info")
+      global     = optional(string, "info")
+      webhook    = optional(string, "error")
+    }), {})
+  })
+  description = "A subset of the logging settings for the Karpenter controller"
+  default     = {}
+  nullable    = false
 }

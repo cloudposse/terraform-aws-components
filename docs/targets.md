@@ -1,5 +1,7 @@
 <!-- markdownlint-disable -->
+
 ## Makefile Targets
+
 ```text
 Available targets:
 
@@ -11,4 +13,5 @@ Available targets:
   upstream-component                  Upstream a given component
 
 ```
+
 <!-- markdownlint-restore -->

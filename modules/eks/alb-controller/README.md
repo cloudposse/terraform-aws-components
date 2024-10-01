@@ -1,18 +1,27 @@
+---
+tags:
+  - component/eks/alb-controller
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/alb-controller`
 
-This component creates a Helm release for [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) on an EKS cluster.
+This component creates a Helm release for
+[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) on an EKS cluster.
 
-[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) is a Kubernetes addon that,
-in the context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations.
-This module also can (and is recommended to) provision a default IngressClass.
+[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) is a Kubernetes addon that, in the
+context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations. This module also can (and
+is recommended to) provision a default IngressClass.
 
 ### Special note about upgrading
 
-When upgrading the chart version, check to see if the IAM policy for the service account needs to be updated.
-If it does, update the policy in the `distributed-iam-policy.tf` file.
-Probably the easiest way to check if it needs updating is to simply download the policy from
-https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
-and compare it to the policy in `distributed-iam-policy.tf`.
+When upgrading the chart version, check to see if the IAM policy for the service account needs to be updated. If it
+does, update the policy in the `distributed-iam-policy.tf` file. Probably the easiest way to check if it needs updating
+is to simply download the policy from
+https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json and
+compare it to the policy in `distributed-iam-policy.tf`.
 
 ## Usage
 
@@ -63,6 +72,7 @@ components:
             memory: 128Mi
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -149,12 +159,14 @@ components:
 | <a name="input_tenant"></a> [tenant](#input\_tenant)                                                                                                               | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `string`                                                                                                                                                                                                | `null`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |    no    |
 | <a name="input_timeout"></a> [timeout](#input\_timeout)                                                                                                            | Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `number`                                                                                                                                                                                                | `null`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |    no    |
 
+
 ## Outputs
 
 | Name                                                         | Description                          |
 |--------------------------------------------------------------|--------------------------------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

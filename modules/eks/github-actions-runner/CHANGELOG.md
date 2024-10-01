@@ -1,74 +1,68 @@
 ## Initial Release
 
-This release has been tested and used in production, but testing has not covered
-all available features. Please use with caution and report any issues you
-encounter.
+This release has been tested and used in production, but testing has not covered all available features. Please use with
+caution and report any issues you encounter.
 
 ### Migration from `actions-runner-controller`
 
-GitHub has released its own official self-hosted GitHub Actions Runner support,
-replacing the `actions-runner-controller` implementation developed by Summerwind.
-(See the [announcement from GitHub](https://github.com/actions/actions-runner-controller/discussions/2072).)
-Accordingly, this component is a replacement for the [`actions-runner-controller`](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/actions-runner-controller)
-component. Although there are different defaults for some of the configuration options, if
-you are already using `actions-runner-controller` you should be able to reuse
-the GitHub app or PAT and image pull secret you are already using, making
-migration relatively straightforward.
+GitHub has released its own official self-hosted GitHub Actions Runner support, replacing the
+`actions-runner-controller` implementation developed by Summerwind. (See the
+[announcement from GitHub](https://github.com/actions/actions-runner-controller/discussions/2072).) Accordingly, this
+component is a replacement for the
+[`actions-runner-controller`](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/actions-runner-controller)
+component. Although there are different defaults for some of the configuration options, if you are already using
+`actions-runner-controller` you should be able to reuse the GitHub app or PAT and image pull secret you are already
+using, making migration relatively straightforward.
 
-We recommend deploying this component into a separate namespace (or namespaces)
-than `actions-runner-controller` and get the new runners sets running before
-you remove the old ones. You can then migrate your workflows to use the new
-runners sets and have zero downtime.
+We recommend deploying this component into a separate namespace (or namespaces) than `actions-runner-controller` and get
+the new runners sets running before you remove the old ones. You can then migrate your workflows to use the new runners
+sets and have zero downtime.
 
 Major differences:
-- The official GitHub runners deployed are different from the GitHub hosted
-  runners and the Summerwind self-hosted runners in that [they have very few tools installed](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image). You will need to
-  install any tools you need in your workflows, either as part of your workflow
-  (recommended) or by maintaining a [custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image), or by running
-  such steps in a [separate container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container)
-  that has the tools pre-installed. Many tools have publicly available actions
-  to install them, such as `actions/setup-node` to install NodeJS or `dcarbone/install-jq-action`
-  to install `jq`. You can also install packages using `awalsh128/cache-apt-pkgs-action`,
-  which has the advantage of being able to skip the installation if the package
-  is already installed, so you can more efficiently run the same workflow on
-  GitHub hosted as well as self-hosted runners.
-- Self-hosted runners, such as those deployed with the `actions-runner-controller`
-  component, are targeted by a set of labels indicated by a workflow's `runs-on`
-  array, of which the first must be "self-hosted". Runner Sets, such as are
-  deployed with this component, are targeted by a single label, which is the
-  name of the Runner Set. This means that you will need to update your workflows
-  to target the new Runner Set label. See [here](https://github.com/actions/actions-runner-controller/discussions/2921#discussioncomment-7501051)
-  for the reasoning behind GitHub's decision to use a single label instead of a set.
-- The `actions-runner-controller` component uses the published Helm chart for the
-  controller, but there is none for the runners, so it includes a custom Helm chart
-  for them. However, for Runner Sets, GitHub has published 2 charts, one for the controller
-  and one for the runners (runner sets). This means that this component requires
-  configuration (e.g. version numbers) of 2 charts, although both should be
-  kept at the same version.
-- The `actions-runner-controller` component has a `resources/values.yaml` file
-  that provided defaults for the controller Helm chart. This component does not have
-  files like that by default, but supports a `resources/values-controller.yaml` file
-  for the "gha-runner-scale-set-controller" chart and a `resources/values-runner.yaml`
-  file for the "gha-runner-scale-set" chart.
-- The default values for the SSM paths for the GitHub auth secret and the imagePullSecret
-  have changed. Specify the old values explicitly to keep using the same secrets.
-- The `actions-runner-controller` component creates an IAM Role (IRSA) for the runners
-  to use. This component does not create an IRSA, because the chart does not support
-  using one while in "dind" mode. Use GitHub OIDC authentication inside your workflows instead.
-- The Runner Sets deployed by this component use a different autoscaling mechanism,
-  so most of the `actions-runner-controller` configuration options related to
-  autoscaling are not applicable.
-- For the same reason, this component does not deploy a webhook listener or Ingress and
-  does not require configuration of a GitHub webhook.
-- The `actions-runner-controller` component has an input named `existing_kubernetes_secret_name`.
-  The equivalent input for this component is `github_kubernetes_secret_name`,
-  in order to clearly distinguish it from the `image_pull_kubernetes_secret_name` input.
+
+- The official GitHub runners deployed are different from the GitHub hosted runners and the Summerwind self-hosted
+  runners in that
+  [they have very few tools installed](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#about-the-runner-container-image).
+  You will need to install any tools you need in your workflows, either as part of your workflow (recommended) or by
+  maintaining a
+  [custom runner image](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller#creating-your-own-runner-image),
+  or by running such steps in a
+  [separate container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container) that has the tools
+  pre-installed. Many tools have publicly available actions to install them, such as `actions/setup-node` to install
+  NodeJS or `dcarbone/install-jq-action` to install `jq`. You can also install packages using
+  `awalsh128/cache-apt-pkgs-action`, which has the advantage of being able to skip the installation if the package is
+  already installed, so you can more efficiently run the same workflow on GitHub hosted as well as self-hosted runners.
+- Self-hosted runners, such as those deployed with the `actions-runner-controller` component, are targeted by a set of
+  labels indicated by a workflow's `runs-on` array, of which the first must be "self-hosted". Runner Sets, such as are
+  deployed with this component, are targeted by a single label, which is the name of the Runner Set. This means that you
+  will need to update your workflows to target the new Runner Set label. See
+  [here](https://github.com/actions/actions-runner-controller/discussions/2921#discussioncomment-7501051) for the
+  reasoning behind GitHub's decision to use a single label instead of a set.
+- The `actions-runner-controller` component uses the published Helm chart for the controller, but there is none for the
+  runners, so it includes a custom Helm chart for them. However, for Runner Sets, GitHub has published 2 charts, one for
+  the controller and one for the runners (runner sets). This means that this component requires configuration (e.g.
+  version numbers) of 2 charts, although both should be kept at the same version.
+- The `actions-runner-controller` component has a `resources/values.yaml` file that provided defaults for the controller
+  Helm chart. This component does not have files like that by default, but supports a `resources/values-controller.yaml`
+  file for the "gha-runner-scale-set-controller" chart and a `resources/values-runner.yaml` file for the
+  "gha-runner-scale-set" chart.
+- The default values for the SSM paths for the GitHub auth secret and the imagePullSecret have changed. Specify the old
+  values explicitly to keep using the same secrets.
+- The `actions-runner-controller` component creates an IAM Role (IRSA) for the runners to use. This component does not
+  create an IRSA, because the chart does not support using one while in "dind" mode. Use GitHub OIDC authentication
+  inside your workflows instead.
+- The Runner Sets deployed by this component use a different autoscaling mechanism, so most of the
+  `actions-runner-controller` configuration options related to autoscaling are not applicable.
+- For the same reason, this component does not deploy a webhook listener or Ingress and does not require configuration
+  of a GitHub webhook.
+- The `actions-runner-controller` component has an input named `existing_kubernetes_secret_name`. The equivalent input
+  for this component is `github_kubernetes_secret_name`, in order to clearly distinguish it from the
+  `image_pull_kubernetes_secret_name` input.
 
 ### Translating configuration from `actions-runner-controller`
 
-Here is an example configuration for the `github-actions-runner` controller,
-with comments indicating where in the `actions-runner-controller` configuration
-the corresponding configuration option can be copied from.
+Here is an example configuration for the `github-actions-runner` controller, with comments indicating where in the
+`actions-runner-controller` configuration the corresponding configuration option can be copied from.
 
 ```yaml
 components:
@@ -100,13 +94,10 @@ components:
           replicas: 1 # From `actions-runner-controller` file `resources/values.yaml`, value `replicaCount`
           # resources from var.resources
 
-
-
         # These values can be copied directly from the `actions-runner-controller` configuration
         ssm_github_secret_path: "/github_runners/controller_github_app_secret"
         github_app_id: "250828"
         github_app_installation_id: "30395627"
-
 
         # These values require some converstion from the `actions-runner-controller` configuration
         # Set `create_github_kubernetes_secret` to `true` if `existing_kubernetes_secret_name` was not set, `false` otherwise.

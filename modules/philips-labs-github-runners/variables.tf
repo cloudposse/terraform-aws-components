@@ -9,12 +9,6 @@ variable "enable_update_github_app_webhook" {
   default     = false
 }
 
-variable "lambda_repo_url" {
-  type        = string
-  description = "URL of the lambda repository"
-  default     = "https://github.com/philips-labs/terraform-aws-github-runner"
-}
-
 variable "release_version" {
   type        = string
   description = "Version of the application"
@@ -47,14 +41,29 @@ variable "scale_up_reserved_concurrent_executions" {
   default = -1
 }
 
-variable "instance_types" {
-  description = "List of instance types for the action runner. Defaults are based on runner_os (al2023 for linux and Windows Server Core for win)."
-  type        = list(string)
-  default     = ["m5.large", "c5.large"]
+variable "instance_target_capacity_type" {
+  description = "Default lifecycle used for runner instances, can be either `spot` or `on-demand`."
+  type        = string
+  default     = "spot"
+  validation {
+    condition     = contains(["spot", "on-demand"], var.instance_target_capacity_type)
+    error_message = "The instance target capacity should be either spot or on-demand."
+  }
 }
 
-variable "repository_white_list" {
-  description = "List of github repository full names (owner/repo_name) that will be allowed to use the github app. Leave empty for no filtering."
-  type        = list(string)
-  default     = []
+variable "create_service_linked_role_spot" {
+  description = "(optional) create the service linked role for spot instances that is required by the scale-up lambda."
+  type        = bool
+  default     = true
+}
+
+variable "ssm_paths" {
+  description = "The root path used in SSM to store configuration and secrets."
+  type = object({
+    root       = optional(string, "github-action-runners")
+    app        = optional(string, "app")
+    runners    = optional(string, "runners")
+    use_prefix = optional(bool, true)
+  })
+  default = {}
 }

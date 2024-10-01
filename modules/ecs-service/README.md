@@ -1,3 +1,10 @@
+---
+tags:
+  - component/ecs-service
+  - layer/ecs
+  - provider/aws
+---
+
 # Component: `ecs-service`
 
 This component is responsible for creating an ECS service.
@@ -101,7 +108,10 @@ components:
                 hostPort: 80
                 protocol: tcp
             command:
-              - '/bin/sh -c "echo ''<html> <head> <title>Amazon ECS Sample App</title> <style>body {margin-top: 40px; background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Amazon ECS Sample App</h1> <h2>Congratulations!</h2> <p>Your application is now running on a container in Amazon ECS.</p> </div></body></html>'' >  /usr/local/apache2/htdocs/index.html && httpd-foreground"'
+              - '/bin/sh -c "echo ''<html> <head> <title>Amazon ECS Sample App</title> <style>body {margin-top: 40px;
+                background-color: #333;} </style> </head><body> <div style=color:white;text-align:center> <h1>Amazon ECS
+                Sample App</h1> <h2>Congratulations!</h2> <p>Your application is now running on a container in Amazon
+                ECS.</p> </div></body></html>'' >  /usr/local/apache2/htdocs/index.html && httpd-foreground"'
             entrypoint: ["sh", "-c"]
         task:
           desired_count: 1
@@ -147,19 +157,23 @@ components:
 #### Other Domains
 
 This component supports alternate service names for your ECS Service through a couple of variables:
- - `vanity_domain` & `vanity_alias` - This will create a route to the service in the listener rules of the ALB. This will also create a Route 53 alias record in the hosted zone in this account. The hosted zone is looked up by the `vanity_domain` input.
- - `additional_targets` - This will create a route to the service in the listener rules of the ALB. This will not create a Route 53 alias record.
+
+- `vanity_domain` & `vanity_alias` - This will create a route to the service in the listener rules of the ALB. This will
+  also create a Route 53 alias record in the hosted zone in this account. The hosted zone is looked up by the
+  `vanity_domain` input.
+- `additional_targets` - This will create a route to the service in the listener rules of the ALB. This will not create
+  a Route 53 alias record.
 
 Examples:
 
 ```yaml
-    ecs/platform/service/echo-server:
-      vars:
-        vanity_domain: "dev-acme.com"
-        vanity_alias:
-          - "echo-server.dev-acme.com"
-        additional_targets:
-          - "echo.acme.com"
+ecs/platform/service/echo-server:
+  vars:
+    vanity_domain: "dev-acme.com"
+    vanity_alias:
+      - "echo-server.dev-acme.com"
+    additional_targets:
+      - "echo.acme.com"
 ```
 
 This then creates the following listener rules:
@@ -171,33 +185,35 @@ echo-server.public-platform.use2.dev.plat.service-discovery.com
  OR echo.acme.com
 ```
 
-It will also create the record in Route53 to point `"echo-server.dev-acme.com"` to the ALB. Thus `"echo-server.dev-acme.com"` should resolve.
+It will also create the record in Route53 to point `"echo-server.dev-acme.com"` to the ALB. Thus
+`"echo-server.dev-acme.com"` should resolve.
 
 We can then create a pointer to this service in the `acme.come` hosted zone.
 
 ```yaml
-    dns-primary:
-      vars:
-        domain_names:
-           - acme.com
-        record_config:
-          - root_zone: acme.com
-            name: echo.
-            type: CNAME
-            ttl: 60
-            records:
-              - echo-server.dev-acme.com
+dns-primary:
+  vars:
+    domain_names:
+      - acme.com
+    record_config:
+      - root_zone: acme.com
+        name: echo.
+        type: CNAME
+        ttl: 60
+        records:
+          - echo-server.dev-acme.com
 ```
 
 This will create a CNAME record in the `acme.com` hosted zone that points `echo.acme.com` to `echo-server.dev-acme.com`.
 
 ### EFS
 
-EFS is supported by this ecs service, you can use either `efs_volumes` or `efs_component_volumes` in your task definition.
+EFS is supported by this ecs service, you can use either `efs_volumes` or `efs_component_volumes` in your task
+definition.
 
+This example shows how to use `efs_component_volumes` which remote looks up efs component and uses the `efs_id` to mount
+the volume. And how to use `efs_volumes`
 
-This example shows how to use `efs_component_volumes` which remote looks up efs component and uses the `efs_id` to mount the volume.
-And how to use `efs_volumes`
 ```yaml
 components:
   terraform:
@@ -243,7 +259,7 @@ components:
                   authorization_config: []
 ```
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -268,7 +284,9 @@ components:
 |------|--------|---------|
 | <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_alb_ingress"></a> [alb\_ingress](#module\_alb\_ingress) | cloudposse/alb-ingress/aws | 0.28.0 |
-| <a name="module_container_definition"></a> [container\_definition](#module\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.60.0 |
+| <a name="module_cloudmap_namespace"></a> [cloudmap\_namespace](#module\_cloudmap\_namespace) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_cloudmap_namespace_service_discovery"></a> [cloudmap\_namespace\_service\_discovery](#module\_cloudmap\_namespace\_service\_discovery) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_container_definition"></a> [container\_definition](#module\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.61.1 |
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_datadog_container_definition"></a> [datadog\_container\_definition](#module\_datadog\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.58.1 |
 | <a name="module_datadog_fluent_bit_container_definition"></a> [datadog\_fluent\_bit\_container\_definition](#module\_datadog\_fluent\_bit\_container\_definition) | cloudposse/ecs-container-definition/aws | 0.58.1 |
@@ -300,8 +318,12 @@ components:
 | [aws_iam_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.github_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_kinesis_stream.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) | resource |
+| [aws_s3_bucket_object.task_definition_template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
+| [aws_security_group_rule.custom_sg_rules](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_service_discovery_service.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) | resource |
 | [aws_ssm_parameter.full_urls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_ecs_task_definition.created_task](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_task_definition) | data source |
 | [aws_iam_policy_document.github_actions_iam_ecspresso_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.github_actions_iam_platform_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.github_actions_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -328,7 +350,7 @@ components:
 | <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | Should this service autoscale using SNS alarams | `bool` | `true` | no |
 | <a name="input_chamber_service"></a> [chamber\_service](#input\_chamber\_service) | SSM parameter service name for use with chamber. This is used in chamber\_format where /$chamber\_service/$name/$container\_name/$parameter would be the default. | `string` | `"ecs-service"` | no |
 | <a name="input_cluster_attributes"></a> [cluster\_attributes](#input\_cluster\_attributes) | The attributes of the cluster name e.g. if the full name is `namespace-tenant-environment-dev-ecs-b2b` then the `cluster_name` is `ecs` and this value should be `b2b`. | `list(string)` | `[]` | no |
-| <a name="input_containers"></a> [containers](#input\_containers) | Feed inputs into container definition module | <pre>map(object({<br>    name                     = string<br>    ecr_image                = optional(string)<br>    image                    = optional(string)<br>    memory                   = optional(number)<br>    memory_reservation       = optional(number)<br>    cpu                      = optional(number)<br>    essential                = optional(bool, true)<br>    readonly_root_filesystem = optional(bool, null)<br>    privileged               = optional(bool, null)<br>    container_depends_on = optional(list(object({<br>      containerName = string<br>      condition     = string # START, COMPLETE, SUCCESS, HEALTHY<br>    })), null)<br><br>    port_mappings = optional(list(object({<br>      containerPort = number<br>      hostPort      = number<br>      protocol      = string<br>    })), [])<br>    command    = optional(list(string), null)<br>    entrypoint = optional(list(string), null)<br>    healthcheck = optional(object({<br>      command     = list(string)<br>      interval    = number<br>      retries     = number<br>      startPeriod = number<br>      timeout     = number<br>    }), null)<br>    ulimits = optional(list(object({<br>      name      = string<br>      softLimit = number<br>      hardLimit = number<br>    })), null)<br>    log_configuration = optional(object({<br>      logDriver = string<br>      options   = optional(map(string), {})<br>    }))<br>    docker_labels   = optional(map(string), null)<br>    map_environment = optional(map(string), {})<br>    map_secrets     = optional(map(string), {})<br>    volumes_from = optional(list(object({<br>      sourceContainer = string<br>      readOnly        = bool<br>    })), null)<br>    mount_points = optional(list(object({<br>      sourceVolume  = optional(string)<br>      containerPath = optional(string)<br>      readOnly      = optional(bool)<br>    })), [])<br>  }))</pre> | `{}` | no |
+| <a name="input_containers"></a> [containers](#input\_containers) | Feed inputs into container definition module | <pre>map(object({<br>    name                     = string<br>    ecr_image                = optional(string)<br>    image                    = optional(string)<br>    memory                   = optional(number)<br>    memory_reservation       = optional(number)<br>    cpu                      = optional(number)<br>    essential                = optional(bool, true)<br>    readonly_root_filesystem = optional(bool, null)<br>    privileged               = optional(bool, null)<br>    container_depends_on = optional(list(object({<br>      containerName = string<br>      condition     = string # START, COMPLETE, SUCCESS, HEALTHY<br>    })), null)<br><br>    port_mappings = optional(list(object({<br>      containerPort = number<br>      hostPort      = optional(number)<br>      protocol      = optional(string)<br>      name          = optional(string)<br>      appProtocol   = optional(string)<br>    })), [])<br>    command    = optional(list(string), null)<br>    entrypoint = optional(list(string), null)<br>    healthcheck = optional(object({<br>      command     = list(string)<br>      interval    = number<br>      retries     = number<br>      startPeriod = number<br>      timeout     = number<br>    }), null)<br>    ulimits = optional(list(object({<br>      name      = string<br>      softLimit = number<br>      hardLimit = number<br>    })), null)<br>    log_configuration = optional(object({<br>      logDriver = string<br>      options   = optional(map(string), {})<br>    }))<br>    docker_labels   = optional(map(string), null)<br>    map_environment = optional(map(string), {})<br>    map_secrets     = optional(map(string), {})<br>    volumes_from = optional(list(object({<br>      sourceContainer = string<br>      readOnly        = bool<br>    })), null)<br>    mount_points = optional(list(object({<br>      sourceVolume  = optional(string)<br>      containerPath = optional(string)<br>      readOnly      = optional(bool)<br>    })), [])<br>  }))</pre> | `{}` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_cpu_utilization_high_alarm_actions"></a> [cpu\_utilization\_high\_alarm\_actions](#input\_cpu\_utilization\_high\_alarm\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization High Alarm action | `list(string)` | `[]` | no |
 | <a name="input_cpu_utilization_high_evaluation_periods"></a> [cpu\_utilization\_high\_evaluation\_periods](#input\_cpu\_utilization\_high\_evaluation\_periods) | Number of periods to evaluate for the alarm | `number` | `1` | no |
@@ -340,6 +362,7 @@ components:
 | <a name="input_cpu_utilization_low_ok_actions"></a> [cpu\_utilization\_low\_ok\_actions](#input\_cpu\_utilization\_low\_ok\_actions) | A list of ARNs (i.e. SNS Topic ARN) to notify on CPU Utilization Low OK action | `list(string)` | `[]` | no |
 | <a name="input_cpu_utilization_low_period"></a> [cpu\_utilization\_low\_period](#input\_cpu\_utilization\_low\_period) | Duration in seconds to evaluate for the alarm | `number` | `300` | no |
 | <a name="input_cpu_utilization_low_threshold"></a> [cpu\_utilization\_low\_threshold](#input\_cpu\_utilization\_low\_threshold) | The minimum percentage of CPU utilization average | `number` | `20` | no |
+| <a name="input_custom_security_group_rules"></a> [custom\_security\_group\_rules](#input\_custom\_security\_group\_rules) | The list of custom security group rules to add to the service security group | <pre>list(object({<br>    type        = string<br>    from_port   = number<br>    to_port     = number<br>    protocol    = string<br>    cidr_blocks = list(string)<br>    description = optional(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_datadog_agent_sidecar_enabled"></a> [datadog\_agent\_sidecar\_enabled](#input\_datadog\_agent\_sidecar\_enabled) | Enable the Datadog Agent Sidecar | `bool` | `false` | no |
 | <a name="input_datadog_log_method_is_firelens"></a> [datadog\_log\_method\_is\_firelens](#input\_datadog\_log\_method\_is\_firelens) | Datadog logs can be sent via cloudwatch logs (and lambda) or firelens, set this to true to enable firelens via a sidecar container for fluentbit | `bool` | `false` | no |
 | <a name="input_datadog_logging_default_tags_enabled"></a> [datadog\_logging\_default\_tags\_enabled](#input\_datadog\_logging\_default\_tags\_enabled) | Add Default tags to all logs sent to Datadog | `bool` | `true` | no |
@@ -352,6 +375,7 @@ components:
 | <a name="input_ecs_cluster_name"></a> [ecs\_cluster\_name](#input\_ecs\_cluster\_name) | The name of the ECS Cluster this belongs to | `any` | `"ecs"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| <a name="input_exec_enabled"></a> [exec\_enabled](#input\_exec\_enabled) | Specifies whether to enable Amazon ECS Exec for the tasks within the service | `bool` | `false` | no |
 | <a name="input_github_actions_allowed_repos"></a> [github\_actions\_allowed\_repos](#input\_github\_actions\_allowed\_repos) | A list of the GitHub repositories that are allowed to assume this role from GitHub Actions. For example,<br>  ["cloudposse/infra-live"]. Can contain "*" as wildcard.<br>  If org part of repo name is omitted, "cloudposse" will be assumed. | `list(string)` | `[]` | no |
 | <a name="input_github_actions_ecspresso_enabled"></a> [github\_actions\_ecspresso\_enabled](#input\_github\_actions\_ecspresso\_enabled) | Create IAM policies required for deployments with Ecspresso | `bool` | `false` | no |
 | <a name="input_github_actions_iam_role_attributes"></a> [github\_actions\_iam\_role\_attributes](#input\_github\_actions\_iam\_role\_attributes) | Additional attributes to add to the role name | `list(string)` | `[]` | no |
@@ -395,6 +419,8 @@ components:
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_retention_period"></a> [retention\_period](#input\_retention\_period) | Length of time data records are accessible after they are added to the stream | `number` | `48` | no |
 | <a name="input_s3_mirror_name"></a> [s3\_mirror\_name](#input\_s3\_mirror\_name) | The name of the S3 mirror component | `string` | `null` | no |
+| <a name="input_service_connect_configurations"></a> [service\_connect\_configurations](#input\_service\_connect\_configurations) | The list of Service Connect configurations.<br>See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration | <pre>list(object({<br>    enabled   = bool<br>    namespace = optional(string, null)<br>    log_configuration = optional(object({<br>      log_driver = string<br>      options    = optional(map(string), null)<br>      secret_option = optional(list(object({<br>        name       = string<br>        value_from = string<br>      })), [])<br>    }), null)<br>    service = optional(list(object({<br>      client_alias = list(object({<br>        dns_name = string<br>        port     = number<br>      }))<br>      discovery_name        = optional(string, null)<br>      ingress_port_override = optional(number, null)<br>      port_name             = string<br>    })), [])<br>  }))</pre> | `[]` | no |
+| <a name="input_service_registries"></a> [service\_registries](#input\_service\_registries) | The list of Service Registries.<br>See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries | <pre>list(object({<br>    namespace      = string<br>    registry_arn   = optional(string)<br>    port           = optional(number)<br>    container_name = optional(string)<br>    container_port = optional(number)<br>  }))</pre> | `[]` | no |
 | <a name="input_shard_count"></a> [shard\_count](#input\_shard\_count) | Number of shards that the stream will use | `number` | `1` | no |
 | <a name="input_shard_level_metrics"></a> [shard\_level\_metrics](#input\_shard\_level\_metrics) | List of shard-level CloudWatch metrics which can be enabled for the stream | `list(string)` | <pre>[<br>  "IncomingBytes",<br>  "IncomingRecords",<br>  "IteratorAgeMilliseconds",<br>  "OutgoingBytes",<br>  "OutgoingRecords",<br>  "ReadProvisionedThroughputExceeded",<br>  "WriteProvisionedThroughputExceeded"<br>]</pre> | no |
 | <a name="input_ssm_enabled"></a> [ssm\_enabled](#input\_ssm\_enabled) | If `true` create SSM keys for the database user and password. | `bool` | `false` | no |
@@ -439,12 +465,17 @@ components:
 | <a name="output_ssm_key_prefix"></a> [ssm\_key\_prefix](#output\_ssm\_key\_prefix) | SSM prefix |
 | <a name="output_ssm_parameters"></a> [ssm\_parameters](#output\_ssm\_parameters) | SSM parameters for the ECS Service |
 | <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | Selected subnet IDs |
+| <a name="output_task_definition_arn"></a> [task\_definition\_arn](#output\_task\_definition\_arn) | The task definition ARN |
+| <a name="output_task_definition_revision"></a> [task\_definition\_revision](#output\_task\_definition\_revision) | The task definition revision |
+| <a name="output_task_template"></a> [task\_template](#output\_task\_template) | The task template rendered |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | Selected VPC ID |
 | <a name="output_vpc_sg_id"></a> [vpc\_sg\_id](#output\_vpc\_sg\_id) | Selected VPC SG ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs-service) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ecs-service) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

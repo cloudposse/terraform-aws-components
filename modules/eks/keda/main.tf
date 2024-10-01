@@ -37,11 +37,11 @@ module "keda" {
       serviceAccount = {
         name = module.this.name
       }
-      resources = var.resources
       rbac = {
         create = var.rbac_enabled
       }
-    })
+    }),
+    var.resources != null ? yamlencode({ resources = var.resources }) : "",
   ])
 
   context = module.this.context
