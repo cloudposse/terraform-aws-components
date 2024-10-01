@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 1.499.0
+
+
+
+<details>
+  <summary>feat: add detector features to guard duty component @dudymas (#1112)</summary>
+
+  ## what
+
+- add detector features to guard duty
+
+## why
+
+- added functionality
+
+## references
+
+- [Detector Feature API](https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DetectorFeatureConfiguration.html)
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.497.0` @github-actions (#1117)</summary>
+
+  Update Changelog for [`1.497.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.497.0)
+</details>
+
+
+
 ## 1.497.0
 
 
