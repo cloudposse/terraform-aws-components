@@ -353,7 +353,7 @@ variable "node_group_defaults" {
   default = {
     desired_group_size = 1
     # t3.medium is kept as the default for backward compatibility.
-    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavoir.
+    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavior.
     instance_types     = ["t3.medium"]
     kubernetes_version = null # set to null to use cluster_kubernetes_version
     max_group_size     = 100

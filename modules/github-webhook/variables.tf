@@ -44,6 +44,6 @@ variable "remote_state_github_webhook_enabled" {
 
 variable "remote_state_component_name" {
   type        = string
-  description = "If fetching the Github Webhook value from remote-state, set this to the source compoennt name. For example, `eks/argocd`."
+  description = "If fetching the Github Webhook value from remote-state, set this to the source component name. For example, `eks/argocd`."
   default     = ""
 }
