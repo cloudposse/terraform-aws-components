@@ -71,7 +71,7 @@ components:
       vars:
         # This first set of values you can just copy from here.
         # However, if you had customized the standard Helm configuration
-        # (such things as `cleanup_on_fail`, `atmoic`, or `timeout`), you
+        # (such things as `cleanup_on_fail`, `atomic`, or `timeout`), you
         # now need to do that per chart under the `charts` input.
         enabled: true
         name: "gha-runner-controller"

@@ -3,7 +3,7 @@ tags:
   - component/aws-saml
   - layer/identity
   - provider/aws
-  - priviliged
+  - privileged
 ---
 
 # Component: `aws-saml`
