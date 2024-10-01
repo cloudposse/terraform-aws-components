@@ -66,6 +66,29 @@ variable "s3_object_ownership" {
   description = "Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'."
 }
 
+variable "s3_origins" {
+  type = list(object({
+    domain_name = string
+    origin_id   = string
+    origin_path = string
+    s3_origin_config = object({
+      origin_access_identity = string
+    })
+  }))
+  default     = []
+  description = <<-EOT
+    A list of S3 [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) (in addition to the one created by this component) for this distribution.
+    S3 buckets configured as websites are `custom_origins`, not `s3_origins`.
+    Specifying `s3_origin_config.origin_access_identity` as `null` or `""` will have it translated to the `origin_access_identity` used by the origin created by this component.
+    EOT
+}
+
+variable "origin_bucket" {
+  type        = string
+  default     = null
+  description = "Name of an existing S3 bucket to use as the origin. If this is not provided, this component will create a new s3 bucket using `var.name` and other context related inputs"
+}
+
 variable "origin_s3_access_logging_enabled" {
   type        = bool
   default     = null
@@ -173,7 +196,7 @@ variable "cloudfront_custom_error_response" {
   # http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html#custom-error-pages-procedure
   # https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#custom-error-response-arguments
   type = list(object({
-    error_caching_min_ttl = string
+    error_caching_min_ttl = optional(string, "10")
     error_code            = string
     response_code         = string
     response_page_path    = string
@@ -398,8 +421,10 @@ variable "ordered_cache" {
     trusted_signers    = list(string)
     trusted_key_groups = list(string)
 
-    cache_policy_id          = string
-    origin_request_policy_id = string
+    cache_policy_name          = optional(string)
+    cache_policy_id            = optional(string)
+    origin_request_policy_name = optional(string)
+    origin_request_policy_id   = optional(string)
 
     viewer_protocol_policy     = string
     min_ttl                    = number
@@ -428,6 +453,8 @@ variable "ordered_cache" {
     An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.
     List in order of precedence (first match wins). This is in addition to the default cache policy.
     Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.
+    Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.
+    Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.
     EOT
 }
 
@@ -448,14 +475,6 @@ variable "preview_environment_enabled" {
   * `cloudfront_min_ttl`
   * `cloudfront_max_ttl`
   * `cloudfront_lambda_function_association`
-  EOT
-  default     = false
-}
-
-variable "lambda_edge_redirect_404_enabled" {
-  type        = bool
-  description = <<-EOT
-  Enable or disable SPA 404 redirects via Lambda@Edge - returns a 302 and a location of `/` if the request returned 404.
   EOT
   default     = false
 }
@@ -488,4 +507,84 @@ variable "github_runners_tenant_name" {
   type        = string
   description = "The tenant name where the GitHub Runners are provisioned"
   default     = null
+}
+
+variable "lambda_edge_functions" {
+  type = map(object({
+    source = optional(list(object({
+      filename = string
+      content  = string
+    })))
+    source_dir   = optional(string)
+    source_zip   = optional(string)
+    runtime      = string
+    handler      = string
+    event_type   = string
+    include_body = bool
+  }))
+  description = <<-EOT
+  Lambda@Edge functions to create.
+
+  The key of this map is the name of the Lambda@Edge function.
+
+  This map will be deep merged with each enabled default function. Use deep merge to change or overwrite specific values passed by those function objects.
+  EOT
+  default     = {}
+}
+
+variable "lambda_edge_runtime" {
+  type        = string
+  description = <<-EOT
+  The default Lambda@Edge runtime for all functions.
+
+  This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.
+  EOT
+  default     = "nodejs16.x"
+}
+
+variable "lambda_edge_handler" {
+  type        = string
+  description = <<-EOT
+  The default Lambda@Edge handler for all functions.
+
+  This value is deep merged in `module.lambda_edge_functions` with `var.lambda_edge_functions` and can be overwritten for any individual function.
+  EOT
+  default     = "index.handler"
+}
+
+variable "lambda_edge_allowed_ssm_parameters" {
+  type        = list(string)
+  description = "The Lambda@Edge functions will be allowed to access the list of AWS SSM parameter with these ARNs"
+  default     = []
+}
+
+variable "lambda_edge_destruction_delay" {
+  type        = string
+  description = <<-EOT
+  The delay, in [Golang ParseDuration](https://pkg.go.dev/time#ParseDuration) format, to wait before destroying the Lambda@Edge
+  functions.
+
+  This delay is meant to circumvent Lambda@Edge functions not being immediately deletable following their dissociation from
+  a CloudFront distribution, since they are replicated to CloudFront Edge servers around the world.
+
+  If set to `null`, no delay will be introduced.
+
+  By default, the delay is 20 minutes. This is because it takes about 3 minutes to destroy a CloudFront distribution, and
+  around 15 minutes until the Lambda@Edge function is available for deletion, in most cases.
+
+  For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.
+  EOT
+  default     = "20m"
+}
+
+variable "http_version" {
+  type        = string
+  default     = "http2"
+  description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3"
+}
+
+variable "comment" {
+  type        = string
+  description = "Any comments you want to include about the distribution."
+  default     = "Managed by Terraform"
 }

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dms/iam
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `dms/iam`
 
 This component provisions IAM roles required for DMS.
@@ -23,6 +30,7 @@ components:
         name: dms
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -79,10 +87,11 @@ No resources.
 | <a name="output_dms_redshift_s3_role_arn"></a> [dms\_redshift\_s3\_role\_arn](#output\_dms\_redshift\_s3\_role\_arn) | DMS Redshift S3 role ARN |
 | <a name="output_dms_vpc_management_role_arn"></a> [dms\_vpc\_management\_role\_arn](#output\_dms\_vpc\_management\_role\_arn) | DMS VPC management role ARN |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dms/modules/dms-iam) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dms/modules/dms-iam) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

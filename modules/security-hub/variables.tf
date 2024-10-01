@@ -9,7 +9,7 @@ variable "admin_delegated" {
   default     = false
   description = <<DOC
   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the Security
-  Hub Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
+  Hub Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
   Deployment section of the README for more information.
   DOC
 }
@@ -74,7 +74,7 @@ variable "enabled_standards" {
 }
 
 variable "finding_aggregation_region" {
-  description = "If finding aggreation is enabled, the region that collects findings"
+  description = "If finding aggregation is enabled, the region that collects findings"
   type        = string
   default     = null
 }

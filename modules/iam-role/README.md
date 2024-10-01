@@ -1,6 +1,14 @@
+---
+tags:
+  - component/iam-role
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `iam-role`
 
-This component is responsible for provisioning simple IAM roles. If a more complicated IAM role and policy are desired then it is better to use a separate component specific to that role.
+This component is responsible for provisioning simple IAM roles. If a more complicated IAM role and policy are desired
+then it is better to use a separate component specific to that role.
 
 ## Usage
 
@@ -28,7 +36,7 @@ Use-case: An IAM role for AWS Workspaces Directory since this service does not h
 ```yaml
 # stacks/catalog/aws-workspaces/directory/iam-role.yaml
 import:
-- catalog/iam-role
+  - catalog/iam-role
 
 components:
   terraform:
@@ -57,6 +65,7 @@ components:
           - arn:aws:iam::aws:policy/AmazonWorkSpacesSelfServiceAccess
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -126,9 +135,11 @@ No resources.
 |------|-------------|
 | <a name="output_role"></a> [role](#output\_role) | IAM role module outputs |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/iam-role) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/iam-role) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

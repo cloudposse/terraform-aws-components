@@ -19,7 +19,15 @@ variable "architectures" {
 }
 
 variable "cloudwatch_event_rules" {
-  type        = map(any)
+  type = map(object({
+    description         = optional(string)
+    event_bus_name      = optional(string)
+    event_pattern       = optional(string)
+    is_enabled          = optional(bool)
+    name_prefix         = optional(string)
+    role_arn            = optional(string)
+    schedule_expression = optional(string)
+  }))
   description = "Creates EventBridge (CloudWatch Events) rules for invoking the Lambda Function along with the required permissions."
   default     = {}
 }
@@ -46,12 +54,6 @@ variable "cloudwatch_logs_kms_key_arn" {
   default     = null
 }
 
-variable "cloudwatch_log_subscription_filters" {
-  type        = map(any)
-  description = "CloudWatch Logs subscription filter resources. Currently supports only Lambda functions as destinations."
-  default     = {}
-}
-
 variable "description" {
   type        = string
   description = "Description of what the Lambda Function does."
@@ -66,28 +68,10 @@ variable "lambda_environment" {
   default     = null
 }
 
-variable "event_source_mappings" {
-  type        = any
-  description = <<EOF
-  Creates event source mappings to allow the Lambda function to get events from Kinesis, DynamoDB and SQS. The IAM role
-  of this Lambda function will be enhanced with necessary minimum permissions to get those events.
-  EOF
-  default     = {}
-}
-
 variable "filename" {
   type        = string
-  description = "The path to the function's deployment package within the local filesystem. If defined, The s3_-prefixed options and image_uri cannot be used."
+  description = "The path to the function's deployment package within the local filesystem. Works well with the `zip` variable. If defined, The s3_-prefixed options and image_uri cannot be used."
   default     = null
-}
-
-variable "ignore_external_function_updates" {
-  type        = bool
-  description = <<EOF
-  Ignore updates to the Lambda Function executed externally to the Terraform lifecycle. Set this to `true` if you're
-  using CodeDeploy, aws CLI or other external tools to update the Lambda Function code."
-  EOF
-  default     = false
 }
 
 variable "handler" {
@@ -183,6 +167,17 @@ variable "s3_bucket_name" {
   default     = null
 }
 
+variable "s3_bucket_component" {
+  type = object({
+    component   = string
+    tenant      = optional(string)
+    stage       = optional(string)
+    environment = optional(string)
+  })
+  description = "The bucket component to use for the S3 bucket containing the function's deployment package. Conflicts with `s3_bucket_name`,  `filename` and `image_uri`."
+  default     = null
+}
+
 variable "s3_key" {
   type        = string
   description = "The S3 key of an object containing the function's deployment package. Conflicts with filename and image_uri."
@@ -193,12 +188,6 @@ variable "s3_object_version" {
   type        = string
   description = "The object version containing the function's deployment package. Conflicts with filename and image_uri."
   default     = null
-}
-
-variable "sns_subscriptions" {
-  type        = map(any)
-  description = "Creates subscriptions to SNS topics which trigger the Lambda Function. Required Lambda invocation permissions will be generated."
-  default     = {}
 }
 
 variable "source_code_hash" {
@@ -310,5 +299,26 @@ variable "zip" {
     input_dir = optional(string, null)
   })
   description = "Zip Configuration for local file deployments"
-  default     = {}
+  default = {
+    enabled = false
+    output  = "output.zip"
+  }
+}
+
+variable "cicd_ssm_param_name" {
+  type        = string
+  description = "The name of the SSM parameter to store the latest version/sha of the Lambda function. This is used with cicd_s3_key_format"
+  default     = null
+}
+
+variable "cicd_s3_key_format" {
+  type        = string
+  description = "The format of the S3 key to store the latest version/sha of the Lambda function. This is used with cicd_ssm_param_name. Defaults to 'stage/{stage}/lambda/{function_name}/%s.zip'"
+  default     = null
+}
+
+variable "function_url_enabled" {
+  type        = bool
+  description = "Create a aws_lambda_function_url resource to expose the Lambda function"
+  default     = false
 }

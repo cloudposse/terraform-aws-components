@@ -1,6 +1,6 @@
 # Assuming region-a is default.
 # tgw_this_region is network of region-b
-# tgw_home_reigon is netowrk of region-a
+# tgw_home_reigon is network of region-a
 
 provider "aws" {
   alias  = "tgw_this_region"

@@ -1,27 +1,44 @@
-# Transit Gateway: `tgw`
+---
+tags:
+  - component/tgw
+  - layer/network
+  - provider/aws
+---
 
-AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub. This connection simplifies your network and puts an end to complex peering relationships. Transit Gateway acts as a highly scalable cloud router—each new connection is made only once.
+# Component: `tgw`
+
+AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub.
+This connection simplifies your network and puts an end to complex peering relationships. Transit Gateway acts as a
+highly scalable cloud router—each new connection is made only once.
 
 For more on Transit Gateway, see [the AWS documentation](https://aws.amazon.com/transit-gateway/).
 
 ## Requirements
 
-In order to connect accounts with Transit Gateway, we deploy Transit Gateway to a central account, typically `core-network`, and then deploy Transit Gateway attachments for each connected account. Each connected accounts needs a Transit Gateway attachment for the given account's VPC, either by VPC attachment or by Peering Connection attachment. Furthermore, each private subnet in each connected VPC needs to explicitly list the CIDRs for all allowed connections.
+In order to connect accounts with Transit Gateway, we deploy Transit Gateway to a central account, typically
+`core-network`, and then deploy Transit Gateway attachments for each connected account. Each connected accounts needs a
+Transit Gateway attachment for the given account's VPC, either by VPC attachment or by Peering Connection attachment.
+Furthermore, each private subnet in each connected VPC needs to explicitly list the CIDRs for all allowed connections.
 
 ## Solution
 
-First we deploy the Transit Gateway Hub, `tgw/hub`, to a central network account. The component prepares the Transit Gateway network with the following steps:
+First we deploy the Transit Gateway Hub, `tgw/hub`, to a central network account. The component prepares the Transit
+Gateway network with the following steps:
 
 1. Provision Transit Gateway in the network account
 2. Collect VPC and EKS component output from every account connected to Transit Gateway
 3. Share the Transit Gateway with the Organization using Resource Access Manager (RAM)
 
-By using the `tgw/hub` component to collect Terraform output from connected accounts, only this single component requires access to the Terraform state of all connected accounts.
+By using the `tgw/hub` component to collect Terraform output from connected accounts, only this single component
+requires access to the Terraform state of all connected accounts.
 
-Next we deploy `tgw/spoke` to the network account and then to every connected account. This spoke component connects the given account to the central hub and any listed connection with the following steps:
+Next we deploy `tgw/spoke` to the network account and then to every connected account. This spoke component connects the
+given account to the central hub and any listed connection with the following steps:
 
-1. Create a Transit Gateway VPC attachment in the spoke account. This connects the account's VPC to the shared Transit Gateway from the hub account.
-2. Define all allowed routes for private subnets. Each private subnet in an account's VPC has it's own route table. This route table needs to explicitly list any allowed connection to another account's VPC CIDR.
+1. Create a Transit Gateway VPC attachment in the spoke account. This connects the account's VPC to the shared Transit
+   Gateway from the hub account.
+2. Define all allowed routes for private subnets. Each private subnet in an account's VPC has it's own route table. This
+   route table needs to explicitly list any allowed connection to another account's VPC CIDR.
 3. (Optional) Create an EKS Cluster Security Group rule to allow traffic to the cluster in the given account.
 
 ## Implementation
@@ -150,7 +167,6 @@ tgw/spoke:
       - account:
           tenant: core
           stage: auto
-
 ```
 
 ### Alternate Regions
@@ -161,15 +177,20 @@ In order to connect any account to the network, the given account needs:
 2. An attachment for the given Transit Gateway hub
 3. Routes to and from each private subnet
 
-However, sharing the Transit Gateway hub via RAM is only supported in the same region as the primary hub. Therefore, we must instead deploy a new hub in the alternate region and create a [Transit Gateway Peering Connection](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-peering.html) between the two Transit Gateway hubs.
+However, sharing the Transit Gateway hub via RAM is only supported in the same region as the primary hub. Therefore, we
+must instead deploy a new hub in the alternate region and create a
+[Transit Gateway Peering Connection](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-peering.html) between the two
+Transit Gateway hubs.
 
-Furthermore, since this Transit Gateway hub for the alternate region is now peered, we must create a Peering Transit Gateway attachment, opposed to a VPC Transit Gateway Attachment.
+Furthermore, since this Transit Gateway hub for the alternate region is now peered, we must create a Peering Transit
+Gateway attachment, opposed to a VPC Transit Gateway Attachment.
 
 #### Cross Region Deployment
 
 1. Deploy `tgw/hub` and `tgw/spoke` into the primary region as described in [Implementation](#implementation)
 
-2. Deploy `tgw/hub` and `tgw/cross-region-hub` into the new region in the network account. See the following configuration:
+2. Deploy `tgw/hub` and `tgw/cross-region-hub` into the new region in the network account. See the following
+   configuration:
 
 ```yaml
 # stacks/catalog/tgw/cross-region-hub
@@ -343,13 +364,17 @@ tgw/spoke:
 
 ## Destruction
 
-When destroying Transit Gateway components, order of operations matters. Always destroy any removed `tgw/spoke` components before removing a connection from the `tgw/hub` component.
+When destroying Transit Gateway components, order of operations matters. Always destroy any removed `tgw/spoke`
+components before removing a connection from the `tgw/hub` component.
 
-The `tgw/hub` component creates map of VPC resources that each `tgw/spoke` component references. If the required reference is removed before the `tgw/spoke` is destroyed, Terraform will fail to destroy the given `tgw/spoke` component.
+The `tgw/hub` component creates map of VPC resources that each `tgw/spoke` component references. If the required
+reference is removed before the `tgw/spoke` is destroyed, Terraform will fail to destroy the given `tgw/spoke`
+component.
 
 :::info Pro Tip!
 
-[Atmos Workflows](https://atmos.tools/core-concepts/workflows/) make applying and destroying Transit Gateway much easier! For example, to destroy components in the correct order, use a workflow similiar to the following:
+[Atmos Workflows](https://atmos.tools/core-concepts/workflows/) make applying and destroying Transit Gateway much
+easier! For example, to destroy components in the correct order, use a workflow similar to the following:
 
 ```yaml
 # stacks/workflows/network.yaml
@@ -395,4 +420,5 @@ Releasing state lock. This may take a few moments...
 exit status 1
 ```
 
-This is caused by Terraform attempting to create the replacement VPC attachment before the original is completely destroyed. Retry the apply. Now you should see only "create" actions.
+This is caused by Terraform attempting to create the replacement VPC attachment before the original is completely
+destroyed. Retry the apply. Now you should see only "create" actions.

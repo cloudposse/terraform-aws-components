@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "dns_administrator_access" {
 locals {
   dns_administrator_access_permission_set = [{
     name                                = "DNSRecordAdministratorAccess",
-    description                         = "Allow DNS Record Admininstrator access to the account, but not zone administration",
+    description                         = "Allow DNS Record Administrator access to the account, but not zone administration",
     relay_state                         = "https://console.aws.amazon.com/route53/",
     session_duration                    = "",
     tags                                = {},

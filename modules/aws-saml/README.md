@@ -1,6 +1,16 @@
+---
+tags:
+  - component/aws-saml
+  - layer/identity
+  - provider/aws
+  - privileged
+---
+
 # Component: `aws-saml`
 
-This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an Okta integration (`okta` must be mentioned in the key given to the `saml_providers` input) it creates an Okta API user and corresponding Access Key pair which is pushed into AWS SSM.
+This component is responsible for provisioning SAML metadata into AWS IAM as new SAML providers. Additionally, for an
+Okta integration (`okta` must be mentioned in the key given to the `saml_providers` input) it creates an Okta API user
+and corresponding Access Key pair which is pushed into AWS SSM.
 
 ## Usage
 
@@ -22,6 +32,7 @@ components:
           example-gsuite: GoogleIDPMetadata-example.com.xml
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -85,10 +96,11 @@ components:
 | <a name="output_saml_provider_arns"></a> [saml\_provider\_arns](#output\_saml\_provider\_arns) | Map of SAML provider names to provider ARNs |
 | <a name="output_saml_provider_assume_role_policy"></a> [saml\_provider\_assume\_role\_policy](#output\_saml\_provider\_assume\_role\_policy) | JSON "assume role" policy document to use for roles allowed to log in via SAML |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/sso) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/sso) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
