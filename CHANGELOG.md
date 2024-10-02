@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## 1.507.1
+
+
+
+<details>
+  <summary>Update Changelog for `1.506.0` @github-actions (#1130)</summary>
+Update Changelog for [`1.506.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.506.0)
+</details>
+
+
+## 🚀 Enhancements
+
+<details>
+  <summary>mq-broker: upgrade versions @johncblandii (#602)</summary>
+## what
+* Upgraded to the latest `terraform-aws-mq-broker`
+* Updated the `providers` to match the common pattern
+* Updated the module versions
+
+## why
+* The component was dated
+
+## references
+
+
+
+</details>
+
+
+
 ## 1.506.0
 
 
