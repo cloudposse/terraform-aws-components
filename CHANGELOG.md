@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## 1.506.0
+
+
+
+<details>
+  <summary>Add scheduled overrides feature @oleksiimorozenko (#750)</summary>
+## what
+* This pull request adds the scheduled overrides feature supported by ARC
+
+## why
+* It could be useful for pre-scaling during work hours and downscaling respectively when a work time ends coming back to `minReplicas`
+
+## references
+* Scheduled overrides section in [ARC Automatically scaling runners documentation](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides)
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.505.0` @github-actions (#1129)</summary>
+Update Changelog for [`1.505.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.505.0)
+</details>
+
+
+
 ## 1.505.0
 
 
