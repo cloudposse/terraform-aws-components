@@ -1,10 +1,10 @@
 terraform {
-  required_version = ">= 0.13.0"
+  required_version = ">= 1.0"
 
   required_providers {
     opsgenie = {
       source  = "opsgenie/opsgenie"
-      version = ">= 0.4"
+      version = ">= 0.6.7"
     }
   }
 }

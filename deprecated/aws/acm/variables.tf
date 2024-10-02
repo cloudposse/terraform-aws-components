@@ -24,4 +24,3 @@ variable "chamber_parameter_name_format" {
   description = "Format string for combining `chamber` service name and parameter name. It is rare to need to set this."
   default     = "/%s/%s"
 }
-

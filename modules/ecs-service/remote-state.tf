@@ -1,164 +1,158 @@
 locals {
-  # Grab only namespace, tenant, environment, stage since those will be the common tags across resources of interest in this account
-  match_tags = {
-    for key, value in module.this.tags :
-    key => value
-    if contains(["namespace", "tenant", "environment", "stage"], lower(key))
-  }
+  vpc_id          = module.vpc.outputs.vpc_id
+  vpc_sg_id       = module.vpc.outputs.vpc_default_security_group_id
+  rds_sg_id       = try(one(module.rds[*].outputs.exports.security_groups.client), null)
+  subnet_ids      = lookup(module.vpc.outputs.subnets, local.assign_public_ip ? "public" : "private", { ids = [] }).ids
+  ecs_cluster_arn = module.ecs_cluster.outputs.cluster_arn
 
-  subnet_match_tags = merge({
-    Attributes = local.assign_public_ip ? "public" : "private"
-  }, var.subnet_match_tags)
+  use_external_lb = local.use_lb && (try(length(var.alb_name) > 0, false) || try(length(var.nlb_name) > 0, false))
 
-  lb_match_tags = merge({
-    # e.g. platform-public
-    Attributes = format("%s-%s", local.cluster_type, local.domain_type)
-  }, var.lb_match_tags)
+  is_alb = local.use_lb && !try(length(var.nlb_name) > 0, false)
+  alb    = local.use_lb ? (local.use_external_lb ? try(module.alb[0].outputs, null) : module.ecs_cluster.outputs.alb[var.alb_configuration]) : null
 
-  vpc_id          = try(one(data.aws_vpc.selected[*].id), null)
-  vpc_sg_id       = try(one(data.aws_security_group.vpc_default[*].id), null)
-  rds_sg_id       = try(one(data.aws_security_group.rds[*].id), null)
-  subnet_ids      = try(one(data.aws_subnets.selected[*].ids), null)
-  ecs_cluster_arn = try(one(data.aws_ecs_cluster.selected[*].arn), null)
+  is_nlb = local.use_lb && try(length(var.nlb_name) > 0, false)
+  nlb    = try(module.nlb[0].outputs, null)
 
-  lb_arn                = try(one(data.aws_lb.selected[*].arn), null)
-  lb_name               = try(one(data.aws_lb.selected[*].name), null)
-  lb_listener_https_arn = try(one(data.aws_lb_listener.selected_https[*].arn), null)
-  lb_sg_id              = try(one(data.aws_security_group.lb[*].id), null)
-  lb_zone_id            = try(one(data.aws_lb.selected[*].zone_id), null)
+  use_lb = local.enabled && var.use_lb
+
+  requested_protocol = local.use_lb && !local.lb_listener_http_is_redirect ? var.http_protocol : null
+  lb_protocol        = local.lb_listener_http_is_redirect || try(local.is_nlb && local.nlb.is_443_enabled, false) ? "https" : "http"
+  http_protocol      = coalesce(local.requested_protocol, local.lb_protocol)
+
+  lb_arn                       = try(coalesce(local.nlb.nlb_arn, ""), coalesce(local.alb.alb_arn, ""), null)
+  lb_name                      = try(coalesce(local.nlb.nlb_name, ""), coalesce(local.alb.alb_dns_name, ""), null)
+  lb_listener_http_is_redirect = try(length(local.is_nlb ? "" : local.alb.http_redirect_listener_arn) > 0, false)
+  lb_listener_https_arn        = try(coalesce(local.nlb.default_listener_arn, ""), coalesce(local.alb.https_listener_arn, ""), null)
+  lb_sg_id                     = try(local.is_nlb ? null : local.alb.security_group_id, null)
+  lb_zone_id                   = try(coalesce(local.nlb.nlb_zone_id, ""), coalesce(local.alb.alb_zone_id, ""), null)
+  lb_fqdn                      = try(coalesce(local.nlb.route53_record.fqdn, ""), coalesce(local.alb.route53_record.fqdn, ""), local.full_domain)
+
 }
 
 ## Company specific locals for domain convention
 locals {
-  domain_name = {
-    tenantexample = "example.net",
-  }
-  zone_domain = format("%s.%s.%s", var.stage, var.tenant, coalesce(var.domain_name, local.domain_name[var.tenant]))
+  domain_type  = var.alb_configuration
+  cluster_type = try(var.cluster_attributes[0], "platform")
 
-  domain_type  = var.public_lb_enabled ? "public" : "private"
-  cluster_type = var.cluster_attributes[0]
+  zone_domain = jsondecode(data.jq_query.service_domain_query.result)
 
   # e.g. example.public-platform.{environment}.{zone_domain}
-  full_domain = format("%s.%s-%s.%s.%s", var.name, local.domain_type, local.cluster_type, var.environment, local.zone_domain)
+  full_domain = format("%s.%s-%s.%s.%s", join("-", concat([
+    var.name
+  ], var.attributes)), local.domain_type, local.cluster_type, var.environment, local.zone_domain)
+  domain_no_service_name         = format("%s-%s.%s.%s", local.domain_type, local.cluster_type, var.environment, local.zone_domain)
+  public_domain_no_service_name  = format("%s-%s.%s.%s", "public", local.cluster_type, var.environment, local.zone_domain)
+  private_domain_no_service_name = format("%s-%s.%s.%s", "private", local.cluster_type, var.environment, local.zone_domain)
 
-  # tenant to domain mapping
-  vanity_domain_names = {
-    tenantexample = {
-      "dev"     = "example-dev.com",
-      "staging" = "example-staging.com",
-      "prod"    = "example-prod.com",
-    },
-  }
+  vanity_domain_zone_id = one(data.aws_route53_zone.selected_vanity[*].zone_id)
 
-  vanity_domain         = local.vanity_domain_names[var.tenant][var.stage]
-  vanity_domain_zone_id = try(one(data.aws_route53_zone.selected_vanity[*].zone_id), null)
+  unauthenticated_paths = local.is_nlb ? ["/"] : var.unauthenticated_paths
+
+  # NOTE: this is the rare _not_ in the ternary purely for readability
+  full_urls = !local.use_lb ? [] : [for path in local.unauthenticated_paths : format("%s://%s%s", local.http_protocol, local.lb_fqdn, trimsuffix(trimsuffix(path, "*"), "/"))]
+
 }
 
-variable "vpc_match_tags" {
-  type        = map(any)
-  description = "The additional matching tags for the VPC data source. Used with current namespace, tenant, env, and stage tags."
-  default     = {}
-}
+module "vpc" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-variable "subnet_match_tags" {
-  type        = map(string)
-  description = "The additional matching tags for the VPC subnet data source. Used with current namespace, tenant, env, and stage tags."
-  default     = {}
-}
-
-variable "lb_match_tags" {
-  type        = map(string)
-  description = "The additional matching tags for the LB data source. Used with current namespace, tenant, env, and stage tags."
-  default     = {}
-}
-
-data "aws_vpc" "selected" {
-  count = local.enabled ? 1 : 0
-
-  default = false
-
-  tags = merge(local.match_tags, var.vpc_match_tags)
-}
-
-data "aws_security_group" "vpc_default" {
-  count = local.enabled ? 1 : 0
-
-  name = "default"
-
-  vpc_id = local.vpc_id
-
-  tags = local.match_tags
-}
-
-data "aws_subnets" "selected" {
-  count = local.enabled ? 1 : 0
-
-  filter {
-    name   = "vpc-id"
-    values = [local.vpc_id]
-  }
-
-  tags = merge(local.match_tags, local.subnet_match_tags)
-}
-
-module "ecs_label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
-
-  name       = var.cluster_name
-  attributes = var.cluster_attributes
+  component = "vpc"
 
   context = module.this.context
 }
 
-module "rds_sg_label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
+module "security_group" {
+  count   = local.enabled && var.task_security_group_component != null ? 1 : 0
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-  name       = var.kms_key_alias
-  attributes = ["client"]
+  component = var.task_security_group_component
 
   context = module.this.context
 }
 
-data "aws_security_group" "rds" {
-  count = local.enabled && var.use_rds_client_sg ? 1 : 0
+module "rds" {
+  count   = local.enabled && var.use_rds_client_sg && try(length(var.rds_name), 0) > 0 ? 1 : 0
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-  vpc_id = local.vpc_id
+  component = var.rds_name
 
-  tags = {
-    "Name" = module.rds_sg_label.id
-  }
+  context = module.this.context
 }
 
-data "aws_ecs_cluster" "selected" {
-  count = local.enabled ? 1 : 0
+module "ecs_cluster" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-  cluster_name = coalesce(var.cluster_full_name, module.ecs_label.id)
+  component = coalesce(var.ecs_cluster_name, "ecs-cluster")
+
+  context = module.this.context
 }
 
-data "aws_security_group" "lb" {
-  count = local.enabled ? 1 : 0
+module "alb" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-  vpc_id = local.vpc_id
+  count = local.is_alb && local.use_external_lb ? 1 : 0
 
-  tags = merge(local.match_tags, local.lb_match_tags)
+  component = var.alb_name
+
+  context = module.this.context
 }
 
-data "aws_lb" "selected" {
-  count = local.enabled ? 1 : 0
+module "nlb" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-  tags = merge(local.match_tags, local.lb_match_tags)
+  count = local.is_nlb ? 1 : 0
+
+  component = var.nlb_name
+
+  context = module.this.context
 }
 
-data "aws_lb_listener" "selected_https" {
-  count = local.enabled ? 1 : 0
+module "s3" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
 
-  load_balancer_arn = local.lb_arn
-  port              = 443
+  count = local.s3_mirroring_enabled ? 1 : 0
+
+  component = var.s3_mirror_name
+
+  context = module.this.context
 }
+
+
+module "service_domain" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+
+  component = var.zone_component
+
+  context     = module.this.context
+  environment = "gbl"
+}
+
+data "jq_query" "service_domain_query" {
+  data  = jsonencode(one(module.service_domain[*].outputs))
+  query = var.zone_component_output
+}
+
+module "datadog_configuration" {
+  count   = var.datadog_agent_sidecar_enabled ? 1 : 0
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+
+  component = "datadog_keys"
+
+  context = module.this.context
+}
+
 
 # This is purely a check to ensure this zone exists
+# tflint-ignore: terraform_unused_declarations
 data "aws_route53_zone" "selected" {
   count = local.enabled ? 1 : 0
 
@@ -167,13 +161,40 @@ data "aws_route53_zone" "selected" {
 }
 
 data "aws_route53_zone" "selected_vanity" {
-  count = local.enabled ? 1 : 0
+  count = local.enabled && var.vanity_domain != null ? 1 : 0
 
-  name         = local.vanity_domain
+  name         = var.vanity_domain
   private_zone = false
 }
 
 data "aws_kms_alias" "selected" {
   count = local.enabled && var.kinesis_enabled ? 1 : 0
   name  = format("alias/%s", coalesce(var.kms_key_alias, var.name))
+}
+
+module "iam_role" {
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+  count   = local.enabled && var.task_iam_role_component != null ? 1 : 0
+
+  component = var.task_iam_role_component
+
+  context = module.this.context
+}
+
+module "efs" {
+  for_each = local.efs_component_map
+
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+
+  # Here we can use [0] because aws only allows one efs volume configuration per volume
+  component = each.value.efs_volume_configuration[0].component
+
+  context = module.this.context
+
+  tenant      = each.value.efs_volume_configuration[0].tenant
+  stage       = each.value.efs_volume_configuration[0].stage
+  environment = each.value.efs_volume_configuration[0].environment
+
 }

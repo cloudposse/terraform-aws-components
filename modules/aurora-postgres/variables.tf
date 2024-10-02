@@ -55,6 +55,18 @@ variable "engine_version" {
   default     = "13.4"
 }
 
+variable "allow_major_version_upgrade" {
+  type        = bool
+  default     = false
+  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to false."
+}
+
+variable "ca_cert_identifier" {
+  description = "The identifier of the CA certificate for the DB instance"
+  type        = string
+  default     = null
+}
+
 variable "engine_mode" {
   type        = string
   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`"
@@ -64,12 +76,6 @@ variable "cluster_family" {
   type        = string
   description = "Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12`"
   default     = "aurora-postgresql13"
-}
-
-# AWS KMS alias used for encryption/decryption of SSM secure strings
-variable "kms_alias_name_ssm" {
-  default     = "alias/aws/ssm"
-  description = "KMS alias name for SSM"
 }
 
 variable "database_port" {
@@ -145,26 +151,6 @@ variable "reader_dns_name_part" {
   default     = "reader"
 }
 
-variable "additional_databases" {
-  type    = set(string)
-  default = []
-}
-
-variable "additional_users" {
-  # map key is service name, becomes part of SSM key name
-  type = map(object({
-    db_user : string
-    db_password : string
-    grants : list(object({
-      grant : list(string)
-      db : string
-      schema : string
-      object_type : string
-    }))
-  }))
-  default = {}
-}
-
 variable "ssm_path_prefix" {
   type        = string
   default     = "aurora-postgres"
@@ -205,6 +191,12 @@ variable "enhanced_monitoring_role_enabled" {
   type        = bool
   description = "A boolean flag to enable/disable the creation of the enhanced monitoring IAM role. If set to `false`, the module will not create a new role and will use `rds_monitoring_role_arn` for enhanced monitoring"
   default     = true
+}
+
+variable "enhanced_monitoring_attributes" {
+  type        = list(string)
+  description = "Attributes used to format the Enhanced Monitoring IAM role. If this role hits IAM role length restrictions (max 64 characters), consider shortening these strings."
+  default     = ["enhanced-monitoring"]
 }
 
 variable "rds_monitoring_interval" {
@@ -267,9 +259,96 @@ variable "snapshot_identifier" {
   description = "Specifies whether or not to create this cluster from a snapshot"
 }
 
-variable "vpc_spacelift_stage_name" {
-  type        = string
-  default     = "auto"
-  description = "The name of the stage of the `vpc` component where `spacelift-worker-pool` is provisioned"
+variable "allowed_security_group_names" {
+  type        = list(string)
+  description = "List of security group names (tags) that should be allowed access to the database"
+  default     = []
 }
 
+variable "eks_security_group_enabled" {
+  type        = bool
+  description = "Use the eks default security group"
+  default     = false
+}
+
+variable "eks_component_names" {
+  type        = set(string)
+  description = "The names of the eks components"
+  default     = ["eks/cluster"]
+}
+
+variable "allow_ingress_from_vpc_accounts" {
+  type = list(object({
+    vpc         = optional(string, "vpc")
+    environment = optional(string)
+    stage       = optional(string)
+    tenant      = optional(string)
+  }))
+  default     = []
+  description = <<-EOF
+    List of account contexts to pull VPC ingress CIDR and add to cluster security group.
+    e.g.
+    {
+      environment = "ue2",
+      stage       = "auto",
+      tenant      = "core"
+    }
+
+    Defaults to the "vpc" component in the given account
+  EOF
+}
+
+variable "vpc_component_name" {
+  type        = string
+  default     = "vpc"
+  description = "The name of the VPC component"
+}
+
+variable "scaling_configuration" {
+  type = list(object({
+    auto_pause               = bool
+    max_capacity             = number
+    min_capacity             = number
+    seconds_until_auto_pause = number
+    timeout_action           = string
+  }))
+  default     = []
+  description = "List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1"
+}
+
+variable "serverlessv2_scaling_configuration" {
+  type = object({
+    min_capacity = number
+    max_capacity = number
+  })
+  default     = null
+  description = "Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2"
+}
+
+variable "intra_security_group_traffic_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to allow traffic between resources inside the database's security group."
+}
+
+variable "cluster_parameters" {
+  type = list(object({
+    apply_method = string
+    name         = string
+    value        = string
+  }))
+  default     = []
+  description = "List of DB cluster parameters to apply"
+}
+
+variable "retention_period" {
+  type        = number
+  default     = 5
+  description = "Number of days to retain backups for"
+}
+
+variable "backup_window" {
+  type        = string
+  default     = "07:00-09:00"
+  description = "Daily time range during which the backups happen, UTC"
+}

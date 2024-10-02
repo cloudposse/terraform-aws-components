@@ -20,7 +20,7 @@ locals {
 
 module "ecr" {
   source  = "cloudposse/ecr/aws"
-  version = "0.34.0"
+  version = "0.36.0"
 
   protected_tags             = var.protected_tags
   enable_lifecycle_policy    = var.enable_lifecycle_policy
@@ -29,6 +29,7 @@ module "ecr" {
   max_image_count            = var.max_image_count
   principals_full_access     = compact(concat(module.full_access.principals, [local.ecr_user_arn]))
   principals_readonly_access = module.readonly_access.principals
+  principals_lambda          = var.principals_lambda
   scan_images_on_push        = var.scan_images_on_push
   use_fullname               = false
 

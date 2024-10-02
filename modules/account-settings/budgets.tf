@@ -1,6 +1,6 @@
 module "budgets" {
   source  = "cloudposse/budgets/aws"
-  version = "0.1.0"
+  version = "0.2.1"
   enabled = module.this.enabled && var.budgets_enabled
 
   budgets = var.budgets

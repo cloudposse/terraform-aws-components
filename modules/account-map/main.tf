@@ -3,11 +3,12 @@ data "aws_organizations_organization" "organization" {}
 data "aws_partition" "current" {}
 
 locals {
-  aws_partition = data.aws_partition.current.partition
+  aws_partition               = data.aws_partition.current.partition
+  legacy_terraform_uses_admin = coalesce(var.legacy_terraform_uses_admin, !var.terraform_dynamic_role_enabled)
 
   full_account_map = {
     for acct in data.aws_organizations_organization.organization.accounts
-    : acct.name == var.root_account_aws_name ? var.root_account_account_name : acct.name => acct.id
+    : acct.name == var.root_account_aws_name ? var.root_account_account_name : acct.name => acct.id if acct.status != "SUSPENDED"
   }
 
   iam_role_arn_templates = {
@@ -28,6 +29,11 @@ locals {
   non_eks_accounts = module.accounts.outputs.non_eks_accounts
   all_accounts     = concat(local.eks_accounts, local.non_eks_accounts)
   account_info_map = module.accounts.outputs.account_info_map
+
+  # Provide empty lists for deprecated outputs, to avoid breaking old code
+  # before it can be replaced.
+  empty_account_map = merge({ for name, info in local.account_info_map : name => "" }, { _OBSOLETE = "DUMMY RESULTS for backwards compatibility" })
+
 
   # We should move this to be specified by tags on the accounts,
   # like we do with EKS, but for now....
@@ -57,15 +63,16 @@ locals {
 
 
   terraform_roles = {
-    for name, info in local.account_info_map : name =>
-    format(local.iam_role_arn_templates[name],
-      (contains([
-        var.root_account_account_name,
-        var.identity_account_account_name
-      ], name) ? "admin" : "terraform")
-    )
+    for name, info in local.account_info_map : name => format(local.iam_role_arn_templates[name],
+      (local.legacy_terraform_uses_admin &&
+        contains([
+          var.root_account_account_name,
+          var.identity_account_account_name
+        ], name)
+    ) ? "admin" : "terraform")
   }
 
+  # legacy support for `aws` config profiles
   terraform_profiles = {
     for name, info in local.account_info_map : name => format(var.profile_template, compact(
       [
@@ -73,59 +80,12 @@ locals {
         lookup(info, "tenant", ""),
         module.this.environment,
         info.stage,
-        (contains([
-          var.root_account_account_name,
-          var.identity_account_account_name
-        ], name) ? "admin" : "terraform")
-      ]
-    )...)
-  }
-
-  helm_roles = {
-    for name, info in local.account_info_map : name =>
-    format(local.iam_role_arn_templates[name],
-      (contains([
-        var.root_account_account_name,
-        var.identity_account_account_name
-      ], name) ? "admin" : "helm")
-    )
-
-  }
-
-  helm_profiles = {
-    for name, info in local.account_info_map : name => format(var.profile_template, compact(
-      [
-        module.this.namespace,
-        lookup(info, "tenant", ""),
-        module.this.environment,
-        info.stage,
-        (contains([
-          var.root_account_account_name,
-          var.identity_account_account_name
-        ], name) ? "admin" : "helm")
-      ]
-    )...)
-  }
-
-  cicd_roles = {
-    for name, info in local.account_info_map : name =>
-    format(local.iam_role_arn_templates[name],
-      (contains([
-        var.root_account_account_name
-      ], name) ? "admin" : "cicd")
-    )
-  }
-
-  cicd_profiles = {
-    for name, info in local.account_info_map : name => format(var.profile_template, compact(
-      [
-        module.this.namespace,
-        lookup(info, "tenant", ""),
-        var.global_environment_name,
-        info.stage,
-        (contains([
-          var.root_account_account_name
-        ], name) ? "admin" : "cicd")
+        ((local.legacy_terraform_uses_admin &&
+          contains([
+            var.root_account_account_name,
+            var.identity_account_account_name
+          ], name)
+        ) ? "admin" : "terraform"),
       ]
     )...)
   }

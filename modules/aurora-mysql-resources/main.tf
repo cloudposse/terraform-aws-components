@@ -8,9 +8,7 @@ locals {
   ssm_path_prefix     = format("/%s/%s", var.ssm_path_prefix, module.aurora_mysql.outputs.aurora_mysql_cluster_id)
   ssm_password_source = length(var.ssm_password_source) > 0 ? var.ssm_password_source : format("%s/%s", local.ssm_path_prefix, "%s/password")
 
-  password_users_to_fetch = local.read_passwords_from_ssm ? toset(concat(["admin"], keys(var.additional_grants))) : []
-
-  mysql_admin_password = length(var.mysql_admin_password) > 0 ? var.mysql_admin_password : data.aws_ssm_parameter.password["admin"].value
+  password_users_to_fetch = local.read_passwords_from_ssm ? toset(keys(var.additional_grants)) : []
 
   kms_key_arn = module.aurora_mysql.outputs.kms_key_arn
 }
@@ -68,4 +66,3 @@ module "additional_grants" {
 
   context = module.this.context
 }
-

@@ -1,11 +1,5 @@
 locals {
-  enabled     = module.this.enabled
-  asm_enabled = var.secrets_store_type == "ASM"
-  ssm_enabled = var.secrets_store_type == "SSM"
-
-  # https://docs.datadoghq.com/account_management/api-app-keys/
-  datadog_api_key = local.asm_enabled ? data.aws_secretsmanager_secret_version.datadog_api_key[0].secret_string : data.aws_ssm_parameter.datadog_api_key[0].value
-  datadog_app_key = local.asm_enabled ? data.aws_secretsmanager_secret_version.datadog_app_key[0].secret_string : data.aws_ssm_parameter.datadog_app_key[0].value
+  enabled = module.this.enabled
 
   local_datadog_monitors_enabled  = length(var.local_datadog_monitors_config_paths) > 0
   remote_datadog_monitors_enabled = length(var.remote_datadog_monitors_config_paths) > 0
@@ -30,8 +24,8 @@ locals {
   } : {}
   context_dd_tags = {
     context_dd_tags = join(",", [
-      for k, v in local.context_tags :
-      v != null ? format("%s:%s", k, v) : k
+      for k, v in local.context_tags : (
+      v != null ? format("%s:%s", k, v) : k)
     ])
   }
 
@@ -47,13 +41,12 @@ locals {
       message = format("%s%s%s", var.message_prefix, lookup(v.merged, "message", ""), var.message_postfix)
     })
   }
-
 }
 
 # Convert all Datadog Monitors from YAML config to Terraform map with token replacement using `parameters`
 module "remote_datadog_monitors_yaml_config" {
   source  = "cloudposse/config/yaml"
-  version = "1.0.1"
+  version = "1.0.2"
 
   map_config_remote_base_path = var.remote_datadog_monitors_base_path
   map_config_paths            = var.remote_datadog_monitors_config_paths
@@ -69,7 +62,7 @@ module "remote_datadog_monitors_yaml_config" {
 
 module "local_datadog_monitors_yaml_config" {
   source  = "cloudposse/config/yaml"
-  version = "1.0.1"
+  version = "1.0.2"
 
   map_config_local_base_path = abspath(path.module)
   map_config_paths           = var.local_datadog_monitors_config_paths
@@ -85,13 +78,15 @@ module "local_datadog_monitors_yaml_config" {
 
 module "datadog_monitors_merge" {
   source  = "cloudposse/config/yaml//modules/deepmerge"
-  version = "1.0.1"
+  version = "1.0.2"
 
   # for_each = { for k, v in local.datadog_monitors_yaml_config_map_configs : k => v if local.datadog_monitors_enabled }
-  for_each = { for k, v in merge(
-    module.local_datadog_monitors_yaml_config.map_configs,
-    module.remote_datadog_monitors_yaml_config.map_configs
-  ) : k => v if local.datadog_monitors_enabled }
+  for_each = {
+    for k, v in merge(
+      module.local_datadog_monitors_yaml_config.map_configs,
+      module.remote_datadog_monitors_yaml_config.map_configs
+    ) : k => v if local.datadog_monitors_enabled
+  }
 
   # Merge in order: datadog monitor, datadog monitor globals, context tags
   maps = [
@@ -105,7 +100,7 @@ module "datadog_monitors" {
   count = local.datadog_monitors_enabled ? 1 : 0
 
   source  = "cloudposse/platform/datadog//modules/monitors"
-  version = "1.0.0"
+  version = "1.4.1"
 
   datadog_monitors = local.datadog_monitors
 

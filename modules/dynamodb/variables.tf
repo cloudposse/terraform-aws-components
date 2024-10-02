@@ -128,6 +128,12 @@ variable "autoscaler_tags" {
   description = "Additional resource tags for the autoscaler module"
 }
 
+variable "table_name" {
+  type        = string
+  default     = null
+  description = "Table name. If provided, the bucket will be created with this name instead of generating the name from the context"
+}
+
 variable "dynamodb_attributes" {
   type = list(object({
     name = string
@@ -166,4 +172,32 @@ variable "replicas" {
   type        = list(string)
   default     = []
   description = "List of regions to create a replica table in"
+}
+
+variable "deletion_protection_enabled" {
+  type        = bool
+  default     = false
+  description = "Enable/disable DynamoDB table deletion protection"
+}
+
+variable "import_table" {
+  type = object({
+    # Valid values are GZIP, ZSTD and NONE
+    input_compression_type = optional(string, null)
+    # Valid values are CSV, DYNAMODB_JSON, and ION.
+    input_format = string
+    input_format_options = optional(object({
+      csv = object({
+        delimiter   = string
+        header_list = list(string)
+      })
+    }), null)
+    s3_bucket_source = object({
+      bucket       = string
+      bucket_owner = optional(string)
+      key_prefix   = optional(string)
+    })
+  })
+  default     = null
+  description = "Import Amazon S3 data into a new table."
 }

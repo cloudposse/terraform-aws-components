@@ -1,7 +1,8 @@
 module "cloudtrail_s3_bucket" {
   source  = "cloudposse/cloudtrail-s3-bucket/aws"
-  version = "0.23.1"
+  version = "0.26.1"
 
+  acl                                = var.acl
   expiration_days                    = var.expiration_days
   force_destroy                      = false
   glacier_transition_days            = var.glacier_transition_days

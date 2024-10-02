@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.5.0"
 
   component = "vpc"
 
@@ -9,7 +9,7 @@ module "vpc" {
 
 module "dns_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.5.0"
 
   component   = var.dns_delegated_component_name
   stage       = var.dns_delegated_stage_name

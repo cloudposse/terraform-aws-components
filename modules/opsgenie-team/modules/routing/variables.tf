@@ -1,8 +1,3 @@
-variable "team_name" {
-  type        = string
-  description = "Name of the team to assign this integration to"
-}
-
 variable "criteria" {
   type = object({
     type       = string,
@@ -67,4 +62,11 @@ variable "time_restriction" {
   type        = any
   default     = null
   description = "Time restriction of alert routing rule"
+}
+
+variable "is_default" {
+  type        = bool
+  default     = false
+  description = "Set this alerting route as the default route"
+
 }

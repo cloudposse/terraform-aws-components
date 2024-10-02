@@ -1,0 +1,34 @@
+# https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/iam-policy-example.json
+AllowEFSDescribeOnAllResources:
+  sid: "AllowEFSDescribeOnAllResources"
+  effect: Allow
+  actions:
+    - elasticfilesystem:DescribeAccessPoints
+    - elasticfilesystem:DescribeFileSystems
+    - elasticfilesystem:DescribeMountTargets
+    - ec2:DescribeAvailabilityZones
+  resources: ["*"]
+  conditions: []
+
+AllowConditionalEFSAccess:
+  sid: "AllowConditionalEFSAccess"
+  effect: Allow
+  actions:
+    - elasticfilesystem:CreateAccessPoint
+    - elasticfilesystem:TagResource
+  resources: ["*"]
+  conditions:
+    - test: "StringLike"
+      variable: "aws:RequestTag/efs.csi.aws.com/cluster"
+      values: ["true"]
+
+AllowConditionalEFSDeleteAccessPoint:
+  sid: "AllowConditionalEFSDeleteAccessPoint"
+  effect: Allow
+  actions:
+    - elasticfilesystem:DeleteAccessPoint
+  resources: ["*"]
+  conditions:
+    - test: "StringEquals"
+      variable: "aws:ResourceTag/efs.csi.aws.com/cluster"
+      values: ["true"]

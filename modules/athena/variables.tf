@@ -97,3 +97,15 @@ variable "named_queries" {
   type        = map(map(string))
   default     = {}
 }
+
+variable "cloudtrail_database" {
+  description = "The name of the Athena Database to use for CloudTrail logs. If set, an Athena table will be created for the CloudTrail trail."
+  type        = string
+  default     = ""
+}
+
+variable "cloudtrail_bucket_component_name" {
+  type        = string
+  description = "The name of the CloudTrail bucket component"
+  default     = "cloudtrail-bucket"
+}

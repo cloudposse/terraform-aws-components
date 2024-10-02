@@ -13,6 +13,8 @@
 locals {
   karpenter_iam_role_enabled = local.enabled && var.karpenter_iam_role_enabled
 
+  karpenter_instance_profile_enabled = local.karpenter_iam_role_enabled && !var.legacy_do_not_create_karpenter_instance_profile
+
   # Used to determine correct partition (i.e. - `aws`, `aws-gov`, `aws-cn`, etc.)
   partition = one(data.aws_partition.current[*].partition)
 }
@@ -53,6 +55,14 @@ resource "aws_iam_role" "karpenter" {
   description        = "IAM Role for EC2 instance profile that is assigned to EKS worker nodes launched by Karpenter"
   assume_role_policy = data.aws_iam_policy_document.assume_role[0].json
   tags               = module.karpenter_label.tags
+}
+
+resource "aws_iam_instance_profile" "default" {
+  count = local.karpenter_instance_profile_enabled ? 1 : 0
+
+  name = one(aws_iam_role.karpenter[*].name)
+  role = one(aws_iam_role.karpenter[*].name)
+  tags = module.karpenter_label.tags
 }
 
 # AmazonSSMManagedInstanceCore policy is required by Karpenter

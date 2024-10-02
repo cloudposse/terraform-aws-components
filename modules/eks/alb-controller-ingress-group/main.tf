@@ -22,7 +22,7 @@ locals {
     global_accelerator.outputs.listener_ids[0]
   ]
 
-  ingress_controller_group_name = module.this.name
+  ingress_controller_group_name = coalesce(var.alb_group_name, module.this.name)
 
   kube_tags = join(",", [for k, v in module.this.tags : "${k}=${v}"])
 
@@ -33,7 +33,9 @@ locals {
   # for outputs
   annotations           = try(kubernetes_ingress_v1.default[0].metadata.0.annotations, null)
   group_name_annotation = try(lookup(kubernetes_ingress_v1.default[0].metadata.0.annotations, "alb.ingress.kubernetes.io/group.name", null), null)
-  load_balancer_name    = join("", data.aws_lb.default[*].name)
+  scheme_annotation     = try(lookup(kubernetes_ingress_v1.default[0].metadata.0.annotations, "alb.ingress.kubernetes.io/scheme", null), null)
+  class_annotation      = try(lookup(kubernetes_ingress_v1.default[0].metadata.0.annotations, "kubernetes.io/ingress.class", null), null)
+  load_balancer_name    = one(data.aws_lb.default[*].name)
   host                  = join(".", [module.this.environment, module.dns_delegated.outputs.default_domain_name])
 }
 
@@ -89,6 +91,7 @@ resource "kubernetes_ingress_v1" "default" {
     labels    = {}
     name      = module.this.id
     namespace = local.kubernetes_namespace
+
     annotations = merge(
       local.waf_acl_arn,
       local.alb_logging_annotation,
@@ -171,7 +174,7 @@ data "aws_lb" "default" {
 
   tags = {
     "ingress.k8s.aws/resource" = "LoadBalancer"
-    "ingress.k8s.aws/stack"    = var.name
+    "ingress.k8s.aws/stack"    = local.ingress_controller_group_name
     "elbv2.k8s.aws/cluster"    = module.eks.outputs.eks_cluster_id
   }
 

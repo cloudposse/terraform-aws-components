@@ -5,13 +5,13 @@ variable "region" {
 
 variable "create_s3_bucket" {
   type        = bool
-  description = "Enabling or disabling the creatation of an S3 bucket for AWS MWAA"
+  description = "Enabling or disabling the creation of an S3 bucket for AWS MWAA"
   default     = true
 }
 
 variable "create_iam_role" {
   type        = bool
-  description = "Enabling or disabling the creatation of a default IAM Role for AWS MWAA"
+  description = "Enabling or disabling the creation of a default IAM Role for AWS MWAA"
   default     = true
 }
 

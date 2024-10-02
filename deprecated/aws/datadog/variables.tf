@@ -7,7 +7,7 @@ variable "stage" {
 }
 
 variable "integrations" {
-  type        = "list"
+  type        = list(string)
   description = "List of integration names with permissions to apply (`all`, `core`, `rds`)"
 }
 

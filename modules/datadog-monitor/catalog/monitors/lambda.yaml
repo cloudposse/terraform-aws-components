@@ -1,0 +1,26 @@
+# The official Datadog API documentation with available query parameters & alert types:
+# https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor
+
+lambda-errors:
+  name: "(Lambda) ${tenant} ${ stage } - Lambda [{{functionname.name}}] has errors"
+  type: query alert
+  query: sum(last_5m):sum:aws.lambda.errors{*} by {stage,tenant,environment,functionname}.as_count() > 0
+  message: |
+    Lambda {{functionname.name}} in
+    ({{tenant.name}}-{{environment.name}}-{{stage.name}})
+    has {{value}} errors over the last 5 minutes.
+  tags:
+    managed-by: Terraform
+  options:
+    notify_audit: false
+    require_full_window: false
+    notify_no_data: false
+    renotify_interval: 0
+    include_tags: true
+    evaluation_delay: 900
+    new_group_delay: 60
+    threshold_windows: { }
+    thresholds:
+      critical: 0
+  priority: 3
+  restricted_roles: null

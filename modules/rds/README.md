@@ -1,17 +1,55 @@
+---
+tags:
+  - component/rds
+  - layer/data
+  - provider/aws
+---
+
 # Component: `rds`
 
-This component is responsible for provisioning an RDS instance. It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning an RDS instance. It seeds relevant database information (hostnames,
+username, password, etc.) into AWS SSM Parameter Store.
 
 ## Security Groups Guidance:
-By default this component creates a client security group and adds that security group id to the default attached security group.
-Ideally other AWS resources that require RDS access can be granted this client security group. Additionally you can grant access
-via specific CIDR blocks or security group ids.
+
+By default this component creates a client security group and adds that security group id to the default attached
+security group. Ideally other AWS resources that require RDS access can be granted this client security group.
+Additionally you can grant access via specific CIDR blocks or security group ids.
 
 ## Usage
 
 **Stack Level**: Regional
 
 Here's an example snippet for how to use this component.
+
+### PostgreSQL
+
+```yaml
+components:
+  terraform:
+    rds/defaults:
+      metadata:
+        type: abstract
+      vars:
+        enabled: true
+        use_fullname: false
+        name: my-postgres-db
+        instance_class: db.t3.micro
+        database_name: my-postgres-db
+        # database_user: admin # enable to specify something specific
+        engine: postgres
+        engine_version: "15.2"
+        database_port: 5432
+        db_parameter_group: "postgres15"
+        allocated_storage: 10 #GBs
+        ssm_enabled: true
+        client_security_group_enabled: true
+        ## The following settings allow the database to be accessed from anywhere
+        # publicly_accessible: true
+        # use_private_subnets: false
+        # allowed_cidr_blocks:
+        #  - 0.0.0.0/0
+```
 
 ### Microsoft SQL
 
@@ -40,53 +78,58 @@ components:
         # This does not seem to work correctly
         deletion_protection: false
 ```
+
 ### Provisioning from a snapshot
-The snapshot identifier variable can be added to provision an instance from a snapshot HOWEVER- 
-Keep in mind these instances are provisioned from a unique kms key per rds.
-For clean terraform runs, you must first provision the key for the destination instance, then copy the snapshot using that kms key.
+
+The snapshot identifier variable can be added to provision an instance from a snapshot HOWEVER- Keep in mind these
+instances are provisioned from a unique kms key per rds. For clean terraform runs, you must first provision the key for
+the destination instance, then copy the snapshot using that kms key.
 
 Example - I want a new instance `rds-example-new` to be provisioned from a snapshot of `rds-example-old`:
+
 1. Use the console to manually make a snapshot of rds instance `rds-example-old`
 1. provision the kms key for `rds-example-new`
 
-    ```
-    atmos terraform plan  rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
-    atmos terraform apply rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
-    ```
+   ```
+   atmos terraform plan  rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
+   atmos terraform apply rds-example-new -s ue1-staging '-target=module.kms_key_rds.aws_kms_key.default[0]'
+   ```
 
 1. Use the console to copy the snapshot to a new name using the above provisioned kms key
-1. Add `snapshot_identifier` variable to `rds-example-new` catalog and specify the newly copied snapshot that used the above key
+1. Add `snapshot_identifier` variable to `rds-example-new` catalog and specify the newly copied snapshot that used the
+   above key
 1. Post provisioning, remove the `snapshot_idenfier` variable and verify terraform runs clean for the copied instance
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.3 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.3 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_dns_gbl_delegated"></a> [dns\_gbl\_delegated](#module\_dns\_gbl\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.10.0 |
-| <a name="module_rds_client_sg"></a> [rds\_client\_sg](#module\_rds\_client\_sg) | cloudposse/security-group/aws | 0.3.1 |
-| <a name="module_rds_instance"></a> [rds\_instance](#module\_rds\_instance) | cloudposse/rds/aws | 0.38.5 |
-| <a name="module_rds_monitoring_role"></a> [rds\_monitoring\_role](#module\_rds\_monitoring\_role) | cloudposse/iam-role/aws | 0.16.2 |
+| <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.12.1 |
+| <a name="module_rds_client_sg"></a> [rds\_client\_sg](#module\_rds\_client\_sg) | cloudposse/security-group/aws | 2.2.0 |
+| <a name="module_rds_instance"></a> [rds\_instance](#module\_rds\_instance) | cloudposse/rds/aws | 1.1.0 |
+| <a name="module_rds_monitoring_role"></a> [rds\_monitoring\_role](#module\_rds\_monitoring\_role) | cloudposse/iam-role/aws | 0.17.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 0.22.3 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -143,8 +186,6 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="input_host_name"></a> [host\_name](#input\_host\_name) | The DB host name created in Route53 | `string` | `"db"` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | Class of RDS instance | `string` | n/a | yes |
 | <a name="input_iops"></a> [iops](#input\_iops) | The amount of provisioned IOPS. Setting this implies a storage\_type of 'io1'. Default is 0 if rds storage type is not 'io1' | `number` | `0` | no |
 | <a name="input_kms_alias_name_ssm"></a> [kms\_alias\_name\_ssm](#input\_kms\_alias\_name\_ssm) | KMS alias name for SSM | `string` | `"alias/aws/ssm"` | no |
@@ -183,17 +224,22 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="input_ssm_key_user"></a> [ssm\_key\_user](#input\_ssm\_key\_user) | The SSM key to save the user. See `var.ssm_path_format`. | `string` | `"admin/db_user"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | (Optional) Specifies whether the DB instance is encrypted. The default is false if not specified | `bool` | `true` | no |
+| <a name="input_storage_throughput"></a> [storage\_throughput](#input\_storage\_throughput) | The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold. | `number` | `null` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD) | `string` | `"standard"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_timezone"></a> [timezone](#input\_timezone) | Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information. | `string` | `null` | no |
+| <a name="input_use_dns_delegated"></a> [use\_dns\_delegated](#input\_use\_dns\_delegated) | Use the dns-delegated dns\_zone\_id | `bool` | `false` | no |
 | <a name="input_use_eks_security_group"></a> [use\_eks\_security\_group](#input\_use\_eks\_security\_group) | Use the eks default security group | `bool` | `false` | no |
+| <a name="input_use_private_subnets"></a> [use\_private\_subnets](#input\_use\_private\_subnets) | Use private subnets | `bool` | `true` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_exports"></a> [exports](#output\_exports) | Map of exports for use in deployment configuration templates |
+| <a name="output_kms_key_alias"></a> [kms\_key\_alias](#output\_kms\_key\_alias) | The KMS key alias |
+| <a name="output_psql_helper"></a> [psql\_helper](#output\_psql\_helper) | A helper output to use with psql for connecting to this RDS instance. |
 | <a name="output_rds_address"></a> [rds\_address](#output\_rds\_address) | Address of the instance |
 | <a name="output_rds_arn"></a> [rds\_arn](#output\_rds\_arn) | ARN of the instance |
 | <a name="output_rds_database_ssm_key_prefix"></a> [rds\_database\_ssm\_key\_prefix](#output\_rds\_database\_ssm\_key\_prefix) | SSM prefix |
@@ -208,10 +254,11 @@ Example - I want a new instance `rds-example-new` to be provisioned from a snaps
 | <a name="output_rds_security_group_id"></a> [rds\_security\_group\_id](#output\_rds\_security\_group\_id) | ID of the Security Group |
 | <a name="output_rds_subnet_group_id"></a> [rds\_subnet\_group\_id](#output\_rds\_subnet\_group\_id) | ID of the created Subnet Group |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/rds) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/rds) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

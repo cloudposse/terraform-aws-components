@@ -2,46 +2,57 @@
   {{- $fullName := include "echo-server.fullname" . -}}
   {{- $svcName := include "echo-server.name" . -}}
   {{- $svcPort := .Values.service.port -}}
-  {{- $nginxTlsEnabled := and (eq (printf "%v" .Values.ingress.nginx.enabled) "true") (eq (printf "%v" .Values.tlsEnabled) "true")}}
+  {{- $nginxTlsEnabled := and (eq (printf "%v" .Values.ingress.nginx.enabled) "true") (eq (printf "%v" .Values.tlsEnabled) "true") }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   annotations:
-    {{- if eq (printf "%v" .Values.ingress.nginx.enabled) "true" }}
-      {{- if (index .Values.ingress.nginx "tls_certificate_cluster_issuer") }}
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.nginx.tls_certificate_cluster_issuer }}
-      {{- end }}
-    {{- else if eq (printf "%v" .Values.ingress.alb.enabled) "true" }}
-    alb.ingress.kubernetes.io/target-type: 'ip'
-      {{- if eq (printf "%v" .Values.ingress.alb.ssl_redirect.enabled) "true" }}
-    alb.ingress.kubernetes.io/ssl-redirect: '{{ .Values.ingress.alb.ssl_redirect.port }}'
+    {{- with and (eq (printf "%v" .Values.ingress.use_ingress_class_annotation) "true") (index .Values.ingress "class") }}
+    kubernetes.io/ingress.class: {{ . }}
+    {{- end }}
+    {{- with and $nginxTlsEnabled (index .Values.ingress.nginx "tls_certificate_cluster_issuer") }}
+    cert-manager.io/cluster-issuer: {{ . }}
+    {{- end }}
+    {{- if eq (printf "%v" .Values.ingress.alb.enabled) "true" }}
+    alb.ingress.kubernetes.io/healthcheck-path: /ping
+      {{- with index .Values.ingress.alb "group_name" }}
+    alb.ingress.kubernetes.io/group.name: {{ . }}
       {{- end }}
       {{- if eq (printf "%v" .Values.tlsEnabled) "true" }}
     alb.ingress.kubernetes.io/backend-protocol: HTTP
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
       {{- else }}
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
       {{- end }}
+    # See https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.5/guide/ingress/annotations/#target-type
+    alb.ingress.kubernetes.io/target-type: {{ if eq (printf "%v" .Values.service.type) "NodePort" -}} "instance" {{- else -}} "ip" {{- end }}
     {{- end }}
   labels:
     {{- include "echo-server.labels" . | nindent 4 }}
 spec:
+  # If not specified, the Ingress controller will insert the ingressClassName field
+  # when creating the Ingress resource, setting ingressClassName to the name of the then-default IngressClass.
+  {{- with and (ne (printf "%v" .Values.ingress.use_ingress_class_annotation) "true") (index .Values.ingress "class") }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  # ALB controller will auto-discover the ACM certificate based on rules[].host
+  # Nginx needs explicit configuration of location of cert-manager TLS certificate
   {{- if $nginxTlsEnabled }}
   tls: # < placing a host in the TLS config will indicate a certificate should be created
-  - hosts:
-    - {{ .Values.ingress.hostname }}
-    secretName: {{ $svcName }}-cert # < cert-manager will store the created certificate in this secret.
+    - hosts:
+        - {{ .Values.ingress.hostname }}
+      secretName: {{ $svcName }}-cert # < cert-manager will store the created certificate in this secret.
   {{- end }}
   rules:
-  - host: {{ .Values.ingress.hostname }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ $svcName }}
-            port:
-              number: {{ $svcPort }}
+    - host: {{ .Values.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $svcName }}
+                port:
+                  number: {{ $svcPort }}
 {{- end }}

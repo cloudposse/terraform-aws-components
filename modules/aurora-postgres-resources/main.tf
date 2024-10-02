@@ -1,18 +1,77 @@
 locals {
   enabled = module.this.enabled
 
-  cluster_endpoint             = try(module.aurora_postgres.outputs.primary_aurora_postgres_master_endpoint, module.aurora_postgres.outputs.endpoint)
-  cluster_name                 = try(module.aurora_postgres.outputs.primary_aurora_postgres_cluster_identifier, null)
-  database_name                = try(module.aurora_postgres.outputs.aurora_postgres_database_name, module.aurora_postgres.outputs.database_name)
-  admin_user                   = try(module.aurora_postgres.outputs.aurora_postgres_admin_username, module.aurora_postgres.outputs.admin_username)
-  ssm_path_prefix              = try(module.aurora_postgres.outputs.aurora_postgres_ssm_path_prefix, module.aurora_postgres.outputs.ssm_cluster_key_prefix)
-  admin_password_ssm_parameter = try(module.aurora_postgres.outputs.aurora_postgres_master_password_ssm_key, module.aurora_postgres.outputs.config_map.password_ssm_key)
-  admin_password               = join("", data.aws_ssm_parameter.admin_password[*].value)
+  # If pulling passwords from SSM, determine the SSM path for passwords for each user
+  # example SSM password source: /rds/acme-platform-use1-dev-rds-shared/%s/password
+  read_passwords_from_ssm = local.enabled && var.read_passwords_from_ssm
+  password_users_to_fetch = local.read_passwords_from_ssm ? toset(keys(var.additional_grants)) : []
+  ssm_path_prefix         = format("/%s/%s", var.ssm_path_prefix, module.aurora_postgres.outputs.cluster_identifier)
+  ssm_password_source     = length(var.ssm_password_source) > 0 ? var.ssm_password_source : format("%s/%s", local.ssm_path_prefix, "%s/password")
+
+  kms_key_arn = module.aurora_postgres.outputs.kms_key_arn
+
+  default_schema_owner = "postgres"
 }
 
-data "aws_ssm_parameter" "admin_password" {
-  count = local.enabled ? 1 : 0
+data "aws_ssm_parameter" "password" {
+  for_each = local.password_users_to_fetch
 
-  name            = local.admin_password_ssm_parameter
+  name = format(local.ssm_password_source, each.key)
+
   with_decryption = true
+}
+
+resource "postgresql_database" "additional" {
+  for_each = local.enabled ? var.additional_databases : []
+
+  name = each.key
+}
+
+resource "postgresql_schema" "additional" {
+  for_each = local.enabled ? var.additional_schemas : {}
+
+  name     = each.key
+  database = try(each.value.database, null) # If null, the database used by your provider configuration
+}
+
+module "additional_users" {
+  for_each = local.enabled ? var.additional_users : {}
+  source   = "./modules/postgresql-user"
+
+  service_name    = each.key
+  db_user         = each.value.db_user
+  db_password     = each.value.db_password
+  grants          = each.value.grants
+  ssm_path_prefix = local.ssm_path_prefix
+  kms_key_id      = local.kms_key_arn
+
+  depends_on = [
+    postgresql_database.additional,
+    postgresql_schema.additional,
+  ]
+
+  context = module.this.context
+}
+
+module "additional_grants" {
+  for_each = var.additional_grants
+  source   = "./modules/postgresql-user"
+
+  service_name = each.key
+  grants       = each.value
+  kms_key_id   = local.kms_key_arn
+
+  # If `read_passwords_from_ssm` is true, that means passwords already exist in SSM
+  # If no password is given, a random password will be created
+  db_password = local.read_passwords_from_ssm ? data.aws_ssm_parameter.password[each.key].value : ""
+  # If generating a password, store it in SSM. Otherwise, we don't need to save an existing password in SSM
+  save_password_in_ssm = local.read_passwords_from_ssm ? false : true
+  ssm_path_prefix      = local.ssm_path_prefix
+
+  depends_on = [
+    postgresql_database.additional,
+    postgresql_schema.additional,
+  ]
+
+  context = module.this.context
 }

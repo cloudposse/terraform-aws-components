@@ -43,7 +43,7 @@ variable "kops_cluster_name" {
 }
 
 variable "assume_role_permitted_roles" {
-  type        = "string"
+  type        = string
   description = "Roles that are permitted to assume thie role. One of 'kiam', 'nodes', 'masters', or 'both' (nodes + masters)."
   default     = "kiam"
 }
@@ -70,4 +70,3 @@ variable "max_session_duration" {
   default     = 3600
   description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
 }
-

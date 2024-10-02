@@ -2,7 +2,7 @@ module "flow_logs_bucket" {
   count = var.flow_logs_enabled ? 1 : 0
 
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.4"
+  version = "1.5.0"
 
   component   = var.flow_logs_s3_bucket_component
   tenant      = var.flow_logs_s3_bucket_tenant

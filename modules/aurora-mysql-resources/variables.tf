@@ -6,6 +6,7 @@ variable "region" {
 variable "aurora_mysql_component_name" {
   type        = string
   description = "Aurora MySQL component name to read the remote state from"
+  default     = "aurora-mysql"
 }
 
 variable "read_passwords_from_ssm" {
@@ -28,12 +29,6 @@ variable "ssm_password_source" {
     EOT
 }
 
-variable "mysql_admin_password" {
-  type        = string
-  description = "MySQL password for the admin user"
-  default     = ""
-}
-
 variable "mysql_db_name" {
   type        = string
   description = "Database name (default is not to create a database"
@@ -47,8 +42,9 @@ variable "mysql_cluster_enabled" {
 }
 
 variable "additional_databases" {
-  type    = set(string)
-  default = []
+  type        = set(string)
+  default     = []
+  description = "Additional databases to be created with the cluster"
 }
 
 variable "additional_users" {
@@ -82,4 +78,3 @@ variable "additional_grants" {
     otherwise, passwords will be generated and stored in SSM parameter store under the service's key.
     EOT
 }
-

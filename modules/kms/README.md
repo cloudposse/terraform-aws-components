@@ -1,3 +1,10 @@
+---
+tags:
+  - component/kms
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `kms`
 
 This component is responsible for provisioning a KMS Key.
@@ -19,7 +26,6 @@ components:
         enabled: true
 ```
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -35,12 +41,13 @@ components:
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_allowed_role_map"></a> [allowed\_role\_map](#module\_allowed\_role\_map) | ../account-map/modules/roles-to-principals | n/a |
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_kms_key"></a> [kms\_key](#module\_kms\_key) | cloudposse/kms-key/aws | 0.12.1 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
+| Name                                                                       | Source                                                                                                  | Version |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| <a name="module_iam_roles"></a> [iam_roles](#module_iam_roles)             | git::ssh://git@github.com/spenmo/infrastructure.git//components/terraform/account-map/modules/iam-roles | n/a     |
+| <a name="module_introspection"></a> [introspection](#module_introspection) | cloudposse/label/null                                                                                   | 0.25.0  |
+| <a name="module_kms_key"></a> [kms_key](#module_kms_key)                   | cloudposse/kms-key/aws                                                                                  | 0.12.1  |
+| <a name="module_monorepo"></a> [monorepo](#module_monorepo)                | git::ssh://git@github.com/spenmo/infrastructure.git                                                     | n/a     |
+| <a name="module_this"></a> [this](#module_this)                            | cloudposse/label/null                                                                                   | 0.25.0  |
 
 ## Resources
 
@@ -90,11 +97,13 @@ components:
 | Name | Description |
 |------|-------------|
 | <a name="output_kms_key"></a> [kms\_key](#output\_kms\_key) | Output for KMS module |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/kms) - Cloud Posse's upstream component
-* [cloudposse/terraform-aws-kms-key](https://github.com/cloudposse/terraform-aws-kms-key) - Cloud Posse's upstream module
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/kms) -
+  Cloud Posse's upstream component
+- [cloudposse/terraform-aws-kms-key](https://github.com/cloudposse/terraform-aws-kms-key) - Cloud Posse's upstream
+  module
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

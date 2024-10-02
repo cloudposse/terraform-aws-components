@@ -5,38 +5,38 @@ terraform {
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name (e.g. `account`)"
   default     = "account"
 }
 
 variable "kms_key_arn" {
-  type        = "string"
+  type        = string
   description = ""
 }
 
 variable "region" {
-  type        = "string"
+  type        = string
   description = "AWS region"
   default     = ""
 }
@@ -49,20 +49,20 @@ variable "cloudwatch_logs_retention_in_days" {
 data "aws_region" "default" {}
 
 locals {
-  region = "${length(var.region) > 0 ? var.region : data.aws_region.default.name}"
+  region = length(var.region) > 0 ? var.region : data.aws_region.default.name
 }
 
 module "cloudtrail" {
   source                        = "git::https://github.com/cloudposse/terraform-aws-cloudtrail.git?ref=tags/0.7.1"
-  namespace                     = "${var.namespace}"
-  stage                         = "${var.stage}"
-  name                          = "${var.name}"
+  namespace                     = var.namespace
+  stage                         = var.stage
+  name                          = var.name
   enable_logging                = "true"
   enable_log_file_validation    = "true"
   include_global_service_events = "true"
   is_multi_region_trail         = "true"
   s3_bucket_name                = "${var.namespace}-audit-account"
-  kms_key_arn                   = "${var.kms_key_arn}"
-  cloud_watch_logs_group_arn    = "${module.logs.log_group_arn}"
-  cloud_watch_logs_role_arn     = "${module.logs.role_arn}"
+  kms_key_arn                   = var.kms_key_arn
+  cloud_watch_logs_group_arn    = module.logs.log_group_arn
+  cloud_watch_logs_role_arn     = module.logs.role_arn
 }

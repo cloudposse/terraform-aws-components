@@ -21,7 +21,7 @@ module "aurora_mysql" {
   vpc_id              = local.vpc_id
   publicly_accessible = var.publicly_accessible
   subnets             = var.publicly_accessible ? local.public_subnet_ids : local.private_subnet_ids
-  allowed_cidr_blocks = var.publicly_accessible ? coalescelist(var.allowed_cidr_blocks, ["0.0.0.0/0"]) : var.allowed_cidr_blocks
+  allowed_cidr_blocks = local.allowed_cidr_blocks
   security_groups     = local.eks_cluster_managed_security_group_ids
 
   zone_id          = local.zone_id
