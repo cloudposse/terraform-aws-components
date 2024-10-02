@@ -6,7 +6,7 @@ locals {
     container.json_map_object
     ],
   )
-  datadog_location_config = jsondecode(datadog_synthetics_private_location.private_location.config)
+  datadog_location_config = try(jsondecode(datadog_synthetics_private_location.private_location[0].config), null)
 
 }
 
@@ -17,6 +17,8 @@ module "roles_to_principals" {
 }
 
 resource "datadog_synthetics_private_location" "private_location" {
+  count = local.enabled ? 1 : 0
+
   name        = module.this.id
   description = coalesce(var.private_location_description, format("Private location for %s", module.this.id))
   tags        = module.datadog_configuration.datadog_tags
@@ -28,7 +30,7 @@ module "container_definition" {
 
   depends_on = [datadog_synthetics_private_location.private_location]
 
-  for_each = var.containers
+  for_each = { for k, v in var.containers : k => v if local.enabled }
 
   container_name = lookup(each.value, "name")
 

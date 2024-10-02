@@ -1,16 +1,36 @@
+registry: public.ecr.aws/datadog
 datadog:
   logLevel: INFO
+  ## If running on Bottlerocket OS, uncomment the following lines.
+  ## See https://docs.datadoghq.com/containers/kubernetes/distributions/?tab=helm#EKS
+  #  criSocketPath: /run/dockershim.sock         # Bottlerocket Only
+  #  env:                                        # Bottlerocket Only
+  #    - name: DD_AUTOCONFIG_INCLUDE_FEATURES    # Bottlerocket Only
+  #      value: "containerd"                     # Bottlerocket Only
+
+  ## kubeStateMetricsEnabled is false because the feature is obsolete (replaced by kubeStateMetricsCore).
+  ## See https://github.com/DataDog/helm-charts/issues/415#issuecomment-943117608
+  ## https://docs.datadoghq.com/integrations/kubernetes_state_core/?tab=helm
+  ## https://www.datadoghq.com/blog/kube-state-metrics-v2-monitoring-datadog/
   kubeStateMetricsEnabled: false
   kubeStateMetricsCore:
     enabled: true
+    collectVpaMetrics: true
+    collectCrdMetrics: true
   collectEvents: true
   leaderElection: true
+  remoteConfiguration:
+    enabled: true
   logs:
     enabled: true
     containerCollectAll: true
     containerCollectUsingFiles: true
   apm:
-    enabled: false
+    enabled: true
+    socketEnabled: true
+    useSocketVolume: true
+  serviceMonitoring:
+    enabled: true
   processAgent:
     enabled: true
     processCollection: true
@@ -20,8 +40,12 @@ datadog:
     collectDNSStats: true
     enableConntrack: true
     bpfDebug: false
-  networkMonitoring:
+  orchestratorExplorer:
     enabled: true
+  networkMonitoring:
+    enabled: false
+  clusterTagger:
+    collectKubernetesTags: true
   clusterChecksRunner:
     enabled: false
   clusterChecks:
@@ -31,32 +55,30 @@ datadog:
     nonLocalTraffic: true
   securityAgent:
     runtime:
-      enabled: true
+      enabled: false
     compliance:
       enabled: true
   helmCheck:
     enabled: true
     collectEvents: true
-agents:
-  enabled: true
-  image:
-    repository: "public.ecr.aws/datadog/agent"
-    tag: 7
-  tolerations:
-  - effect: NoSchedule
-    operator: Exists
-  - effect: NoExecute
-    operator: Exists
-  # Per https://github.com/DataDog/helm-charts/blob/main/charts/datadog/README.md#configuration-required-for-amazon-linux-2-based-nodes
-  podSecurity:
-    apparmor:
-      enabled: false
 clusterAgent:
+  admissionController:
+    enabled: true
+    mutateUnlabelled: false
+    configMode: "hostip"
+
   enabled: true
+  # Maintain 2 cluster agents so that there is no interruption in metrics collection
+  # when the cluster agents' node is being deprovisioned.
+  replicas: 2
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
+  ## without ndots: 2, DNS will try to resolve a DNS lookup 5 different ways
+  dnsConfig:
+    options:
+      - name: ndots
+        value: "2"
   image:
-    repository: "public.ecr.aws/datadog/cluster-agent"
-    tag: "7.43.1"
-  replicas: 1
+    pullPolicy: IfNotPresent
   metricsProvider:
     enabled: false
   resources:
@@ -66,3 +88,30 @@ clusterAgent:
     limits:
       cpu: 300m
       memory: 512Mi
+agents:
+  enabled: true
+  priorityClassName: "system-node-critical"
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
+  ## without ndots: 2, DNS will try to resolve a DNS lookup 5 different ways
+  dnsConfig:
+    options:
+      - name: ndots
+        value: "2"
+  # Per https://github.com/DataDog/helm-charts/blob/main/charts/datadog/README.md#configuration-required-for-amazon-linux-2-based-nodes
+  podSecurity:
+    apparmor:
+      enabled: false
+  tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+            - matchExpressions:
+              - key: eks.amazonaws.com/compute-type
+                operator: NotIn
+                values:
+                  - fargate

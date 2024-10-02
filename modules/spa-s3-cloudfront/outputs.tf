@@ -18,6 +18,11 @@ output "cloudfront_distribution_alias" {
   description = "Cloudfront Distribution Alias Record."
 }
 
+output "cloudfront_distribution_identity_arn" {
+  value       = module.spa_web.cf_identity_iam_arn
+  description = "CloudFront Distribution Origin Access Identity IAM ARN."
+}
+
 output "failover_s3_bucket_name" {
   value       = try(data.aws_s3_bucket.failover_bucket[0].bucket, null)
   description = "Failover Origin bucket name, if enabled."

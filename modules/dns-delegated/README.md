@@ -1,6 +1,15 @@
+---
+tags:
+  - component/dns-delegated
+  - layer/network
+  - provider/aws
+---
+
 # Component: `dns-delegated`
 
-This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. The primary DNS zone is expected to already be provisioned via [the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-primary).
+This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS
+account. The primary DNS zone is expected to already be provisioned via
+[the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary).
 
 This component also provisions a wildcard ACM certificate for the given subdomain.
 
@@ -8,9 +17,12 @@ This component also provisions a wildcard ACM certificate for the given subdomai
 
 **Stack Level**: Global or Regional
 
-Here's an example snippet for how to use this component. Use this component in global or regional stacks for any accounts where you host services that need DNS records on a given subdomain (e.g. delegated zone) of the root domain (e.g. primary zone).
+Here's an example snippet for how to use this component. Use this component in global or regional stacks for any
+accounts where you host services that need DNS records on a given subdomain (e.g. delegated zone) of the root domain
+(e.g. primary zone).
 
-Public Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will contain a record delegating DNS to the new HZ
+Public Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will
+contain a record delegating DNS to the new HZ
 
 This will create an ACM record
 
@@ -20,23 +32,23 @@ components:
     dns-delegated:
       vars:
         zone_config:
-        - subdomain: devplatform
-          zone_name: example.net
+          - subdomain: devplatform
+            zone_name: example.net
         request_acm_certificate: true
         dns_private_zone_enabled: false
         #  dns_soa_config configures the SOA record for the zone::
         #    - awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address
         #    - 1 ; serial number, not used by AWS
-        #    - 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record
+        #    - 7200 ; refresh time in seconds for secondary DNS servers to refresh SOA record
         #    - 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update
         #    - 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it
         #    - 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses
         #    See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information.
         dns_soa_config: "awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"
-
 ```
 
-Private Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will contain a record delegating DNS to the new HZ
+Private Hosted Zone `devplatform.example.net` will be created and `example.net` HZ in the dns primary account will
+contain a record delegating DNS to the new HZ
 
 This will create an ACM record using a Private CA
 
@@ -46,8 +58,8 @@ components:
     dns-delegated:
       vars:
         zone_config:
-        - subdomain: devplatform
-          zone_name: example.net
+          - subdomain: devplatform
+            zone_name: example.net
         request_acm_certificate: true
         dns_private_zone_enabled: true
         vpc_region_abbreviation_type: short
@@ -60,13 +72,19 @@ components:
 
 ### Limitations
 
-Switching a hosted zone from public to private can cause issues because the provider will try to do an update instead of a ForceNew.
+Switching a hosted zone from public to private can cause issues because the provider will try to do an update instead of
+a ForceNew.
 
 See: https://github.com/hashicorp/terraform-provider-aws/issues/7614
 
-It's not possible to toggle between public and private so if switching from public to private and downtime is acceptable, delete the records of the hosted zone, delete the hosted zone, destroy the terraform component, and deploy with the new settings.
+It's not possible to toggle between public and private so if switching from public to private and downtime is
+acceptable, delete the records of the hosted zone, delete the hosted zone, destroy the terraform component, and deploy
+with the new settings.
 
-NOTE: With each of these workarounds, you may have an issue connecting to the service specific provider e.g. for `auroro-postgres` you may get an error of the host set to `localhost` on the `postgresql` provider resulting in an error. To get around this, dump the endpoint using `atmos terraform show`, hardcode the `host` input on the provider, and re-run the apply.
+NOTE: With each of these workarounds, you may have an issue connecting to the service specific provider e.g. for
+`auroro-postgres` you may get an error of the host set to `localhost` on the `postgresql` provider resulting in an
+error. To get around this, dump the endpoint using `atmos terraform show`, hardcode the `host` input on the provider,
+and re-run the apply.
 
 #### Workaround if downtime is fine
 
@@ -84,12 +102,15 @@ NOTE: With each of these workarounds, you may have an issue connecting to the se
 1. Deploy the new dns-delegated-private component
 1. Move aurora-postgres, msk, external-dns, echo-server, etc to the new hosted zone by re-deploying
 
-
 ## Caveats
 
-- Do not create a delegation for subdomain of a domain in a zone for which that zone is not authoritative for the subdomain (usually because you already delegated a parent subdomain). Though Amazon Route 53 will allow you to, you should not do it. For historic reasons, Route 53 Public DNS allows customers to create two NS delegations within a hosted zone which creates a conflict (and can return either set to resolvers depending on the query).
+- Do not create a delegation for subdomain of a domain in a zone for which that zone is not authoritative for the
+  subdomain (usually because you already delegated a parent subdomain). Though Amazon Route 53 will allow you to, you
+  should not do it. For historic reasons, Route 53 Public DNS allows customers to create two NS delegations within a
+  hosted zone which creates a conflict (and can return either set to resolvers depending on the query).
 
-For example, in a single hosted zone with the domain name `example.com`, it is possible to create two NS delegations which are parent and child of each other as follows:
+For example, in a single hosted zone with the domain name `example.com`, it is possible to create two NS delegations
+which are parent and child of each other as follows:
 
 ```
 a.example.com. 172800 IN NS ns-1084.awsdns-07.org.
@@ -105,21 +126,29 @@ b.a.example.com. 172800 IN NS ns-338.awsdns-42.com.
 
 This configuration creates two discrete possible resolution paths.
 
-1. If a resolver directly queries the `example.com` nameservers for `c.b.a.example.com`, it will receive the second set of nameservers.
+1. If a resolver directly queries the `example.com` nameservers for `c.b.a.example.com`, it will receive the second set
+   of nameservers.
 
 2. If a resolver queries `example.com` for `a.example.com`, it will receive the first set of nameservers.
 
-If the resolver then proceeds to query the `a.example.com` nameservers for `c.b.a.example.com`, the response is driven by the contents of the `a.example.com` zone, which may be different than the results returned by the `b.a.example.com` nameservers. `c.b.a.example.com` may not have an entry in the `a.example.com` nameservers, resulting in an error (`NXDOMAIN`) being returned.
+If the resolver then proceeds to query the `a.example.com` nameservers for `c.b.a.example.com`, the response is driven
+by the contents of the `a.example.com` zone, which may be different than the results returned by the `b.a.example.com`
+nameservers. `c.b.a.example.com` may not have an entry in the `a.example.com` nameservers, resulting in an error
+(`NXDOMAIN`) being returned.
 
-From 15th May 2020, Route 53 Resolver has been enabling a modern DNS resolver standard called "QName Minimization"[*]. This change causes the resolver to more strictly use recursion path [2] described above where path [1] was common before. [*] [https://tools.ietf.org/html/rfc7816](https://tools.ietf.org/html/rfc7816)
+From 15th May 2020, Route 53 Resolver has been enabling a modern DNS resolver standard called "QName Minimization"[*].
+This change causes the resolver to more strictly use recursion path [2] described above where path [1] was common
+before. [*] [https://tools.ietf.org/html/rfc7816](https://tools.ietf.org/html/rfc7816)
 
-As of January 2022, you can observe the different query strategies in use by Google DNS at `8.8.8.8` (strategy 1) and Cloudflare DNS at `1.1.1.1` (strategy 2). You should verify that both DNS servers resolve your host records properly.
+As of January 2022, you can observe the different query strategies in use by Google DNS at `8.8.8.8` (strategy 1) and
+Cloudflare DNS at `1.1.1.1` (strategy 2). You should verify that both DNS servers resolve your host records properly.
 
 Takeaway
 
-1. In order to ensure DNS resolution is consistent no matter the resolver, it is important to always create NS delegations only authoritative zones.
+1. In order to ensure DNS resolution is consistent no matter the resolver, it is important to always create NS
+   delegations only authoritative zones.
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -141,10 +170,10 @@ Takeaway
 |------|--------|---------|
 | <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/acm-request-certificate/aws | 0.17.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_private_ca"></a> [private\_ca](#module\_private\_ca) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.1.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_utils"></a> [utils](#module\_utils) | cloudposse/utils/aws | 1.3.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -176,12 +205,10 @@ Takeaway
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_dns_private_zone_enabled"></a> [dns\_private\_zone\_enabled](#input\_dns\_private\_zone\_enabled) | Whether to set the zone to public or private | `bool` | `false` | no |
-| <a name="input_dns_soa_config"></a> [dns\_soa\_config](#input\_dns\_soa\_config) | Root domain name DNS SOA record:<br>- awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address<br>- 1 ; serial number, not used by AWS<br>- 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record<br>- 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update<br>- 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it<br>- 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses<br>See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information. | `string` | `"awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"` | no |
+| <a name="input_dns_soa_config"></a> [dns\_soa\_config](#input\_dns\_soa\_config) | Root domain name DNS SOA record:<br>- awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address<br>- 1 ; serial number, not used by AWS<br>- 7200 ; refresh time in seconds for secondary DNS servers to refresh SOA record<br>- 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update<br>- 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it<br>- 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses<br>See [SOA Record Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html) for more information. | `string` | `"awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -210,10 +237,11 @@ Takeaway
 | <a name="output_route53_hosted_zone_protections"></a> [route53\_hosted\_zone\_protections](#output\_route53\_hosted\_zone\_protections) | List of AWS Shield Advanced Protections for Route53 Hosted Zones. |
 | <a name="output_zones"></a> [zones](#output\_zones) | Subdomain and zone config |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dns-delegated) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-delegated) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

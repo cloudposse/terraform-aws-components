@@ -1,12 +1,14 @@
 # Terraform Mixins
 
-A Terraform mixin (inspired by the [concept of the same name in OOP languages such as Python and Ruby](https://en.wikipedia.org/wiki/Mixin))
-is a Terraform configuration file that can be dropped into a root-level module, i.e. a component, in order to add additional
+A Terraform mixin (inspired by the
+[concept of the same name in OOP languages such as Python and Ruby](https://en.wikipedia.org/wiki/Mixin)) is a Terraform
+configuration file that can be dropped into a root-level module, i.e. a component, in order to add additional
 functionality.
 
 Mixins are meant to encourage code reuse, leading to more simple components with less code repetition between component
 to component.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF TERRAFORM-MIXINS DOCS HOOK -->
 ## Mixin: `infra-state.mixin.tf`
 
@@ -34,6 +36,11 @@ configuration, specifying which component the resources belong to.
 It's important to note that all modules and resources within the component then need to use `module.introspection.context`
 and `module.introspection.tags`, respectively, rather than `module.this.context` and `module.this.tags`.
 
+## Mixin: `provider-awsutils.mixin.tf`
+
+This mixin is meant to be added to a terraform module that wants to use the awsutils provider.
+It assumes the standard `providers.tf` file is present in the module.
+
 ## Mixin: `sops.mixin.tf`
 
 This mixin is meant to be added to Terraform EKS components which are used in a cluster where sops-secrets-operator (see: https://github.com/isindir/sops-secrets-operator)
@@ -47,3 +54,4 @@ etc. That is, that it has the following characteristics:
 2. Does not already instantiate a Kubernetes provider (only the Helm provider is necessary, typically, for EKS components).
 
 <!-- END OF TERRAFORM-MIXINS DOCS HOOK -->
+<!-- prettier-ignore-end -->

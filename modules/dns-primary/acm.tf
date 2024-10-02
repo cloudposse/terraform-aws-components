@@ -13,7 +13,7 @@ module "acm" {
 
   source = "cloudposse/acm-request-certificate/aws"
   // Note: 0.17.0 is a 'preview' release, so we're using 0.16.2
-  version = "0.16.2"
+  version = "0.16.3"
 
   enabled = local.certificate_enabled
 

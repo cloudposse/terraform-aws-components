@@ -1,3 +1,10 @@
+---
+tags:
+  - component/mq-broker
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `mq-broker`
 
 This component is responsible for provisioning an AmazonMQ broker and corresponding security group.
@@ -27,6 +34,7 @@ components:
         use_aws_owned_key: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -36,7 +44,7 @@ components:
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.3 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | >= 2.2 |
-| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 0.3.0 |
+| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.10.0 |
 
 ## Providers
 
@@ -46,11 +54,11 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_mq_broker"></a> [mq\_broker](#module\_mq\_broker) | cloudposse/mq-broker/aws | 0.14.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.24.1 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -79,7 +87,6 @@ No resources.
 | <a name="input_general_log_enabled"></a> [general\_log\_enabled](#input\_general\_log\_enabled) | Enables general logging via CloudWatch | `bool` | `true` | no |
 | <a name="input_host_instance_type"></a> [host\_instance\_type](#input\_host\_instance\_type) | The broker's instance type. e.g. mq.t2.micro or mq.m4.large | `string` | `"mq.t3.micro"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
 | <a name="input_kms_mq_key_arn"></a> [kms\_mq\_key\_arn](#input\_kms\_mq\_key\_arn) | ARN of the AWS KMS key used for Amazon MQ encryption | `string` | `null` | no |
 | <a name="input_kms_ssm_key_arn"></a> [kms\_ssm\_key\_arn](#input\_kms\_ssm\_key\_arn) | ARN of the AWS KMS key used for SSM encryption | `string` | `"alias/aws/ssm"` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | The letter case of label keys (`tag` names) (i.e. `name`, `namespace`, `environment`, `stage`, `attributes`) to use in `tags`.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
@@ -126,10 +133,11 @@ No resources.
 | <a name="output_secondary_stomp_ssl_endpoint"></a> [secondary\_stomp\_ssl\_endpoint](#output\_secondary\_stomp\_ssl\_endpoint) | AmazonMQ secondary STOMP+SSL endpoint |
 | <a name="output_secondary_wss_endpoint"></a> [secondary\_wss\_endpoint](#output\_secondary\_wss\_endpoint) | AmazonMQ secondary WSS endpoint |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/mq-broker) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/mq-broker) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

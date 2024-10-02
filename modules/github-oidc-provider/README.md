@@ -1,18 +1,25 @@
+---
+tags:
+  - component/github-oidc-provider
+  - layer/github
+  - provider/aws
+  - privileged
+---
+
 # Component: `github-oidc-provider`
 
-This component is responsible for authorizing the GitHub OIDC provider
-as an Identity provider for an AWS account. It is meant to be used
-in concert with `aws-teams` and `aws-team-roles` and/or with
-`github-actions-iam-role.mixin.tf`
+This component is responsible for authorizing the GitHub OIDC provider as an Identity provider for an AWS account. It is
+meant to be used in concert with `aws-teams` and `aws-team-roles` and/or with `github-actions-iam-role.mixin.tf`
 
 ## Usage
 
 **Stack Level**: Global
 
 Here's an example snippet for how to use this component.
+
 - This must be installed in the `identity` account in order to use standard SAML roles with role chaining.
-- This must be installed in each individual account where you want to provision a service role for a GitHub action
-  that will be assumed directly by the action.
+- This must be installed in each individual account where you want to provision a service role for a GitHub action that
+  will be assumed directly by the action.
 
 For security, since this component adds an identity provider, only SuperAdmin can install it.
 
@@ -26,12 +33,18 @@ components:
 
 ## Configuring the Github OIDC Provider
 
-This component was created to add the Github OIDC provider so that Github Actions can safely assume roles 
-without the need to store static credentials in the environment. 
-The details of the GitHub OIDC provider are hard coded in the component, however at some point
-the provider's thumbprint may change, at which point you can use
-[scripts/get_github_oidc_thumbprint.sh](./scripts/get_github_oidc_thumbprint.sh) 
+This component was created to add the Github OIDC provider so that Github Actions can safely assume roles without the
+need to store static credentials in the environment. The details of the GitHub OIDC provider are hard coded in the
+component, however at some point the provider's thumbprint may change, at which point you can use
+[get_github_oidc_thumbprint.sh](https://github.com/cloudposse/terraform-aws-components/blob/main/modules/github-oidc-provider/scripts/get_github_oidc_thumbprint.sh)
 to get the new thumbprint and add it to the list in `var.thumbprint_list`.
+
+This script will pull one of two thumbprints. There are two possible intermediary certificates for the Actions SSL
+certificate and either can be returned by the GitHub servers, requiring customers to trust both. This is a known
+behavior when the intermediary certificates are cross-signed by the CA. Therefore, run this script until both values are
+retrieved. Add both to `var.thumbprint_list`.
+
+For more, see https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
 
 ## FAQ
 
@@ -43,15 +56,16 @@ The following error is very common if the GitHub workflow is missing proper perm
 Error: User: arn:aws:sts::***:assumed-role/acme-core-use1-auto-actions-runner@actions-runner-system/token-file-web-identity is not authorized to perform: sts:TagSession on resource: arn:aws:iam::999999999999:role/acme-plat-use1-dev-gha
 ```
 
-In order to use a web identity, GitHub Action pipelines must have the following permission. 
-See [GitHub Action documentation for more](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#adding-permissions-settings).
+In order to use a web identity, GitHub Action pipelines must have the following permission. See
+[GitHub Action documentation for more](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#adding-permissions-settings).
 
 ```yaml
 permissions:
   id-token: write # This is required for requesting the JWT
-  contents: read  # This is required for actions/checkout
+  contents: read # This is required for actions/checkout
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -91,7 +105,6 @@ permissions:
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -101,9 +114,10 @@ permissions:
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
+| <a name="input_superadmin"></a> [superadmin](#input\_superadmin) | Set `true` if running as the SuperAdmin user | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
-| <a name="input_thumbprint_list"></a> [thumbprint\_list](#input\_thumbprint\_list) | List of OIDC provider certificate thumbprints | `list(string)` | <pre>[<br>  "6938fd4d98bab03faadb97b34396831e3780aea1"<br>]</pre> | no |
+| <a name="input_thumbprint_list"></a> [thumbprint\_list](#input\_thumbprint\_list) | List of OIDC provider certificate thumbprints | `list(string)` | <pre>[<br>  "6938fd4d98bab03faadb97b34396831e3780aea1",<br>  "1c58a3a8518e8759bf075b76b750d4f2df264fcd"<br>]</pre> | no |
 
 ## Outputs
 
@@ -111,10 +125,11 @@ permissions:
 |------|-------------|
 | <a name="output_oidc_provider_arn"></a> [oidc\_provider\_arn](#output\_oidc\_provider\_arn) | GitHub OIDC provider ARN |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/github-oidc-provider) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/github-oidc-provider) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

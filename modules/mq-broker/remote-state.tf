@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   stack_config_local_path = "../../../stacks"
   component               = "vpc"
@@ -10,7 +10,7 @@ module "vpc" {
 
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   stack_config_local_path = "../../../stacks"
   component               = "eks"

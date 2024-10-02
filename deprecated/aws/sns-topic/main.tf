@@ -28,4 +28,3 @@ module "sns_monitoring" {
   sns_topic_name       = module.sns.sns_topic.name
   sns_topic_alarms_arn = module.sns.sns_topic.arn
 }
-

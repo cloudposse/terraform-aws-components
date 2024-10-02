@@ -1,11 +1,19 @@
+---
+tags:
+  - component/cloudtrail
+  - layer/foundation
+  - provider/aws
+---
+
 # Component: `cloudtrail`
 
-This component is responsible for provisioning cloudtrail auditing in an individual account. It's expected to be used alongside
-[the `cloudtrail-bucket` component](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail-bucket)
+This component is responsible for provisioning cloudtrail auditing in an individual account. It's expected to be used
+alongside
+[the `cloudtrail-bucket` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail-bucket)
 as it utilizes that bucket via remote state.
 
-This component can either be deployed selectively to various accounts with `is_organization_trail=false`, or alternatively
-created in all accounts if deployed to the management account `is_organization_trail=true`.
+This component can either be deployed selectively to various accounts with `is_organization_trail=false`, or
+alternatively created in all accounts if deployed to the management account `is_organization_trail=true`.
 
 ## Usage
 
@@ -27,6 +35,7 @@ components:
         is_organization_trail: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -45,9 +54,9 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.21.0 |
-| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.2 |
+| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key_cloudtrail"></a> [kms\_key\_cloudtrail](#module\_kms\_key\_cloudtrail) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -86,8 +95,6 @@ components:
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_include_global_service_events"></a> [include\_global\_service\_events](#input\_include\_global\_service\_events) | Specifies whether the trail is publishing events from global services such as IAM to the log files | `bool` | `true` | no |
 | <a name="input_is_multi_region_trail"></a> [is\_multi\_region\_trail](#input\_is\_multi\_region\_trail) | Specifies whether the trail is created in the current region or in all regions | `bool` | `true` | no |
 | <a name="input_is_organization_trail"></a> [is\_organization\_trail](#input\_is\_organization\_trail) | Specifies whether the trail is created for all accounts in an organization in AWS Organizations, or only for the current AWS account.<br><br>The default is false, and cannot be true unless the call is made on behalf of an AWS account that is the management account<br>for an organization in AWS Organizations. | `bool` | `false` | no |
@@ -115,9 +122,11 @@ components:
 | <a name="output_cloudtrail_logs_role_arn"></a> [cloudtrail\_logs\_role\_arn](#output\_cloudtrail\_logs\_role\_arn) | CloudTrail Logs role ARN |
 | <a name="output_cloudtrail_logs_role_name"></a> [cloudtrail\_logs\_role\_name](#output\_cloudtrail\_logs\_role\_name) | CloudTrail Logs role name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/cloudtrail) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/cloudtrail) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

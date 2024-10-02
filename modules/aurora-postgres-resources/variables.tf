@@ -94,8 +94,7 @@ variable "additional_schemas" {
   }))
   default     = {}
   description = <<-EOT
-    Create additonal schemas for a given database.
+    Create additional schemas for a given database.
     If no database is given, the schema will use the database used by the provider configuration
   EOT
 }
-

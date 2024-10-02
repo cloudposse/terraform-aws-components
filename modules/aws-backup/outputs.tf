@@ -22,4 +22,3 @@ output "backup_selection_id" {
   value       = module.backup.backup_selection_id
   description = "Backup Selection ID"
 }
-

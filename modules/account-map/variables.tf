@@ -11,31 +11,31 @@ variable "root_account_aws_name" {
 variable "root_account_account_name" {
   type        = string
   default     = "root"
-  description = "The stage name for the root account"
+  description = "The short name for the root account"
 }
 
 variable "identity_account_account_name" {
   type        = string
   default     = "identity"
-  description = "The stage name for the account holding primary IAM roles"
+  description = "The short name for the account holding primary IAM roles"
 }
 
 variable "dns_account_account_name" {
   type        = string
   default     = "dns"
-  description = "The stage name for the primary DNS account"
+  description = "The short name for the primary DNS account"
 }
 
 variable "artifacts_account_account_name" {
   type        = string
   default     = "artifacts"
-  description = "The stage name for the artifacts account"
+  description = "The short name for the artifacts account"
 }
 
 variable "audit_account_account_name" {
   type        = string
   default     = "audit"
-  description = "The stage name for the audit account"
+  description = "The short name for the audit account"
 }
 
 variable "iam_role_arn_template_template" {
@@ -66,12 +66,6 @@ variable "profile_template" {
   EOT
 }
 
-variable "global_environment_name" {
-  type        = string
-  default     = "gbl"
-  description = "Global environment name"
-}
-
 variable "profiles_enabled" {
   type        = bool
   default     = false
@@ -82,4 +76,29 @@ variable "aws_config_identity_profile_name" {
   type        = string
   default     = null
   description = "The AWS config profile name to use as `source_profile` for credentials."
+}
+
+variable "terraform_role_name_map" {
+  type        = map(string)
+  description = "Mapping of Terraform action (plan or apply) to aws-team-role name to assume for that action"
+  default = {
+    plan  = "planner"
+    apply = "terraform"
+  }
+}
+
+variable "legacy_terraform_uses_admin" {
+  type        = bool
+  description = <<-EOT
+    If `true`, the legacy behavior of using the `admin` role rather than the `terraform` role in the
+    `root` and identity accounts will be preserved.
+    The default is to use the negations of the value of `terraform_dynamic_role_enabled`.
+    EOT
+  default     = null
+}
+
+variable "terraform_dynamic_role_enabled" {
+  type        = bool
+  description = "If true, the IAM role Terraform will assume will depend on the identity of the user running terraform"
+  default     = false
 }

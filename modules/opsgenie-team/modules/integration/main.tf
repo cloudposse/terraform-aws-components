@@ -225,7 +225,7 @@ resource "opsgenie_integration_action" "datadog" {
 # Or they can be used programmatically, if their respective Terraform provider supports it.
 module "ssm_parameter_store" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.10.0"
+  version = "0.11.0"
 
   # KMS key is only applied to SecureString params
   # https://github.com/cloudposse/terraform-aws-ssm-parameter-store/blob/master/main.tf#L17

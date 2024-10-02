@@ -36,54 +36,118 @@ github_repo: "cloudposse/terraform-aws-components"
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-components.svg?style=for-the-badge"
     url: "https://github.com/cloudposse/terraform-aws-components/releases/latest"
+  - name: "Last Update"
+    image: https://img.shields.io/github/last-commit/cloudposse/terraform-aws-components/main?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-aws-components/commits/main/
   - name: "Slack Community"
-    image: "https://slack.cloudposse.com/badge.svg"
+    image: "https://slack.cloudposse.com/for-the-badge.svg"
     url: "https://slack.cloudposse.com"
 
 references:
   - name: "Cloud Posse Documentation"
     description: "Complete documentation for the Cloud Posse solution"
     url: "https://docs.cloudposse.com"
+  - name: "Reference Architectures"
+    description: "Launch effortlessly with our turnkey reference architectures, built either by your team or ours."
+    url: "https://cloudposse.com/"
 
 related:
-  - name: "reference-architectures"
-    description: "Get up and running quickly with one of our reference architecture using our fully automated cold-start process."
-    url: "https://github.com/cloudposse/reference-architectures"
-  - name: "audit.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for an Audit Logs Organization in AWS."
-    url: "https://github.com/cloudposse/audit.cloudposse.co"
-  - name: "prod.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for a Production Organization in AWS."
-    url: "https://github.com/cloudposse/prod.cloudposse.co"
-  - name: "staging.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for a Staging Organization in AWS."
-    url: "https://github.com/cloudposse/staging.cloudposse.co"
-  - name: "dev.cloudposse.co"
-    description: "Example Terraform Reference Architecture of a Geodesic Module for a Development Sandbox Organization in AWS."
-    url: "https://github.com/cloudposse/dev.cloudposse.co"
+- name: "Cloud Posse Terraform Modules"
+  description: Our collection of reusable Terraform modules used by our reference architectures.
+  url: "https://docs.cloudposse.com/modules/"
+- name: "Atmos"
+  description: "Atmos is like docker-compose but for your infrastructure"
+  url: "https://atmos.tools"
+
 
 # Short description of this project
 description: |-
-  This is a collection of reusable Terraform components and blueprints for provisioning reference architectures.
+  This is a collection of reusable [AWS Terraform components](https://atmos.tools/core-concepts/components/) for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
+  They work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
 
 introduction: |-
-  In this repo you'll find real-world examples of how we've implemented various common patterns using our [terraform modules](https://cpco.io/terraform-modules) for our customers.
+  In this repo you'll find real-world examples of how we've implemented Terraform "root" modules as native
+  [Atmos Components](https://atmos.tools/core-concepts/components/) for our customers. These Components
+  leverage our hundreds of free and open-source [terraform "child" modules](https://cpco.io/terraform-modules).
 
-  The component catalog captures the business logic, opinions, best practices and non-functional requirements.
+  The [component library](https://docs.cloudposse.com/components/) captures the business logic, opinions, best practices and
+  non-functional requirements for an organization.
 
-  It's from this catalog that other developers in your organization will pick and choose from anytime they need to deploy some new capability.
+  It's from this library that other developers in your organization will pick and choose from whenever they need to deploy some new
+  capability.
 
-  These components make a lot of assumptions about how we've configured our environments. That said, they can still serve as an excellent reference for others.
+  These components make a lot of assumptions (aka ["convention over configuration"](https://en.wikipedia.org/wiki/Convention_over_configuration)) about how we've configured our environments.
+  That said, they still serve as an excellent reference for others on how to build, organize and distribute enterprise-grade infrastructure
+  with Terraform that can be used with [Atmos](https://atmos.tools).
 
-  ## Deprecations
+# How to use this project
+usage: |-
 
-  Terraform components which are no longer actively maintained are now in the `deprecated/` folder.
+  Please take a look at each [component's README](https://docs.cloudposse.com/components/) for specific usage.
 
-  Many of these deprecated components are used in our old reference architectures.
+  > [!TIP]
+  > ## 👽 Use Atmos with Terraform
+  > To orchestrate multiple environments with ease using Terraform, Cloud Posse recommends using [Atmos](https://atmos.tools),
+  > our open-source tool for Terraform automation.
+  >
+  > <details>
+  > <summary><strong>Watch demo of using Atmos with Terraform</strong></summary>
+  > <img src="https://github.com/cloudposse/atmos/blob/master/docs/demo.gif?raw=true"/><br/>
+  > <strong>Example of running <a href="https://atmos.tools"><code>atmos</code></a> to manage infrastructure from our <a href="https://atmos.tools/quick-start/">Quick Start</a> tutorial.</strong>
+  > </detalis>
 
-  We intend to eventually delete, but are leaving them for now in the repo.
+  Generally, you can use these components in [Atmos](https://atmos.tools/core-concepts/components/) by adding something like the following
+  code into your [stack manifest](https://atmos.tools/core-concepts/stacks/):
+
+  ```yaml
+  components:                      # List of components to include in the stack
+    terraform:                     # The toolchain being used for configuration
+      vpc:                         # The name of the component (e.g. terraform "root" module)
+        vars:                      # Terraform variables (e.g. `.tfvars`)
+          cidr_block: 10.0.0.0/16  # A variable input passed to terraform via `.tfvars`
+  ```
+
+  ## Automated Updates of Components using GitHub Actions
+
+  Leverage our [GitHub Action](https://atmos.tools/integrations/github-actions/component-updater) to automate the creation and management of pull requests for component updates.
+
+  This is done by creating a new file (e.g. `atmos-component-updater.yml`) in the `.github/workflows` directory of your repository.
+
+  The file should contain the following:
+
+  ```yaml
+  jobs:
+  update:
+    runs-on:
+      - "ubuntu-latest"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Update Atmos Components
+        uses: cloudposse/github-action-atmos-component-updater@v2
+        env:
+          # https://atmos.tools/cli/configuration/#environment-variables
+          ATMOS_CLI_CONFIG_PATH: ${{ github.workspace }}/rootfs/usr/local/etc/atmos/
+        with:
+          github-access-token: ${{ secrets.GITHUB_TOKEN }}
+          log-level: INFO
+          max-number-of-prs: 10
+
+      - name: Delete abandoned update branches
+        uses: phpdocker-io/github-actions-delete-abandoned-branches@v2
+        with:
+          github_token: ${{ github.token }}
+          last_commit_age_days: 0
+          allowed_prefixes: "component-update/"
+          dry_run: no
+  ```
+
+  For the full documentation on how to use the Component Updater GitHub Action, please see the [Atmos Integrations](https://atmos.tools/integrations/github-actions/component-updater) documentation.
 
   ## Using `pre-commit` Hooks
 
@@ -102,46 +166,16 @@ introduction: |-
   make rebuild-docs
   ```
 
-# How to use this project
-usage: |-
-  See each component's README directory for usage.
-
-  | Component | Description |
-  |-----------|-------------|
-  |[account](./modules/account) | Provisions the full account hierarchy along with Organizational Units (OUs). |
-  |[account-map](./modules/account-map) | Provisions information only: it simply populates Terraform state with data (account ids, groups, and roles) that other root modules need via outputs. |
-  |[account-settings](./modules/account-settings) | Provisions account level settings: IAM password policy, AWS Account Alias, and EBS encryption. |
-  |[cloudtrail](./modules/cloudtrail) | Provisions cloudtrail auditing in an individual account. |
-  |[cloudtrail-bucket](./modules/cloudtrail-bucket) | Provisions a bucket for storing cloudtrail logs for auditing purposes. |
-  |[datadog-integration](./modules/datadog-integration) | Provisions a DataDog <=> AWS integration. |
-  |[datadog-monitor](./modules/datadog-monitor) | Provisions global DataDog monitors. |
-  |[dms](./modules/dms) | Provisions AWS DMS resources: DMS IAM roles, DMS endpoints, DMS replication instances, DMS replication tasks. |
-  |[dns-delegated](./modules/dns-delegated) | Provisions a DNS zone which delegates nameservers to the DNS zone in the primary DNS account. |
-  |[dns-primary](./modules/dns-primary) | Provisions the primary DNS zones into an AWS account. |
-  |[ecr](./modules/ecr) | Provisions repositories, lifecycle rules, and permissions for streamlined ECR usage. |
-  |[efs](./modules/efs) | Provisions an [EFS](https://aws.amazon.com/efs/) Network File System with KMS encryption-at-rest. |
-  |[eks](./modules/eks) | Provisions an end-to-end EKS Cluster, including managed node groups and [spotinst ocean](https://spot.io/products/ocean/) node pools. |
-  |[eks-iam](./modules/eks-iam) | Provisions specific [IAM roles for Kubernetes Service Accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). |
-  |[iam-delegated-roles](./modules/iam-delegated-roles) | Provisions all delegated user and system IAM roles. |
-  |[iam-primary-roles](./modules/iam-primary-roles) | Provisions all primary user and system roles into the centralized identity account. |
-  |[sso](./modules/sso) | Provisions SAML metadata into AWS IAM as new SAML providers. |
-  |[tfstate-backend](./modules/tfstate-backend) | Provisions an S3 Bucket and DynamoDB table that follow security best practices for usage as a Terraform backend. |
-  |[transit-gateway](./modules/transit-gateway) | Provisions an AWS Transit Gateway to connect various account separated VPCs through a central hub. |
-  |[vpc](./modules/vpc) | Provisions a VPC and corresponing Subnets. |
+  > [!IMPORTANT]
+  > ## Deprecated Components
+  > Terraform components which are no longer actively maintained are kept in the [`deprecated/`](deprecated/) folder.
+  >
+  > Many of these deprecated components are used in our older reference architectures.
+  >
+  > We intend to eventually delete, but are leaving them for now in the repo.
 
 include:
   - "docs/targets.md"
-  - "docs/terraform.md"
 
 # Contributors to this project
-contributors:
-  - name: "Erik Osterman"
-    github: "osterman"
-  - name: "Igor Rodionov"
-    github: "goruha"
-  - name: "Andriy Knysh"
-    github: "aknysh"
-  - name: "Matt Gowie"
-    github: "Gowiem"
-  - name: "Yonatan Koren"
-    github: "korenyoni"
+contributors: []

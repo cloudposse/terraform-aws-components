@@ -1,7 +1,14 @@
+---
+tags:
+  - component/amplify
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `amplify`
 
-This component is responsible for provisioning
-AWS Amplify apps, backend environments, branches, domain associations, and webhooks.
+This component is responsible for provisioning AWS Amplify apps, backend environments, branches, domain associations,
+and webhooks.
 
 ## Usage
 
@@ -101,24 +108,25 @@ components:
         certificate_verification_dns_record_enabled: false
 ```
 
-The `amplify/example` YAML configuration defines an Amplify app in AWS. 
-The app is set up to use the `Next.js` framework with SSR (server-side rendering) and is linked to the 
-GitHub repository "https://github.com/cloudposse/amplify-test2".
+The `amplify/example` YAML configuration defines an Amplify app in AWS. The app is set up to use the `Next.js` framework
+with SSR (server-side rendering) and is linked to the GitHub repository "https://github.com/cloudposse/amplify-test2".
 
-The app is set up to have two environments: `main` and `develop`. 
-Each environment has different configuration settings, such as the branch name, framework, and stage.
-The `main` environment is set up for production, while the `develop` environments is set up for development.
+The app is set up to have two environments: `main` and `develop`. Each environment has different configuration settings,
+such as the branch name, framework, and stage. The `main` environment is set up for production, while the `develop`
+environments is set up for development.
 
-The app is also configured to have custom subdomains for each environment, with prefixes such as `example-prod` and `example-dev`. 
-The subdomains are configured to use DNS records, which are enabled through the `subdomains_dns_records_enabled` variable.
+The app is also configured to have custom subdomains for each environment, with prefixes such as `example-prod` and
+`example-dev`. The subdomains are configured to use DNS records, which are enabled through the
+`subdomains_dns_records_enabled` variable.
 
-The app also has an IAM service role configured with specific IAM actions, and environment variables set up for each environment. 
-Additionally, the app is configured to use the Atmos Spacelift workspace, as indicated by the `workspace_enabled: true` setting.
+The app also has an IAM service role configured with specific IAM actions, and environment variables set up for each
+environment. Additionally, the app is configured to use the Atmos Spacelift workspace, as indicated by the
+`workspace_enabled: true` setting.
 
 The `amplify/example` Atmos component extends the `amplify/defaults` component.
 
-The `amplify/example` configuration is imported into the `stacks/mixins/stage/dev.yaml` stack config file to be provisioned 
-in the `dev` account.
+The `amplify/example` configuration is imported into the `stacks/mixins/stage/dev.yaml` stack config file to be
+provisioned in the `dev` account.
 
 ```yaml
 # stacks/mixins/stage/dev.yaml
@@ -132,6 +140,7 @@ You can execute the following command to provision the Amplify app using Atmos:
 atmos terraform apply amplify/example -s <stack>
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -152,7 +161,7 @@ atmos terraform apply amplify/example -s <stack>
 |------|--------|---------|
 | <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 0.2.1 |
 | <a name="module_certificate_verification_dns_record"></a> [certificate\_verification\_dns\_record](#module\_certificate\_verification\_dns\_record) | cloudposse/route53-cluster-hostname/aws | 0.12.3 |
-| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_subdomains_dns_record"></a> [subdomains\_dns\_record](#module\_subdomains\_dns\_record) | cloudposse/route53-cluster-hostname/aws | 0.12.3 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -195,8 +204,6 @@ atmos terraform apply amplify/example -s <stack>
 | <a name="input_iam_service_role_arn"></a> [iam\_service\_role\_arn](#input\_iam\_service\_role\_arn) | The AWS Identity and Access Management (IAM) service role for the Amplify app.<br>If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`. | `list(string)` | `[]` | no |
 | <a name="input_iam_service_role_enabled"></a> [iam\_service\_role\_enabled](#input\_iam\_service\_role\_enabled) | Flag to create the IAM service role for the Amplify app | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -227,5 +234,6 @@ atmos terraform apply amplify/example -s <stack>
 | <a name="output_sub_domains"></a> [sub\_domains](#output\_sub\_domains) | DNS records and the verified status for the subdomains |
 | <a name="output_webhooks"></a> [webhooks](#output\_webhooks) | Created webhooks |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -33,7 +33,9 @@ locals {
   # for outputs
   annotations           = try(kubernetes_ingress_v1.default[0].metadata.0.annotations, null)
   group_name_annotation = try(lookup(kubernetes_ingress_v1.default[0].metadata.0.annotations, "alb.ingress.kubernetes.io/group.name", null), null)
-  load_balancer_name    = join("", data.aws_lb.default[*].name)
+  scheme_annotation     = try(lookup(kubernetes_ingress_v1.default[0].metadata.0.annotations, "alb.ingress.kubernetes.io/scheme", null), null)
+  class_annotation      = try(lookup(kubernetes_ingress_v1.default[0].metadata.0.annotations, "kubernetes.io/ingress.class", null), null)
+  load_balancer_name    = one(data.aws_lb.default[*].name)
   host                  = join(".", [module.this.environment, module.dns_delegated.outputs.default_domain_name])
 }
 
@@ -89,6 +91,7 @@ resource "kubernetes_ingress_v1" "default" {
     labels    = {}
     name      = module.this.id
     namespace = local.kubernetes_namespace
+
     annotations = merge(
       local.waf_acl_arn,
       local.alb_logging_annotation,

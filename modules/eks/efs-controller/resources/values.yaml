@@ -1,3 +1,0 @@
-controller:
-  serviceAccount:
-    create: "true"

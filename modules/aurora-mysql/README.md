@@ -1,7 +1,14 @@
+---
+tags:
+  - component/aurora-mysql
+  - layer/data
+  - provider/aws
+---
+
 # Component: `aurora-mysql`
 
-This component is responsible for provisioning Aurora MySQL RDS clusters. 
-It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning Aurora MySQL RDS clusters. It seeds relevant database information
+(hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
 
@@ -73,22 +80,27 @@ components:
           - aurora-mysql/defaults
       vars:
         instance_type: db.r5.large
-        cluster_size: 1
-        cluster_name: main
-        database_name: main
+        mysql_cluster_size: 1
+        mysql_name: main
+        mysql_db_name: main
 ```
 
-Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account: `atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
+Example deployment with primary cluster deployed to us-east-1 in a `platform-dev` account:
+`atmos terraform apply aurora-mysql/dev -s platform-use1-dev`
 
 ## Disaster Recovery with Cross-Region Replication
 
-This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its place. Follow these steps to handle a Disaster Recovery.
+This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a
+secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggressive and
+costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its
+place. Follow these steps to handle a Disaster Recovery.
 
 ### Usage
 
 To deploy a secondary cluster for cross-region replication, add the following catalog entries to an alternative region:
 
-Default settings for a secondary, replica cluster. For this example, this file is saved as `stacks/catalog/aurora-mysql/replica/defaults.yaml`
+Default settings for a secondary, replica cluster. For this example, this file is saved as
+`stacks/catalog/aurora-mysql/replica/defaults.yaml`
 
 ```yaml
 import:
@@ -106,7 +118,7 @@ components:
         allowed_cidr_blocks:
           # all automation in primary region (where Spacelift is deployed)
           - 10.128.0.0/22
-          # all corp in the same region as this cluster 
+          # all corp in the same region as this cluster
           - 10.132.16.0/22
         mysql_instance_type: "db.t3.medium"
         mysql_name: "replica"
@@ -136,19 +148,23 @@ components:
 
 ### Promoting the Read Replica
 
-Promoting an existing RDS Replicate cluster to a fully standalone cluster is not currently supported by Terraform: https://github.com/hashicorp/terraform-provider-aws/issues/6749
+Promoting an existing RDS Replicate cluster to a fully standalone cluster is not currently supported by Terraform:
+https://github.com/hashicorp/terraform-provider-aws/issues/6749
 
-Instead, promote the Replicate cluster with the AWS CLI command: `aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
+Instead, promote the Replicate cluster with the AWS CLI command:
+`aws rds promote-read-replica-db-cluster --db-cluster-identifier <identifier>`
 
-After promoting the replica, update the stack configuration to prevent future Terrafrom runs from re-enabling replication. In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
+After promoting the replica, update the stack configuration to prevent future Terrafrom runs from re-enabling
+replication. In this example, modify `stacks/catalog/aurora-mysql/replica/defaults.yaml`
 
 ```yaml
 is_promoted_read_replica: true
 ```
 
-Reploying the component should show no changes. For example, `atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
+Reploying the component should show no changes. For example,
+`atmos terraform apply aurora-mysql/dev -s platform-use2-dev`
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -171,15 +187,15 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 |------|--------|---------|
 | <a name="module_aurora_mysql"></a> [aurora\_mysql](#module\_aurora\_mysql) | cloudposse/rds-cluster/aws | 1.3.1 |
 | <a name="module_cluster"></a> [cluster](#module\_cluster) | cloudposse/label/null | 0.25.0 |
-| <a name="module_dns-delegated"></a> [dns-delegated](#module\_dns-delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_dns-delegated"></a> [dns-delegated](#module\_dns-delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_kms_key_rds"></a> [kms\_key\_rds](#module\_kms\_key\_rds) | cloudposse/kms-key/aws | 0.12.1 |
-| <a name="module_parameter_store_write"></a> [parameter\_store\_write](#module\_parameter\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.10.0 |
-| <a name="module_primary_cluster"></a> [primary\_cluster](#module\_primary\_cluster) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_parameter_store_write"></a> [parameter\_store\_write](#module\_parameter\_store\_write) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
+| <a name="module_primary_cluster"></a> [primary\_cluster](#module\_primary\_cluster) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_vpc_ingress"></a> [vpc\_ingress](#module\_vpc\_ingress) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_vpc_ingress"></a> [vpc\_ingress](#module\_vpc\_ingress) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -198,7 +214,7 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br><br>e.g.<br><br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>} | `any` | `[]` | no |
+| <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br><br>e.g.<br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>}<br><br>Defaults to the "vpc" component in the given account | <pre>list(object({<br>    vpc         = optional(string, "vpc")<br>    environment = optional(string)<br>    stage       = optional(string)<br>    tenant      = optional(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDR blocks to be allowed to connect to the RDS cluster | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_aurora_mysql_cluster_family"></a> [aurora\_mysql\_cluster\_family](#input\_aurora\_mysql\_cluster\_family) | DBParameterGroupFamily (e.g. `aurora5.6`, `aurora-mysql5.7` for Aurora MySQL databases). See https://stackoverflow.com/a/55819394 for help finding the right one to use. | `string` | n/a | yes |
@@ -214,8 +230,6 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_is_promoted_read_replica"></a> [is\_promoted\_read\_replica](#input\_is\_promoted\_read\_replica) | If `true`, do not assign a Replication Source to the Cluster. Set to `true` after manually promoting the cluster from a replica to a standalone cluster. | `bool` | `false` | no |
 | <a name="input_is_read_replica"></a> [is\_read\_replica](#input\_is\_read\_replica) | If `true`, create this DB cluster as a Read Replica. | `bool` | `false` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
@@ -243,12 +257,13 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Set to true to create the cluster in a public subnet | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
-| <a name="input_replication_source_identifier"></a> [replication\_source\_identifier](#input\_replication\_source\_identifier) | ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. <br>If this value is empty and replication is enabled, remote state will attempt to find <br>a matching cluster in the Primary DB Cluster's region | `string` | `""` | no |
-| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using <br>`var.ssm_password_source` and the database username. If this value is not set, <br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
+| <a name="input_replication_source_identifier"></a> [replication\_source\_identifier](#input\_replication\_source\_identifier) | ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica.<br>If this value is empty and replication is enabled, remote state will attempt to find<br>a matching cluster in the Primary DB Cluster's region | `string` | `""` | no |
+| <a name="input_ssm_password_source"></a> [ssm\_password\_source](#input\_ssm\_password\_source) | If `var.ssm_passwords_enabled` is `true`, DB user passwords will be retrieved from SSM using<br>`var.ssm_password_source` and the database username. If this value is not set,<br>a default path will be created using the SSM path prefix and ID of the associated Aurora Cluster. | `string` | `""` | no |
 | <a name="input_ssm_path_prefix"></a> [ssm\_path\_prefix](#input\_ssm\_path\_prefix) | SSM path prefix | `string` | `"rds"` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
+| <a name="input_vpc_component_name"></a> [vpc\_component\_name](#input\_vpc\_component\_name) | The name of the VPC component | `string` | `"vpc"` | no |
 
 ## Outputs
 
@@ -267,10 +282,11 @@ Reploying the component should show no changes. For example, `atmos terraform ap
 | <a name="output_cluster_domain"></a> [cluster\_domain](#output\_cluster\_domain) | Cluster DNS name |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | KMS key ARN for Aurora MySQL |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aurora-mysql) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-mysql) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

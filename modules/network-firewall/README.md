@@ -1,6 +1,13 @@
+---
+tags:
+  - component/network-firewall
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `network-firewall`
 
-This component is responsible for provisioning [AWS Network Firewall](https://aws.amazon.com/network-firewal) resources, 
+This component is responsible for provisioning [AWS Network Firewall](https://aws.amazon.com/network-firewal) resources,
 including Network Firewall, firewall policy, rule groups, and logging configuration.
 
 ## Usage
@@ -9,15 +16,14 @@ including Network Firewall, firewall policy, rule groups, and logging configurat
 
 Example of a Network Firewall with stateful 5-tuple rules:
 
-:::info
-
-The "5-tuple" means the five items (columns) that each rule (row, or tuple) in a firewall policy uses to define whether to block or allow traffic: 
-source and destination IP, source and destination port, and protocol.
-
-Refer to [Standard stateful rule groups in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-basic.html)
-for more details.
-
-:::
+> [!TIP]
+>
+> The "5-tuple" means the five items (columns) that each rule (row, or tuple) in a firewall policy uses to define
+> whether to block or allow traffic: source and destination IP, source and destination port, and protocol.
+>
+> Refer to
+> [Standard stateful rule groups in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-basic.html)
+> for more details.
 
 ```yaml
 components:
@@ -88,15 +94,15 @@ components:
 
 Example of a Network Firewall with [Suricata](https://suricata.readthedocs.io/en/suricata-6.0.0/rules/) rules:
 
-:::info
-
-For [Suricata](https://suricata.io/) rule group type, you provide match and action settings in a string, in a Suricata compatible specification. 
-The specification fully defines what the stateful rules engine looks for in a traffic flow and the action to take on the packets in a flow that matches the inspection criteria.
-
-Refer to [Suricata compatible rule strings in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-suricata.html)
-for more details.
-
-:::
+> [!TIP]
+>
+> For [Suricata](https://suricata.io/) rule group type, you provide match and action settings in a string, in a Suricata
+> compatible specification. The specification fully defines what the stateful rules engine looks for in a traffic flow
+> and the action to take on the packets in a flow that matches the inspection criteria.
+>
+> Refer to
+> [Suricata compatible rule strings in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-suricata.html)
+> for more details.
 
 ```yaml
 components:
@@ -197,7 +203,6 @@ components:
 
               # https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-how-to-provide-rules.html
               rules_source:
-
                 # Suricata rules for the rule group
                 # https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-examples.html
                 # https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-rule-evaluation-order.html
@@ -233,6 +238,7 @@ components:
                   pass ip any any <> any any ( msg: "Allow general traffic"; sid:10000; rev:1; )
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -249,12 +255,12 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alert_logs_bucket"></a> [alert\_logs\_bucket](#module\_alert\_logs\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
-| <a name="module_flow_logs_bucket"></a> [flow\_logs\_bucket](#module\_flow\_logs\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_alert_logs_bucket"></a> [alert\_logs\_bucket](#module\_alert\_logs\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_flow_logs_bucket"></a> [flow\_logs\_bucket](#module\_flow\_logs\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_network_firewall"></a> [network\_firewall](#module\_network\_firewall) | cloudposse/network-firewall/aws | 0.3.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 
 ## Resources
 
@@ -277,8 +283,6 @@ No resources.
 | <a name="input_firewall_subnet_name"></a> [firewall\_subnet\_name](#input\_firewall\_subnet\_name) | Firewall subnet name | `string` | `"firewall"` | no |
 | <a name="input_flow_logs_bucket_component_name"></a> [flow\_logs\_bucket\_component\_name](#input\_flow\_logs\_bucket\_component\_name) | Flow logs bucket component name | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -314,6 +318,7 @@ No resources.
 | <a name="output_network_firewall_policy_name"></a> [network\_firewall\_policy\_name](#output\_network\_firewall\_policy\_name) | Network Firewall policy name |
 | <a name="output_network_firewall_status"></a> [network\_firewall\_status](#output\_network\_firewall\_status) | Nested list of information about the current status of the Network Firewall |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
@@ -325,6 +330,7 @@ No resources.
 - [How to deploy AWS Network Firewall by using AWS Firewall Manager](https://aws.amazon.com/blogs/security/how-to-deploy-aws-network-firewall-by-using-aws-firewall-manager)
 - [A Deep Dive into AWS Transit Gateway](https://www.youtube.com/watch?v=a55Iud-66q0)
 - [Appliance in a shared services VPC](https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-appliance-scenario.html)
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

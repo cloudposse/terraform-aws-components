@@ -1,10 +1,23 @@
-{{- if .Values.pvc_enabled }}
+{{- $release_name := .Values.release_name }}
+{{- /* To avoid the situation where a value evaluates to
+a string value of "false", which has a boolean value of true,
+we explicitly convert to boolean based on the string value */}}
+{{- $use_tmpfs := eq (printf "%v" .Values.tmpfs_enabled) "true" }}
+{{- $use_pvc := eq (printf "%v" .Values.pvc_enabled) "true" }}
+{{- $use_dockerconfig := eq (printf "%v" .Values.docker_config_json_enabled) "true" }}
+{{- $use_dind := eq (printf "%v" .Values.dind_enabled) "true" }}
+{{- /* Historically, the docker daemon was run in a sidecar.
+       At some point, the option became available to use dockerdWithinRunnerContainer,
+       and we now default to that. In fact, at this moment, the sidecar option is not configurable.
+       We keep the logic here in case we need to revert to the sidecar option. */}}
+{{- $use_dind_in_runner := $use_dind }}
+{{- if $use_pvc }}
 ---
 # Persistent Volumes can be used for image caching
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.release_name }}
+  name: {{ $release_name }}
 spec:
   accessModes:
     - ReadWriteMany
@@ -14,36 +27,132 @@ spec:
     requests:
       # EFS is not actually storage constrained, but this storage request is
       # required. 100Gi is a ballpark for how much we initially request, but this
-      # may grow. We are responsible for docker pruning this periodically to 
+      # may grow. We are responsible for docker pruning this periodically to
       # save space.
-      storage: 100Gi 
+      storage: 100Gi
 {{- end }}
+{{- if $use_dockerconfig }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $release_name }}-regcred
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ .Values.docker_config_json }}
+{{- end }}
+{{- with .Values.running_pod_annotations }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $release_name }}-runner-hooks
+data:
+  annotate.sh: |
+    #!/bin/bash
+
+    # If we had kubectl and a KUBECONFIG, we could do this:
+    #   kubectl annotate pod $HOSTNAME 'karpenter.sh/do-not-evict="true"' --overwrite
+    #   kubectl annotate pod $HOSTNAME 'karpenter.sh/do-not-disrupt="true"' --overwrite
+
+    # This is the same thing, the hard way
+
+    # Metadata about the pod
+    NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+    POD_NAME=$(hostname)
+
+    # Kubernetes API URL
+    API_URL="https://kubernetes.default.svc"
+
+    # Read the service account token
+    TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+    # Content type
+    CONTENT_TYPE="application/merge-patch+json"
+
+    PATCH_JSON=$(cat <<'EOF'
+    {
+      "metadata": {
+        "annotations":
+         {{- . | toJson | nindent 10 }}
+      }
+    }
+    EOF
+    )
+
+    # Use curl to patch the pod
+    curl -sSk -X PATCH \
+      -H "Authorization: Bearer $TOKEN" \
+      -H "Content-Type: $CONTENT_TYPE" \
+      -H "Accept: application/json" \
+      -d "$PATCH_JSON" \
+      "$API_URL/api/v1/namespaces/$NAMESPACE/pods/$POD_NAME"  | jq .metadata.annotations \
+    && AT=$(date -u +"%Y-%m-%dT%H:%M:%S.%3Nz") || code=$?
+
+    if [ -z "$AT" ]; then
+      echo "Failed (curl exited with status ${code}) to annotate pod with annotations:\n  '%s'\n" '{{ . | toJson }}'
+      exit $code
+    else
+      printf "Annotated pod at %s with annotations:\n  '%s'\n" "$AT" '{{ . | toJson }}'
+    fi
+
+{{ end }}
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
-  name: {{ .Values.release_name }}
+  name: {{ $release_name }}
 spec:
   # Do not use `replicas` with HorizontalRunnerAutoscaler
   # See https://github.com/actions-runner-controller/actions-runner-controller/issues/206#issuecomment-748601907
   # replicas: 1
   template:
-    {{- with index .Values "pod_annotations" }}
+    {{- with .Values.pod_annotations }}
     metadata:
       annotations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
+      {{- if $use_dockerconfig }}
+      # secrets volumeMount are always mounted readOnly so config.json has to be copied to the correct directory
+      # https://github.com/kubernetes/kubernetes/issues/62099
+      # https://github.com/actions/actions-runner-controller/issues/2123#issuecomment-1527077517
+
+      initContainers:
+        - name: docker-config-writer
+          image: {{ .Values.image | quote }}
+          command: [ "sh", "-c", "cat /home/.docker/config.json > /home/runner/.docker/config.json" ]
+          volumeMounts:
+            - mountPath: /home/.docker/
+              name: docker-secret
+            - mountPath: /home/runner/.docker
+              name: docker-config-volume
+      {{- end }}
+
       # As of 2023-03-31
       # Recommended by https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md
       terminationGracePeriodSeconds: 100
       env:
-      # RUNNER_GRACEFUL_STOP_TIMEOUT is the time the runner will give itself to try to finish
-      # a job before it gracefully cancels itself in response to a pod termination signal.
-      # It should be less than the terminationGracePeriodSeconds above so that it has time
-      # to report its status and deregister itself from the runner pool.
-      - name: RUNNER_GRACEFUL_STOP_TIMEOUT
-        value: "90"
+        # RUNNER_GRACEFUL_STOP_TIMEOUT is the time the runner will give itself to try to finish
+        # a job before it gracefully cancels itself in response to a pod termination signal.
+        # It should be less than the terminationGracePeriodSeconds above so that it has time
+        # to report its status and deregister itself from the runner pool.
+        - name: RUNNER_GRACEFUL_STOP_TIMEOUT
+          value: "80"
+        - name: DISABLE_RUNNER_UPDATE
+          value: "{{ printf "%v" (not .Values.auto_update_enabled) }}"
+        {{- with .Values.wait_for_docker_seconds }}
+        # If Docker is taking too long to start (which is likely due to some other performance issue),
+        # increase the timeout from the default of 120 seconds.
+        - name: WAIT_FOR_DOCKER_SECONDS
+          value: "{{ . }}"
+        {{- end }}
+        {{- if $use_tmpfs }}
+        - name: RUNNER_HOME
+          value: "/runner-tmpfs"
+        - name: RUNNER_WORKDIR
+          value: "/runner-tmpfs/_work"
+        {{- end }}
 
       # You could reserve nodes for runners by labeling and tainting nodes with
       #   node-role.kubernetes.io/actions-runner
@@ -56,14 +165,41 @@ spec:
       #  - effect: NoSchedule
       #    key: node-role.kubernetes.io/actions-runner
       #    operator: Exists
+      {{- with .Values.node_selector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 
-      {{ if eq .Values.type "organization" }}
+      {{- with .Values.running_pod_annotations }}
+      # Run a pre-run hook to set pod annotations
+      # See https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/running-scripts-before-or-after-a-job#triggering-the-scripts
+      containers:
+        - name: runner
+          # ARC (Summerwind) has its own pre-run hook, so we do not want to set
+          #  env:
+          #  - name: ACTIONS_RUNNER_HOOK_JOB_STARTED
+          #    value: /hooks/pre-run.sh # triggers when a job is started, and sets the pod to NOT safe-to-evict
+          # Instead, its pre-run hook runs scripts in /etc/arc/hooks/job-started.d/
+          volumeMounts:
+            - name: hooks
+              mountPath: /etc/arc/hooks/job-started.d/
+      {{- end }}
+
+      {{- if eq .Values.type "organization" }}
       organization: {{ .Values.scope }}
       {{- end }}
-      {{ if eq .Values.type "repository" }}
+      {{- if eq .Values.type "repository" }}
       repository: {{ .Values.scope }}
       {{- end }}
-      {{ if index .Values "group" }}
+      {{- if index .Values "group" }}
       group: {{ .Values.group }}
       {{- end }}
       # You can use labels to create subsets of runners.
@@ -74,60 +210,113 @@ spec:
         # to explicitly include the "self-hosted" label in order to match the
         # workflow_job to it.
         - self-hosted
-      {{- range .Values.labels }}
+        {{- range .Values.labels }}
         - {{ . | quote }}
-      {{- end }}
-      {{- if gt ( len (index .Values "node_selector") ) 0 }}
-      nodeSelector:
-        {{- toYaml .Values.node_selector | nindent 8 }}
-      {{- end }}
-      {{- if gt ( len (index .Values "tolerations") ) 0 }}
-      tolerations:
-        {{- toYaml .Values.tolerations | nindent 8 }}
-      {{- end }}
+        {{- end }}
       # dockerdWithinRunnerContainer = false means access to a Docker daemon is provided by a sidecar container.
-      dockerdWithinRunnerContainer: {{ .Values.dind_enabled }}
+      dockerdWithinRunnerContainer: {{ $use_dind_in_runner }}
+      dockerEnabled: {{ $use_dind }}
       image: {{ .Values.image | quote }}
       imagePullPolicy: IfNotPresent
+      {{- if  $use_dockerconfig }}
+      imagePullSecrets:
+        - name: {{ $release_name }}-regcred
+      {{- end }}
       serviceAccountName: {{ .Values.service_account_name }}
       resources:
         limits:
           cpu: {{ .Values.resources.limits.cpu }}
           memory: {{ .Values.resources.limits.memory }}
+          {{- if index .Values.resources.limits "ephemeral-storage" }}
+          ephemeral-storage: {{ index .Values.resources.limits "ephemeral-storage" }}
+          {{- else }}
           {{- if index .Values.resources.limits "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.limits.ephemeral_storage }}
+          {{- end }}
           {{- end }}
         requests:
           cpu: {{ .Values.resources.requests.cpu }}
           memory: {{ .Values.resources.requests.memory }}
+          {{- if index .Values.resources.requests "ephemeral-storage" }}
+          ephemeral-storage: {{ index .Values.resources.requests "ephemeral-storage" }}
+          {{- else }}
           {{- if index .Values.resources.requests "ephemeral_storage" }}
           ephemeral-storage: {{ .Values.resources.requests.ephemeral_storage }}
           {{- end }}
-      {{- if and .Values.dind_enabled .Values.storage }}
+          {{- end }}
+      {{- if and (not $use_dind_in_runner) (or .Values.docker_storage $use_tmpfs) }}
+      {{- /* dockerVolumeMounts are mounted into the docker sidecar, and ignored if running with dockerdWithinRunnerContainer */}}
       dockerVolumeMounts:
-      - mountPath: /var/lib/docker
-        name: docker-volume
+        - mountPath: /var/lib/docker
+          name: docker-volume
       {{- end }}
-      {{- if .Values.pvc_enabled }}
+      {{- if or $use_pvc $use_dockerconfig $use_tmpfs }}
       volumeMounts:
-      - mountPath: /home/runner/work/shared
-        name: shared-volume
-      {{- end }}
-      {{- if or (and .Values.dind_enabled .Values.storage) (.Values.pvc_enabled) }}
+        {{- if and $use_dind_in_runner (or .Values.docker_storage $use_tmpfs) }}
+        - mountPath: /var/lib/docker
+          name: docker-volume
+        {{- end }}
+        {{- if $use_pvc }}
+        - mountPath: /home/runner/work/shared
+          name: shared-volume
+        {{- end }}
+        {{- if $use_dockerconfig }}
+        - mountPath: /home/.docker/
+          name: docker-secret
+        - mountPath: /home/runner/.docker
+          name: docker-config-volume
+        {{- end }}
+        {{- if $use_tmpfs }}
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /runner-tmpfs
+          name: runner-tmpfs
+        {{- end }}
+      {{- end }}{{/* End of volumeMounts */}}
+      {{- if or (and $use_dind (or .Values.docker_storage $use_tmpfs)) $use_pvc $use_dockerconfig (not (empty .Values.running_pod_annotations)) }}
       volumes:
-      {{- if and .Values.dind_enabled .Values.storage }}
-      - name: docker-volume
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ] # Only 1 pod can connect at a time
-              resources:
-                requests:
-                  storage: {{ .Values.storage }}
-      {{- end }}
-      {{- if .Values.pvc_enabled }}
-      - name: shared-volume
-        persistentVolumeClaim:
-          claimName: {{ .Values.release_name }}
-      {{- end }}
-      {{- end }}
+        {{- if $use_tmpfs }}
+        - name: runner-tmpfs
+          emptyDir:
+            medium: Memory
+        - name: tmp
+          emptyDir:
+            medium: Memory
+        {{- end }}
+        {{- if and $use_dind (or .Values.docker_storage $use_tmpfs) }}
+        - name: docker-volume
+          {{- if .Values.docker_storage }}
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes: [ "ReadWriteOnce" ] # Only 1 pod can connect at a time
+                resources:
+                  requests:
+                    storage: {{ .Values.docker_storage }}
+          {{- else }}
+          emptyDir:
+            medium: Memory
+          {{- end }}
+        {{- end }}
+        {{- if $use_pvc }}
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: {{ $release_name }}
+        {{- end }}
+        {{- if $use_dockerconfig }}
+        - name: docker-secret
+          secret:
+            secretName: {{ $release_name }}-regcred
+            items:
+              - key: .dockerconfigjson
+                path: config.json
+        - name: docker-config-volume
+          emptyDir:
+        {{- end }}
+        {{- with .Values.running_pod_annotations }}
+        - name: hooks
+          configMap:
+            name: {{ $release_name }}-runner-hooks
+            defaultMode: 0755  # Set execute permissions for all files
+        {{- end }}
+      {{- end }}{{/* End of volumes */}}
