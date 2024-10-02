@@ -30,13 +30,13 @@ variable "postgres_db_name" {
 
 variable "aurora_postgres_engine_version" {
   type        = string
-  description = "Database Engine Version for Aurora PostgeSQL"
+  description = "Database Engine Version for Aurora postgresql"
   default     = "9.6.12"
 }
 
 variable "aurora_postgres_cluster_family" {
   type        = string
-  description = "Database Engine Version for Aurora PostgeSQL"
+  description = "Database Engine Version for Aurora postgresql"
   default     = "9.6.12"
 }
 

@@ -59,10 +59,10 @@ region that existed before March 2019 and to any regions that have been opted-in
 In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization
 Delegated Administrator account is `security`, both in the `core` tenant.
 
-### Deploy to Delegated Admininstrator Account
+### Deploy to Delegated Administrator Account
 
 First, the component is deployed to the
-[Delegated Admininstrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each
+[Delegated Administrator](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html) account in each
 region in order to configure the central GuardDuty detector that each account will send its findings to.
 
 ```yaml
@@ -89,9 +89,9 @@ atmos terraform apply guardduty/delegated-administrator/uw1 -s core-uw1-security
 ### Deploy to Organization Management (root) Account
 
 Next, the component is deployed to the AWS Organization Management, a/k/a `root`, Account in order to set the AWS
-Organization Designated Admininstrator account.
+Organization Designated Administrator account.
 
-Note that you must use the `SuperAdmin` permissions as we are deploying to the AWS Organization Managment account. Since
+Note that you must use the `SuperAdmin` permissions as we are deploying to the AWS Organization Management account. Since
 we are using the `SuperAdmin` user, it will already have access to the state bucket, so we set the `role_arn` of the
 backend config to null and set `var.privileged` to `true`.
 

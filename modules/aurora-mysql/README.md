@@ -91,7 +91,7 @@ Example deployment with primary cluster deployed to us-east-1 in a `platform-dev
 ## Disaster Recovery with Cross-Region Replication
 
 This component is designed to support cross-region replication with continuous replication. If enabled and deployed, a
-secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggresive and
+secondary cluster will be deployed in a different region than the primary cluster. This approach is highly aggressive and
 costly, but in a disaster scenario where the primary cluster fails, the secondary cluster can be promoted to take its
 place. Follow these steps to handle a Disaster Recovery.
 

@@ -38,8 +38,20 @@ aws --region us-east-1 service-quotas list-service-quotas --service-code ec2
 If you make a request to raise a quota, the output will show the requested value as `value` while the request is
 pending.
 
+### Special usage Notes
+
 Even though the Terraform will submit the support request, you may need to follow up with AWS support to get the request
 approved, via the AWS console or email.
+
+#### Resources are destroyed on change
+
+Because the AWS API often returns default values rather than configured or applicable values for a given quota, we have
+to ignore the value returned by the API or else face perpetual drift. To allow us to change the value in the future,
+even though we are ignoring it, we encode the value in the resource key, so that a change of value will result in a new
+resource being created and the old one being destroyed. Destroying the old resource has no actual effect (it does not
+even close an open request), so it is safe to do.
+
+### Example
 
 Here's an example snippet for how to use this component.
 
@@ -128,5 +140,10 @@ components:
 - AWS CLI
   [command to list service codes](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/service-quotas/list-services.html):
   `aws service-quotas list-services`
+- AWS CLI
+  [command to list service quotas](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/service-quotas/list-service-quotas.html)
+  `aws service-quotas list-service-quotas`. Note where it says "For some quotas, only the default values are available."
+- [Medium article](https://medium.com/@jsonk/the-limit-does-not-exist-hidden-visibility-of-aws-service-limits-4b786f846bc0)
+  explaining how many AWS service limits are not available.
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
