@@ -40,8 +40,8 @@ locals {
     logDriver = "awsfirelens"
     options = var.datadog_agent_sidecar_enabled ? {
       Name           = "datadog",
-      apikey         = one(module.datadog_configuration[*].datadog_api_key),
-      Host           = format("http-intake.logs.%s", one(module.datadog_configuration[*].datadog_site))
+      apikey         = one(module.datadog_configuration[*].outputs.datadog_api_key),
+      Host           = format("http-intake.logs.%s", one(module.datadog_configuration[*].outputs.datadog_site))
       dd_service     = module.this.name,
       dd_tags        = local.all_dd_tags,
       dd_source      = "ecs",
@@ -57,7 +57,7 @@ module "datadog_sidecar_logs" {
   version = "0.6.6"
 
   # if we are using datadog firelens we don't need to create a log group
-  count = local.enabled && var.datadog_sidecar_containers_logs_enabled ? 1 : 0
+  count = local.enabled && var.datadog_agent_sidecar_enabled && var.datadog_sidecar_containers_logs_enabled ? 1 : 0
 
   stream_names      = lookup(var.logs, "stream_names", [])
   retention_in_days = lookup(var.logs, "retention_in_days", 90)
@@ -87,8 +87,8 @@ module "datadog_container_definition" {
   essential        = true
   map_environment = {
     "ECS_FARGATE"                          = var.task.launch_type == "FARGATE" ? true : false
-    "DD_API_KEY"                           = one(module.datadog_configuration[*].datadog_api_key)
-    "DD_SITE"                              = one(module.datadog_configuration[*].datadog_site)
+    "DD_API_KEY"                           = one(module.datadog_configuration[*].outputs.datadog_api_key)
+    "DD_SITE"                              = one(module.datadog_configuration[*].outputs.datadog_site)
     "DD_ENV"                               = module.this.stage
     "DD_LOGS_ENABLED"                      = true
     "DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL" = true
@@ -153,11 +153,4 @@ module "datadog_fluent_bit_container_definition" {
       "awslogs-stream-prefix" = "datadog-log-router"
     }
   } : null
-}
-
-module "datadog_configuration" {
-  count   = var.datadog_agent_sidecar_enabled ? 1 : 0
-  source  = "../datadog-configuration/modules/datadog_keys"
-  enabled = true
-  context = module.this.context
 }

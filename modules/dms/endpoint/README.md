@@ -1,3 +1,10 @@
+---
+tags:
+  - component/dms/endpoint
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `dms/endpoint`
 
 This component provisions DMS endpoints.
@@ -69,6 +76,7 @@ components:
           - target
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -116,8 +124,6 @@ components:
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_extra_connection_attributes"></a> [extra\_connection\_attributes](#input\_extra\_connection\_attributes) | Additional attributes associated with the connection to the source database | `string` | `""` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_kafka_settings"></a> [kafka\_settings](#input\_kafka\_settings) | Configuration block for Kafka settings | `map(any)` | `null` | no |
 | <a name="input_kinesis_settings"></a> [kinesis\_settings](#input\_kinesis\_settings) | Configuration block for Kinesis settings | `map(any)` | `null` | no |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | (Required when engine\_name is `mongodb`, optional otherwise). ARN for the KMS key that will be used to encrypt the connection parameters. If you do not specify a value for `kms_key_arn`, then AWS DMS will use your default encryption key | `string` | `null` | no |
@@ -153,10 +159,11 @@ components:
 | <a name="output_dms_endpoint_arn"></a> [dms\_endpoint\_arn](#output\_dms\_endpoint\_arn) | DMS endpoint ARN |
 | <a name="output_dms_endpoint_id"></a> [dms\_endpoint\_id](#output\_dms\_endpoint\_id) | DMS endpoint ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dms/modules/dms-endpoint) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dms/modules/dms-endpoint) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

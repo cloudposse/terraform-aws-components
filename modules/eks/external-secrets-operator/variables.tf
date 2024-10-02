@@ -34,3 +34,9 @@ variable "resources" {
   })
   description = "The cpu and memory of the deployment's limits and requests."
 }
+
+variable "kms_aliases_allow_decrypt" {
+  type        = list(string)
+  description = "A list of KMS aliases that the SecretStore is allowed to decrypt."
+  default     = []
+}

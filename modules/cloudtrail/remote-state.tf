@@ -1,6 +1,6 @@
 module "cloudtrail_bucket" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.5.0"
 
   component   = var.cloudtrail_bucket_component_name
   environment = var.cloudtrail_bucket_environment_name
@@ -11,7 +11,7 @@ module "cloudtrail_bucket" {
 
 module "account_map" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.2"
+  version = "1.5.0"
 
   component   = "account-map"
   tenant      = module.iam_roles.global_tenant_name

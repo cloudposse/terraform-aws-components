@@ -44,15 +44,3 @@ variable "values" {
   description = "Additional values to yamlencode as `helm_release` values."
   default     = {}
 }
-
-variable "iam_role_enabled" {
-  type        = bool
-  description = "Whether to create an IAM role. Setting this to `true` will also replace any occurrences of `{service_account_role_arn}` in `var.values_template_path` with the ARN of the IAM role created by this module."
-  default     = false
-}
-
-variable "iam_policy_statements" {
-  type        = any
-  description = "IAM policy for the service account. Required if `var.iam_role_enabled` is `true`. This will not do variable replacements. Please see `var.iam_policy_statements_template_path`."
-  default     = {}
-}

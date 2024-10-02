@@ -16,20 +16,24 @@ resource "datadog_synthetics_private_location" "this" {
 
 module "datadog_synthetics_private_location" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.1"
 
-  name             = module.this.name
-  chart            = var.chart
-  description      = var.description
-  repository       = var.repository
-  chart_version    = var.chart_version
-  namespace        = var.kubernetes_namespace
-  create_namespace = var.create_namespace
-  verify           = var.verify
-  wait             = var.wait
-  atomic           = var.atomic
-  cleanup_on_fail  = var.cleanup_on_fail
-  timeout          = var.timeout
+  name          = module.this.name
+  chart         = var.chart
+  description   = var.description
+  repository    = var.repository
+  chart_version = var.chart_version
+
+  kubernetes_namespace = var.kubernetes_namespace
+
+  # Usually set to `false` if deploying eks/datadog-agent, since namespace will already be created
+  create_namespace_with_kubernetes = var.create_namespace
+
+  verify          = var.verify
+  wait            = var.wait
+  atomic          = var.atomic
+  cleanup_on_fail = var.cleanup_on_fail
+  timeout         = var.timeout
 
   eks_cluster_oidc_issuer_url = module.eks.outputs.eks_cluster_identity_oidc_issuer
 

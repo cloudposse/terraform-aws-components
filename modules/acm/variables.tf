@@ -6,6 +6,13 @@ variable "region" {
 variable "domain_name" {
   type        = string
   description = "Root domain name"
+  default     = ""
+}
+
+variable "domain_name_prefix" {
+  type        = string
+  description = "Root domain name prefix to use with DNS delegated remote state"
+  default     = ""
 }
 
 variable "zone_name" {
@@ -33,6 +40,12 @@ variable "subject_alternative_names" {
   type        = list(string)
   default     = []
   description = "A list of domains that should be SANs in the issued certificate"
+}
+
+variable "subject_alternative_names_prefixes" {
+  type        = list(string)
+  default     = []
+  description = "A list of domain prefixes to use with DNS delegated remote state that should be SANs in the issued certificate"
 }
 
 variable "dns_private_zone_enabled" {
@@ -71,8 +84,20 @@ variable "certificate_authority_component_key" {
   description = "Use this component key e.g. `root` or `mgmt` to read from the remote state to get the certificate_authority_arn if using an authority type of SUBORDINATE"
 }
 
-variable "enable_asterisk_subject_alternative_name" {
-  type        = bool
-  default     = true
-  description = "Enable or disable the use of a wildcard domain in the subject alternative names"
+variable "dns_delegated_stage_name" {
+  type        = string
+  default     = null
+  description = "Use this stage name to read from the remote state to get the dns_delegated zone ID"
+}
+
+variable "dns_delegated_environment_name" {
+  type        = string
+  default     = "gbl"
+  description = "Use this environment name to read from the remote state to get the dns_delegated zone ID"
+}
+
+variable "dns_delegated_component_name" {
+  type        = string
+  default     = "dns-delegated"
+  description = "Use this component name to read from the remote state to get the dns_delegated zone ID"
 }

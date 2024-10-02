@@ -1,0 +1,8 @@
+# Default values for scraper-access.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# These default values can be overridden per environment in conf/<env>.yaml files
+
+cluster_role_name: "aps-collector-role"
+cluster_user_name: "aps-collector-user"

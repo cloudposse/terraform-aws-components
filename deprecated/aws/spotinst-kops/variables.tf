@@ -203,4 +203,3 @@ variable "roll_batch_size_percentage" {
   default     = 33
   description = "Sets the percentage of the instances to deploy in each batch"
 }
-

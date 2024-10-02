@@ -55,7 +55,7 @@ resource "aws_route53_zone" "private" {
 
 module "utils" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 }
 
 resource "aws_route53_zone_association" "secondary" {

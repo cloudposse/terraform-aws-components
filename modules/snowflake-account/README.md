@@ -1,16 +1,27 @@
+---
+tags:
+  - component/snowflake-account
+  - layer/unassigned
+  - provider/aws
+  - provider/snowflake
+---
+
 # Component: `snowflake-account`
 
-This component sets up the requirements for all other Snowflake components, including creating the Terraform service user. Before running this component, follow the manual, Click-Ops steps below to create a Snowflake subscription.
+This component sets up the requirements for all other Snowflake components, including creating the Terraform service
+user. Before running this component, follow the manual, Click-Ops steps below to create a Snowflake subscription.
 
 ## Deployment Steps
 
 1. Open the AWS Console for the given stack.
 2. Go to AWS Marketplace Subscriptions.
-3. Click "Manage Subscriptions", click "Discover products", type "Snowflake" in the search bar. 
+3. Click "Manage Subscriptions", click "Discover products", type "Snowflake" in the search bar.
 4. Select "Snowflake Data Cloud"
 5. Click "Continue to Subscribe"
 
-6. Fill out the information steps using the following as an example. Note, the provided email cannot use labels such as `mdev+sbx01@example.com`.
+6. Fill out the information steps using the following as an example. Note, the provided email cannot use labels such as
+   `mdev+sbx01@example.com`.
+
 ```
   First Name: John
   Last Name: Smith
@@ -18,19 +29,28 @@ This component sets up the requirements for all other Snowflake components, incl
   Company: Example
   Country: United States
 ```
-7. Select "Standard" and the current region. In this example, we chose "US East (Ohio)" which is the same as `us-east-1`.
-7. Continue and wait for Sign Up to complete. Note the Snowflake account ID; you can find this in the newly accessible Snowflake console in the top right of the window. 
-8. Check for the Account Activation email. Note, this may be collected in a Slack notifications channel for easy access.
-9. Follow the given link to create the Admin user with username `admin` and a strong password. Be sure to save that password somewhere secure.
-10. Upload that password to AWS Parameter Store under `/snowflake/$ACCOUNT/users/admin/password`, where `ACCOUNT` is the value given during the subscription process. This password will only be used to create a private key, and all other authentication will be done with said key. Below is an example of how to do that with a [chamber](https://github.com/segmentio/chamber) command:
+
+7. Select "Standard" and the current region. In this example, we chose "US East (Ohio)" which is the same as
+   `us-east-1`.
+8. Continue and wait for Sign Up to complete. Note the Snowflake account ID; you can find this in the newly accessible
+   Snowflake console in the top right of the window.
+9. Check for the Account Activation email. Note, this may be collected in a Slack notifications channel for easy access.
+10. Follow the given link to create the Admin user with username `admin` and a strong password. Be sure to save that
+    password somewhere secure.
+11. Upload that password to AWS Parameter Store under `/snowflake/$ACCOUNT/users/admin/password`, where `ACCOUNT` is the
+    value given during the subscription process. This password will only be used to create a private key, and all other
+    authentication will be done with said key. Below is an example of how to do that with a
+    [chamber](https://github.com/segmentio/chamber) command:
+
 ```
 AWS_PROFILE=$NAMESPACE-$TENANT-gbl-sbx01-admin chamber write /snowflake/$ACCOUNT/users/admin/ admin $PASSWORD
 ```
-11. Finally, use atmos to deploy this component: 
+
+11. Finally, use atmos to deploy this component:
+
 ```
 atmos terraform deploy snowflake/account --stack $TENANT-use2-sbx01
 ```
-
 
 ## Usage
 
@@ -55,6 +75,7 @@ components:
           Service: snowflake
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -79,7 +100,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account"></a> [account](#module\_account) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_account"></a> [account](#module\_account) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_introspection"></a> [introspection](#module\_introspection) | cloudposse/label/null | 0.25.0 |
 | <a name="module_snowflake_account"></a> [snowflake\_account](#module\_snowflake\_account) | cloudposse/label/null | 0.25.0 |
@@ -116,8 +137,6 @@ components:
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_global_environment_name"></a> [global\_environment\_name](#input\_global\_environment\_name) | Global environment name | `string` | `"gbl"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -152,6 +171,6 @@ components:
 | <a name="output_ssm_path_terraform_user_name"></a> [ssm\_path\_terraform\_user\_name](#output\_ssm\_path\_terraform\_user\_name) | The path to the SSM parameter for the Terraform user name. |
 | <a name="output_ssm_path_terraform_user_private_key"></a> [ssm\_path\_terraform\_user\_private\_key](#output\_ssm\_path\_terraform\_user\_private\_key) | The path to the SSM parameter for the Terraform user private key. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -68,12 +68,6 @@ variable "atomic" {
   default     = true
 }
 
-variable "wait" {
-  type        = bool
-  description = "Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`."
-  default     = null
-}
-
 variable "chart_values" {
   type        = any
   description = "Additional values to yamlencode as `helm_release` values."
@@ -126,7 +120,7 @@ variable "default_ingress_scheme" {
 variable "default_ingress_ip_address_type" {
   type        = string
   description = "IP address type for default ingress, one of `ipv4` or `dualstack`."
-  default     = "dualstack"
+  default     = "ipv4"
 
   validation {
     condition     = contains(["ipv4", "dualstack"], var.default_ingress_ip_address_type)

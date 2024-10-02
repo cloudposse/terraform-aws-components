@@ -1,26 +1,50 @@
+# This is a special provider configuration that allows us to use many different
+# versions of the Cloud Posse reference architecture to deploy this component
+# in any account, including the identity and root accounts.
+
+# If you have dynamic Terraform roles enabled and an `aws-team` (such as `managers`)
+# empowered to make changes in the identity and root accounts. Then you can
+# use those roles to deploy this component in the identity and root accounts,
+# just like almost any other component.
+#
+# If you are restricted to using the SuperAdmin role to deploy this component
+# in the identity and root accounts, then modify the stack configuration for
+# this component for the identity and/or root accounts to set `superadmin: true`
+# and backend `role_arn` to `null`.
+#
+#  components:
+#    terraform:
+#      github-oidc-provider:
+#        backend:
+#          s3:
+#            role_arn: null
+#        vars:
+#          superadmin: true
+
 provider "aws" {
   region = var.region
 
-  # github-oidc-provider, since it authorizes SAML IdPs, should be run as SuperAdmin as a security matter,
-  # and therefore cannot use "profile" instead of "role_arn" even if the components are generally using profiles.
-  # Note the role_arn is the ARN of the OrganizationAccountAccessRole, not the SAML role.
-
+  profile = !var.superadmin && module.iam_roles.profiles_enabled ? module.iam_roles.terraform_profile_name : null
   dynamic "assume_role" {
-    for_each = var.import_role_arn == null ? (module.iam_roles.org_role_arn != null ? [true] : []) : ["import"]
+    for_each = !var.superadmin && module.iam_roles.profiles_enabled ? [] : (
+      var.superadmin ? compact([module.iam_roles.org_role_arn]) : compact([module.iam_roles.terraform_role_arn])
+    )
     content {
-      role_arn = coalesce(var.import_role_arn, module.iam_roles.org_role_arn)
+      role_arn = assume_role.value
     }
   }
 }
 
+
 module "iam_roles" {
   source     = "../account-map/modules/iam-roles"
-  privileged = true
-  context    = module.this.context
+  privileged = var.superadmin
+
+  context = module.this.context
 }
 
-variable "import_role_arn" {
-  type        = string
-  default     = null
-  description = "IAM Role ARN to use when importing a resource"
+variable "superadmin" {
+  type        = bool
+  default     = false
+  description = "Set `true` if running as the SuperAdmin user"
 }

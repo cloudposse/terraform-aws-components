@@ -1,3 +1,10 @@
+---
+tags:
+  - component/athena
+  - layer/data
+  - provider/aws
+---
+
 # Component: `athena`
 
 This component is responsible for provisioning an Amazon Athena workgroup, databases, and related resources.
@@ -34,16 +41,15 @@ components:
         s3_output_path: ""
         workgroup_state: "ENABLED"
         database: []
-
 ```
 
 ```yaml
 import:
-- catalog/athena/defaults
+  - catalog/athena/defaults
 
 components:
   terraform:
-    athena/example: 
+    athena/example:
       metadata:
         component: athena
         inherits:
@@ -59,19 +65,20 @@ components:
 
 ### CloudTrail Integration
 
-Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component supports creating 
-a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized location.
+Using Athena with CloudTrail logs is a powerful way to enhance your analysis of AWS service activity. This component
+supports creating a CloudTrail table for each account and setting up queries to read CloudTrail logs from a centralized
+location.
 
-To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When `var.cloudtrail_database`
-is defined, this component will create these queries.
+To set up the CloudTrail Integration, first create the `create` and `alter` queries in Athena with this component. When
+`var.cloudtrail_database` is defined, this component will create these queries.
 
 ```yaml
 import:
-- catalog/athena/defaults
+  - catalog/athena/defaults
 
 components:
   terraform:
-    athena/audit: 
+    athena/audit:
       metadata:
         component: athena
         inherits:
@@ -80,7 +87,7 @@ components:
         enabled: true
         name: athena-audit
         workgroup_description: "Athena Workgroup for Auditing"
-        cloudtrail_database : audit
+        cloudtrail_database: audit
         databases:
           audit:
             comment: "Auditor database for Athena"
@@ -97,20 +104,20 @@ components:
                eventtime
               FROM %s.platform_dev_cloudtrail_logs
               LIMIT 100;
-
 ```
 
-Once those are created, run the `create` and then the `alter` queries in the AWS Console to create and then fill the tables in Athena.
+Once those are created, run the `create` and then the `alter` queries in the AWS Console to create and then fill the
+tables in Athena.
 
 :::info
 
 Athena runs queries with the permissions of the user executing the query. In order to be able to query CloudTrail logs,
-the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to `true` in the `cloudtrail` 
-component
+the `audit` account must have access to the KMS key used to encrypt CloudTrails logs. Set `var.audit_access_enabled` to
+`true` in the `cloudtrail` component
 
 :::
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -129,9 +136,9 @@ component
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_athena"></a> [athena](#module\_athena) | cloudposse/athena/aws | 0.1.1 |
-| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_cloudtrail_bucket"></a> [cloudtrail\_bucket](#module\_cloudtrail\_bucket) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -165,8 +172,6 @@ component
 | <a name="input_enforce_workgroup_configuration"></a> [enforce\_workgroup\_configuration](#input\_enforce\_workgroup\_configuration) | Boolean whether the settings for the workgroup override client-side settings. | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -197,9 +202,12 @@ component
 | <a name="output_s3_bucket_id"></a> [s3\_bucket\_id](#output\_s3\_bucket\_id) | ID of S3 bucket used for Athena query results. |
 | <a name="output_workgroup_id"></a> [workgroup\_id](#output\_workgroup\_id) | ID of newly created Athena workgroup. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/athena) - Cloud Posse's upstream component
-* [Querying AWS CloudTrail logs with AWS Athena](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/athena) -
+  Cloud Posse's upstream component
+- [Querying AWS CloudTrail logs with AWS Athena](https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

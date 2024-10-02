@@ -1,0 +1,174 @@
+name: "Update Changelog"
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-changelog:
+    runs-on: ["ubuntu-latest"]
+    steps:
+      - name: Current Release
+        id: current-release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const event = ${{ toJSON(github.event) }};
+
+            const tag = event.release.tag_name;
+            const body = event.release.body;
+
+            console.log(`Current release tag: ${tag}`);
+            console.log(`Current release body: ${body}`);
+
+            core.setOutput('tag', tag);
+            core.setOutput('body', Buffer.from(body).toString('base64'));
+
+      - name: Previous Release
+        id: previous-release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const releases = await github.rest.repos.listReleases({
+                ...context.repo
+            });
+
+            const currentReleaseIndex = releases.data.findIndex(release => "${{ steps.current-release.outputs.tag }}" === context.payload.release.tag_name);
+
+            const previousRelease = releases.data[currentReleaseIndex + 1];
+            const tag = previousRelease.tag_name;
+
+            console.log(`Previous release tag: ${tag}`);
+
+            core.setOutput('tag', tag);
+
+      - name: Checkout Current Release
+        uses: actions/checkout@v3
+        with:
+          ref: "${{ steps.current-release.outputs.tag }}"
+          path: current
+
+      - name: Checkout Previous Release
+        uses: actions/checkout@v3
+        with:
+          ref: "${{ steps.previous-release.outputs.tag }}"
+          path: previous
+
+      - name: Find Updated CHANGELOG.md files
+        id: updated
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const path = require('path');
+            const fs = require('fs');
+            const crypto = require('crypto');
+
+            function findChangelogs(dir, fileList = []) {
+              const files = fs.readdirSync(dir);
+
+              files.forEach(file => {
+                if (fs.statSync(path.join(dir, file)).isDirectory()) {
+                  fileList = findChangelogs(path.join(dir, file), fileList);
+                } else if (file === 'CHANGELOG.md') {
+                  fileList.push(path.join(dir, file));
+                }
+              });
+
+              return fileList;
+            }
+
+            function calculateHash(file) {
+              const hash = crypto.createHash('md5');
+              const fileContent = fs.readFileSync(file);
+
+              hash.update(fileContent);
+
+              return hash.digest('hex');
+            }
+
+            function trimPath(relativePath) {
+              return relativePath
+                .replace('modules/', '')
+                .replace('/CHANGELOG.md', '');
+            }
+
+            const currentChangeLogFiles = findChangelogs('./current/modules');
+            const components = [];
+
+            for (let i = 0; i < currentChangeLogFiles.length; i++) {
+              const currentReleaseFile = currentChangeLogFiles[i];
+              const relativePath = currentReleaseFile.replace(/^current\//, '');
+              const previousReleaseFile = `previous/${relativePath}`
+
+              if (!fs.existsSync(previousReleaseFile)) {
+                console.log(`New CHANGELOG.md found: ${relativePath}`);
+                components.push(trimPath(relativePath));
+                continue;
+              }
+
+              if (calculateHash(currentReleaseFile) !== calculateHash(previousReleaseFile)) {
+                console.log(`CHANGELOG.md changed: ${relativePath}`);
+                components.push(trimPath(relativePath));
+              } else {
+                console.log(`${relativePath} didn't change. Skipping ...`);
+              }
+            }
+
+            core.setOutput('components', JSON.stringify(components));
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate Changelog
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+
+            const tag = "${{ steps.current-release.outputs.tag }}";
+            let body = Buffer.from("${{ steps.current-release.outputs.body }}", 'base64').toString('utf-8');
+            const updatedComponents = JSON.parse(`${{ steps.updated.outputs.components }}`);
+
+            let affectedComponents = "";
+            if (updatedComponents.length > 0) {
+              affectedComponents += "\n\n";
+              affectedComponents += "## Affected Components\n";
+
+              for (let i = 0; i < updatedComponents.length; i++) {
+                const relativePath = updatedComponents[i];
+                affectedComponents += `- [${relativePath}](https://docs.cloudposse.com/components/library/aws/${relativePath}#changelog)\n`
+              }
+
+              affectedComponents += "\n\n";
+            }
+
+            const content = `\n## ${tag}\n\n${affectedComponents}\n\n${body}\n`
+
+            console.log(content);
+
+            const filePath = 'CHANGELOG.md'
+            const fileContent = fs.readFileSync(filePath, 'utf-8');
+            const lines = fileContent.split('\n');
+
+            lines.splice(1, 0, content);
+
+            const updatedContent = lines.join('\n');
+            fs.writeFileSync(filePath, updatedContent, 'utf-8');
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'Update Changelog for `${{ steps.current-release.outputs.tag }}`'
+          body: 'Update Changelog for [`${{ steps.current-release.outputs.tag }}`](${{ github.event.release.html_url }})'
+          base: main
+          branch: "changelog/${{ steps.current-release.outputs.tag }}"
+          delete-branch: "true"
+          commit-message: "Update Changelog for ${{ steps.current-release.outputs.tag }}"
+          labels: |
+            no-release

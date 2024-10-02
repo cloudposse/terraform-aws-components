@@ -6,10 +6,10 @@ locals {
   # If you want to create custom policies to add to multiple roles by name, create the policy
   # using an aws_iam_policy resource and then map it to the name you want to use in the
   # YAML configuration by adding an entry in `custom_policy_map`.
-  custom_policy_map = {
+  supplied_custom_policy_map = {
     team_role_access = aws_iam_policy.team_role_access.arn
-    support          = try(aws_iam_policy.support[0].arn, null)
   }
+  custom_policy_map = merge(local.supplied_custom_policy_map, local.overridable_additional_custom_policy_map)
 
   configured_policies = flatten([for k, v in local.roles_config : v.role_policy_arns])
 
@@ -36,7 +36,7 @@ module "assume_role" {
   for_each = local.roles_config
   source   = "../account-map/modules/team-assume-role-policy"
 
-  allowed_roles           = { (local.identity_account_account_name) = each.value.trusted_teams }
+  allowed_roles           = merge(each.value.allowed_roles, { (local.identity_account_account_name) = each.value.trusted_teams })
   denied_roles            = { (local.identity_account_account_name) = each.value.denied_teams }
   allowed_principal_arns  = each.value.trusted_role_arns
   denied_principal_arns   = each.value.denied_role_arns

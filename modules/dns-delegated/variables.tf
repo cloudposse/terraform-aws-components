@@ -81,7 +81,7 @@ variable "dns_soa_config" {
     Root domain name DNS SOA record:
     - awsdns-hostmaster.amazon.com. ; AWS default value for administrator email address
     - 1 ; serial number, not used by AWS
-    - 7200 ; refresh time in seconds for secondary DNS servers to refreh SOA record
+    - 7200 ; refresh time in seconds for secondary DNS servers to refresh SOA record
     - 900 ; retry time in seconds for secondary DNS servers to retry failed SOA record update
     - 1209600 ; expire time in seconds (1209600 is 2 weeks) for secondary DNS servers to remove SOA record if they cannot refresh it
     - 60 ; nxdomain TTL, or time in seconds for secondary DNS servers to cache negative responses
@@ -89,4 +89,3 @@ variable "dns_soa_config" {
    EOT
   default     = "awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60"
 }
-

@@ -55,7 +55,7 @@ variable "dd_module_name" {
 variable "dd_forwarder_version" {
   type        = string
   description = "Version tag of Datadog lambdas to use. https://github.com/DataDog/datadog-serverless-functions/releases"
-  default     = "3.61.0"
+  default     = "3.66.0"
 }
 
 variable "forwarder_log_enabled" {
@@ -127,7 +127,7 @@ variable "cloudwatch_forwarder_event_patterns" {
     detail      = optional(map(list(string)))
   }))
   description = <<-EOF
-    Map of title => CloudWatch Event patterns to forward to Datadog. Event structure from here: <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns>
+    Map of title to CloudWatch Event patterns to forward to Datadog. Event structure from here: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns
     Example:
     ```hcl
     cloudwatch_forwarder_event_rules = {

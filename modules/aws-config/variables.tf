@@ -67,12 +67,12 @@ variable "az_abbreviation_type" {
 
 variable "iam_role_arn" {
   description = <<-DOC
-    The ARN for an IAM Role AWS Config uses to make read or write requests to the delivery channel and to describe the 
+    The ARN for an IAM Role AWS Config uses to make read or write requests to the delivery channel and to describe the
     AWS resources associated with the account. This is only used if create_iam_role is false.
 
     If you want to use an existing IAM Role, set the variable to the ARN of the existing role and set create_iam_role to `false`.
-    
-    See the AWS Docs for further information: 
+
+    See the AWS Docs for further information:
     http://docs.aws.amazon.com/config/latest/developerguide/iamrole-permissions.html
   DOC
   default     = null
@@ -108,8 +108,14 @@ variable "conformance_packs" {
     name                = string
     conformance_pack    = string
     parameter_overrides = map(string)
+    scope               = optional(string, null)
   }))
   default = []
+  validation {
+    # verify scope is valid
+    condition     = alltrue([for conformance_pack in var.conformance_packs : conformance_pack.scope == null || conformance_pack.scope == "account" || conformance_pack.scope == "organization"])
+    error_message = "The scope must be either `account` or `organization`."
+  }
 }
 
 variable "delegated_accounts" {
@@ -154,4 +160,14 @@ variable "managed_rules" {
     enabled          = bool
   }))
   default = {}
+}
+
+variable "default_scope" {
+  type        = string
+  description = "The default scope of the conformance pack. Valid values are `account` and `organization`."
+  default     = "account"
+  validation {
+    condition     = var.default_scope == "account" || var.default_scope == "organization"
+    error_message = "The scope must be either `account` or `organization`."
+  }
 }

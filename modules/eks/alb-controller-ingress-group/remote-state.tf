@@ -1,8 +1,8 @@
 module "dns_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
-  component   = "dns-delegated"
+  component   = var.dns_delegated_component_name
   environment = var.dns_delegated_environment_name
 
   context = module.this.context
@@ -10,7 +10,7 @@ module "dns_delegated" {
 
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   component = var.eks_component_name
 
@@ -19,11 +19,11 @@ module "eks" {
 
 module "global_accelerator" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   for_each = local.global_accelerator_enabled ? toset(["true"]) : []
 
-  component   = "global-accelerator"
+  component   = var.global_accelerator_component_name
   environment = "gbl"
 
   context = module.this.context
@@ -31,11 +31,11 @@ module "global_accelerator" {
 
 module "waf" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.4.1"
+  version = "1.5.0"
 
   for_each = local.waf_enabled ? toset(["true"]) : []
 
-  component = "waf"
+  component = var.waf_component_name
 
   context = module.this.context
 }
