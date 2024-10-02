@@ -84,40 +84,13 @@ variable "dns_delegated_component_name" {
 variable "allowed_security_groups" {
   type        = list(string)
   default     = []
-  description = "List of Security Group IDs to be allowed to connect to the EKS cluster"
+  description = "List of Security Group IDs to be allowed to connect to the ECS cluster"
 }
 
 variable "allowed_cidr_blocks" {
   type        = list(string)
   default     = []
-  description = "List of CIDR blocks to be allowed to connect to the EKS cluster"
-}
-
-variable "kms_key_id" {
-  description = "The AWS Key Management Service key ID to encrypt the data between the local client and the container."
-  type        = string
-  default     = null
-}
-
-variable "logging" {
-  description = "The AWS Key Management Service key ID to encrypt the data between the local client and the container. (Valid values: 'NONE', 'DEFAULT', 'OVERRIDE')"
-  type        = string
-  default     = "DEFAULT"
-  validation {
-    condition     = contains(["NONE", "DEFAULT", "OVERRIDE"], var.logging)
-    error_message = "The 'logging' value must be one of 'NONE', 'DEFAULT', 'OVERRIDE'"
-  }
-}
-
-variable "log_configuration" {
-  description = "The log configuration for the results of the execute command actions Required when logging is OVERRIDE"
-  type = object({
-    cloud_watch_encryption_enabled = string
-    cloud_watch_log_group_name     = string
-    s3_bucket_name                 = string
-    s3_key_prefix                  = string
-  })
-  default = null
+  description = "List of CIDR blocks to be allowed to connect to the ECS cluster"
 }
 
 variable "capacity_providers_fargate" {
@@ -175,11 +148,13 @@ variable "capacity_providers_ec2" {
     }))
     instance_refresh = optional(object({
       strategy = string
-      preferences = object({
-        instance_warmup        = number
-        min_healthy_percentage = number
-      })
-      triggers = list(string)
+      preferences = optional(object({
+        instance_warmup        = optional(number, null)
+        min_healthy_percentage = optional(number, null)
+        skip_matching          = optional(bool, null)
+        auto_rollback          = optional(bool, null)
+      }), null)
+      triggers = optional(list(string), [])
     }))
     mixed_instances_policy = optional(object({
       instances_distribution = object({
@@ -255,23 +230,5 @@ variable "capacity_providers_ec2" {
   validation {
     condition     = !contains(["FARGATE", "FARGATE_SPOT"], keys(var.capacity_providers_ec2))
     error_message = "'FARGATE' and 'FARGATE_SPOT' name is reserved"
-  }
-}
-
-variable "default_capacity_strategy" {
-  description = "The capacity provider strategy to use by default for the cluster"
-  type = object({
-    base = object({
-      provider = string
-      value    = number
-    })
-    weights = map(number)
-  })
-  default = {
-    base = {
-      provider = "FARGATE"
-      value    = 1
-    }
-    weights = {}
   }
 }

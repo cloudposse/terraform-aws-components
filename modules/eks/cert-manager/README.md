@@ -1,6 +1,16 @@
+---
+tags:
+  - component/eks/cert-manager
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/cert-manager`
 
-This component creates a Helm release for [cert-manager](https://github.com/jetstack/cert-manager) on a Kubernetes cluster. [cert-manager](https://github.com/jetstack/cert-manager) is a Kubernetes addon that provisions X.509 certificates.
+This component creates a Helm release for [cert-manager](https://github.com/jetstack/cert-manager) on a Kubernetes
+cluster. [cert-manager](https://github.com/jetstack/cert-manager) is a Kubernetes addon that provisions X.509
+certificates.
 
 ## Usage
 
@@ -17,38 +27,39 @@ import:
 The default catalog values `e.g. stacks/catalog/eks/cert-manager.yaml`
 
 ```yaml
-        enabled: true
-        name: cert-manager
-        kubernetes_namespace: cert-manager
-        # `helm_manifest_experiment_enabled` does not work with cert-manager or any Helm chart that uses CRDs
-        helm_manifest_experiment_enabled: false
-        # Use the cert-manager as a private CA (Certificate Authority)
-        # to issue certificates for use within the Kubernetes cluster.
-        # Something like this is required for the ALB Ingress Controller.
-        cert_manager_issuer_selfsigned_enabled: true
-        # Use Let's Encrypt to issue certificates for use outside the Kubernetes cluster,
-        # ones that will be trusted by browsers.
-        # These do not (yet) work with the ALB Ingress Controller,
-        # which require ACM certificates, so we have no use for them.
-        letsencrypt_enabled: true
-        # cert_manager_issuer_support_email_template is only used if letsencrypt_enabled is true.
-        # If it were true, we would want to set it at the organization level.
-        cert_manager_issuer_support_email_template: "aws+%s@acme.com"
-        cert_manager_repository: https://charts.jetstack.io
-        cert_manager_chart: cert-manager
-        cert_manager_chart_version: v1.5.4
+enabled: true
+name: cert-manager
+kubernetes_namespace: cert-manager
+# `helm_manifest_experiment_enabled` does not work with cert-manager or any Helm chart that uses CRDs
+helm_manifest_experiment_enabled: false
+# Use the cert-manager as a private CA (Certificate Authority)
+# to issue certificates for use within the Kubernetes cluster.
+# Something like this is required for the ALB Ingress Controller.
+cert_manager_issuer_selfsigned_enabled: true
+# Use Let's Encrypt to issue certificates for use outside the Kubernetes cluster,
+# ones that will be trusted by browsers.
+# These do not (yet) work with the ALB Ingress Controller,
+# which require ACM certificates, so we have no use for them.
+letsencrypt_enabled: true
+# cert_manager_issuer_support_email_template is only used if letsencrypt_enabled is true.
+# If it were true, we would want to set it at the organization level.
+cert_manager_issuer_support_email_template: "aws+%s@acme.com"
+cert_manager_repository: https://charts.jetstack.io
+cert_manager_chart: cert-manager
+cert_manager_chart_version: v1.5.4
 
-        # use a local chart to provision Certificate Issuers
-        cert_manager_issuer_chart: ./cert-manager-issuer/
-        cert_manager_resources:
-          limits:
-            cpu: 200m
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
+# use a local chart to provision Certificate Issuers
+cert_manager_issuer_chart: ./cert-manager-issuer/
+cert_manager_resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -121,7 +132,8 @@ The default catalog values `e.g. stacks/catalog/eks/cert-manager.yaml`
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -148,9 +160,10 @@ The default catalog values `e.g. stacks/catalog/eks/cert-manager.yaml`
 | <a name="output_cert_manager_issuer_metadata"></a> [cert\_manager\_issuer\_metadata](#output\_cert\_manager\_issuer\_metadata) | Block status of the deployed release |
 | <a name="output_cert_manager_metadata"></a> [cert\_manager\_metadata](#output\_cert\_manager\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cert-manager](https://github.com/jetstack/cert-manager)
+- [cert-manager](https://github.com/jetstack/cert-manager)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -1,6 +1,4 @@
 locals {
-  fetch_admin_password = length(var.ssm_password_source) > 0
-
   ssm_path_prefix = format("/%s/%s", var.ssm_path_prefix, module.cluster.id)
 
   admin_user_key     = format("%s/%s/%s", local.ssm_path_prefix, "admin", "user")
@@ -65,14 +63,6 @@ locals {
   ]
 
   parameter_write = concat(local.default_parameters, local.cluster_parameters, local.admin_user_parameters)
-}
-
-data "aws_ssm_parameter" "password" {
-  count = local.fetch_admin_password ? 1 : 0
-
-  name = format(var.ssm_password_source, local.admin_user)
-
-  with_decryption = true
 }
 
 module "parameter_store_write" {

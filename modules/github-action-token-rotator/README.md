@@ -1,6 +1,14 @@
+---
+tags:
+  - component/github-action-token-rotator
+  - layer/github
+  - provider/aws
+---
+
 # Component: `github-action-token-rotator`
 
-This component is responsible for provisioning [Github Action Token Rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator).
+This component is responsible for provisioning
+[Github Action Token Rotator](https://github.com/cloudposse/terraform-aws-github-action-token-rotator).
 
 This component creates a Lambda to rotate Github Action tokens in SSM Parameter Store.
 
@@ -8,7 +16,8 @@ This component creates a Lambda to rotate Github Action tokens in SSM Parameter 
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component. This is generally deployed once and to the automation account's primary region.
+Here's an example snippet for how to use this component. This is generally deployed once and to the automation account's
+primary region.
 
 `stacks/catalog/github-action-token-rotator.yaml` file:
 
@@ -25,8 +34,11 @@ components:
         parameter_store_token_path: /github/runners/my-org/registrationToken
 ```
 
-Follow the manual steps using the [guide in the upstream module](https://github.com/cloudposse/terraform-aws-github-action-token-rotator#quick-start) and use `chamber` to add the secrets to the appropriate stage.
+Follow the manual steps using the
+[guide in the upstream module](https://github.com/cloudposse/terraform-aws-github-action-token-rotator#quick-start) and
+use `chamber` to add the secrets to the appropriate stage.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -86,9 +98,11 @@ No resources.
 |------|-------------|
 | <a name="output_github_action_token_rotator"></a> [github\_action\_token\_rotator](#output\_github\_action\_token\_rotator) | GitHub action token rotator module outputs. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/github-action-token-rotator) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/github-action-token-rotator) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

@@ -43,6 +43,10 @@ variable "access_roles" {
 
 variable "access_roles_enabled" {
   type        = bool
-  description = "Enable creation of access roles. Set false for cold start (before account-map has been created)."
+  description = <<-EOT
+    Enable access roles to be assumed. Set `false` for cold start (before account-map has been created),
+    because the role to ARN mapping has not yet been created.
+    Note that the current caller and any `allowed_principal_arns` will always be allowed to assume the role.
+    EOT
   default     = true
 }

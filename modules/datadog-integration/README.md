@@ -1,15 +1,25 @@
+---
+tags:
+  - component/datadog-integration
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-integration`
 
-This component is responsible for provisioning Datadog AWS integrations. It depends on
-the `datadog-configuration` component to get the Datadog API keys.
+This component is responsible for provisioning Datadog AWS integrations. It depends on the `datadog-configuration`
+component to get the Datadog API keys.
 
-See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for more information.
+See Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys) for
+more information.
 
 ## Usage
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts which you want to track AWS metrics with DataDog.
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts which
+you want to track AWS metrics with DataDog.
 
 ```yaml
 components:
@@ -22,6 +32,7 @@ components:
         enabled: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -96,11 +107,12 @@ components:
 | <a name="output_aws_role_name"></a> [aws\_role\_name](#output\_aws\_role\_name) | Name of the AWS IAM Role for the Datadog integration |
 | <a name="output_datadog_external_id"></a> [datadog\_external\_id](#output\_datadog\_external\_id) | Datadog integration external ID |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-integration) - Cloud Posse's upstream component
 
+- Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-integration) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

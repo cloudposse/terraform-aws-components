@@ -101,6 +101,12 @@ variable "admin_enabled" {
   default     = false
 }
 
+variable "anonymous_enabled" {
+  type        = bool
+  description = "Toggles anonymous user access using default RBAC setting (Defaults to read-only)"
+  default     = false
+}
+
 variable "oidc_enabled" {
   type        = bool
   description = "Toggles OIDC integration in the deployed chart"
@@ -137,29 +143,22 @@ variable "saml_enabled" {
   default     = false
 }
 
-#variable "saml_okta_app_name" {
-#  type        = string
-#  description = "Name of the Okta SAML Integration"
-#  default     = "ArgoCD"
-#}
-
 variable "saml_rbac_scopes" {
   type        = string
   description = "SAML RBAC scopes to request"
   default     = "[email,groups]"
 }
 
-variable "argo_enable_workflows_auth" {
-  type        = bool
-  default     = false
-  description = "Allow argo-workflows to use Dex instance for SAML auth"
+variable "service_type" {
+  type        = string
+  default     = "NodePort"
+  description = <<-EOT
+  Service type for exposing the ArgoCD service. The available type values and their behaviors are:
+    ClusterIP: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster.
+    NodePort: Exposes the Service on each Node's IP at a static port (the NodePort).
+    LoadBalancer: Exposes the Service externally using a cloud provider's load balancer.
+  EOT
 }
-
-# variable "argo_workflows_name" {
-#   type        = string
-#   default     = "argo-workflows"
-#   description = "Name of argo-workflows instance"
-# }
 
 variable "argocd_rbac_policies" {
   type        = list(string)
@@ -209,7 +208,8 @@ variable "eks_component_name" {
 
 variable "saml_sso_providers" {
   type = map(object({
-    component = string
+    component   = string
+    environment = optional(string, null)
   }))
 
   default     = {}

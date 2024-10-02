@@ -23,7 +23,7 @@ data "opsgenie_team" "existing" {
 }
 
 data "opsgenie_user" "team_members" {
-  for_each = local.enabled ? {
+  for_each = local.enabled && !var.team_options.ignore_members ? {
     for member in var.members :
     member.user => member
   } : {}
@@ -37,7 +37,7 @@ module "members_merge" {
 
   # Cannot use context to disable
   # See issue: https://github.com/cloudposse/terraform-yaml-config/issues/18
-  count = local.enabled && lookup(var.team, "ignore_members", false) ? 1 : 0
+  count = local.enabled && !var.team_options.ignore_members ? 1 : 0
 
   maps = [
     data.opsgenie_user.team_members,
@@ -57,7 +57,7 @@ module "team" {
   team = merge({
     name    = module.this.name
     members = try(module.members_merge[0].merged, [])
-  }, var.team)
+  }, var.team_options, try(length(var.team_options.description), 0) == 0 ? { description = module.this.name } : {})
 
   context = module.this.context
 }
@@ -67,7 +67,7 @@ module "integration" {
 
   # We add Datadog here because we need the core input for the team.
   # Can be overridden by var.integrations.datadog
-  for_each = var.integrations_enabled ? merge({
+  for_each = local.enabled && var.integrations_enabled ? merge({
     datadog : {
       type : "Datadog"
     }
@@ -102,7 +102,7 @@ module "service" {
   source  = "cloudposse/incident-management/opsgenie//modules/service"
   version = "0.16.0"
 
-  for_each = var.services
+  for_each = local.enabled ? var.services : {}
 
   # Only create if not reusing an existing team
   enabled = local.create_all_enabled
@@ -122,11 +122,11 @@ module "schedule" {
   source  = "cloudposse/incident-management/opsgenie//modules/schedule"
   version = "0.16.0"
 
-  for_each = {
+  for_each = local.enabled ? {
     for k, v in var.schedules :
     k => v
     if try(v.enabled == true, false)
-  }
+  } : {}
 
   # Only create if not reusing an existing team
   enabled = local.create_all_enabled
@@ -148,11 +148,11 @@ module "schedule" {
 module "routing" {
   source = "./modules/routing"
 
-  for_each = {
+  for_each = local.enabled ? {
     for k, v in var.routing_rules :
     k => v
     if try(v.enabled == true, false)
-  }
+  } : {}
 
   # Only create if not reusing an existing team
   enabled = local.create_all_enabled
@@ -192,11 +192,11 @@ module "routing" {
 module "escalation" {
   source = "./modules/escalation"
 
-  for_each = {
+  for_each = local.enabled ? {
     for k, v in var.escalations :
     k => v
     if try(v.enabled == true, false)
-  }
+  } : {}
 
   # Only create if not reusing an existing team
   enabled = local.create_all_enabled

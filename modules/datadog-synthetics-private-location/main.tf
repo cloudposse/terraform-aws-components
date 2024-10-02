@@ -16,7 +16,7 @@ resource "datadog_synthetics_private_location" "this" {
 
 module "datadog_synthetics_private_location" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name          = module.this.name
   chart         = var.chart
@@ -24,7 +24,9 @@ module "datadog_synthetics_private_location" {
   repository    = var.repository
   chart_version = var.chart_version
 
-  namespace                        = var.kubernetes_namespace
+  kubernetes_namespace = var.kubernetes_namespace
+
+  # Usually set to `false` if deploying eks/datadog-agent, since namespace will already be created
   create_namespace_with_kubernetes = var.create_namespace
 
   verify          = var.verify

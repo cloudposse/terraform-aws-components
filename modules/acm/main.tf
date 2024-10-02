@@ -22,7 +22,7 @@ data "aws_route53_zone" "default" {
 # https://github.com/cloudposse/terraform-aws-acm-request-certificate
 module "acm" {
   source  = "cloudposse/acm-request-certificate/aws"
-  version = "0.16.0"
+  version = "0.16.3"
 
   certificate_authority_arn         = local.private_ca_enabled ? module.private_ca[0].outputs.private_ca[var.certificate_authority_component_key].certificate_authority.arn : null
   validation_method                 = local.private_ca_enabled ? null : var.validation_method

@@ -50,9 +50,11 @@ module "datadog_synthetics_merge" {
 
 module "datadog_synthetics" {
   source  = "cloudposse/platform/datadog//modules/synthetics"
-  version = "1.0.1"
+  version = "1.3.0"
 
-  datadog_synthetics = local.synthetics_merged
+  # Disable default tags because we manage them ourselves in this module, because we want to make them lowercase.
+  default_tags_enabled = false
+  datadog_synthetics   = local.synthetics_merged
 
   locations = distinct(compact(concat(
     var.locations,

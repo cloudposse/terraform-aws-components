@@ -22,7 +22,8 @@ module "saml_sso_providers" {
   source   = "cloudposse/stack-config/yaml//modules/remote-state"
   version  = "1.5.0"
 
-  component = each.value.component
+  component   = each.value.component
+  environment = each.value.environment
 
   context = module.this.context
 }

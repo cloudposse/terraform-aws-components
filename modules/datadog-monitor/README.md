@@ -1,3 +1,11 @@
+---
+tags:
+  - component/datadog-monitor
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-monitor`
 
 This component is responsible for provisioning Datadog monitors and assigning Datadog roles to the monitors.
@@ -24,14 +32,25 @@ components:
 ```
 
 ## Conventions
-- Treat datadog like a separate cloud provider with integrations ([datadog-integration](/components/library/aws/datadog-integration)) into your accounts.
+
+- Treat datadog like a separate cloud provider with integrations
+  ([datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration)) into your accounts.
 
 - Use the `catalog` convention to define a step of alerts. You can use ours or define your own.
   [https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors](https://github.com/cloudposse/terraform-datadog-platform/tree/master/catalog/monitors)
 
+- The monitors catalog for the datadog-monitor component support datadog monitor exports. You can use
+  [the status page of a monitor to export it from 'settings'](https://docs.datadoghq.com/monitors/manage/status/#settings).
+  You can add the export to existing files or make new ones. Because the export is json formatted, it's also yaml
+  compatible. If you prefer, you can convert the export to yaml using your text editor or a cli tool like `yq`.
+
 ## Adjust Thresholds per Stack
 
-Since there are so many parameters that may be adjusted for a given monitor, we define all monitors through YAML. By convention, we define the **default monitors** that should apply to all environments, and then adjust the thresholds per environment. This is accomplished using the `datadog-monitor` components variable `datadog_monitors_config_paths` which defines the path to the YAML configuration files. By passing a path for `dev` and `prod`, we can define configurations that are different per environment.
+Since there are so many parameters that may be adjusted for a given monitor, we define all monitors through YAML. By
+convention, we define the **default monitors** that should apply to all environments, and then adjust the thresholds per
+environment. This is accomplished using the `datadog-monitor` components variable `local_datadog_monitors_config_paths`
+which defines the path to the YAML configuration files. By passing a path for `dev` and `prod`, we can define
+configurations that are different per environment.
 
 For example, you might have the following settings defined for `prod` and `dev` stacks that override the defaults.
 
@@ -43,10 +62,11 @@ components:
     datadog-monitor:
       vars:
         # Located in the components/terraform/datadog-monitor directory
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - catalog/monitors/*.yaml
           - catalog/monitors/dev/*.yaml # note this line
 ```
+
 For `prod` stack:
 
 ```
@@ -55,12 +75,13 @@ components:
     datadog-monitor:
       vars:
         # Located in the components/terraform/datadog-monitor directory
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - catalog/monitors/*.yaml
           - catalog/monitors/prod/*.yaml # note this line
 ```
 
-Behind the scenes (with `atmos`) we fetch all files from these glob patterns, template them, and merge them by key. If we peek into the `*.yaml` and `dev/*.yaml` files above you could see an example like this:
+Behind the scenes (with `atmos`) we fetch all files from these glob patterns, template them, and merge them by key. If
+we peek into the `*.yaml` and `dev/*.yaml` files above you could see an example like this:
 
 **components/terraform/datadog-monitor/catalog/monitors/elb.yaml**
 
@@ -81,30 +102,30 @@ elb-lb-httpcode-5xx-notify:
     Check LB
   escalation_message: ""
   tags: {}
+  options:
+    renotify_interval: 60
+    notify_audit: false
+    require_full_window: true
+    include_tags: true
+    timeout_h: 0
+    evaluation_delay: 60
+    new_host_delay: 300
+    new_group_delay: 0
+    groupby_simple_monitor: false
+    renotify_occurrences: 0
+    renotify_statuses: []
+    validate: true
+    notify_no_data: false
+    no_data_timeframe: 5
+    priority: 3
+    threshold_windows: {}
+    thresholds:
+      critical: 50
+      warning: 20
   priority: 3
-  renotify_interval: 60
-  notify_audit: false
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  timeout_h: 0
-  evaluation_delay: 60
-  new_host_delay: 300
-  new_group_delay: 0
-  groupby_simple_monitor: false
-  renotify_occurrences: 0
-  renotify_statuses: []
-  validate: true
-  notify_no_data: false
-  no_data_timeframe: 5
-  priority: 3
-  threshold_windows: {}
-  thresholds:
-    critical: 50
-    warning: 20
+  restricted_roles: null
 ```
+
 **components/terraform/datadog-monitor/catalog/monitors/dev/elb.yaml**
 
 ```
@@ -112,18 +133,25 @@ elb-lb-httpcode-5xx-notify:
   query: |
     avg(last_15m):max:aws.elb.httpcode_elb_5xx{${context_dd_tags}} by {env,host} > 30
   priority: 2
-  thresholds:
-    critical: 30
-    warning: 10
+  options:
+    thresholds:
+      critical: 30
+      warning: 10
 ```
 
 ## Key Notes
 
 ### Inheritance
-The important thing to note here is that the default yaml is applied to every stage that it's deployed to. For dev specifically however, we want to override the thresholds and priority for this monitor. This merging is done by key of the monitor, in this case `elb-lb-httpcode-5xx-notify`.
+
+The important thing to note here is that the default yaml is applied to every stage that it's deployed to. For dev
+specifically however, we want to override the thresholds and priority for this monitor. This merging is done by key of
+the monitor, in this case `elb-lb-httpcode-5xx-notify`.
 
 ### Templating
-The second thing to note is `${ dd_env }`. This is **terraform** templating in action. While double braces (`{{ env }}`) refers to datadog templating, `${ dd_env }` is a template variable we pass into our monitors. in this example we use it to specify a grouping int he message. This value is passed in and can be overridden via stacks.
+
+The second thing to note is `${ dd_env }`. This is **terraform** templating in action. While double braces (`{{ env }}`)
+refers to datadog templating, `${ dd_env }` is a template variable we pass into our monitors. in this example we use it
+to specify a grouping int he message. This value is passed in and can be overridden via stacks.
 
 We pass a value via:
 
@@ -133,13 +161,14 @@ components:
     datadog-monitor:
       vars:
         # Located in the components/terraform/datadog-monitor directory
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - catalog/monitors/*.yaml
           - catalog/monitors/dev/*.yaml
         # templatefile() is used for all yaml config paths with these variables.
         datadog_monitors_config_parameters:
           dd_env: "dev"
 ```
+
 This allows us to further use inheritance from stack configuration to keep our monitors dry, but configurable.
 
 Another available option is to use our catalog as base monitors and then override them with your specific fine tuning.
@@ -149,17 +178,21 @@ components:
   terraform:
     datadog-monitor:
       vars:
-        datadog_monitors_config_paths:
+        local_datadog_monitors_config_paths:
           - https://raw.githubusercontent.com/cloudposse/terraform-datadog-platform/0.27.0/catalog/monitors/ec2.yaml
           - catalog/monitors/ec2.yaml
 ```
 
 ## Other Gotchas
 
-Our integration action that checks for `'source_type_name' equals 'Monitor Alert'` will also be true for synthetics. Whereas if we check for `'event_type' equals 'query_alert_monitor'`, that's only true for monitors, because synthetics will only be picked up by an integration action when `event_type` is `synthetics_alert`.
+Our integration action that checks for `'source_type_name' equals 'Monitor Alert'` will also be true for synthetics.
+Whereas if we check for `'event_type' equals 'query_alert_monitor'`, that's only true for monitors, because synthetics
+will only be picked up by an integration action when `event_type` is `synthetics_alert`.
 
-This is important if we need to distinguish between monitors and synthetics in OpsGenie, which is the case when we want to ensure clean messaging on OpsGenie incidents in Statuspage.
+This is important if we need to distinguish between monitors and synthetics in OpsGenie, which is the case when we want
+to ensure clean messaging on OpsGenie incidents in Statuspage.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -178,7 +211,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_datadog_configuration"></a> [datadog\_configuration](#module\_datadog\_configuration) | ../datadog-configuration/modules/datadog_keys | n/a |
-| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.0.1 |
+| <a name="module_datadog_monitors"></a> [datadog\_monitors](#module\_datadog\_monitors) | cloudposse/platform/datadog//modules/monitors | 1.4.1 |
 | <a name="module_datadog_monitors_merge"></a> [datadog\_monitors\_merge](#module\_datadog\_monitors\_merge) | cloudposse/config/yaml//modules/deepmerge | 1.0.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_local_datadog_monitors_yaml_config"></a> [local\_datadog\_monitors\_yaml\_config](#module\_local\_datadog\_monitors\_yaml\_config) | cloudposse/config/yaml | 1.0.2 |
@@ -230,20 +263,19 @@ No resources.
 |------|-------------|
 | <a name="output_datadog_monitor_names"></a> [datadog\_monitor\_names](#output\_datadog\_monitor\_names) | Names of the created Datadog monitors |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## Related How-to Guides
 
-- [How to Onboard a New Service with Datadog and OpsGenie](/reference-architecture/how-to-guides/tutorials/how-to-implement-incident-management-with-opsgenie/how-to-onboard-a-new-service-with-datadog-and-opsgenie)
-- [How to Sign Up for Datadog?](/reference-architecture/how-to-guides/tutorials/how-to-sign-up-for-datadog)
-- [How to use Datadog Metrics for Horizontal Pod Autoscaling (HPA)](/reference-architecture/how-to-guides/tutorials/how-to-use-datadog-metrics-for-horizontal-pod-autoscaling-hpa)
-- [How to Implement SRE with Datadog](/reference-architecture/how-to-guides/tutorials/how-to-implement-sre-with-datadog)
+- [How to Monitor Everything with Datadog](https://docs.cloudposse.com/layers/monitoring/datadog/)
 
 ## Component Dependencies
-- [datadog-integration](/reference-architecture/components/datadog-integration)
+
+- [datadog-integration](https://docs.cloudposse.com/components/library/aws/datadog-integration/)
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-monitor) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-monitor) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

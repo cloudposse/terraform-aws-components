@@ -1,10 +1,10 @@
 output "worker_pool_id" {
-  value       = join("", spacelift_worker_pool.primary.*.id)
+  value       = join("", spacelift_worker_pool.primary[*].id)
   description = "Spacelift worker pool ID"
 }
 
 output "worker_pool_name" {
-  value       = join("", spacelift_worker_pool.primary.*.name)
+  value       = join("", spacelift_worker_pool.primary[*].name)
   description = "Spacelift worker pool name"
 }
 
@@ -74,16 +74,16 @@ output "autoscaling_group_health_check_type" {
 }
 
 output "iam_role_name" {
-  value       = join("", aws_iam_role.default.*.name)
+  value       = join("", aws_iam_role.default[*].name)
   description = "Spacelift IAM Role name"
 }
 
 output "iam_role_id" {
-  value       = join("", aws_iam_role.default.*.unique_id)
+  value       = join("", aws_iam_role.default[*].unique_id)
   description = "Spacelift IAM Role ID"
 }
 
 output "iam_role_arn" {
-  value       = join("", aws_iam_role.default.*.arn)
+  value       = join("", aws_iam_role.default[*].arn)
   description = "Spacelift IAM Role ARN"
 }

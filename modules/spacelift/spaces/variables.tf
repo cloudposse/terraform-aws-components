@@ -8,15 +8,10 @@ variable "spaces" {
       body             = optional(string),
       body_url         = optional(string),
       body_url_version = optional(string, "master"),
+      body_file_path   = optional(string),
       type             = optional(string),
       labels           = optional(set(string), []),
     })), {}),
   }))
   description = "A map of all Spaces to create in Spacelift"
-}
-
-variable "ssm_params_enabled" {
-  type        = bool
-  description = "Whether to write the IDs of the created spaces to SSM parameters"
-  default     = true
 }

@@ -1,6 +1,6 @@
 locals {
   accounts_with_vpc = local.enabled ? {
-    for i, account in var.allow_ingress_from_vpc_accounts : try(account.tenant, module.this.tenant) != null ? format("%s-%s", account.tenant, account.stage) : account.stage => account
+    for i, account in var.allow_ingress_from_vpc_accounts : try(account.tenant, module.this.tenant) != null ? format("%s-%s-%s", account.tenant, account.stage, try(account.environment, module.this.environment)) : format("%s-%s", account.stage, try(account.environment, module.this.environment)) => account
   } : {}
 }
 
@@ -46,21 +46,3 @@ module "vpc_ingress" {
   context = module.this.context
 }
 
-# Yes, this is self-referential.
-# It obtains the previous state of the cluster so that we can add
-# to it rather than overwrite it (specifically the aws-auth configMap)
-module "eks" {
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.5.0"
-
-  component = var.eks_component_name
-
-  defaults = {
-    eks_managed_node_workers_role_arns = []
-    fargate_profile_role_arns          = []
-    fargate_profile_role_names         = []
-    eks_cluster_identity_oidc_issuer   = ""
-  }
-
-  context = module.this.context
-}

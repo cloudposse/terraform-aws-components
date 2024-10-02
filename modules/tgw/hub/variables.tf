@@ -48,3 +48,15 @@ variable "account_map_tenant_name" {
   EOT
   default     = null
 }
+
+variable "ram_principals" {
+  type        = list(string)
+  description = "A list of AWS account IDs to share the TGW with outside the organization"
+  default     = []
+}
+
+variable "allow_external_principals" {
+  type        = bool
+  description = "Set true to allow the TGW to be RAM shared with external principals specified in ram_principals"
+  default     = false
+}

@@ -1,18 +1,27 @@
+---
+tags:
+  - component/eks/alb-controller
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/alb-controller`
 
-This component creates a Helm release for [alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) on an EKS cluster.
+This component creates a Helm release for
+[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) on an EKS cluster.
 
-[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) is a Kubernetes addon that,
-in the context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations.
-This module also can (and is recommended to) provision a default IngressClass.
+[alb-controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) is a Kubernetes addon that, in the
+context of AWS, provisions and manages ALBs and NLBs based on Service and Ingress annotations. This module also can (and
+is recommended to) provision a default IngressClass.
 
 ### Special note about upgrading
 
-When upgrading the chart version, check to see if the IAM policy for the service account needs to be updated.
-If it does, update the policy in the `distributed-iam-policy.tf` file.
-Probably the easiest way to check if it needs updating is to simply download the policy from
-https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
-and compare it to the policy in `distributed-iam-policy.tf`.
+When upgrading the chart version, check to see if the IAM policy for the service account needs to be updated. If it
+does, update the policy in the `distributed-iam-policy.tf` file. Probably the easiest way to check if it needs updating
+is to simply download the policy from
+https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json and
+compare it to the policy in `distributed-iam-policy.tf`.
 
 ## Usage
 
@@ -57,6 +66,7 @@ components:
         chart_values: {}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -107,7 +117,7 @@ components:
 | <a name="input_default_ingress_class_name"></a> [default\_ingress\_class\_name](#input\_default\_ingress\_class\_name) | Class name for default ingress | `string` | `"default"` | no |
 | <a name="input_default_ingress_enabled"></a> [default\_ingress\_enabled](#input\_default\_ingress\_enabled) | Set `true` to deploy a default IngressClass. There should only be one default per cluster. | `bool` | `true` | no |
 | <a name="input_default_ingress_group"></a> [default\_ingress\_group](#input\_default\_ingress\_group) | Group name for default ingress | `string` | `"common"` | no |
-| <a name="input_default_ingress_ip_address_type"></a> [default\_ingress\_ip\_address\_type](#input\_default\_ingress\_ip\_address\_type) | IP address type for default ingress, one of `ipv4` or `dualstack`. | `string` | `"dualstack"` | no |
+| <a name="input_default_ingress_ip_address_type"></a> [default\_ingress\_ip\_address\_type](#input\_default\_ingress\_ip\_address\_type) | IP address type for default ingress, one of `ipv4` or `dualstack`. | `string` | `"ipv4"` | no |
 | <a name="input_default_ingress_load_balancer_attributes"></a> [default\_ingress\_load\_balancer\_attributes](#input\_default\_ingress\_load\_balancer\_attributes) | A list of load balancer attributes to apply to the default ingress load balancer.<br>See [Load Balancer Attributes](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html#load-balancer-attributes). | `list(object({ key = string, value = string }))` | `[]` | no |
 | <a name="input_default_ingress_scheme"></a> [default\_ingress\_scheme](#input\_default\_ingress\_scheme) | Scheme for default ingress, one of `internet-facing` or `internal`. | `string` | `"internet-facing"` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
@@ -123,7 +133,8 @@ components:
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -149,6 +160,7 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

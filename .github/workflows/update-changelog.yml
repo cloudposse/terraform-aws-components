@@ -12,9 +12,7 @@ permissions:
 
 jobs:
   update-changelog:
-    runs-on:
-      - "self-hosted"
-
+    runs-on: ["ubuntu-latest"]
     steps:
       - name: Current Release
         id: current-release
@@ -96,11 +94,11 @@ jobs:
 
             function trimPath(relativePath) {
               return relativePath
-                .replace('components/terraform/', '')
+                .replace('modules/', '')
                 .replace('/CHANGELOG.md', '');
             }
 
-            const currentChangeLogFiles = findChangelogs('./current/components');
+            const currentChangeLogFiles = findChangelogs('./current/modules');
             const components = [];
 
             for (let i = 0; i < currentChangeLogFiles.length; i++) {
@@ -164,7 +162,7 @@ jobs:
             fs.writeFileSync(filePath, updatedContent, 'utf-8');
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           title: 'Update Changelog for `${{ steps.current-release.outputs.tag }}`'
           body: 'Update Changelog for [`${{ steps.current-release.outputs.tag }}`](${{ github.event.release.html_url }})'

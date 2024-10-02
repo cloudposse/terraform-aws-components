@@ -1,7 +1,14 @@
+---
+tags:
+  - component/amplify
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `amplify`
 
-This component is responsible for provisioning
-AWS Amplify apps, backend environments, branches, domain associations, and webhooks.
+This component is responsible for provisioning AWS Amplify apps, backend environments, branches, domain associations,
+and webhooks.
 
 ## Usage
 
@@ -101,24 +108,25 @@ components:
         certificate_verification_dns_record_enabled: false
 ```
 
-The `amplify/example` YAML configuration defines an Amplify app in AWS.
-The app is set up to use the `Next.js` framework with SSR (server-side rendering) and is linked to the
-GitHub repository "https://github.com/cloudposse/amplify-test2".
+The `amplify/example` YAML configuration defines an Amplify app in AWS. The app is set up to use the `Next.js` framework
+with SSR (server-side rendering) and is linked to the GitHub repository "https://github.com/cloudposse/amplify-test2".
 
-The app is set up to have two environments: `main` and `develop`.
-Each environment has different configuration settings, such as the branch name, framework, and stage.
-The `main` environment is set up for production, while the `develop` environments is set up for development.
+The app is set up to have two environments: `main` and `develop`. Each environment has different configuration settings,
+such as the branch name, framework, and stage. The `main` environment is set up for production, while the `develop`
+environments is set up for development.
 
-The app is also configured to have custom subdomains for each environment, with prefixes such as `example-prod` and `example-dev`.
-The subdomains are configured to use DNS records, which are enabled through the `subdomains_dns_records_enabled` variable.
+The app is also configured to have custom subdomains for each environment, with prefixes such as `example-prod` and
+`example-dev`. The subdomains are configured to use DNS records, which are enabled through the
+`subdomains_dns_records_enabled` variable.
 
-The app also has an IAM service role configured with specific IAM actions, and environment variables set up for each environment.
-Additionally, the app is configured to use the Atmos Spacelift workspace, as indicated by the `workspace_enabled: true` setting.
+The app also has an IAM service role configured with specific IAM actions, and environment variables set up for each
+environment. Additionally, the app is configured to use the Atmos Spacelift workspace, as indicated by the
+`workspace_enabled: true` setting.
 
 The `amplify/example` Atmos component extends the `amplify/defaults` component.
 
-The `amplify/example` configuration is imported into the `stacks/mixins/stage/dev.yaml` stack config file to be provisioned
-in the `dev` account.
+The `amplify/example` configuration is imported into the `stacks/mixins/stage/dev.yaml` stack config file to be
+provisioned in the `dev` account.
 
 ```yaml
 # stacks/mixins/stage/dev.yaml
@@ -132,6 +140,7 @@ You can execute the following command to provision the Amplify app using Atmos:
 atmos terraform apply amplify/example -s <stack>
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -225,5 +234,6 @@ atmos terraform apply amplify/example -s <stack>
 | <a name="output_sub_domains"></a> [sub\_domains](#output\_sub\_domains) | DNS records and the verified status for the subdomains |
 | <a name="output_webhooks"></a> [webhooks](#output\_webhooks) | Created webhooks |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

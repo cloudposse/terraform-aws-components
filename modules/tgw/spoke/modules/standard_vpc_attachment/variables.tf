@@ -50,6 +50,23 @@ variable "connections" {
   default     = []
 }
 
+variable "static_routes" {
+  type = set(object({
+    blackhole              = bool
+    destination_cidr_block = string
+  }))
+  description = <<-EOT
+  A list of static routes.
+  EOT
+  default     = []
+}
+
+variable "static_tgw_routes" {
+  type        = list(string)
+  description = "A list of static routes to add to the local routing table with the transit gateway as a destination."
+  default     = []
+}
+
 variable "expose_eks_sg" {
   type        = bool
   description = "Set true to allow EKS clusters to accept traffic from source accounts"

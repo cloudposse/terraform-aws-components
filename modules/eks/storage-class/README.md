@@ -1,36 +1,43 @@
+---
+tags:
+  - component/eks
+  - layer/eks
+  - layer/data
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/storage-class`
 
-This component is responsible for provisioning `StorageClasses` in an EKS cluster.
-See the list of guides and references linked at the bottom of this README for more information.
+This component is responsible for provisioning `StorageClasses` in an EKS cluster. See the list of guides and references
+linked at the bottom of this README for more information.
 
-A StorageClass provides part of the configuration for a PersistentVolumeClaim,
-which copies the configuration when it is created. Thus, you can delete a StorageClass
-without affecting existing PersistentVolumeClaims, and changes to a StorageClass
-do not propagate to existing PersistentVolumeClaims.
+A StorageClass provides part of the configuration for a PersistentVolumeClaim, which copies the configuration when it is
+created. Thus, you can delete a StorageClass without affecting existing PersistentVolumeClaims, and changes to a
+StorageClass do not propagate to existing PersistentVolumeClaims.
 
 ## Usage
 
 **Stack Level**: Regional, per cluster
 
-This component can create storage classes backed by EBS or EFS, and is intended to be used
-with the corresponding EKS add-ons `aws-ebs-csi-driver` and `aws-efs-csi-driver` respectively.
-In the case of EFS, this component also requires that you have provisioned an EFS filesystem
-in the same region as your cluster, and expects you have used the `efs` (previously `eks/efs`) component to do so.
-The EFS storage classes will get the file system ID from the EFS component's output.
+This component can create storage classes backed by EBS or EFS, and is intended to be used with the corresponding EKS
+add-ons `aws-ebs-csi-driver` and `aws-efs-csi-driver` respectively. In the case of EFS, this component also requires
+that you have provisioned an EFS filesystem in the same region as your cluster, and expects you have used the `efs`
+(previously `eks/efs`) component to do so. The EFS storage classes will get the file system ID from the EFS component's
+output.
 
 ### Note: Default Storage Class
 
-Exactly one StorageClass can be designated as the default StorageClass for a cluster.
-This default StorageClass is then used by PersistentVolumeClaims that do not specify a storage class.
+Exactly one StorageClass can be designated as the default StorageClass for a cluster. This default StorageClass is then
+used by PersistentVolumeClaims that do not specify a storage class.
 
-Prior to Kubernetes 1.26, if more than one StorageClass is marked as default,
-a PersistentVolumeClaim without `storageClassName` explicitly specified cannot be created.
-In Kubernetes 1.26 and later, if more than one StorageClass is marked as default,
-the last one created will be used, which means you can get by with just ignoring
-the default "gp2" StorageClass that EKS creates for you.
+Prior to Kubernetes 1.26, if more than one StorageClass is marked as default, a PersistentVolumeClaim without
+`storageClassName` explicitly specified cannot be created. In Kubernetes 1.26 and later, if more than one StorageClass
+is marked as default, the last one created will be used, which means you can get by with just ignoring the default "gp2"
+StorageClass that EKS creates for you.
 
-EKS always creates a default storage class for the cluster, typically an EBS backed class named `gp2`. Find out
-what the default storage class is for your cluster by running this command:
+EKS always creates a default storage class for the cluster, typically an EBS backed class named `gp2`. Find out what the
+default storage class is for your cluster by running this command:
 
 ```bash
 # You only need to run `set-cluster` when you are changing target clusters
@@ -83,28 +90,29 @@ ebs_storage_classes:
 Here's an example snippet for how to use this component.
 
 ```yaml
-    eks/storage-class:
-      vars:
-        ebs_storage_classes:
-          gp2:
-            make_default_storage_class: false
-            include_tags: false
-            # Preserve values originally set by eks/cluster.
-            # Set to "" to omit.
-            provisioner: kubernetes.io/aws-ebs
-            parameters:
-              type: gp2
-              encrypted: ""
-          gp3:
-            make_default_storage_class: true
-            parameters:
-              type: gp3
-        efs_storage_classes:
-          efs-sc:
-            make_default_storage_class: false
-            efs_component_name: "efs" # Replace with the name of the EFS component, previously "eks/efs"
+eks/storage-class:
+  vars:
+    ebs_storage_classes:
+      gp2:
+        make_default_storage_class: false
+        include_tags: false
+        # Preserve values originally set by eks/cluster.
+        # Set to "" to omit.
+        provisioner: kubernetes.io/aws-ebs
+        parameters:
+          type: gp2
+          encrypted: ""
+      gp3:
+        make_default_storage_class: true
+        parameters:
+          type: gp3
+    efs_storage_classes:
+      efs-sc:
+        make_default_storage_class: false
+        efs_component_name: "efs" # Replace with the name of the EFS component, previously "eks/efs"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -161,7 +169,8 @@ Here's an example snippet for how to use this component.
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -183,6 +192,7 @@ Here's an example snippet for how to use this component.
 |------|-------------|
 | <a name="output_storage_classes"></a> [storage\_classes](#output\_storage\_classes) | Storage classes created by this module |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## Related How-to Guides
 
@@ -200,6 +210,7 @@ Here's an example snippet for how to use this component.
 - [EFS CSI driver (Amazon)](https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html)
 - [EFS CSI driver (GitHub)](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/README.md#examples)
 - [EFS CSI StorageClass Parameters](https://github.com/kubernetes-sigs/aws-efs-csi-driver/tree/master/docs#storage-class-parameters-for-dynamic-provisioning)
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/cluster) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/cluster) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

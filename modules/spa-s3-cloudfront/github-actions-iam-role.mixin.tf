@@ -29,7 +29,7 @@ variable "github_actions_iam_role_attributes" {
 
 
 locals {
-  github_actions_iam_role_enabled = module.this.enabled && var.github_actions_iam_role_enabled && length(var.github_actions_allowed_repos) > 0
+  github_actions_iam_role_enabled = local.enabled && var.github_actions_iam_role_enabled && length(var.github_actions_allowed_repos) > 0
 }
 
 module "gha_role_name" {

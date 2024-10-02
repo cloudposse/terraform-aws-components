@@ -2,7 +2,7 @@ locals {
   vpc_connections = flatten([for connection in var.connections : [
     for vpc_component_name in connection.vpc_component_names : {
       stage       = connection.account.stage
-      tenant      = connection.account.tenant # Defaults to empty string if tenant isnt defined
+      tenant      = connection.account.tenant # Defaults to empty string if tenant isn't defined
       environment = length(connection.account.environment) > 0 ? connection.account.environment : module.this.environment
       component   = vpc_component_name
     }]
@@ -11,7 +11,7 @@ locals {
   eks_connections = flatten([for connection in var.connections : [
     for eks_component_name in connection.eks_component_names : {
       stage       = connection.account.stage
-      tenant      = connection.account.tenant # Defaults to empty string if tenant isnt defined
+      tenant      = connection.account.tenant # Defaults to empty string if tenant isn't defined
       environment = length(connection.account.environment) > 0 ? connection.account.environment : module.this.environment
       component   = eks_component_name
     }]

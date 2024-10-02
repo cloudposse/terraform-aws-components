@@ -1,6 +1,14 @@
+---
+tags:
+  - component/ses
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `ses`
 
-This component is responsible for provisioning SES to act as an SMTP gateway. The credentials used for sending email can be retrieved from SSM.
+This component is responsible for provisioning SES to act as an SMTP gateway. The credentials used for sending email can
+be retrieved from SSM.
 
 ## Usage
 
@@ -26,6 +34,7 @@ components:
           Service: ses
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -97,9 +106,11 @@ components:
 | <a name="output_user_name"></a> [user\_name](#output\_user\_name) | Normalized name of the IAM user with permission to send emails from SES domain |
 | <a name="output_user_unique_id"></a> [user\_unique\_id](#output\_user\_unique\_id) | The unique ID of the IAM user with permission to send emails from SES domain |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/ses) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/ses) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

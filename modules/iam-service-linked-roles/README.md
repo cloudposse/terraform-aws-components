@@ -1,6 +1,14 @@
+---
+tags:
+  - component/iam-service-linked-roles
+  - layer/eks
+  - provider/aws
+---
+
 # Component: `iam-service-linked-roles`
 
-This component is responsible for provisioning [IAM Service-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
+This component is responsible for provisioning
+[IAM Service-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 
 ## Usage
 
@@ -26,16 +34,15 @@ components:
 
 ## Service-Linked Roles for EC2 Spot and EC2 Spot Fleet
 
-__Note:__ If you want to use EC2 Spot or Spot Fleet,
-you will need to provision the following Service-Linked Roles:
+**Note:** If you want to use EC2 Spot or Spot Fleet, you will need to provision the following Service-Linked Roles:
 
 - Service-Linked Role for EC2 Spot
 - Service-Linked Role for EC2 Spot Fleet
 
 This is only necessary if this is the first time you're using EC2 Spot and Spot Fleet in the account.
 
-Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before),
-and you try to provision them again, you will see the following errors:
+Note that if the Service-Linked Roles already exist in the AWS account (if you used EC2 Spot or Spot Fleet before), and
+you try to provision them again, you will see the following errors:
 
 ```text
 An error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation:
@@ -46,10 +53,11 @@ Service role name AWSServiceRoleForEC2SpotFleet has been taken in this account, 
 ```
 
 For more details, see:
+
 - https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html
 
-
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -108,8 +116,11 @@ For more details, see:
 |------|-------------|
 | <a name="output_service_linked_roles"></a> [service\_linked\_roles](#output\_service\_linked\_roles) | Provisioned Service-Linked roles |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/iam-service-linked-roles) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/iam-service-linked-roles) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

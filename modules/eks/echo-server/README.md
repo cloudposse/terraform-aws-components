@@ -1,29 +1,51 @@
+---
+tags:
+  - component/eks/echo-server
+  - layer/eks
+  - provider/aws
+  - provider/echo-server
+---
+
 # Component: `eks/echo-server`
 
-This is copied from [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/echo-server).
+This is copied from
+[cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/echo-server).
 
-This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters.
-The echo server is a server that sends it back to the client a JSON representation of all the data
-the server received, which is a combination of information sent by the client and information sent
-by the web server infrastructure. For further details, please see [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
+This component installs the [Ealenn/Echo-Server](https://github.com/Ealenn/Echo-Server) to EKS clusters. The echo server
+is a server that sends it back to the client a JSON representation of all the data the server received, which is a
+combination of information sent by the client and information sent by the web server infrastructure. For further
+details, please consult the [Echo-Server documentation](https://ealenn.github.io/Echo-Server/).
 
 ## Prerequisites
 
-Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a public HTTPS endpoint.
-Therefore, it requires several other components.
+Echo server is intended to provide end-to-end testing of everything needed to deploy an application or service with a
+public HTTPS endpoint. It uses defaults where possible, such as using the default IngressClass, in order to verify that
+the defaults are sufficient for a typical application.
 
-At the moment, it supports 2 configurations:
+In order to minimize the impact of the echo server on the rest of the cluster, it does not set any configuration that
+would affect other ingresses, such as WAF rules, logging, or redirecting HTTP to HTTPS. Those settings should be
+configured in the IngressClass where possible.
+
+Therefore, it requires several other components. At the moment, it supports 2 configurations:
 
 1. ALB with ACM Certificate
-  - AWS Load Balancer Controller (ALB) version 2.2.0 or later, with ACM certificate auto-discovery enabled
-  - Pre-provisioned ACM TLS certificate covering the provisioned host name (typically a wildcard certificate covering all hosts in the domain)
+
+- AWS Load Balancer Controller (ALB) version 2.2.0 or later, with ACM certificate auto-discovery enabled
+- A default IngressClass, which can be provisioned by the `alb-controller` component as part of deploying the
+  controller, or can be provisioned separately, for example by the `alb-controller-ingress-class` component.
+- Pre-provisioned ACM TLS certificate covering the provisioned host name (typically a wildcard certificate covering all
+  hosts in the domain)
+
 2. Nginx with Cert Manager Certificate
-  - Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server`
-    should work with any version that supports Ingress API version `networking.k8s.io/v1`.
-  - `jetstack/cert-manager` configured to automatically (via Ingress Shim, installed by default) generate TLS certificates via a Cluster Issuer
-    (by default, named `letsEncrypt-prod`).
+
+- Nginx (via `kubernetes/ingress-nginx` controller). We recommend `ingress-nginx` v1.1.0 or later, but `echo-server`
+  should work with any version that supports Ingress API version `networking.k8s.io/v1`.
+- `jetstack/cert-manager` configured to automatically (via Ingress Shim, installed by default) generate TLS certificates
+  via a Cluster Issuer (by default, named `letsEncrypt-prod`).
 
 In both configurations, it has these common requirements:
+
+- EKS component deployed, with component name specified in `eks_component_name` (defaults to "eks/cluster")
 - Kubernetes version 1.19 or later
 - Ingress API version `networking.k8s.io/v1`
 - [kubernetes-sigs/external-dns](https://github.com/kubernetes-sigs/external-dns)
@@ -32,10 +54,9 @@ In both configurations, it has these common requirements:
 ## Warnings
 
 A Terraform plan may fail to apply, giving a Kubernetes authentication failure. This is due to a known issue with
-Terraform and the Kubernetes provider. During the "plan" phase Terraform gets a short-lived Kubernetes
-authentication token and caches it, and then tries to use it during "apply". If the token has expired by
-the time you try to run "apply", the "apply" will fail. The workaround is to run `terraform apply -auto-approve` without
-a "plan" file.
+Terraform and the Kubernetes provider. During the "plan" phase Terraform gets a short-lived Kubernetes authentication
+token and caches it, and then tries to use it during "apply". If the token has expired by the time you try to run
+"apply", the "apply" will fail. The workaround is to run `terraform apply -auto-approve` without a "plan" file.
 
 ## Usage
 
@@ -43,12 +64,30 @@ a "plan" file.
 
 Use this in the catalog or use these variables to overwrite the catalog values.
 
+Set `ingress_type` to "alb" if using `alb-controller` or "nginx" if using `ingress-nginx`.
+
+Normally, you should not set the IngressClass or IngressGroup, as this component is intended to test the defaults.
+However, if you need to, set them in `chart_values`:
+
+```yaml
+chart_values:
+  ingress:
+    class: "other-ingress-class"
+    alb:
+      # IngressGroup is specific to alb-controller
+      group_name: "other-ingress-group"
+```
+
+Note that if you follow recommendations and do not set the ingress class name, the deployed Ingress will have the
+ingressClassName setting injected by the Ingress controller, set to the then-current default. This means that if later
+you change the default IngressClass, the Ingress will be NOT be updated to use the new default. Furthermore, because of
+limitations in the Helm provider, this will not be detected as drift. You will need to destroy and re-deploy the echo
+server to update the Ingress to the new default.
+
 ```yaml
 components:
   terraform:
-    eks/echo-server:
-      metadata:
-        component: eks/echo-server
+    echo-server:
       settings:
         spacelift:
           workspace_enabled: true
@@ -63,11 +102,15 @@ components:
         atomic: true
         cleanup_on_fail: true
 
-        ingress_type: "alb"
+        ingress_type: "alb" # or "nginx"
         # %[1]v is the tenant name, %[2]v is the stage name, %[3]v is the region name
         hostname_template: "echo.%[3]v.%[2]v.%[1]v.sample-domain.net"
 ```
 
+In rare cases where some ingress controllers do not support the `ingressClassName` field, you can restore the old
+`kubernetes.io/ingress.class` annotation by setting `ingress.use_ingress_class_annotation: true` in `chart_values`.
+
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -88,8 +131,7 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_echo_server"></a> [echo\_server](#module\_echo\_server) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_echo_server"></a> [echo\_server](#module\_echo\_server) | cloudposse/helm-release/aws | 0.10.1 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -105,7 +147,6 @@ components:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_alb_controller_ingress_group_component_name"></a> [alb\_controller\_ingress\_group\_component\_name](#input\_alb\_controller\_ingress\_group\_component\_name) | The name of the alb\_controller\_ingress\_group component | `string` | `"eks/alb-controller-ingress-group"` | no |
 | <a name="input_atomic"></a> [atomic](#input\_atomic) | If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. | `bool` | `true` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Addition map values to yamlencode as `helm_release` values. | `any` | `{}` | no |
@@ -129,7 +170,8 @@ components:
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -154,8 +196,11 @@ components:
 
 | Name | Description |
 |------|-------------|
+| <a name="output_hostname"></a> [hostname](#output\_hostname) | Hostname of the deployed echo server |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* https://github.com/Ealenn/Echo-Server
+
+- https://github.com/Ealenn/Echo-Server

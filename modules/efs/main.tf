@@ -17,12 +17,13 @@ locals {
 
 module "efs" {
   source  = "cloudposse/efs/aws"
-  version = "0.32.7"
+  version = "0.35.0"
 
   region                          = var.region
   vpc_id                          = local.vpc_id
   subnets                         = local.private_subnet_ids
   allowed_security_group_ids      = local.allowed_security_groups
+  additional_security_group_rules = var.additional_security_group_rules
   performance_mode                = var.performance_mode
   provisioned_throughput_in_mibps = var.provisioned_throughput_in_mibps
   throughput_mode                 = var.throughput_mode

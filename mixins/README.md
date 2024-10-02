@@ -1,12 +1,14 @@
 # Terraform Mixins
 
-A Terraform mixin (inspired by the [concept of the same name in OOP languages such as Python and Ruby](https://en.wikipedia.org/wiki/Mixin))
-is a Terraform configuration file that can be dropped into a root-level module, i.e. a component, in order to add additional
+A Terraform mixin (inspired by the
+[concept of the same name in OOP languages such as Python and Ruby](https://en.wikipedia.org/wiki/Mixin)) is a Terraform
+configuration file that can be dropped into a root-level module, i.e. a component, in order to add additional
 functionality.
 
 Mixins are meant to encourage code reuse, leading to more simple components with less code repetition between component
 to component.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF TERRAFORM-MIXINS DOCS HOOK -->
 ## Mixin: `infra-state.mixin.tf`
 
@@ -52,3 +54,4 @@ etc. That is, that it has the following characteristics:
 2. Does not already instantiate a Kubernetes provider (only the Helm provider is necessary, typically, for EKS components).
 
 <!-- END OF TERRAFORM-MIXINS DOCS HOOK -->
+<!-- prettier-ignore-end -->

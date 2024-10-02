@@ -7,7 +7,7 @@ output "tg_config" {
     subnet_route_table_ids            = null
     route_to                          = null
     route_to_cidr_blocks              = null
-    static_routes                     = null
+    static_routes                     = var.static_routes
     transit_gateway_vpc_attachment_id = module.standard_vpc_attachment.transit_gateway_vpc_attachment_ids[var.owning_account]
   }
   description = "Transit Gateway configuration formatted for handling"

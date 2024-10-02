@@ -1,17 +1,24 @@
+---
+tags:
+  - component/aws-shield
+  - layer/security-and-compliance
+  - provider/aws
+---
+
 # Component: `aws-shield`
 
 This component is responsible for enabling AWS Shield Advanced Protection for the following resources:
 
-* Application Load Balancers (ALBs)
-* CloudFront Distributions
-* Elastic IPs
-* Route53 Hosted Zones
+- Application Load Balancers (ALBs)
+- CloudFront Distributions
+- Elastic IPs
+- Route53 Hosted Zones
 
-This component assumes that resources it is configured to protect are not already protected by other components
-that have their `xxx_aws_shield_protection_enabled` variable set to `true`.
+This component assumes that resources it is configured to protect are not already protected by other components that
+have their `xxx_aws_shield_protection_enabled` variable set to `true`.
 
-This component also requires that the account where the component is being provisioned to has
-been [subscribed to AWS Shield Advanced](https://docs.aws.amazon.com/waf/latest/developerguide/enable-ddos-prem.html).
+This component also requires that the account where the component is being provisioned to has been
+[subscribed to AWS Shield Advanced](https://docs.aws.amazon.com/waf/latest/developerguide/enable-ddos-prem.html).
 
 ## Usage
 
@@ -80,10 +87,12 @@ components:
           - 35.171.70.50
 ```
 
-Stack configurations which rely on components with a `xxx_aws_shield_protection_enabled` variable should set that variable to `true`
-and leave the corresponding variable for this component as empty, relying on that component's AWS Shield Advanced functionality instead.
-This leads to more simplified inter-component dependencies and minimizes the need for maintaining the provisioning order during a cold-start.
+Stack configurations which rely on components with a `xxx_aws_shield_protection_enabled` variable should set that
+variable to `true` and leave the corresponding variable for this component as empty, relying on that component's AWS
+Shield Advanced functionality instead. This leads to more simplified inter-component dependencies and minimizes the need
+for maintaining the provisioning order during a cold-start.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -102,6 +111,7 @@ This leads to more simplified inter-component dependencies and minimizes the nee
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -126,6 +136,7 @@ This leads to more simplified inter-component dependencies and minimizes the nee
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_alb_names"></a> [alb\_names](#input\_alb\_names) | list of ALB names which will be protected with AWS Shield Advanced | `list(string)` | `[]` | no |
+| <a name="input_alb_protection_enabled"></a> [alb\_protection\_enabled](#input\_alb\_protection\_enabled) | Enable ALB protection. By default, ALB names are read from the EKS cluster ALB control group | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_cloudfront_distribution_ids"></a> [cloudfront\_distribution\_ids](#input\_cloudfront\_distribution\_ids) | list of CloudFront Distribution IDs which will be protected with AWS Shield Advanced | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
@@ -157,9 +168,11 @@ This leads to more simplified inter-component dependencies and minimizes the nee
 | <a name="output_elastic_ip_protections"></a> [elastic\_ip\_protections](#output\_elastic\_ip\_protections) | AWS Shield Advanced Protections for Elastic IPs |
 | <a name="output_route53_hosted_zone_protections"></a> [route53\_hosted\_zone\_protections](#output\_route53\_hosted\_zone\_protections) | AWS Shield Advanced Protections for Route53 Hosted Zones |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aws-shield) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-shield) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
