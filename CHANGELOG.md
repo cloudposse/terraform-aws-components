@@ -1,5 +1,38 @@
 # CHANGELOG
 
+## 1.505.0
+
+
+
+<details>
+  <summary>fix: account-quota drift reduced @dudymas (#1102)</summary>
+## what
+
+- encode values into a `for_each` on service quota resources
+
+## why
+
+- terraform sometimes gets bad state back from the AWS API, so fetched results
+ought to be ignored. Instead, input values should be respected as truth.
+
+## references
+
+- AWS CLI
+  [command to list service quotas](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/service-quotas/list-service-quotas.html) `aws service-quotas list-service-quotas`.
+   Note where it says "For some quotas, only the default values are available."
+- [Medium article](https://medium.com/@jsonk/the-limit-does-not-exist-hidden-visibility-of-aws-service-limits-4b786f846bc0)
+  explaining how many AWS service limits are not available.
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.504.0` @github-actions (#1128)</summary>
+Update Changelog for [`1.504.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.504.0)
+</details>
+
+
+
 ## 1.504.0
 
 
