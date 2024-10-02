@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 1.508.0
+
+
+
+<details>
+  <summary>chore(account-settings): upgrades budgets child-module to 0.5.1 @Gowiem (#1133)</summary>
+## what
+
+* Upgrades `terraform-aws-budgets` submodule usage in account-settings to 0.5.1
+
+## why
+
+* This enables passing `subscriber_email_addresses` to budgets for receiving emails
+
+## references
+
+* See fix in https://github.com/cloudposse/terraform-aws-budgets/pull/51
+</details>
+
+<details>
+  <summary>Update Changelog for `1.507.1` @github-actions (#1132)</summary>
+Update Changelog for [`1.507.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.507.1)
+</details>
+
+
+
 ## 1.507.1
 
 
