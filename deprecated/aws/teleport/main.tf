@@ -91,7 +91,7 @@ resource "aws_iam_role" "teleport" {
 data "aws_iam_policy_document" "teleport" {
   // Teleport can use LetsEncrypt to get TLS certificates. For this  // it needs additional permissions which are not included here.
 
-  // Teleport can use SSM to publish "join tokens" and retreive the enterprise  // license, but that is not fully documented, so permissions to access SSM  // are not included at this time.
+  // Teleport can use SSM to publish "join tokens" and retrieve the enterprise  // license, but that is not fully documented, so permissions to access SSM  // are not included at this time.
 
   // S3 permissions are needed to save and replay SSH sessions
   statement {

@@ -1,3 +1,8 @@
+locals {
+  github_default_notifications_enabled = local.enabled && var.github_default_notifications_enabled
+  github_notifications                 = local.github_default_notifications_enabled ? var.github_notifications : []
+}
+
 resource "github_repository_file" "application_set" {
   for_each = local.environments
 
@@ -11,7 +16,7 @@ resource "github_repository_file" "application_set" {
     name                        = module.this.namespace
     namespace                   = local.manifest_kubernetes_namespace
     ssh_url                     = local.github_repository.ssh_clone_url
-    notifications               = var.github_default_notifications_enabled
+    notifications               = local.github_notifications
     slack_notifications_channel = var.slack_notifications_channel
   })
   commit_message      = "Initialize environment: `${each.key}`."

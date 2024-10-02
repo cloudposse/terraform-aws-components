@@ -93,27 +93,11 @@ variable "cluster_log_retention_period" {
   nullable    = false
 }
 
-variable "apply_config_map_aws_auth" {
-  type        = bool
-  description = "Whether to execute `kubectl apply` to apply the ConfigMap to allow worker nodes to join the EKS cluster"
-  default     = true
-  nullable    = false
-}
-
-variable "map_additional_aws_accounts" {
-  type        = list(string)
-  description = "Additional AWS account numbers to add to `aws-auth` ConfigMap"
-  default     = []
-  nullable    = false
-}
-
-variable "map_additional_worker_roles" {
-  type        = list(string)
-  description = "AWS IAM Role ARNs of worker nodes to add to `aws-auth` ConfigMap"
-  default     = []
-  nullable    = false
-}
-
+# TODO:
+# - Support EKS Access Policies
+# - Support namespaced access limits
+# - Support roles from other accounts
+# - Either combine with Permission Sets or similarly enhance Permission Set support
 variable "aws_team_roles_rbac" {
   type = list(object({
     aws_team_role = string
@@ -143,14 +127,26 @@ variable "aws_sso_permission_sets_rbac" {
   nullable = false
 }
 
+# TODO:
+# - Support EKS Access Policies
+# - Support namespaced access limits
+# - Combine with`map_additional_iam_users` into new input
 variable "map_additional_iam_roles" {
   type = list(object({
     rolearn  = string
-    username = string
+    username = optional(string)
     groups   = list(string)
   }))
 
-  description = "Additional IAM roles to add to `config-map-aws-auth` ConfigMap"
+  description = <<-EOT
+    Additional IAM roles to grant access to the cluster.
+    *WARNING*: Full Role ARN, including path, is required for `rolearn`.
+    In earlier versions (with `aws-auth` ConfigMap), only the path
+    had to be removed from the Role ARN. The path is now required.
+    `username` is now ignored. This input is planned to be replaced
+    in a future release with a more flexible input structure that consolidates
+    `map_additional_iam_roles` and `map_additional_iam_users`.
+    EOT
   default     = []
   nullable    = false
 }
@@ -158,11 +154,16 @@ variable "map_additional_iam_roles" {
 variable "map_additional_iam_users" {
   type = list(object({
     userarn  = string
-    username = string
+    username = optional(string)
     groups   = list(string)
   }))
 
-  description = "Additional IAM users to add to `aws-auth` ConfigMap"
+  description = <<-EOT
+    Additional IAM roles to grant access to the cluster.
+    `username` is now ignored. This input is planned to be replaced
+    in a future release with a more flexible input structure that consolidates
+    `map_additional_iam_roles` and `map_additional_iam_users`.
+    EOT
   default     = []
   nullable    = false
 }
@@ -222,6 +223,12 @@ variable "node_groups" {
       value  = string
       effect = string
     })), null)
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
     # Desired Kubernetes master version. If you do not specify a value, the latest available version is used
     kubernetes_version = optional(string, null)
     # The maximum size of the AutoScaling Group
@@ -294,6 +301,12 @@ variable "node_group_defaults" {
       value  = string
       effect = string
     })), [])
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
     kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
     max_group_size     = optional(number, null)
     min_group_size     = optional(number, null)
@@ -340,7 +353,7 @@ variable "node_group_defaults" {
   default = {
     desired_group_size = 1
     # t3.medium is kept as the default for backward compatibility.
-    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavoir.
+    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavior.
     instance_types     = ["t3.medium"]
     kubernetes_version = null # set to null to use cluster_kubernetes_version
     max_group_size     = 100
@@ -406,37 +419,6 @@ variable "aws_ssm_agent_enabled" {
   nullable    = false
 }
 
-variable "kubeconfig_file" {
-  type        = string
-  description = "Name of `kubeconfig` file to use to configure Kubernetes provider"
-  default     = ""
-}
-
-variable "kubeconfig_file_enabled" {
-  type = bool
-
-  description = <<-EOF
-    Set true to configure Kubernetes provider with a `kubeconfig` file specified by `kubeconfig_file`.
-    Mainly for when the standard configuration produces a Terraform error.
-    EOF
-
-  default  = false
-  nullable = false
-}
-
-variable "kube_exec_auth_role_arn" {
-  type        = string
-  description = "The role ARN for `aws eks get-token` to use. Defaults to the current caller's role."
-  default     = null
-}
-
-variable "aws_auth_yaml_strip_quotes" {
-  type        = bool
-  description = "If true, remove double quotes from the generated aws-auth ConfigMap YAML to reduce spurious diffs in plans"
-  default     = true
-  nullable    = false
-}
-
 variable "cluster_private_subnets_only" {
   type        = bool
   description = "Whether or not to enable private subnets or both public and private subnets"
@@ -461,13 +443,6 @@ variable "allow_ingress_from_vpc_accounts" {
 
   default  = []
   nullable = false
-}
-
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/cluster"
-  nullable    = false
 }
 
 variable "vpc_component_name" {
@@ -517,11 +492,12 @@ variable "addons" {
     # Set default resolve_conflicts to OVERWRITE because it is required on initial installation of
     # add-ons that have self-managed versions installed by default (e.g. vpc-cni, coredns), and
     # because any custom configuration that you would want to preserve should be managed by Terraform.
-    resolve_conflicts        = optional(string, "OVERWRITE")
-    service_account_role_arn = optional(string, null)
-    create_timeout           = optional(string, null)
-    update_timeout           = optional(string, null)
-    delete_timeout           = optional(string, null)
+    resolve_conflicts_on_create = optional(string, "OVERWRITE")
+    resolve_conflicts_on_update = optional(string, "OVERWRITE")
+    service_account_role_arn    = optional(string, null)
+    create_timeout              = optional(string, null)
+    update_timeout              = optional(string, null)
+    delete_timeout              = optional(string, null)
   }))
 
   description = "Manages [EKS addons](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) resources"
@@ -562,7 +538,10 @@ variable "legacy_fargate_1_role_per_profile_enabled" {
 variable "legacy_do_not_create_karpenter_instance_profile" {
   type        = bool
   description = <<-EOT
-    When `true` (the default), suppresses creation of the IAM Instance Profile
+    **Obsolete:** The issues this was meant to mitigate were fixed in AWS Terraform Provider v5.43.0
+    and Karpenter v0.33.0. This variable will be removed in a future release.
+    Remove this input from your configuration and leave it at default.
+    **Old description:** When `true` (the default), suppresses creation of the IAM Instance Profile
     for nodes launched by Karpenter, to preserve the legacy behavior of
     the `eks/karpenter` component creating it.
     Set to `false` to enable creation of the IAM Instance Profile, which
@@ -571,4 +550,19 @@ variable "legacy_do_not_create_karpenter_instance_profile" {
     Use in conjunction with `eks/karpenter` component `legacy_create_karpenter_instance_profile`.
     EOT
   default     = true
+}
+
+variable "access_config" {
+  type = object({
+    authentication_mode                         = optional(string, "API")
+    bootstrap_cluster_creator_admin_permissions = optional(bool, false)
+  })
+  description = "Access configuration for the EKS cluster"
+  default     = {}
+  nullable    = false
+
+  validation {
+    condition     = !contains(["CONFIG_MAP"], var.access_config.authentication_mode)
+    error_message = "The CONFIG_MAP authentication_mode is not supported."
+  }
 }

@@ -106,7 +106,7 @@ variable "component_vars" {
 }
 
 variable "context_attachments" {
-  type        = set(string)
+  type        = list(string)
   description = "A list of context IDs to attach to this stack"
   default     = []
 }
@@ -239,7 +239,7 @@ variable "showcase" {
 
 variable "space_id" {
   type        = string
-  description = "Place the stack in the specified space_id."
+  description = "Place the stack in the specified space_id"
   default     = "root"
 }
 
@@ -307,6 +307,17 @@ variable "terraform_version_map" {
   type        = map(string)
   description = "A map to determine which Terraform patch version to use for each minor version"
   default     = {}
+}
+
+variable "terraform_workflow_tool" {
+  type        = string
+  description = "Defines the tool that will be used to execute the workflow. This can be one of OPEN_TOFU, TERRAFORM_FOSS or CUSTOM. Defaults to TERRAFORM_FOSS."
+  default     = "TERRAFORM_FOSS"
+
+  validation {
+    condition     = contains(["OPEN_TOFU", "TERRAFORM_FOSS", "CUSTOM"], var.terraform_workflow_tool)
+    error_message = "Valid values for terraform_workflow_tool are (OPEN_TOFU, TERRAFORM_FOSS, CUSTOM)."
+  }
 }
 
 variable "terraform_workspace" {

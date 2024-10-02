@@ -1,6 +1,14 @@
+---
+tags:
+  - component/elasticsearch
+  - layer/data
+  - provider/aws
+---
+
 # Component: `elasticsearch`
 
-This component is responsible for provisioning an Elasticsearch cluster with built-in integrations with Kibana and Logstash.
+This component is responsible for provisioning an Elasticsearch cluster with built-in integrations with Kibana and
+Logstash.
 
 ## Usage
 
@@ -27,6 +35,7 @@ components:
         domain_hostname_enabled: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -118,8 +127,11 @@ components:
 | <a name="output_master_password_ssm_key"></a> [master\_password\_ssm\_key](#output\_master\_password\_ssm\_key) | SSM key of Elasticsearch master password |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Security Group ID to control access to the Elasticsearch domain |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/elasticsearch) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/elasticsearch) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

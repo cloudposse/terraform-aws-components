@@ -116,10 +116,12 @@ module "autoscale_group" {
   cpu_utilization_high_threshold_percent = var.cpu_utilization_high_threshold_percent
   cpu_utilization_low_threshold_percent  = var.cpu_utilization_low_threshold_percent
 
+  max_instance_lifetime = var.instance_lifetime
+
   # The instance refresh definition
   # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
   instance_refresh        = var.instance_refresh
-  launch_template_version = var.launch_template_version # this has to be empty for the instance refresh to work
+  launch_template_version = var.instance_refresh == null ? "$Latest" : ""
 
   context = module.this.context
 }

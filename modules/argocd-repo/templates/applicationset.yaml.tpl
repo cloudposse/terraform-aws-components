@@ -48,14 +48,9 @@ spec:
         app_repository: '{{app_repository}}'
         app_commit: '{{app_commit}}'
         app_hostname: 'https://{{app_hostname}}'
-%{if notifications ~}
-        notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: ""
-        notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: ""
-        notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: ""
-        notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: ""
-        notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: ""
-        notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: ""
-%{ endif ~}
+%{for noti in notifications ~}
+        ${noti}
+%{ endfor ~}
 %{if length(slack_notifications_channel) > 0 ~}
         notifications.argoproj.io/subscribe.on-created.slack: ${slack_notifications_channel}
         notifications.argoproj.io/subscribe.on-deleted.slack: ${slack_notifications_channel}

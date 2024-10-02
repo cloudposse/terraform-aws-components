@@ -8,6 +8,11 @@ output "deploy_keys_ssm_path_format" {
   value       = local.enabled ? var.ssm_github_deploy_key_format : null
 }
 
+output "repository" {
+  description = "Repository name"
+  value       = local.enabled && var.create_repo ? module.this.name : var.name
+}
+
 output "repository_description" {
   description = "Repository description"
   value       = local.github_repository.description

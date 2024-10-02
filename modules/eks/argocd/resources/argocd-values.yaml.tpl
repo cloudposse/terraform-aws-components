@@ -66,7 +66,7 @@ server:
     https: false
 
   service:
-    type: NodePort
+    type: ${service_type}
 
   secret:
     create: true
@@ -74,6 +74,7 @@ server:
   config:
     url: https://${argocd_host}
     admin.enabled: "${admin_enabled}"
+    users.anonymous_enabled: "${anonymous_enabled}"
 
     # https://github.com/argoproj/argo-cd/issues/7835
     kustomize.buildOptions: --enable-helm

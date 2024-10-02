@@ -25,7 +25,10 @@ data "aws_iam_policy_document" "ssosync_lambda_identity_center" {
       "identitystore:DeleteGroupMembership",
       "identitystore:DeleteGroup",
       "secretsmanager:GetSecretValue",
-      "kms:Decrypt"
+      "kms:Decrypt",
+      "logs:PutLogEvents",
+      "logs:CreateLogStream",
+      "logs:CreateLogGroup"
     ]
     resources = ["*"]
   }

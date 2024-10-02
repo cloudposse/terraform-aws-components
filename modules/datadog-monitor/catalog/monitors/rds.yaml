@@ -17,26 +17,26 @@ rds-cpuutilization:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 90
-    warning: 85
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 90
+      warning: 85
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 rds-disk-queue-depth:
   name: "(RDS) ${tenant} ${ stage } - Disk queue depth above 64"
@@ -54,26 +54,26 @@ rds-disk-queue-depth:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 64
-    warning: 48
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 64
+      warning: 48
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 rds-freeable-memory:
   name: "(RDS) ${tenant} ${ stage } - Freeable memory below 256 MB"
@@ -91,26 +91,26 @@ rds-freeable-memory:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 256000000
-    warning: 512000000
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 256000000
+      warning: 512000000
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 rds-swap-usage:
   name: "(RDS) ${tenant} ${ stage } - Swap usage above 256 MB"
@@ -128,26 +128,26 @@ rds-swap-usage:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows: { }
-  thresholds:
-    critical: 256000000
-    warning: 128000000
-    #unknown:
-    #ok:
-    #critical_recovery:
-    #warning_recovery:
+  options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows: { }
+    thresholds:
+      critical: 256000000
+      warning: 128000000
+      #unknown:
+      #ok:
+      #critical_recovery:
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null
 
 rds-database-connections:
   name: "(RDS) ${tenant} ${ stage } - Anomaly of a large variance in RDS connection count"
@@ -165,25 +165,25 @@ rds-database-connections:
   escalation_message: ""
   tags:
     managed-by: Terraform
-  notify_no_data: false
-  notify_audit: true
-  require_full_window: true
-  enable_logs_sample: false
-  force_delete: true
-  include_tags: true
-  locked: false
-  renotify_interval: 60
-  timeout_h: 24
-  evaluation_delay: 60
-  new_host_delay: 300
-  no_data_timeframe: 10
-  threshold_windows:
-    trigger_window: "last_15m"
-    recovery_window: "last_15m"
-  thresholds:
-    critical: 1
-    #warning:
-    #unknown:
-    #ok:
-    critical_recovery: 0
-    #warning_recovery:
+    options:
+    notify_no_data: false
+    notify_audit: true
+    require_full_window: true
+    include_tags: true
+    renotify_interval: 60
+    timeout_h: 24
+    evaluation_delay: 60
+    new_host_delay: 300
+    no_data_timeframe: 10
+    threshold_windows:
+      trigger_window: "last_15m"
+      recovery_window: "last_15m"
+    thresholds:
+      critical: 1
+      #warning:
+      #unknown:
+      #ok:
+      critical_recovery: 0
+      #warning_recovery:
+  priority: 3
+  restricted_roles: null

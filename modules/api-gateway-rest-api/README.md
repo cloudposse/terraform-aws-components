@@ -1,6 +1,14 @@
+---
+tags:
+  - component/api-gateway-rest-api
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `api-gateway-rest-api`
 
 This component is responsible for deploying an API Gateway REST API.
+
 ## Usage
 
 **Stack Level**: Regional
@@ -36,6 +44,7 @@ components:
                   uri: https://api.ipify.org
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -118,9 +127,11 @@ components:
 | <a name="output_invoke_url"></a> [invoke\_url](#output\_invoke\_url) | The URL to invoke the REST API |
 | <a name="output_root_resource_id"></a> [root\_resource\_id](#output\_root\_resource\_id) | The resource ID of the REST API's root |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

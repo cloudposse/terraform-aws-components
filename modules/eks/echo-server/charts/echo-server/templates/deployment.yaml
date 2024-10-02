@@ -45,10 +45,14 @@ spec:
             successThreshold: 1
           {{- with index .Values "resources" }}
           resources:
+            {{- with index . "limits" }}
             limits:
-              cpu: {{ index . "limits.cpu" | default "50m" }}
-              memory: {{ index . "limits.memory" | default "128Mi" }}
+              cpu: {{ index . "cpu" | default "50m" }}
+              memory: {{ index . "memory" | default "128Mi" }}
+            {{- end }}
+            {{- with index . "requests" }}
             requests:
-              cpu: {{ index . "requests.cpu" | default "50m" }}
-              memory: {{ index . "requests.memory" | default "128Mi" }}
+              cpu: {{ index . "cpu" | default "50m" }}
+              memory: {{ index . "memory" | default "128Mi" }}
+            {{- end }}
           {{- end }}

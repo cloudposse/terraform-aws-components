@@ -1,6 +1,14 @@
+---
+tags:
+  - component/tgw/hub
+  - layer/network
+  - provider/aws
+---
+
 # Component: `tgw/hub`
 
-This component is responsible for provisioning an [AWS Transit Gateway](https://aws.amazon.com/transit-gateway) `hub` that acts as a centralized gateway for connecting VPCs from other `spoke` accounts.
+This component is responsible for provisioning an [AWS Transit Gateway](https://aws.amazon.com/transit-gateway) `hub`
+that acts as a centralized gateway for connecting VPCs from other `spoke` accounts.
 
 ## Usage
 
@@ -76,6 +84,7 @@ atmos terraform plan tgw/hub -s <tenant>-<environment>-network
 atmos terraform apply tgw/hub -s <tenant>-<environment>-network
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -145,9 +154,11 @@ No resources.
 | <a name="output_transit_gateway_route_table_id"></a> [transit\_gateway\_route\_table\_id](#output\_transit\_gateway\_route\_table\_id) | Transit Gateway route table ID |
 | <a name="output_vpcs"></a> [vpcs](#output\_vpcs) | Accounts with VPC and VPCs information |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/tgw/hub) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/tgw/hub) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

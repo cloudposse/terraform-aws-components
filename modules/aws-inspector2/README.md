@@ -1,3 +1,10 @@
+---
+tags:
+  - component/aws-inspector2
+  - layer/security-and-compliance
+  - provider/aws
+---
+
 # Component: `aws-inspector2`
 
 This component is responsible for configuring Inspector V2 within an AWS Organization.
@@ -8,13 +15,19 @@ This component is responsible for configuring Inspector V2 within an AWS Organiz
 
 ## Deployment Overview
 
-The deployment of this component requires multiple runs with different variable settings to properly configure the AWS Organization. First, you delegate Inspector V2 central management to the Administrator account (usually `security` account). After the Adminstrator account is delegated, we configure the it to manage Inspector V2 across all the Organization accounts and send all their findings to that account.
+The deployment of this component requires multiple runs with different variable settings to properly configure the AWS
+Organization. First, you delegate Inspector V2 central management to the Administrator account (usually `security`
+account). After the Administrator account is delegated, we configure the it to manage Inspector V2 across all the
+Organization accounts and send all their findings to that account.
 
-In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization Delegated Administrator account is `security`.
+In the examples below, we assume that the AWS Organization Management account is `root` and the AWS Organization
+Delegated Administrator account is `security`.
 
 ### Deploy to Organization Management Account
 
-First, the component is deployed to the AWS Organization Management account `root` in each region in order to configure the [AWS Delegated Administrator account](https://docs.aws.amazon.com/inspector/latest/user/designating-admin.html) that operates Amazon Inspector V2.
+First, the component is deployed to the AWS Organization Management account `root` in each region in order to configure
+the [AWS Delegated Administrator account](https://docs.aws.amazon.com/inspector/latest/user/designating-admin.html) that
+operates Amazon Inspector V2.
 
 ```yaml
 # ue1-root
@@ -30,7 +43,10 @@ components:
 
 ### Deploy Organization Settings in Delegated Administrator Account
 
-Now the component can be deployed to the Delegated Administrator Account `security` to create the organization-wide configuration for all the Organization accounts. Note that `var.admin_delegated` set to `true` indicates that the delegation has already been performed from the Organization Management account, and only the resources required for organization-wide configuration will be created.
+Now the component can be deployed to the Delegated Administrator Account `security` to create the organization-wide
+configuration for all the Organization accounts. Note that `var.admin_delegated` set to `true` indicates that the
+delegation has already been performed from the Organization Management account, and only the resources required for
+organization-wide configuration will be created.
 
 ```yaml
 # ue1-security
@@ -45,6 +61,7 @@ components:
         admin_delegated: true
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -85,7 +102,7 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `"core"` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br>  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br>  Deployment section of the README for more information. | `bool` | `false` | no |
+| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br>  Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br>  Deployment section of the README for more information. | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auto_enable_ec2"></a> [auto\_enable\_ec2](#input\_auto\_enable\_ec2) | Whether Amazon EC2 scans are automatically enabled for new members of the Amazon Inspector organization. | `bool` | `true` | no |
 | <a name="input_auto_enable_ecr"></a> [auto\_enable\_ecr](#input\_auto\_enable\_ecr) | Whether Amazon ECR scans are automatically enabled for new members of the Amazon Inspector organization. | `bool` | `true` | no |
@@ -120,6 +137,7 @@ components:
 |------|-------------|
 | <a name="output_aws_inspector2_member_association"></a> [aws\_inspector2\_member\_association](#output\_aws\_inspector2\_member\_association) | The Inspector2 member association resource. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/network-firewall
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `network-firewall`
 
 This component is responsible for provisioning [AWS Network Firewall](https://aws.amazon.com/network-firewal) resources,
@@ -9,15 +16,14 @@ including Network Firewall, firewall policy, rule groups, and logging configurat
 
 Example of a Network Firewall with stateful 5-tuple rules:
 
-:::info
-
-The "5-tuple" means the five items (columns) that each rule (row, or tuple) in a firewall policy uses to define whether to block or allow traffic:
-source and destination IP, source and destination port, and protocol.
-
-Refer to [Standard stateful rule groups in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-basic.html)
-for more details.
-
-:::
+> [!TIP]
+>
+> The "5-tuple" means the five items (columns) that each rule (row, or tuple) in a firewall policy uses to define
+> whether to block or allow traffic: source and destination IP, source and destination port, and protocol.
+>
+> Refer to
+> [Standard stateful rule groups in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-basic.html)
+> for more details.
 
 ```yaml
 components:
@@ -88,15 +94,15 @@ components:
 
 Example of a Network Firewall with [Suricata](https://suricata.readthedocs.io/en/suricata-6.0.0/rules/) rules:
 
-:::info
-
-For [Suricata](https://suricata.io/) rule group type, you provide match and action settings in a string, in a Suricata compatible specification.
-The specification fully defines what the stateful rules engine looks for in a traffic flow and the action to take on the packets in a flow that matches the inspection criteria.
-
-Refer to [Suricata compatible rule strings in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-suricata.html)
-for more details.
-
-:::
+> [!TIP]
+>
+> For [Suricata](https://suricata.io/) rule group type, you provide match and action settings in a string, in a Suricata
+> compatible specification. The specification fully defines what the stateful rules engine looks for in a traffic flow
+> and the action to take on the packets in a flow that matches the inspection criteria.
+>
+> Refer to
+> [Suricata compatible rule strings in AWS Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-suricata.html)
+> for more details.
 
 ```yaml
 components:
@@ -197,7 +203,6 @@ components:
 
               # https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-how-to-provide-rules.html
               rules_source:
-
                 # Suricata rules for the rule group
                 # https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-examples.html
                 # https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-rule-evaluation-order.html
@@ -233,6 +238,7 @@ components:
                   pass ip any any <> any any ( msg: "Allow general traffic"; sid:10000; rev:1; )
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -312,6 +318,7 @@ No resources.
 | <a name="output_network_firewall_policy_name"></a> [network\_firewall\_policy\_name](#output\_network\_firewall\_policy\_name) | Network Firewall policy name |
 | <a name="output_network_firewall_status"></a> [network\_firewall\_status](#output\_network\_firewall\_status) | Nested list of information about the current status of the Network Firewall |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
@@ -323,6 +330,7 @@ No resources.
 - [How to deploy AWS Network Firewall by using AWS Firewall Manager](https://aws.amazon.com/blogs/security/how-to-deploy-aws-network-firewall-by-using-aws-firewall-manager)
 - [A Deep Dive into AWS Transit Gateway](https://www.youtube.com/watch?v=a55Iud-66q0)
 - [Appliance in a shared services VPC](https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-appliance-scenario.html)
-- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

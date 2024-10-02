@@ -3,7 +3,7 @@
 # such stack is allowed in the Spacelift organization.
 module "root_admin_stack_config" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config"
-  version = "1.4.0"
+  version = "1.5.0"
 
   enabled = local.create_root_admin_stack
 
@@ -15,7 +15,7 @@ module "root_admin_stack_config" {
 # This gets the atmos stack config for all of the administrative stacks
 module "all_admin_stacks_config" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config"
-  version = "1.4.0"
+  version = "1.5.0"
 
   enabled = local.create_root_admin_stack
 
@@ -26,7 +26,7 @@ module "all_admin_stacks_config" {
 
 module "root_admin_stack" {
   source  = "cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack"
-  version = "1.4.0"
+  version = "1.6.0"
 
   enabled = local.create_root_admin_stack
 
@@ -80,10 +80,11 @@ module "root_admin_stack" {
   stack_name                              = var.stack_name != null ? var.stack_name : local.root_admin_stack_name
   terraform_smart_sanitization            = try(local.root_admin_stack_config.settings.spacelift.terraform_smart_sanitization, var.terraform_smart_sanitization)
   terraform_version                       = lookup(var.terraform_version_map, try(local.root_admin_stack_config.settings.spacelift.terraform_version, ""), var.terraform_version)
+  terraform_workflow_tool                 = try(local.root_admin_stack_config.settings.spacelift.terraform_workflow_tool, var.terraform_workflow_tool)
   webhook_enabled                         = try(local.root_admin_stack_config.settings.spacelift.webhook_enabled, var.webhook_enabled)
   webhook_endpoint                        = try(local.root_admin_stack_config.settings.spacelift.webhook_endpoint, var.webhook_endpoint)
   webhook_secret                          = try(local.root_admin_stack_config.settings.spacelift.webhook_secret, var.webhook_secret)
-  worker_pool_id                          = local.worker_pools[var.worker_pool_name]
+  worker_pool_id                          = try(local.worker_pools[var.worker_pool_name], null)
 
   azure_devops         = try(local.root_admin_stack_config.settings.spacelift.azure_devops, var.azure_devops)
   bitbucket_cloud      = try(local.root_admin_stack_config.settings.spacelift.bitbucket_cloud, var.bitbucket_cloud)

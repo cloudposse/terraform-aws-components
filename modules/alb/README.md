@@ -1,6 +1,14 @@
+---
+tags:
+  - component/alb
+  - layer/ecs
+  - provider/aws
+---
+
 # Component: `alb`
 
-This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and `dns-delegated` components.
+This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and
+`dns-delegated` components.
 
 ## Usage
 
@@ -17,6 +25,7 @@ components:
         health_check_path: /api/healthz
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -35,7 +44,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_acm"></a> [acm](#module\_acm) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 1.10.0 |
+| <a name="module_alb"></a> [alb](#module\_alb) | cloudposse/alb/aws | 1.11.1 |
 | <a name="module_dns_delegated"></a> [dns\_delegated](#module\_dns\_delegated) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -125,10 +134,11 @@ No resources.
 | <a name="output_listener_arns"></a> [listener\_arns](#output\_listener\_arns) | A list of all the listener ARNs |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | The security group ID of the ALB |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/alb) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/alb) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

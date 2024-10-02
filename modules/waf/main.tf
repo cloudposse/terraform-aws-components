@@ -6,7 +6,7 @@ locals {
     if local.enabled
   ]
 
-  association_resource_arns = concat(var.association_resource_arns, local.association_resource_component_selectors_arns)
+  association_resource_arns = toset(concat(var.association_resource_arns, local.association_resource_component_selectors_arns, local.alb_arns))
 
   log_destination_component_selectors = [
     for i, v in var.log_destination_component_selectors : module.log_destination_components[i].outputs[v.component_output]
@@ -18,7 +18,7 @@ locals {
 
 module "aws_waf" {
   source  = "cloudposse/waf/aws"
-  version = "1.3.0"
+  version = "1.8.0"
 
   description          = var.description
   default_action       = var.default_action

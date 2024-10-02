@@ -77,3 +77,28 @@ output "secondary_ip_address" {
   value       = module.mq_broker.secondary_ip_address
   description = "AmazonMQ secondary IP address"
 }
+
+output "security_group_id" {
+  value       = module.mq_broker.security_group_id
+  description = "AmazonMQ security group id"
+}
+
+output "security_group_arn" {
+  value       = module.mq_broker.security_group_arn
+  description = "The ARN of the created security group"
+}
+
+output "security_group_name" {
+  value       = module.mq_broker.security_group_name
+  description = "The name of the created security group"
+}
+
+output "admin_username" {
+  value       = module.mq_broker.admin_username
+  description = "AmazonMQ admin username"
+}
+
+output "application_username" {
+  value       = module.mq_broker.application_username
+  description = "AmazonMQ application username"
+}

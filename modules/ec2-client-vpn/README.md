@@ -1,3 +1,10 @@
+---
+tags:
+  - component/ec2-client-vpn
+  - layer/network
+  - provider/aws
+---
+
 # Component: `ec2-client-vpn`
 
 This component is responsible for provisioning VPN Client Endpoints.
@@ -6,7 +13,9 @@ This component is responsible for provisioning VPN Client Endpoints.
 
 **Stack Level**: Regional
 
-Here's an example snippet for how to use this component. This component should only be applied once as the resources it creates are regional. This is typically done via the corp stack (e.g. `uw2-corp.yaml`). This is because a vpc endpoint requires a vpc and the network stack does not have a vpc.
+Here's an example snippet for how to use this component. This component should only be applied once as the resources it
+creates are regional. This is typically done via the corp stack (e.g. `uw2-corp.yaml`). This is because a vpc endpoint
+requires a vpc and the network stack does not have a vpc.
 
 ```yaml
 components:
@@ -24,23 +33,24 @@ components:
         organization_name: acme
         split_tunnel: true
         availability_zones:
-        - us-west-2a
-        - us-west-2b
-        - us-west-2c
+          - us-west-2a
+          - us-west-2b
+          - us-west-2c
         associated_security_group_ids: []
         additional_routes:
-        - destination_cidr_block: 0.0.0.0/0
-          description: Internet Route
+          - destination_cidr_block: 0.0.0.0/0
+            description: Internet Route
         authorization_rules:
-        - name: Internet Rule
-          authorize_all_groups: true
-          description: Allows routing to the internet"
-          target_network_cidr: 0.0.0.0/0
+          - name: Internet Rule
+            authorize_all_groups: true
+            description: Allows routing to the internet"
+            target_network_cidr: 0.0.0.0/0
 ```
 
 ## Deploying
 
-NOTE: This module uses the `aws_ec2_client_vpn_route` resource which throws an error if too many API calls come from a single host. Ignore this error and repeat the terraform command. It usually takes 3 deploys (or destroys) to complete.
+NOTE: This module uses the `aws_ec2_client_vpn_route` resource which throws an error if too many API calls come from a
+single host. Ignore this error and repeat the terraform command. It usually takes 3 deploys (or destroys) to complete.
 
 Error on create (See issue https://github.com/hashicorp/terraform-provider-aws/issues/19750)
 
@@ -56,9 +66,12 @@ timeout while waiting for resource to be gone (last state: 'deleting', timeout: 
 
 ## Testing
 
-NOTE: The `GoogleIDPMetadata-cloudposse.com.xml` in this repo is equivalent to the one in the `sso` component and is used for testing. This component can only specify a single SAML document. The customer SAML xml should be placed in this directory side-by-side the CloudPosse SAML xml.
+NOTE: The `GoogleIDPMetadata-cloudposse.com.xml` in this repo is equivalent to the one in the `sso` component and is
+used for testing. This component can only specify a single SAML document. The customer SAML xml should be placed in this
+directory side-by-side the CloudPosse SAML xml.
 
-Prior to testing, the component needs to be deployed and the AWS client app needs to be setup by the IdP admin otherwise the following steps will result in an error similar to `app_not_configured_for_user`.
+Prior to testing, the component needs to be deployed and the AWS client app needs to be setup by the IdP admin otherwise
+the following steps will result in an error similar to `app_not_configured_for_user`.
 
 1. Deploy the component in a regional account with a VPC like `ue2-corp`.
 1. Copy the contents of `client_configuration` into a file called `client_configuration.ovpn`
@@ -74,15 +87,19 @@ Prior to testing, the component needs to be deployed and the AWS client app need
 
 A browser will launch and allow you to connect to the VPN.
 
-1. Make a note of where this component is deployed
-1. Ensure that the resource to connect to is in a VPC that is connected by the transit gateway
-1. Ensure that the resource to connect to contains a security group with a rule that allows ingress from where the client vpn is deployed (e.g. `ue2-corp`)
-1. Use `nmap` to test if the port is `open`. If the port is `filtered` then it's not open.
+1.  Make a note of where this component is deployed
+1.  Ensure that the resource to connect to is in a VPC that is connected by the transit gateway
+1.  Ensure that the resource to connect to contains a security group with a rule that allows ingress from where the
+    client vpn is deployed (e.g. `ue2-corp`)
+1.  Use `nmap` to test if the port is `open`. If the port is `filtered` then it's not open.
 
-        nmap -p <PORT> <HOST>
+```console
+nmap -p <PORT> <HOST>
+```
 
 Successful tests have been seen with MSK and RDS.
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -159,10 +176,12 @@ No resources.
 | <a name="output_vpn_endpoint_dns_name"></a> [vpn\_endpoint\_dns\_name](#output\_vpn\_endpoint\_dns\_name) | The DNS Name of the Client VPN Endpoint Connection. |
 | <a name="output_vpn_endpoint_id"></a> [vpn\_endpoint\_id](#output\_vpn\_endpoint\_id) | The ID of the Client VPN Endpoint Connection. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-ec2-client-vpn](https://github.com/cloudposse/terraform-aws-ec2-client-vpn) - Cloud Posse's upstream component
-* [cloudposse/awsutils](https://github.com/cloudposse/terraform-provider-awsutils) - Cloud Posse's awsutils provider
 
+- [cloudposse/terraform-aws-ec2-client-vpn](https://github.com/cloudposse/terraform-aws-ec2-client-vpn) - Cloud Posse's
+  upstream component
+- [cloudposse/awsutils](https://github.com/cloudposse/terraform-provider-awsutils) - Cloud Posse's awsutils provider
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

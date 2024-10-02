@@ -43,7 +43,7 @@ an authorized local service.
 To keep the database encrypted, this module will have to be extended:
 1 Create a KMS key for encrypting the database. Using the RDS default key
 is not advisable since the only practical advantage of the key comes from
-limiting access to it, and the default key will likey have relatively
+limiting access to it, and the default key will likely have relatively
 wide access.
 1. Create an IAM role for Keycloak that has access to the key. Nodes running
 `kiam-server` will need to be able to assume this role.

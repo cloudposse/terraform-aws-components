@@ -1,33 +1,34 @@
+---
+tags:
+  - component/aws-ssosync
+  - layer/identity
+  - provider/aws
+---
+
 # Component: `aws-ssosync`
 
 Deploys [AWS ssosync](https://github.com/awslabs/ssosync) to sync Google Groups with AWS SSO.
 
 AWS `ssosync` is a Lambda application that regularly manages Identity Store users.
 
-This component requires manual deployment by a privileged user because it deploys a role in the identity account.
-
-You need to have set up AWS SSO in root account and delegated to the identity account as your SSO administrator.
+This component requires manual deployment by a privileged user because it deploys a role in the root or identity
+management account.
 
 ## Usage
-You should be able to deploy the `aws-ssosync` component to the `[core-]gbl-identity` stack
-with `atmos terraform deploy aws-ssosync -s gbl-identity`.
 
-**Stack Level**: Global
-**Deployment**: Must be deployed by `managers` or SuperAdmin using `atmos` CLI
+You should be able to deploy the `aws-ssosync` component to the same account as `aws-sso`. Typically that is the
+`core-gbl-root` or `gbl-root` stack.
+
+**Stack Level**: Global **Deployment**: Must be deployed by `managers` or SuperAdmin using `atmos` CLI
 
 The following is an example snippet for how to use this component:
 
 (`stacks/catalog/aws-ssosync.yaml`)
+
 ```yaml
 components:
   terraform:
     aws-ssosync:
-      backend:
-        s3:
-          role_arn: null
-      settings:
-        spacelift:
-          workspace_enabled: false
       vars:
         enabled: true
         name: aws-ssosync
@@ -40,84 +41,154 @@ components:
         schedule_expression: "rate(15 minutes)"
 ```
 
-We recommend following a similar process to what the [AWS ssosync](https://github.com/awslabs/ssosync)
-documentation recommends.
+We recommend following a similar process to what the [AWS ssosync](https://github.com/awslabs/ssosync) documentation
+recommends.
 
-### Clickops
+### Deployment
 
 Overview of steps:
+
+1. Configure AWS IAM Identity Center
+1. Configure Google Cloud console
+1. Configure Google Admin console
+1. Deploy the `aws-ssosync` component
 1. Deploy the `aws-sso` component
-1. Configure GSuite
-1. Deploy the `aws-ssosync` component to the `gbl-identity` stack
 
-#### Deploy the `aws-sso` component
+#### 1. Configure AWS IAM Identity Center (AWS SSO)
 
-Follow the [aws-sso](../aws-sso/) component documentation to deploy the `aws-sso` component.
-Once this is done, you'll want to grab a few pieces of information.
+Follow
+[AWS documentation to configure SAML and SCIM with Google Workspace and IAM Identity Center](https://docs.aws.amazon.com/singlesignon/latest/userguide/gs-gwp.html).
 
-Go to the AWS Single Sign-On console in the region you have set up AWS SSO and
-select `Settings`. Click `Enable automatic provisioning`.
+As part of this process, save the SCIM endpoint token and URL. Then in AWS SSM Parameter Store, create two
+`SecureString` parameters in the same account used for AWS SSO. This is usually the root account in the primary region.
 
-A pop up will appear with URL and the Access Token. The Access Token will only
-appear at this stage. You want to copy both of these as a parameter to the ssosync command.
+```
+/ssosync/scim_endpoint_access_token
+/ssosync/scim_endpoint_url
+```
 
-To pass parameters to the `ssosync` command, you'll need to decide on a path
-in SSM Parameter Store, `google_credentials_ssm_path`.
+One more parameter you'll need is your Identity Store ID. To obtain your Identity Store ID, go to the AWS Identity
+Center console and select `Settings`. Under the `Identity Source` section, copy the Identity Store ID. In the same
+account used for AWS SSO, create the following parameter:
 
-In SSM Parameter Store on your `identity` account, create a parameter with the
-name `<google_credentials_ssm_path>/scim_endpoint_url` and the value of the
-URL from the previous step. Also create a parameter with the name
-`<google_credentials_ssm_path>/scim_endpoint_access_token` and the value of the
-Access Token from the previous step.
+```
+/ssosync/identity_store_id
+```
 
-One more parameter you'll need is your Identity Store ID.
-To obtain your Identity store ID, go to the AWS Identity Center console and
-select `Settings`. Under the `Identity Source` section, copy the Identity Store ID.
-Back in the `identity` account, create a parameter with the name
-`<google_credentials_ssm_path>/identity_store_id`.
+#### 2. Configure Google Cloud console
 
-Lastly, go ahead and [delegate administration](https://docs.aws.amazon.com/singlesignon/latest/userguide/delegated-admin.html)
-from the `root` account to the `identity` account
+Within the Google Cloud console, we need to create a new Google Project and Service Account and enable the Admin SDK
+API. Follow these steps:
 
-#### Configure GSuite
+1. Open the Google Cloud console: https://console.cloud.google.com
+2. Create a new project. Give the project a descriptive name such as `AWS SSO Sync`
+3. Enable Admin SDK in APIs: `APIs & Services > Enabled APIs & Services > + ENABLE APIS AND SERVICES`
 
-_steps taken directly from [ssosync README.md](https://github.com/awslabs/ssosync/blob/master/README.md#google)_
+![Enable Admin SDK](https://raw.githubusercontent.com/cloudposse/terraform-aws-components/main/modules/aws-ssosync/docs/img/admin_sdk.png) #
+use raw URL so that this works in both GitHub and docusaurus
 
-First, you have to setup your API. In the project you want to use go to the
-[Console](https://console.developers.google.com/apis) and select *API & Service * >
-*Enable APIs and Services*. Search for *Admin SDK* and *Enable* the API.
+4. Create Service Account: `IAM & Admin > Service Accounts > Create Service Account`
+   [(ref)](https://cloud.google.com/iam/docs/service-accounts-create).
 
-You have to perform this
-[tutorial](https://developers.google.com/admin-sdk/directory/v1/guides/delegation)
-to create a service account that you use to sync your users. Save
-the `JSON file` you create during the process and rename it to `google_credentials.json`.
+![Create Service Account](https://raw.githubusercontent.com/cloudposse/terraform-aws-components/main/modules/aws-ssosync/docs/img/create_service_account.png) #
+use raw URL so that this works in both GitHub and docusaurus
 
-Head back in to your `identity` account in AWS and create a parameter in SSM
-Parameter Store with the name `<google_credentials_ssm_path>/google_credentials` and
-give it the contents of the `google_credentials.json` file.
+5. Download credentials for the new Service Account:
+   `IAM & Admin > Service Accounts > select Service Account > Keys > ADD KEY > Create new key > JSON`
 
-In the domain-wide delegation for the Admin API, you have to specify the
-following scopes for the user.
+![Download Credentials](https://raw.githubusercontent.com/cloudposse/terraform-aws-components/main/modules/aws-ssosync/docs/img/dl_service_account_creds.png) #
+use raw URL so that this works in both GitHub and docusaurus
 
-* https://www.googleapis.com/auth/admin.directory.group.readonly
-* https://www.googleapis.com/auth/admin.directory.group.member.readonly
-* https://www.googleapis.com/auth/admin.directory.user.readonly
+6. Save the JSON credentials as a new `SecureString` AWS SSM parameter in the same account used for AWS SSO. Use the
+   full JSON string as the value for the parameter.
 
-Back in the Console go to the Dashboard for the API & Services and select
-`Enable API and Services`.
-In the Search box type `Admin` and select the `Admin SDK` option. Click the
-`Enable` button.
+```
+/ssosync/google_credentials
+```
 
-#### Deploy the `aws-ssosync` component
+#### 3. Configure Google Admin console
 
-Make sure that all four of the following SSM parameters exist in the `identity` account:
-* `<google_credentials_ssm_path>/scim_endpoint_url`
-* `<google_credentials_ssm_path>/scim_endpoint_access_token`
-* `<google_credentials_ssm_path>/identity_store_id`
-* `<google_credentials_ssm_path>/google_credentials`
+- Open the Google Admin console
+- From your domain’s Admin console, go to `Main menu menu > Security > Access and data control > API controls`
+  [(ref)](https://developers.google.com/cloud-search/docs/guides/delegation)
+- In the Domain wide delegation pane, select `Manage Domain Wide Delegation`.
+- Click `Add new`.
+- In the Client ID field, enter the client ID obtained from the service account creation steps above.
+- In the OAuth Scopes field, enter a comma-delimited list of the scopes required for your application. Use the scope
+  `https://www.googleapis.com/auth/cloud_search.query` for search applications using the Query API.
+- Add the following permission: [(ref)](https://github.com/awslabs/ssosync?tab=readme-ov-file#google)
 
+```console
+https://www.googleapis.com/auth/admin.directory.group.readonly
+https://www.googleapis.com/auth/admin.directory.group.member.readonly
+https://www.googleapis.com/auth/admin.directory.user.readonly
+```
 
+#### 4. Deploy the `aws-ssosync` component
 
+Make sure that all four of the following SSM parameters exist in the target account and region:
+
+- `/ssosync/scim_endpoint_url`
+- `/ssosync/scim_endpoint_access_token`
+- `/ssosync/identity_store_id`
+- `/ssosync/google_credentials`
+
+If deployed successfully, Groups and Users should be programmatically copied from the Google Workspace into AWS IAM
+Identity Center on the given schedule.
+
+If these Groups are not showing up, check the CloudWatch logs for the new Lambda function and refer the [FAQs](#FAQ)
+included below.
+
+#### 5. Deploy the `aws-sso` component
+
+Use the names of the Groups now provisioned programmatically in the `aws-sso` component catalog. Follow the
+[aws-sso](../aws-sso/) component documentation to deploy the `aws-sso` component.
+
+### FAQ
+
+#### Why is the tool forked by `Benbentwo`?
+
+The `awslabs` tool requires AWS Secrets Managers for the Google Credentials. However, we would prefer to use AWS SSM to
+store all credentials consistency and not require AWS Secrets Manager. Therefore we've created a Pull Request and will
+point to a fork until the PR is merged.
+
+Ref:
+
+- https://github.com/awslabs/ssosync/pull/133
+- https://github.com/awslabs/ssosync/issues/93
+
+#### What should I use for the Google Admin Email Address?
+
+The Service Account created will assume the User given by `--google-admin` / `SSOSYNC_GOOGLE_ADMIN` /
+`var.google_admin_email`. Therefore, this user email must be a valid Google admin user in your organization.
+
+This is not the same email as the Service Account.
+
+If Google fails to query Groups, you may see the following error:
+
+```console
+Notifying Lambda and mark this execution as Failure: googleapi: Error 404: Domain not found., notFound
+```
+
+#### Common Group Name Query Error
+
+If filtering group names using query strings, make sure the provided string is valid. For example,
+`google_group_match: "name:aws*"` is incorrect. Instead use `google_group_match: "Name:aws*"`
+
+If not, you may again see the same error message:
+
+```console
+Notifying Lambda and mark this execution as Failure: googleapi: Error 404: Domain not found., notFound
+```
+
+Ref:
+
+> The specific error you are seeing is because the google api doesn't like the query string you provided for the -g
+> parameter. try -g "Name:Fuel\*"
+
+https://github.com/awslabs/ssosync/issues/91
+
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -140,7 +211,6 @@ Make sure that all four of the following SSM parameters exist in the `identity` 
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_ssosync_artifact"></a> [ssosync\_artifact](#module\_ssosync\_artifact) | cloudposse/module-artifact/external | 0.8.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -208,50 +278,11 @@ Make sure that all four of the following SSM parameters exist in the `identity` 
 | <a name="output_invoke_arn"></a> [invoke\_arn](#output\_invoke\_arn) | Invoke ARN of the lambda function |
 | <a name="output_qualified_arn"></a> [qualified\_arn](#output\_qualified\_arn) | ARN identifying your Lambda Function Version (if versioning is enabled via publish = true) |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 
-- [cloudposse/terraform-aws-sso][39]
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aws-ssosync) -
+  Cloud Posse's upstream component
 
-[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>][40]
-
-[1]:	https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html
-[2]:	#requirement%5C_terraform
-[3]:	#requirement%5C_aws
-[4]:	#requirement%5C_external
-[5]:	#requirement%5C_local
-[6]:	#requirement%5C_template
-[7]:	#requirement%5C_utils
-[8]:	#provider%5C_aws
-[9]:	#module%5C_account%5C_map
-[10]:	#module%5C_permission%5C_sets
-[11]:	#module%5C_role%5C_prefix
-[12]:	#module%5C_sso%5C_account%5C_assignments
-[13]:	#module%5C_this
-[14]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[15]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[16]:	https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document
-[17]:	#input%5C_account%5C_assignments
-[18]:	#input%5C_additional%5C_tag%5C_map
-[19]:	#input%5C_attributes
-[20]:	#input%5C_context
-[21]:	#input%5C_delimiter
-[22]:	#input%5C_enabled
-[23]:	#input%5C_environment
-[24]:	#input%5C_global%5C_environment%5C_name
-[25]:	#input%5C_iam%5C_primary%5C_roles%5C_stage%5C_name
-[26]:	#input%5C_id%5C_length%5C_limit
-[27]:	#input%5C_identity%5C_roles%5C_accessible
-[28]:	#input%5C_label%5C_key%5C_case
-[29]:	#input%5C_label%5C_order
-[30]:	#input%5C_label%5C_value%5C_case
-[31]:	#input%5C_name
-[32]:	#input%5C_namespace
-[33]:	#input%5C_privileged
-[34]:	#input%5C_regex%5C_replace%5C_chars
-[35]:	#input%5C_region
-[36]:	#input%5C_root%5C_account%5C_stage%5C_name
-[37]:	#input%5C_stage
-[38]:	#input%5C_tags
-[39]:	https://github.com/cloudposse/terraform-aws-sso
-[40]:	https://cpco.io/component
+[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
