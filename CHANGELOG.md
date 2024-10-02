@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 1.507.0
+
+
+
+<details>
+  <summary>feat: add support latest alb controller @sgtoj (#985)</summary>
+## what
+
+- add support for `aws-loadbalancer-controller` helm chart v1.7.1
+- add `resources` configuration to the snippet in readme
+- remove controller's dependency on the ec2 metadata
+    - move chart value `aws.region` to the expected location of `region`
+    - add chart value `vpcId`
+
+## why
+
+- support the latest alb controller and its helm chart
+
+## references
+
+- n/a
+
+</details>
+
+
+
 ## 1.505.0
 
 
