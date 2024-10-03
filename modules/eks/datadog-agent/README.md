@@ -1,4 +1,13 @@
-# Component: `datadog-agent`
+---
+tags:
+  - component/eks/datadog-agent
+  - layer/datadog
+  - provider/aws
+  - provider/helm
+  - provider/datadog
+---
+
+# Component: `eks/datadog-agent`
 
 This component installs the `datadog-agent` for EKS clusters.
 
@@ -52,7 +61,6 @@ components:
             env:
               - name: DD_EC2_PREFER_IMDSV2 # this merges ec2 instances and the node in the hostmap section
                 value: "true"
-
 ```
 
 Deploy this to a particular environment such as dev, prod, etc.
@@ -78,30 +86,41 @@ components:
 
 ## Cluster Checks
 
-Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through the datadog agent or annotations on kubernetes services.
+Cluster Checks are configurations that allow us to setup external URLs to be monitored. They can be configured through
+the datadog agent or annotations on kubernetes services.
 
-Cluster Checks are similar to synthetics checks, they are not as indepth, but significantly cheaper. Use Cluster Checks when you need a simple health check beyond the kubernetes pod health check.
+Cluster Checks are similar to synthetics checks, they are not as indepth, but significantly cheaper. Use Cluster Checks
+when you need a simple health check beyond the kubernetes pod health check.
 
-Public addresses that test endpoints must use the agent configuration, whereas service addresses internal to the cluster can be tested by annotations.
+Public addresses that test endpoints must use the agent configuration, whereas service addresses internal to the cluster
+can be tested by annotations.
 
 ### Adding Cluster Checks
 
 Cluster Checks can be enabled or disabled via the `cluster_checks_enabled` variable. We recommend this be set to true.
 
-New Cluster Checks can be added to defaults to be applied in every account. Alternatively they can be placed in an individual stage folder which will be applied to individual stages. This is controlled by the `datadog_cluster_check_config_parameters` variable, which determines the paths of yaml files to look for cluster checks per stage.
+New Cluster Checks can be added to defaults to be applied in every account. Alternatively they can be placed in an
+individual stage folder which will be applied to individual stages. This is controlled by the
+`datadog_cluster_check_config_parameters` variable, which determines the paths of yaml files to look for cluster checks
+per stage.
 
-Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and `Http`
+Once they are added, and properly configured, the new checks show up in the network monitor creation under `ssl` and
+`Http`
 
-**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this is following [datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files) for `<integration name>.yaml`.
+**Please note:** the yaml file name doesn't matter, but the root key inside which is `something.yaml` does matter. this
+is following
+[datadogs docs](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
+for `<integration name>.yaml`.
 
 #### Sample Yaml
 
-:::caution
-The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml`
-[Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
+> [!WARNING]
+>
+> The key of a filename must match datadog docs, which is `<INTEGRATION_NAME>.yaml` >
+> [Datadog Cluster Checks](https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm#configuration-from-static-configuration-files)
 
-:::
-Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be used for kubernetes services.
+Cluster Checks **can** be used for external URL testing (loadbalancer endpoints), whereas annotations **must** be used
+for kubernetes services.
 
 ```
 http_check.yaml:
@@ -119,7 +138,8 @@ http_check.yaml:
 
 ### Monitoring Cluster Checks
 
-Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this can be added to each stage (usually via a defaults folder).
+Using Cloudposse's `datadog-monitor` component. The following yaml snippet will monitor all HTTP Cluster Checks, this
+can be added to each stage (usually via a defaults folder).
 
 ```yaml
 https-checks:
@@ -146,7 +166,7 @@ https-checks:
   new_host_delay: 0
   new_group_delay: 0
   no_data_timeframe: 2
-  threshold_windows: { }
+  threshold_windows: {}
   thresholds:
     critical: 1
     warning: 1
@@ -155,12 +175,13 @@ https-checks:
 
 ## References
 
-* https://github.com/DataDog/helm-charts/tree/main/charts/datadog
-* https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
-* https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_basic_values.yaml
-* https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
-* https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm
+- https://github.com/DataDog/helm-charts/tree/main/charts/datadog
+- https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+- https://github.com/DataDog/helm-charts/blob/main/examples/datadog/agent_basic_values.yaml
+- https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
+- https://docs.datadoghq.com/agent/cluster_agent/clusterchecks/?tab=helm
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -227,7 +248,8 @@ https-checks:
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -256,7 +278,10 @@ https-checks:
 | <a name="output_cluster_checks"></a> [cluster\_checks](#output\_cluster\_checks) | Cluster Checks for the cluster |
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-agent) - Cloud Posse's upstream component
+
+- Datadog's [Kubernetes Agent documentation](https://docs.datadoghq.com/containers/kubernetes/)
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-agent) -
+  Cloud Posse's upstream component

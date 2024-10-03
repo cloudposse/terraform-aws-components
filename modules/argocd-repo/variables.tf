@@ -138,3 +138,50 @@ variable "create_repo" {
   description = "Whether or not to create the repository or use an existing one"
   default     = true
 }
+
+variable "required_pull_request_reviews" {
+  type        = bool
+  description = "Enforce restrictions for pull request reviews"
+  default     = true
+}
+
+variable "push_restrictions_enabled" {
+  type        = bool
+  description = "Enforce who can push to the main branch"
+  default     = true
+}
+
+variable "vulnerability_alerts_enabled" {
+  type        = bool
+  description = "Enable security alerts for vulnerable dependencies"
+  default     = false
+}
+
+variable "slack_notifications_channel" {
+  type        = string
+  default     = ""
+  description = "If given, the Slack channel to for deployment notifications."
+}
+
+variable "manifest_kubernetes_namespace" {
+  type        = string
+  default     = "argocd"
+  description = "The namespace used for the ArgoCD application"
+}
+
+variable "github_notifications" {
+  type = list(string)
+  default = [
+    "notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: \"\"",
+  ]
+  description = <<EOT
+    ArgoCD notification annotations for subscribing to GitHub.
+
+    The default value given uses the same notification template names as defined in the `eks/argocd` component. If want to add additional notifications, include any existing notifications from this list that you want to keep in addition.
+  EOT
+}

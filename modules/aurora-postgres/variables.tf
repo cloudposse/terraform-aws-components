@@ -55,6 +55,18 @@ variable "engine_version" {
   default     = "13.4"
 }
 
+variable "allow_major_version_upgrade" {
+  type        = bool
+  default     = false
+  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to false."
+}
+
+variable "ca_cert_identifier" {
+  description = "The identifier of the CA certificate for the DB instance"
+  type        = string
+  default     = null
+}
+
 variable "engine_mode" {
   type        = string
   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`"
@@ -247,6 +259,12 @@ variable "snapshot_identifier" {
   description = "Specifies whether or not to create this cluster from a snapshot"
 }
 
+variable "allowed_security_group_names" {
+  type        = list(string)
+  description = "List of security group names (tags) that should be allowed access to the database"
+  default     = []
+}
+
 variable "eks_security_group_enabled" {
   type        = bool
   description = "Use the eks default security group"
@@ -311,4 +329,26 @@ variable "intra_security_group_traffic_enabled" {
   type        = bool
   default     = false
   description = "Whether to allow traffic between resources inside the database's security group."
+}
+
+variable "cluster_parameters" {
+  type = list(object({
+    apply_method = string
+    name         = string
+    value        = string
+  }))
+  default     = []
+  description = "List of DB cluster parameters to apply"
+}
+
+variable "retention_period" {
+  type        = number
+  default     = 5
+  description = "Number of days to retain backups for"
+}
+
+variable "backup_window" {
+  type        = string
+  default     = "07:00-09:00"
+  description = "Daily time range during which the backups happen, UTC"
 }

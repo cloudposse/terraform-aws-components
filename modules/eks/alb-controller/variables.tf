@@ -86,6 +86,12 @@ variable "eks_component_name" {
   default     = "eks/cluster"
 }
 
+variable "vpc_component_name" {
+  type        = string
+  description = "The name of the vpc component"
+  default     = "vpc"
+}
+
 ####### Configure default Ingress Class #######
 
 variable "default_ingress_enabled" {
@@ -120,7 +126,7 @@ variable "default_ingress_scheme" {
 variable "default_ingress_ip_address_type" {
   type        = string
   description = "IP address type for default ingress, one of `ipv4` or `dualstack`."
-  default     = "dualstack"
+  default     = "ipv4"
 
   validation {
     condition     = contains(["ipv4", "dualstack"], var.default_ingress_ip_address_type)

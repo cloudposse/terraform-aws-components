@@ -60,7 +60,7 @@ output "eks_node_group_role_names" {
 
 output "eks_auth_worker_roles" {
   description = "List of worker IAM roles that were included in the `auth-map` ConfigMap."
-  value       = local.worker_role_arns
+  value       = local.linux_worker_role_arns
 }
 
 output "eks_node_group_statuses" {
@@ -106,4 +106,9 @@ output "vpc_cidr" {
 output "availability_zones" {
   description = "Availability Zones in which the cluster is provisioned"
   value       = local.availability_zones
+}
+
+output "eks_addons_versions" {
+  description = "Map of enabled EKS Addons names and versions"
+  value       = module.eks_cluster.eks_addons_versions
 }

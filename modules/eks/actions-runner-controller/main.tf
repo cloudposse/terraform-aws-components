@@ -1,5 +1,6 @@
 locals {
-  enabled = module.this.enabled
+  enabled        = module.this.enabled
+  context_labels = var.context_tags_enabled ? values(module.this.tags) : []
 
   webhook_enabled            = local.enabled ? try(var.webhook.enabled, false) : false
   webhook_host               = local.webhook_enabled ? format(var.webhook.hostname_template, var.tenant, var.stage, var.environment) : "example.com"
@@ -110,7 +111,7 @@ data "aws_ssm_parameter" "docker_config_json" {
 
 module "actions_runner_controller" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name            = "" # avoids hitting length restrictions on IAM Role names
   chart           = var.chart
@@ -139,18 +140,22 @@ module "actions_runner_controller" {
     file("${path.module}/resources/values.yaml"),
     # standard k8s object settings
     yamlencode({
-      fullnameOverride = module.this.name,
+      fullnameOverride = module.this.name
       serviceAccount = {
         name = module.this.name
-      },
+      }
       resources = var.resources
       rbac = {
         create = var.rbac_enabled
       }
+      replicaCount = var.controller_replica_count
       githubWebhookServer = {
         enabled                   = var.webhook.enabled
         queueLimit                = var.webhook.queue_limit
         useRunnerGroupsVisibility = local.runner_groups_enabled
+        secret = {
+          create = local.create_secret
+        }
         ingress = {
           enabled = var.webhook.enabled
           hosts = [
@@ -165,7 +170,7 @@ module "actions_runner_controller" {
             }
           ]
         }
-      },
+      }
       authSecret = {
         enabled = true
         create  = local.create_secret
@@ -200,7 +205,7 @@ module "actions_runner" {
   for_each = local.enabled ? var.runners : {}
 
   source  = "cloudposse/helm-release/aws"
-  version = "0.10.0"
+  version = "0.10.1"
 
   name  = each.key
   chart = "${path.module}/charts/actions-runner"
@@ -214,24 +219,30 @@ module "actions_runner" {
   values = compact([
     yamlencode({
       release_name                   = each.key
-      pod_annotations                = lookup(each.value, "pod_annotations", "")
+      pod_annotations                = each.value.pod_annotations
+      running_pod_annotations        = each.value.running_pod_annotations
       service_account_name           = module.actions_runner_controller.service_account_name
       type                           = each.value.type
       scope                          = each.value.scope
       image                          = each.value.image
+      auto_update_enabled            = each.value.auto_update_enabled
       dind_enabled                   = each.value.dind_enabled
       service_account_role_arn       = module.actions_runner_controller.service_account_role_arn
       resources                      = each.value.resources
-      storage                        = each.value.storage
-      labels                         = each.value.labels
+      docker_storage                 = each.value.docker_storage != null ? each.value.docker_storage : each.value.storage
+      labels                         = concat(each.value.labels, local.context_labels)
       scale_down_delay_seconds       = each.value.scale_down_delay_seconds
       min_replicas                   = each.value.min_replicas
       max_replicas                   = each.value.max_replicas
+      scheduled_overrides            = each.value.scheduled_overrides
       webhook_driven_scaling_enabled = each.value.webhook_driven_scaling_enabled
-      webhook_startup_timeout        = lookup(each.value, "webhook_startup_timeout", "")
+      max_duration                   = coalesce(each.value.webhook_startup_timeout, each.value.max_duration, "1h")
+      wait_for_docker_seconds        = each.value.wait_for_docker_seconds
       pull_driven_scaling_enabled    = each.value.pull_driven_scaling_enabled
       pvc_enabled                    = each.value.pvc_enabled
+      tmpfs_enabled                  = each.value.tmpfs_enabled
       node_selector                  = each.value.node_selector
+      affinity                       = each.value.affinity
       tolerations                    = each.value.tolerations
       docker_config_json_enabled     = local.docker_config_json_enabled
       docker_config_json             = local.docker_config_json

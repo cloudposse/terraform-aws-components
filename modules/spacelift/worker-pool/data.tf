@@ -34,6 +34,6 @@ data "aws_ami" "spacelift" {
 
   filter {
     name   = "architecture"
-    values = ["x86_64"]
+    values = var.architecture
   }
 }

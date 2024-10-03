@@ -24,9 +24,9 @@ data "aws_region" "this" {
   count = local.enabled ? 1 : 0
 }
 
-# If we are running in the AWS Org Management account, delegate Security Hub to the Delegated Admininstrator account
+# If we are running in the AWS Org Management account, delegate Security Hub to the Delegated Administrator account
 # (usually the security account). We also need to turn on Security Hub in the Management account so that it can
-# aggregate findings and be managed by the Delegated Admininstrator account.
+# aggregate findings and be managed by the Delegated Administrator account.
 resource "aws_securityhub_organization_admin_account" "this" {
   count = local.create_org_delegation ? 1 : 0
 

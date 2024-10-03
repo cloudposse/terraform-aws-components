@@ -1,10 +1,26 @@
+---
+tags:
+  - component/acm
+  - layer/network
+  - provider/aws
+---
+
 # Component: `acm`
 
-This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone to complete certificate validation.
+This component is responsible for requesting an ACM certificate for a domain and adding a CNAME record to the DNS zone
+to complete certificate validation.
 
-The ACM component is to manage an unlimited number of certificates, predominantly for vanity domains. While the [dns-primary](/components/library/aws/dns-primary) component has the ability to generate ACM certificates, it is very opinionated and can only manage one zone. In reality, companies have many branded domains associated with a load balancer, so we need to be able to generate more complicated certificates.
+The ACM component is to manage an unlimited number of certificates, predominantly for vanity domains. While the
+[dns-primary](https://docs.cloudposse.com/components/library/aws/dns-primary) component has the ability to generate ACM
+certificates, it is very opinionated and can only manage one zone. In reality, companies have many branded domains
+associated with a load balancer, so we need to be able to generate more complicated certificates.
 
-We have, as a convenience, the ability to create an ACM certificate as part of creating a DNS zone, whether primary or delegated. That convenience is limited to creating `example.com` and `*.example.com` when creating a zone for `example.com`. For example, Acme has delegated `acct.acme.com` and in addition to `*.acct.acme.com` needed an ACM certificate for `*.usw2.acct.acme.com`, so we use the ACM component to provision that, rather than extend the DNS primary or delegated components to take a list of additional certificates. Both are different views on the Single Responsibility Principle.
+We have, as a convenience, the ability to create an ACM certificate as part of creating a DNS zone, whether primary or
+delegated. That convenience is limited to creating `example.com` and `*.example.com` when creating a zone for
+`example.com`. For example, Acme has delegated `acct.acme.com` and in addition to `*.acct.acme.com` needed an ACM
+certificate for `*.usw2.acct.acme.com`, so we use the ACM component to provision that, rather than extend the DNS
+primary or delegated components to take a list of additional certificates. Both are different views on the Single
+Responsibility Principle.
 
 ## Usage
 
@@ -50,6 +66,7 @@ components:
         certificate_authority_component_key: subordinate
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -130,8 +147,11 @@ components:
 | <a name="output_domain_validation_options"></a> [domain\_validation\_options](#output\_domain\_validation\_options) | CNAME records that are added to the DNS zone to complete certificate validation |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the certificate |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/acm) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/acm) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

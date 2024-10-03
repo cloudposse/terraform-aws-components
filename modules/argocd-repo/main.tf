@@ -8,11 +8,11 @@ locals {
       env.tenant,
       env.environment,
       env.stage,
-      "${join("-", env.attributes)}"
+      join("-", env.attributes)
     )) => env
   } : {}
 
-  manifest_kubernetes_namespace = "argocd"
+  manifest_kubernetes_namespace = var.manifest_kubernetes_namespace
 
   team_slugs = toset(compact([
     for permission in var.permissions : lookup(permission, "team_slug", null)
@@ -49,7 +49,8 @@ resource "github_repository" "default" {
   description = var.description
   auto_init   = true # will create a 'main' branch
 
-  visibility = "private"
+  visibility           = "private"
+  vulnerability_alerts = var.vulnerability_alerts_enabled
 }
 
 resource "github_branch_default" "default" {
@@ -72,19 +73,30 @@ resource "github_branch_protection" "default" {
 
   repository_id = local.github_repository.name
 
-  pattern          = join("", github_branch_default.default.*.branch)
+  pattern          = join("", github_branch_default.default[*].branch)
   enforce_admins   = false # needs to be false in order to allow automation user to push
   allows_deletions = true
 
-  required_pull_request_reviews {
-    dismiss_stale_reviews      = true
-    restrict_dismissals        = true
-    require_code_owner_reviews = true
+  dynamic "required_pull_request_reviews" {
+    for_each = var.required_pull_request_reviews ? [0] : []
+    content {
+      dismiss_stale_reviews      = true
+      restrict_dismissals        = true
+      require_code_owner_reviews = true
+    }
   }
 
-  push_restrictions = [
-    join("", data.github_user.automation_user.*.node_id),
-  ]
+  restrict_pushes {
+    push_allowances = var.push_restrictions_enabled ? [
+      join("", data.github_user.automation_user[*].node_id),
+    ] : []
+  }
+
+  lifecycle {
+    ignore_changes = [
+      restrict_pushes[0].push_allowances
+    ]
+  }
 }
 
 data "github_team" "default" {
@@ -112,7 +124,7 @@ resource "github_repository_deploy_key" "default" {
   for_each = local.environments
 
   title      = "Deploy key for ArgoCD environment: ${each.key} (${local.github_repository.default_branch} branch)"
-  repository = join("", github_repository.default.*.name)
+  repository = local.github_repository.name
   key        = tls_private_key.default[each.key].public_key_openssh
   read_only  = true
 }

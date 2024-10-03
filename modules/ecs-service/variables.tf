@@ -63,8 +63,10 @@ variable "containers" {
 
     port_mappings = optional(list(object({
       containerPort = number
-      hostPort      = number
-      protocol      = string
+      hostPort      = optional(number)
+      protocol      = optional(string)
+      name          = optional(string)
+      appProtocol   = optional(string)
     })), [])
     command    = optional(list(string), null)
     entrypoint = optional(list(string), null)
@@ -92,9 +94,9 @@ variable "containers" {
       readOnly        = bool
     })), null)
     mount_points = optional(list(object({
-      sourceVolume  = string
-      containerPath = string
-      readOnly      = bool
+      sourceVolume  = optional(string)
+      containerPath = optional(string)
+      readOnly      = optional(bool)
     })), [])
   }))
   description = "Feed inputs into container definition module"
@@ -133,6 +135,61 @@ variable "task" {
     bind_mount_volumes = optional(list(object({
       name      = string
       host_path = string
+    })), [])
+    efs_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        file_system_id          = string
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    efs_component_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      efs_volume_configuration = list(object({
+        component   = optional(string, "efs")
+        tenant      = optional(string, null)
+        environment = optional(string, null)
+        stage       = optional(string, null)
+
+        root_directory          = string
+        transit_encryption      = string
+        transit_encryption_port = string
+        authorization_config = list(object({
+          access_point_id = string
+          iam             = string
+        }))
+      }))
+    })), [])
+    docker_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      docker_volume_configuration = list(object({
+        autoprovision = bool
+        driver        = string
+        driver_opts   = map(string)
+        labels        = map(string)
+        scope         = string
+      }))
+    })), [])
+    fsx_volumes = optional(list(object({
+      host_path = string
+      name      = string
+      fsx_windows_file_server_volume_configuration = list(object({
+        file_system_id = string
+        root_directory = string
+        authorization_config = list(object({
+          credentials_parameter = string
+          domain                = string
+        }))
+      }))
     })), [])
   })
   description = "Feed inputs into ecs_alb_service_task module"
@@ -193,6 +250,12 @@ variable "iam_policy_enabled" {
 variable "vanity_alias" {
   type        = list(string)
   description = "The vanity aliases to use for the public LB."
+  default     = []
+}
+
+variable "additional_targets" {
+  type        = list(string)
+  description = "Additional target routes to add to the ALB that point to this service. The only difference between this and `var.vanity_alias` is `var.vanity_alias` will create an alias record in Route 53 in the hosted zone in this account as well. `var.additional_targets` only adds the listener route to this service's target group."
   default     = []
 }
 
@@ -506,4 +569,79 @@ variable "task_iam_role_component" {
   type        = string
   description = "A component that outputs an iam_role module as 'role' for adding to the service as a whole."
   default     = null
+}
+
+variable "task_exec_policy_arns_map" {
+  type        = map(string)
+  description = <<-EOT
+    A map of name to IAM Policy ARNs to attach to the generated task execution role.
+    The names are arbitrary, but must be known at plan time. The purpose of the name
+    is so that changes to one ARN do not cause a ripple effect on the other ARNs.
+    If you cannot provide unique names known at plan time, use `task_exec_policy_arns` instead.
+    EOT
+  default     = {}
+}
+
+
+variable "exec_enabled" {
+  type        = bool
+  description = "Specifies whether to enable Amazon ECS Exec for the tasks within the service"
+  default     = false
+}
+
+variable "service_connect_configurations" {
+  type = list(object({
+    enabled   = bool
+    namespace = optional(string, null)
+    log_configuration = optional(object({
+      log_driver = string
+      options    = optional(map(string), null)
+      secret_option = optional(list(object({
+        name       = string
+        value_from = string
+      })), [])
+    }), null)
+    service = optional(list(object({
+      client_alias = list(object({
+        dns_name = string
+        port     = number
+      }))
+      discovery_name        = optional(string, null)
+      ingress_port_override = optional(number, null)
+      port_name             = string
+    })), [])
+  }))
+  description = <<-EOT
+    The list of Service Connect configurations.
+    See `service_connect_configuration` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_connect_configuration
+    EOT
+  default     = []
+}
+
+variable "service_registries" {
+  type = list(object({
+    namespace      = string
+    registry_arn   = optional(string)
+    port           = optional(number)
+    container_name = optional(string)
+    container_port = optional(number)
+  }))
+  description = <<-EOT
+    The list of Service Registries.
+    See `service_registries` docs https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#service_registries
+    EOT
+  default     = []
+}
+
+variable "custom_security_group_rules" {
+  type = list(object({
+    type        = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+    description = optional(string)
+  }))
+  description = "The list of custom security group rules to add to the service security group"
+  default     = []
 }

@@ -1,8 +1,16 @@
-# Component: `global-accelerator`
+---
+tags:
+  - component/global-accelerator-endpoint-group
+  - layer/unassigned
+  - provider/aws
+---
+
+# Component: `global-accelerator-endpoint-group`
 
 This component is responsible for provisioning a Global Accelerator Endpoint Group.
 
-This component assumes that the `global-accelerator` component has already been deployed to the same account in the environment specified by `var.global_accelerator_environment_name`.
+This component assumes that the `global-accelerator` component has already been deployed to the same account in the
+environment specified by `var.global_accelerator_environment_name`.
 
 ## Usage
 
@@ -21,6 +29,7 @@ components:
             - endpoint_lb_name: my-load-balancer
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -78,10 +87,11 @@ No resources.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the Global Accelerator Endpoint Group. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/global-accelerator-endpoint-group) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/global-accelerator-endpoint-group) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

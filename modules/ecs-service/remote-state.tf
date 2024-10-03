@@ -20,7 +20,7 @@ locals {
   http_protocol      = coalesce(local.requested_protocol, local.lb_protocol)
 
   lb_arn                       = try(coalesce(local.nlb.nlb_arn, ""), coalesce(local.alb.alb_arn, ""), null)
-  lb_name                      = try(coalesce(local.nlb.nlb_name, ""), coalesce(local.alb.alb_name, ""), null)
+  lb_name                      = try(coalesce(local.nlb.nlb_name, ""), coalesce(local.alb.alb_dns_name, ""), null)
   lb_listener_http_is_redirect = try(length(local.is_nlb ? "" : local.alb.http_redirect_listener_arn) > 0, false)
   lb_listener_https_arn        = try(coalesce(local.nlb.default_listener_arn, ""), coalesce(local.alb.https_listener_arn, ""), null)
   lb_sg_id                     = try(local.is_nlb ? null : local.alb.security_group_id, null)
@@ -141,15 +141,10 @@ data "jq_query" "service_domain_query" {
 }
 
 module "datadog_configuration" {
-  count   = var.datadog_agent_sidecar_enabled ? 1 : 0
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.5.0"
-
-  component = "datadog_keys"
-
+  source  = "../datadog-configuration/modules/datadog_keys"
+  enabled = true
   context = module.this.context
 }
-
 
 # This is purely a check to ensure this zone exists
 # tflint-ignore: terraform_unused_declarations
@@ -180,4 +175,21 @@ module "iam_role" {
   component = var.task_iam_role_component
 
   context = module.this.context
+}
+
+module "efs" {
+  for_each = local.efs_component_map
+
+  source  = "cloudposse/stack-config/yaml//modules/remote-state"
+  version = "1.5.0"
+
+  # Here we can use [0] because aws only allows one efs volume configuration per volume
+  component = each.value.efs_volume_configuration[0].component
+
+  context = module.this.context
+
+  tenant      = each.value.efs_volume_configuration[0].tenant
+  stage       = each.value.efs_volume_configuration[0].stage
+  environment = each.value.efs_volume_configuration[0].environment
+
 }

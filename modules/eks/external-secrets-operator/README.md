@@ -1,8 +1,19 @@
-# Component: `external-secrets-operator`
+---
+tags:
+  - component/eks/external-secrets-operator
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
 
-This component (ESO) is used to create an external `SecretStore` configured to synchronize secrets from AWS SSM Parameter store as Kubernetes Secrets within the cluster. Per the operator pattern, the `external-secret-operator` pods will watch for any `ExternalSecret` resources which reference the `SecretStore` to pull secrets from.
+# Component: `eks/external-secrets-operator`
 
-In practice, this means apps will define an `ExternalSecret` that pulls all env into a single secret as part of a helm chart; e.g.:
+This component (ESO) is used to create an external `SecretStore` configured to synchronize secrets from AWS SSM
+Parameter store as Kubernetes Secrets within the cluster. Per the operator pattern, the `external-secret-operator` pods
+will watch for any `ExternalSecret` resources which reference the `SecretStore` to pull secrets from.
+
+In practice, this means apps will define an `ExternalSecret` that pulls all env into a single secret as part of a helm
+chart; e.g.:
 
 ```
 # Part of the charts in `/releases
@@ -29,16 +40,16 @@ spec:
         target: "$1"
 ```
 
-This component assumes secrets are prefixed by "service" in parameter store (e.g. `/app/my_secret`). The `SecretStore`. The component is designed to pull secrets from a `path` prefix (defaulting to `"app"`). This should work nicely along `chamber` which uses this same path (called a "service" in Chamber). For example, developers should store keys like so.
-
+This component assumes secrets are prefixed by "service" in parameter store (e.g. `/app/my_secret`). The `SecretStore`.
+The component is designed to pull secrets from a `path` prefix (defaulting to `"app"`). This should work nicely along
+`chamber` which uses this same path (called a "service" in Chamber). For example, developers should store keys like so.
 
 ```bash
 assume-role acme-platform-gbl-sandbox-admin
 chamber write app MY_KEY my-value
 ```
 
-
-See `docs/recipies.md` for more information on managing secrets.
+See `docs/recipes.md` for more information on managing secrets.
 
 ## Usage
 
@@ -86,8 +97,11 @@ components:
         # chart_values:
         #   installCRDs: true
         chart_values: {}
+        kms_aliases_allow_decrypt: []
+        # - "alias/foo/bar"
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -122,6 +136,7 @@ components:
 |------|------|
 | [kubernetes_namespace.default](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
+| [aws_kms_alias.kms_aliases](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) | data source |
 | [kubernetes_resources.crd](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/resources) | data source |
 
 ## Inputs
@@ -146,13 +161,15 @@ components:
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_helm_manifest_experiment_enabled"></a> [helm\_manifest\_experiment\_enabled](#input\_helm\_manifest\_experiment\_enabled) | Enable storing of the rendered manifest for helm\_release so the full diff of what is changing can been seen in the plan | `bool` | `false` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
+| <a name="input_kms_aliases_allow_decrypt"></a> [kms\_aliases\_allow\_decrypt](#input\_kms\_aliases\_allow\_decrypt) | A list of KMS aliases that the SecretStore is allowed to decrypt. | `list(string)` | `[]` | no |
 | <a name="input_kube_data_auth_enabled"></a> [kube\_data\_auth\_enabled](#input\_kube\_data\_auth\_enabled) | If `true`, use an `aws_eks_cluster_auth` data source to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled` or `kube_exec_auth_enabled`. | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_aws_profile"></a> [kube\_exec\_auth\_aws\_profile](#input\_kube\_exec\_auth\_aws\_profile) | The AWS config profile for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_aws_profile_enabled"></a> [kube\_exec\_auth\_aws\_profile\_enabled](#input\_kube\_exec\_auth\_aws\_profile\_enabled) | If `true`, pass `kube_exec_auth_aws_profile` as the `profile` to `aws eks get-token` | `bool` | `false` | no |
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -181,8 +198,10 @@ components:
 |------|-------------|
 | <a name="output_metadata"></a> [metadata](#output\_metadata) | Block status of the deployed release |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [Secrets Management Strategy](https://docs.cloudposse.com/reference-architecture/design-decisions/cold-start/decide-on-secrets-management-strategy-for-terraform/)
-* https://external-secrets.io/v0.5.9/
-* https://external-secrets.io/v0.5.9/provider-aws-parameter-store/
+
+- [Secrets Management Strategy](https://docs.cloudposse.com/layers/project/design-decisions/decide-on-secrets-management-strategy-for-terraform)
+- https://external-secrets.io/v0.5.9/
+- https://external-secrets.io/v0.5.9/provider-aws-parameter-store/

@@ -1,8 +1,13 @@
+# These event definitions, queue policies, and SQS queue definition
+# come from the Karpenter CloudFormation template.
+# See comments in `controller-policy.tf` for more information.
+
 locals {
   interruption_handler_enabled    = local.enabled && var.interruption_handler_enabled
   interruption_handler_queue_name = module.this.id
+  interruption_handler_queue_arn  = one(aws_sqs_queue.interruption_handler[*].arn)
 
-  dns_suffix = data.aws_partition.current.dns_suffix
+  dns_suffix = join("", data.aws_partition.current[*].dns_suffix)
 
   events = {
     health_event = {
@@ -40,8 +45,6 @@ locals {
   }
 }
 
-data "aws_partition" "current" {}
-
 resource "aws_sqs_queue" "interruption_handler" {
   count = local.interruption_handler_enabled ? 1 : 0
 
@@ -67,7 +70,6 @@ data "aws_iam_policy_document" "interruption_handler" {
         "sqs.${local.dns_suffix}",
       ]
     }
-
   }
 }
 

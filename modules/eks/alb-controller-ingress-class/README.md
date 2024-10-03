@@ -1,10 +1,18 @@
+---
+tags:
+  - component/eks/alb-controller-ingress-class
+  - layer/eks
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/alb-controller-ingress-class`
 
-This component deploys a Kubernetes `IngressClass` resource for the AWS Load Balancer Controller.
-This is not often needed, as the default IngressClass deployed by the `eks/alb-controller` component
-is sufficient for most use cases, and when it is not, a service can deploy its own IngressClass.
-This is for the rare case where you want to deploy an additional IngressClass deploying an additional
-ALB that you nevertheless want to be shared by some services, with none of them explicitly owning it.
+This component deploys a Kubernetes `IngressClass` resource for the AWS Load Balancer Controller. This is not often
+needed, as the default IngressClass deployed by the `eks/alb-controller` component is sufficient for most use cases, and
+when it is not, a service can deploy its own IngressClass. This is for the rare case where you want to deploy an
+additional IngressClass deploying an additional ALB that you nevertheless want to be shared by some services, with none
+of them explicitly owning it.
 
 ## Usage
 
@@ -21,6 +29,7 @@ components:
         scheme: internet-facing
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -79,7 +88,8 @@ components:
 | <a name="input_kube_exec_auth_enabled"></a> [kube\_exec\_auth\_enabled](#input\_kube\_exec\_auth\_enabled) | If `true`, use the Kubernetes provider `exec` feature to execute `aws eks get-token` to authenticate to the EKS cluster.<br>Disabled by `kubeconfig_file_enabled`, overrides `kube_data_auth_enabled`. | `bool` | `true` | no |
 | <a name="input_kube_exec_auth_role_arn"></a> [kube\_exec\_auth\_role\_arn](#input\_kube\_exec\_auth\_role\_arn) | The role ARN for `aws eks get-token` to use | `string` | `""` | no |
 | <a name="input_kube_exec_auth_role_arn_enabled"></a> [kube\_exec\_auth\_role\_arn\_enabled](#input\_kube\_exec\_auth\_role\_arn\_enabled) | If `true`, pass `kube_exec_auth_role_arn` as the role ARN to `aws eks get-token` | `bool` | `true` | no |
-| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes kube config file | `string` | `""` | no |
+| <a name="input_kubeconfig_context"></a> [kubeconfig\_context](#input\_kubeconfig\_context) | Context to choose from the Kubernetes config file.<br>If supplied, `kubeconfig_context_format` will be ignored. | `string` | `""` | no |
+| <a name="input_kubeconfig_context_format"></a> [kubeconfig\_context\_format](#input\_kubeconfig\_context\_format) | A format string to use for creating the `kubectl` context name when<br>`kubeconfig_file_enabled` is `true` and `kubeconfig_context` is not supplied.<br>Must include a single `%s` which will be replaced with the cluster name. | `string` | `""` | no |
 | <a name="input_kubeconfig_exec_auth_api_version"></a> [kubeconfig\_exec\_auth\_api\_version](#input\_kubeconfig\_exec\_auth\_api\_version) | The Kubernetes API version of the credentials returned by the `exec` auth plugin | `string` | `"client.authentication.k8s.io/v1beta1"` | no |
 | <a name="input_kubeconfig_file"></a> [kubeconfig\_file](#input\_kubeconfig\_file) | The Kubernetes provider `config_path` setting to use when `kubeconfig_file_enabled` is `true` | `string` | `""` | no |
 | <a name="input_kubeconfig_file_enabled"></a> [kubeconfig\_file\_enabled](#input\_kubeconfig\_file\_enabled) | If `true`, configure the Kubernetes provider with `kubeconfig_file` and use that kubeconfig file for authenticating to the EKS cluster | `bool` | `false` | no |
@@ -101,6 +111,7 @@ components:
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
 

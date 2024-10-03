@@ -6,7 +6,7 @@ large-scale installations - dozens of teams, hundreds of engineers and tens of t
 
 ## Projects & Configuration
 
-There are two projects located in this repository that are required for the deplyoment & day-to-day operation of
+There are two projects located in this repository that are required for the deployment & day-to-day operation of
 Spacelift.
 
 | Project                 | Description                                             |

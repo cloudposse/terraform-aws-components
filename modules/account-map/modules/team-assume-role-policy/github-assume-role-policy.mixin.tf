@@ -25,6 +25,19 @@ locals {
   github_oidc_enabled = length(var.trusted_github_repos) > 0
 }
 
+locals {
+  trusted_github_repos_regexp = "^(?:(?P<org>[^://]*)\\/)?(?P<repo>[^://]*):?(?P<branch>[^://]*)?$"
+  trusted_github_repos_sub    = [for r in var.trusted_github_repos : regex(local.trusted_github_repos_regexp, r)]
+
+  github_repos_sub = [
+    for r in local.trusted_github_repos_sub : (
+      r["branch"] == "" ?
+      format("repo:%s/%s:*", coalesce(r["org"], var.trusted_github_org), r["repo"]) :
+      format("repo:%s/%s:ref:refs/heads/%s", coalesce(r["org"], var.trusted_github_org), r["repo"], r["branch"])
+    )
+  ]
+}
+
 data "aws_iam_policy_document" "github_oidc_provider_assume" {
   count = local.github_oidc_enabled ? 1 : 0
 
@@ -32,6 +45,7 @@ data "aws_iam_policy_document" "github_oidc_provider_assume" {
     sid = "OidcProviderAssume"
     actions = [
       "sts:AssumeRoleWithWebIdentity",
+      "sts:SetSourceIdentity",
       "sts:TagSession",
     ]
 
@@ -51,7 +65,7 @@ data "aws_iam_policy_document" "github_oidc_provider_assume" {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
 
-      values = [for r in var.trusted_github_repos : "repo:${contains(split("", r), "/") ? r : "${var.trusted_github_org}/${r}"}:*"]
+      values = local.github_repos_sub
     }
   }
 }

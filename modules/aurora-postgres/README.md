@@ -1,7 +1,14 @@
+---
+tags:
+  - component/aurora-postgres
+  - layer/data
+  - provider/aws
+---
+
 # Component: `aurora-postgres`
 
-This component is responsible for provisioning Aurora Postgres RDS clusters.
-It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning Aurora Postgres RDS clusters. It seeds relevant database information
+(hostnames, username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
 
@@ -9,7 +16,8 @@ It seeds relevant database information (hostnames, username, password, etc.) int
 
 Here's an example for how to use this component.
 
-`stacks/catalog/aurora-postgres/defaults.yaml` file (base component for all Aurora Postgres clusters with default settings):
+`stacks/catalog/aurora-postgres/defaults.yaml` file (base component for all Aurora Postgres clusters with default
+settings):
 
 ```yaml
 components:
@@ -54,10 +62,12 @@ components:
         allow_ingress_from_vpc_accounts:
           - tenant: core
             stage: auto
-
 ```
-Example (not actual)
-`stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account, create an additional database and user):
+
+Example (not actual):
+
+`stacks/uw2-dev.yaml` file (override the default settings for the cluster in the `dev` account, create an additional
+database and user):
 
 ```yaml
 import:
@@ -72,12 +82,12 @@ components:
           - aurora-postgres/defaults
       vars:
         enabled: true
-
 ```
 
 ### Finding Aurora Engine Version
 
-Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `privisoned` engine mode, whereas only Serverless v1 uses the `serverless` engine mode.
+Use the following to query the AWS API by `engine-mode`. Both provisioned and Serverless v2 use the `privisoned` engine
+mode, whereas only Serverless v1 uses the `serverless` engine mode.
 
 ```bash
 aws rds describe-db-engine-versions \
@@ -86,7 +96,8 @@ aws rds describe-db-engine-versions \
   --filters 'Name=engine-mode,Values=serverless'
 ```
 
-Use the following to query AWS API by `db-instance-class`. Use this query to find supported versions for a specific instance class, such as `db.serverless` with Serverless v2.
+Use the following to query AWS API by `db-instance-class`. Use this query to find supported versions for a specific
+instance class, such as `db.serverless` with Serverless v2.
 
 ```bash
 aws rds describe-orderable-db-instance-options \
@@ -115,7 +126,8 @@ Generally there are three different engine configurations for Aurora: provisione
 
 Serverless v1 requires `engine-mode` set to `serverless` uses `scaling_configuration` to configure scaling options.
 
-For valid values, see [ModifyCurrentDBClusterCapacity](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyCurrentDBClusterCapacity.html).
+For valid values, see
+[ModifyCurrentDBClusterCapacity](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_ModifyCurrentDBClusterCapacity.html).
 
 ```yaml
 components:
@@ -174,9 +186,11 @@ components:
 
 ### Serverless v2 Aurora Postgres
 
-Aurora Postgres Serverless v2 uses the `provisioned` engine mode with `db.serverless` instances. In order to configure scaling with Serverless v2, use `var.serverlessv2_scaling_configuration`.
+Aurora Postgres Serverless v2 uses the `provisioned` engine mode with `db.serverless` instances. In order to configure
+scaling with Serverless v2, use `var.serverlessv2_scaling_configuration`.
 
-For more on valid scaling configurations, see [Performance and scaling for Aurora Serverless v2](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.setting-capacity.html).
+For more on valid scaling configurations, see
+[Performance and scaling for Aurora Serverless v2](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.setting-capacity.html).
 
 ```yaml
 components:
@@ -230,6 +244,7 @@ components:
         additional_users: {}
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -272,6 +287,7 @@ components:
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.kms_key_rds](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_security_groups.allowed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_groups) | data source |
 
 ## Inputs
 
@@ -281,7 +297,9 @@ components:
 | <a name="input_admin_password"></a> [admin\_password](#input\_admin\_password) | Postgres password for the admin user | `string` | `""` | no |
 | <a name="input_admin_user"></a> [admin\_user](#input\_admin\_user) | Postgres admin user name | `string` | `""` | no |
 | <a name="input_allow_ingress_from_vpc_accounts"></a> [allow\_ingress\_from\_vpc\_accounts](#input\_allow\_ingress\_from\_vpc\_accounts) | List of account contexts to pull VPC ingress CIDR and add to cluster security group.<br>e.g.<br>{<br>  environment = "ue2",<br>  stage       = "auto",<br>  tenant      = "core"<br>}<br><br>Defaults to the "vpc" component in the given account | <pre>list(object({<br>    vpc         = optional(string, "vpc")<br>    environment = optional(string)<br>    stage       = optional(string)<br>    tenant      = optional(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Enable to allow major engine version upgrades when changing engine versions. Defaults to false. | `bool` | `false` | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of CIDRs allowed to access the database (in addition to security groups and subnets) | `list(string)` | `[]` | no |
+| <a name="input_allowed_security_group_names"></a> [allowed\_security\_group\_names](#input\_allowed\_security\_group\_names) | List of security group names (tags) that should be allowed access to the database | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | Whether to enable cluster autoscaling | `bool` | `false` | no |
 | <a name="input_autoscaling_max_capacity"></a> [autoscaling\_max\_capacity](#input\_autoscaling\_max\_capacity) | Maximum number of instances to be maintained by the autoscaler | `number` | `5` | no |
@@ -291,9 +309,12 @@ components:
 | <a name="input_autoscaling_scale_out_cooldown"></a> [autoscaling\_scale\_out\_cooldown](#input\_autoscaling\_scale\_out\_cooldown) | The amount of time, in seconds, after a scaling activity completes and before the next scaling up activity can start. Default is 300s | `number` | `300` | no |
 | <a name="input_autoscaling_target_metrics"></a> [autoscaling\_target\_metrics](#input\_autoscaling\_target\_metrics) | The metrics type to use. If this value isn't provided the default is CPU utilization | `string` | `"RDSReaderAverageCPUUtilization"` | no |
 | <a name="input_autoscaling_target_value"></a> [autoscaling\_target\_value](#input\_autoscaling\_target\_value) | The target value to scale with respect to target metrics | `number` | `75` | no |
+| <a name="input_backup_window"></a> [backup\_window](#input\_backup\_window) | Daily time range during which the backups happen, UTC | `string` | `"07:00-09:00"` | no |
+| <a name="input_ca_cert_identifier"></a> [ca\_cert\_identifier](#input\_ca\_cert\_identifier) | The identifier of the CA certificate for the DB instance | `string` | `null` | no |
 | <a name="input_cluster_dns_name_part"></a> [cluster\_dns\_name\_part](#input\_cluster\_dns\_name\_part) | Part of DNS name added to module and cluster name for DNS for cluster endpoint | `string` | `"writer"` | no |
 | <a name="input_cluster_family"></a> [cluster\_family](#input\_cluster\_family) | Family of the DB parameter group. Valid values for Aurora PostgreSQL: `aurora-postgresql9.6`, `aurora-postgresql10`, `aurora-postgresql11`, `aurora-postgresql12` | `string` | `"aurora-postgresql13"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Short name for this cluster | `string` | n/a | yes |
+| <a name="input_cluster_parameters"></a> [cluster\_parameters](#input\_cluster\_parameters) | List of DB cluster parameters to apply | <pre>list(object({<br>    apply_method = string<br>    name         = string<br>    value        = string<br>  }))</pre> | `[]` | no |
 | <a name="input_cluster_size"></a> [cluster\_size](#input\_cluster\_size) | Postgres cluster size | `number` | n/a | yes |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_database_name"></a> [database\_name](#input\_database\_name) | Name for an automatically created database on cluster creation. An empty name will generate a db name. | `string` | `""` | no |
@@ -329,6 +350,7 @@ components:
 | <a name="input_reader_dns_name_part"></a> [reader\_dns\_name\_part](#input\_reader\_dns\_name\_part) | Part of DNS name added to module and cluster name for DNS for cluster reader | `string` | `"reader"` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_retention_period"></a> [retention\_period](#input\_retention\_period) | Number of days to retain backups for | `number` | `5` | no |
 | <a name="input_scaling_configuration"></a> [scaling\_configuration](#input\_scaling\_configuration) | List of nested attributes with scaling properties. Only valid when `engine_mode` is set to `serverless`. This is required for Serverless v1 | <pre>list(object({<br>    auto_pause               = bool<br>    max_capacity             = number<br>    min_capacity             = number<br>    seconds_until_auto_pause = number<br>    timeout_action           = string<br>  }))</pre> | `[]` | no |
 | <a name="input_serverlessv2_scaling_configuration"></a> [serverlessv2\_scaling\_configuration](#input\_serverlessv2\_scaling\_configuration) | Nested attribute with scaling properties for ServerlessV2. Only valid when `engine_mode` is set to `provisioned.` This is required for Serverless v2 | <pre>object({<br>    min_capacity = number<br>    max_capacity = number<br>  })</pre> | `null` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Normally AWS makes a snapshot of the database before deleting it. Set this to `true` in order to skip this.<br>NOTE: The final snapshot has a name derived from the cluster name. If you delete a cluster, get a final snapshot,<br>then create a cluster of the same name, its final snapshot will fail with a name collision unless you delete<br>the previous final snapshot first. | `bool` | `false` | no |
@@ -345,6 +367,7 @@ components:
 | Name | Description |
 |------|-------------|
 | <a name="output_admin_username"></a> [admin\_username](#output\_admin\_username) | Postgres admin username |
+| <a name="output_allowed_security_groups"></a> [allowed\_security\_groups](#output\_allowed\_security\_groups) | The resulting list of security group IDs that are allowed to connect to the Aurora Postgres cluster. |
 | <a name="output_cluster_identifier"></a> [cluster\_identifier](#output\_cluster\_identifier) | Postgres cluster identifier |
 | <a name="output_config_map"></a> [config\_map](#output\_config\_map) | Map containing information pertinent to a PostgreSQL client configuration. |
 | <a name="output_database_name"></a> [database\_name](#output\_database\_name) | Postgres database name |
@@ -353,10 +376,11 @@ components:
 | <a name="output_replicas_hostname"></a> [replicas\_hostname](#output\_replicas\_hostname) | Postgres replicas hostname |
 | <a name="output_ssm_key_paths"></a> [ssm\_key\_paths](#output\_ssm\_key\_paths) | Names (key paths) of all SSM parameters stored for this cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aurora-postgres) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-postgres) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

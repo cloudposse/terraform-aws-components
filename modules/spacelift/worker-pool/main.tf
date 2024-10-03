@@ -2,8 +2,6 @@ locals {
   enabled                = module.this.enabled
   vpc_id                 = module.vpc.outputs.vpc_id
   vpc_private_subnet_ids = module.vpc.outputs.private_subnet_ids
-  identity_account_name  = module.account_map.outputs.identity_account_account_name
-  identity_account_id    = module.account_map.outputs.full_account_map[local.identity_account_name]
   ecr_repo_arn           = module.ecr.outputs.ecr_repo_arn_map[var.ecr_repo_name]
   ecr_repo_url           = module.ecr.outputs.ecr_repo_url_map[var.ecr_repo_name]
   ecr_account_id         = element(split(".", local.ecr_repo_url), 0)
@@ -61,8 +59,8 @@ data "cloudinit_config" "config" {
       ecr_region                        = local.ecr_region
       ecr_account_id                    = local.ecr_account_id
       spacelift_runner_image            = local.spacelift_runner_image
-      spacelift_worker_pool_private_key = join("", spacelift_worker_pool.primary.*.private_key)
-      spacelift_worker_pool_config      = join("", spacelift_worker_pool.primary.*.config)
+      spacelift_worker_pool_private_key = join("", spacelift_worker_pool.primary[*].private_key)
+      spacelift_worker_pool_config      = join("", spacelift_worker_pool.primary[*].config)
       spacelift_domain_name             = var.spacelift_domain_name
       github_netrc_enabled              = var.github_netrc_enabled
       github_netrc_ssm_path_token       = var.github_netrc_ssm_path_token
@@ -92,16 +90,16 @@ module "autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
   version = "0.35.1"
 
-  image_id                    = var.spacelift_ami_id == null ? join("", data.aws_ami.spacelift.*.image_id) : var.spacelift_ami_id
+  image_id                    = var.spacelift_ami_id == null ? join("", data.aws_ami.spacelift[*].image_id) : var.spacelift_ami_id
   instance_type               = var.instance_type
   mixed_instances_policy      = var.mixed_instances_policy
   subnet_ids                  = local.vpc_private_subnet_ids
   health_check_type           = var.health_check_type
   health_check_grace_period   = var.health_check_grace_period
-  user_data_base64            = join("", data.cloudinit_config.config.*.rendered)
+  user_data_base64            = join("", data.cloudinit_config.config[*].rendered)
   associate_public_ip_address = false
   block_device_mappings       = var.block_device_mappings
-  iam_instance_profile_name   = join("", aws_iam_instance_profile.default.*.name)
+  iam_instance_profile_name   = join("", aws_iam_instance_profile.default[*].name)
   security_group_ids          = [module.security_group.id]
   termination_policies        = var.termination_policies
   wait_for_capacity_timeout   = var.wait_for_capacity_timeout
@@ -118,10 +116,12 @@ module "autoscale_group" {
   cpu_utilization_high_threshold_percent = var.cpu_utilization_high_threshold_percent
   cpu_utilization_low_threshold_percent  = var.cpu_utilization_low_threshold_percent
 
+  max_instance_lifetime = var.instance_lifetime
+
   # The instance refresh definition
   # If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated
   instance_refresh        = var.instance_refresh
-  launch_template_version = var.launch_template_version # this has to be empty for the instance refresh to work
+  launch_template_version = var.instance_refresh == null ? "$Latest" : ""
 
   context = module.this.context
 }

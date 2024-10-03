@@ -1,13 +1,13 @@
 ---
 name: Feature Request
 about: Suggest an idea for this project
-title: ''
-labels: 'feature request'
-assignees: ''
-
+title: ""
+labels: "feature request"
+assignees: ""
 ---
 
-Have a question? Please checkout our [Slack Community](https://slack.cloudposse.com) or visit our [Slack Archive](https://archive.sweetops.com/).
+Have a question? Please checkout our [Slack Community](https://slack.cloudposse.com) or visit our
+[Slack Archive](https://archive.sweetops.com/).
 
 [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
@@ -21,7 +21,8 @@ A clear and concise description of what you expected to happen.
 
 ## Use Case
 
-Is your feature request related to a problem/challenge you are trying to solve? Please provide some additional context of why this feature or capability will be valuable.
+Is your feature request related to a problem/challenge you are trying to solve? Please provide some additional context
+of why this feature or capability will be valuable.
 
 ## Describe Ideal Solution
 

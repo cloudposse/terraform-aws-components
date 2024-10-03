@@ -1,14 +1,23 @@
+---
+tags:
+  - component/account-settings
+  - layer/accounts
+  - provider/aws
+  - privileged
+---
+
 # Component: `account-settings`
 
-This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS encryption, and Service Quotas.
+This component is responsible for provisioning account level settings: IAM password policy, AWS Account Alias, EBS
+encryption, and Service Quotas.
 
 ## Usage
 
 **Stack Level**: Global
 
-Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts,
-so create a file `stacks/catalog/account-settings.yaml` with the following content and then import
-that file in each account's global stack (overriding any parameters as needed):
+Here's an example snippet for how to use this component. It's suggested to apply this component to all accounts, so
+create a file `stacks/catalog/account-settings.yaml` with the following content and then import that file in each
+account's global stack (overriding any parameters as needed):
 
 ```yaml
 components:
@@ -68,6 +77,7 @@ components:
             value: null
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -86,8 +96,8 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_budgets"></a> [budgets](#module\_budgets) | cloudposse/budgets/aws | 0.2.1 |
-| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.4.0 |
+| <a name="module_budgets"></a> [budgets](#module\_budgets) | cloudposse/budgets/aws | 0.5.1 |
+| <a name="module_iam_account_settings"></a> [iam\_account\_settings](#module\_iam\_account\_settings) | cloudposse/iam-account-settings/aws | 0.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_service_quotas"></a> [service\_quotas](#module\_service\_quotas) | cloudposse/service-quotas/aws | 0.1.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -138,8 +148,11 @@ components:
 |------|-------------|
 | <a name="output_account_alias"></a> [account\_alias](#output\_account\_alias) | Account alias |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/account-settings) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/account-settings) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

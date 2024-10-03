@@ -1,3 +1,10 @@
+---
+tags:
+  - component/ipam
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `ipam`
 
 This component is responsible for provisioning IPAM per region in a centralized account.
@@ -47,6 +54,7 @@ components:
                 ram_share_accounts: [plat-sandbox]
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -119,10 +127,11 @@ components:
 |------|-------------|
 | <a name="output_pool_configurations"></a> [pool\_configurations](#output\_pool\_configurations) | Pool configurations |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/TODO) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/TODO) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

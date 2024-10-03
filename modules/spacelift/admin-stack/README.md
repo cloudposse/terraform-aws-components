@@ -1,17 +1,27 @@
+---
+tags:
+  - component/spacelift/admin-stack
+  - layer/spacelift
+  - provider/aws
+  - provider/spacelift
+---
+
 # Component: `spacelift/admin-stack`
 
 This component is responsible for creating an administrative [stack](https://docs.spacelift.io/concepts/stack/) and its
-corresponding child stacks in the spacelift organization.
+corresponding child stacks in the Spacelift organization.
 
-The component uses a series of `context_fiters` to select atmos component instances to manage as child stacks.
+The component uses a series of `context_filters` to select atmos component instances to manage as child stacks.
 
 ## Usage
 
 **Stack Level**: Global
 
-The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the [Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
+The following are example snippets of how to use this component. For more on Spacelift admin stack usage, see the
+[Spacelift README](https://docs.cloudposse.com/components/library/aws/spacelift/)
 
 First define the default configuration for any admin stack:
+
 ```yaml
 # stacks/catalog/spacelift/admin-stack.yaml
 components:
@@ -54,6 +64,7 @@ components:
 ```
 
 Then define the root-admin stack:
+
 ```yaml
 # stacks/orgs/acme/spacelift.yaml
 import:
@@ -96,10 +107,10 @@ components:
         # this creates policies for the children (admin) stacks
         child_policy_attachments:
           - TRIGGER Global administrator
-
 ```
 
-Finally define any tenant-specific stacks:
+Finally, define any tenant-specific stacks:
+
 ```yaml
 # stacks/orgs/acme/core/spacelift.yaml
 import:
@@ -133,6 +144,7 @@ components:
           - TRIGGER Dependencies
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -142,6 +154,7 @@ components:
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.0 |
 | <a name="requirement_spacelift"></a> [spacelift](#requirement\_spacelift) | >= 0.1.31 |
+| <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 1.14.0 |
 
 ## Providers
 
@@ -154,11 +167,11 @@ components:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_all_admin_stacks_config"></a> [all\_admin\_stacks\_config](#module\_all\_admin\_stacks\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.0.0 |
-| <a name="module_child_stack"></a> [child\_stack](#module\_child\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.0.0 |
-| <a name="module_child_stacks_config"></a> [child\_stacks\_config](#module\_child\_stacks\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.0.0 |
-| <a name="module_root_admin_stack"></a> [root\_admin\_stack](#module\_root\_admin\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.0.0 |
-| <a name="module_root_admin_stack_config"></a> [root\_admin\_stack\_config](#module\_root\_admin\_stack\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.0.0 |
+| <a name="module_all_admin_stacks_config"></a> [all\_admin\_stacks\_config](#module\_all\_admin\_stacks\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.5.0 |
+| <a name="module_child_stack"></a> [child\_stack](#module\_child\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.6.0 |
+| <a name="module_child_stacks_config"></a> [child\_stacks\_config](#module\_child\_stacks\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.5.0 |
+| <a name="module_root_admin_stack"></a> [root\_admin\_stack](#module\_root\_admin\_stack) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stack | 1.6.0 |
+| <a name="module_root_admin_stack_config"></a> [root\_admin\_stack\_config](#module\_root\_admin\_stack\_config) | cloudposse/cloud-infrastructure-automation/spacelift//modules/spacelift-stacks-from-atmos-config | 1.5.0 |
 | <a name="module_spaces"></a> [spaces](#module\_spaces) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -181,7 +194,6 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_admin_stack_label"></a> [admin\_stack\_label](#input\_admin\_stack\_label) | Label to use to identify the admin stack when creating the child stacks | `string` | `"admin-stack-name"` | no |
-| <a name="input_administrative"></a> [administrative](#input\_administrative) | Whether this stack can manage other stacks | `bool` | `false` | no |
 | <a name="input_allow_public_workers"></a> [allow\_public\_workers](#input\_allow\_public\_workers) | Whether to allow public workers to be used for this stack | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_autodeploy"></a> [autodeploy](#input\_autodeploy) | Controls the Spacelift 'autodeploy' option for a stack | `bool` | `false` | no |
@@ -201,7 +213,7 @@ components:
 | <a name="input_component_root"></a> [component\_root](#input\_component\_root) | The path, relative to the root of the repository, where the component can be found | `string` | n/a | yes |
 | <a name="input_component_vars"></a> [component\_vars](#input\_component\_vars) | All Terraform values to be applied to the stack via a mounted file | `any` | `{}` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
-| <a name="input_context_attachments"></a> [context\_attachments](#input\_context\_attachments) | A list of context IDs to attach to this stack | `set(string)` | `[]` | no |
+| <a name="input_context_attachments"></a> [context\_attachments](#input\_context\_attachments) | A list of context IDs to attach to this stack | `list(string)` | `[]` | no |
 | <a name="input_context_filters"></a> [context\_filters](#input\_context\_filters) | Context filters to select atmos stacks matching specific criteria to create as children. | <pre>object({<br>    namespaces          = optional(list(string), [])<br>    environments        = optional(list(string), [])<br>    tenants             = optional(list(string), [])<br>    stages              = optional(list(string), [])<br>    tags                = optional(map(string), {})<br>    administrative      = optional(bool)<br>    root_administrative = optional(bool)<br>  })</pre> | n/a | yes |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | Specify description of stack | `string` | `null` | no |
@@ -212,6 +224,7 @@ components:
 | <a name="input_drift_detection_timezone"></a> [drift\_detection\_timezone](#input\_drift\_detection\_timezone) | Timezone in which the schedule is expressed. Defaults to UTC. | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| <a name="input_excluded_context_filters"></a> [excluded\_context\_filters](#input\_excluded\_context\_filters) | Context filters to exclude from stacks matching specific criteria of `var.context_filters`. | <pre>object({<br>    namespaces   = optional(list(string), [])<br>    environments = optional(list(string), [])<br>    tenants      = optional(list(string), [])<br>    stages       = optional(list(string), [])<br>    tags         = optional(map(string), {})<br>  })</pre> | `{}` | no |
 | <a name="input_github_enterprise"></a> [github\_enterprise](#input\_github\_enterprise) | GitHub Enterprise (self-hosted) VCS settings | `map(any)` | `null` | no |
 | <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | GitLab VCS settings | `map(any)` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
@@ -224,18 +237,15 @@ components:
 | <a name="input_manage_state"></a> [manage\_state](#input\_manage\_state) | Flag to enable/disable manage\_state setting in stack | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_parent_space_id"></a> [parent\_space\_id](#input\_parent\_space\_id) | If creating a dedicated space for this stack, specify the ID of the parent space in Spacelift. | `string` | `null` | no |
-| <a name="input_policy_ids"></a> [policy\_ids](#input\_policy\_ids) | Set of Rego policy IDs to attach to this stack | `set(string)` | `[]` | no |
 | <a name="input_protect_from_deletion"></a> [protect\_from\_deletion](#input\_protect\_from\_deletion) | Flag to enable/disable deletion protection. | `bool` | `false` | no |
 | <a name="input_pulumi"></a> [pulumi](#input\_pulumi) | Pulumi-specific configuration. Presence means this Stack is a Pulumi Stack. | `map(any)` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
-| <a name="input_region"></a> [region](#input\_region) | The AWS region to use | `string` | `"us-east-1"` | no |
 | <a name="input_repository"></a> [repository](#input\_repository) | The name of your infrastructure repo | `string` | n/a | yes |
 | <a name="input_root_admin_stack"></a> [root\_admin\_stack](#input\_root\_admin\_stack) | Flag to indicate if this stack is the root admin stack. In this case, the stack will be created in the root space and will create all the other admin stacks as children. | `bool` | `false` | no |
 | <a name="input_root_stack_policy_attachments"></a> [root\_stack\_policy\_attachments](#input\_root\_stack\_policy\_attachments) | List of policy attachments to attach to the root admin stack | `set(string)` | `[]` | no |
 | <a name="input_runner_image"></a> [runner\_image](#input\_runner\_image) | The full image name and tag of the Docker image to use in Spacelift | `string` | `null` | no |
 | <a name="input_showcase"></a> [showcase](#input\_showcase) | Showcase settings | `map(any)` | `null` | no |
-| <a name="input_space_id"></a> [space\_id](#input\_space\_id) | Place the stack in the specified space\_id. | `string` | `"root"` | no |
+| <a name="input_space_id"></a> [space\_id](#input\_space\_id) | Place the stack in the specified space\_id | `string` | `"root"` | no |
 | <a name="input_spacelift_run_enabled"></a> [spacelift\_run\_enabled](#input\_spacelift\_run\_enabled) | Enable/disable creation of the `spacelift_run` resource | `bool` | `false` | no |
 | <a name="input_spacelift_spaces_component_name"></a> [spacelift\_spaces\_component\_name](#input\_spacelift\_spaces\_component\_name) | The component name of the spacelift spaces component | `string` | `"spacelift/spaces"` | no |
 | <a name="input_spacelift_spaces_environment_name"></a> [spacelift\_spaces\_environment\_name](#input\_spacelift\_spaces\_environment\_name) | The environment name of the spacelift spaces component | `string` | `null` | no |
@@ -250,6 +260,7 @@ components:
 | <a name="input_terraform_smart_sanitization"></a> [terraform\_smart\_sanitization](#input\_terraform\_smart\_sanitization) | Whether or not to enable [Smart Sanitization](https://docs.spacelift.io/vendors/terraform/resource-sanitization) which will only sanitize values marked as sensitive. | `bool` | `false` | no |
 | <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version) | Specify the version of Terraform to use for the stack | `string` | `null` | no |
 | <a name="input_terraform_version_map"></a> [terraform\_version\_map](#input\_terraform\_version\_map) | A map to determine which Terraform patch version to use for each minor version | `map(string)` | `{}` | no |
+| <a name="input_terraform_workflow_tool"></a> [terraform\_workflow\_tool](#input\_terraform\_workflow\_tool) | Defines the tool that will be used to execute the workflow. This can be one of OPEN\_TOFU, TERRAFORM\_FOSS or CUSTOM. Defaults to TERRAFORM\_FOSS. | `string` | `"TERRAFORM_FOSS"` | no |
 | <a name="input_terraform_workspace"></a> [terraform\_workspace](#input\_terraform\_workspace) | Specify the Terraform workspace to use for the stack | `string` | `null` | no |
 | <a name="input_webhook_enabled"></a> [webhook\_enabled](#input\_webhook\_enabled) | Flag to enable/disable the webhook endpoint to which Spacelift sends the POST requests about run state changes | `bool` | `false` | no |
 | <a name="input_webhook_endpoint"></a> [webhook\_endpoint](#input\_webhook\_endpoint) | Webhook endpoint to which Spacelift sends the POST requests about run state changes | `string` | `null` | no |
@@ -264,3 +275,4 @@ components:
 | <a name="output_root_stack"></a> [root\_stack](#output\_root\_stack) | The root stack, if enabled and created by this component |
 | <a name="output_root_stack_id"></a> [root\_stack\_id](#output\_root\_stack\_id) | The stack id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->

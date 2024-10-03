@@ -1,10 +1,22 @@
+---
+tags:
+  - component/bastion
+  - layer/network
+  - provider/aws
+---
+
 # Component: `bastion`
 
-This component is responsible for provisioning a generic Bastion host within an ASG with parameterized `user_data` and support for AWS SSM Session Manager for remote access with IAM authentication.
+This component is responsible for provisioning a generic Bastion host within an ASG with parameterized `user_data` and
+support for AWS SSM Session Manager for remote access with IAM authentication.
 
-If a special `container.sh` script is desired to run, set `container_enabled` to `true`, and set the `image_repository` and `image_container` variables.
+If a special `container.sh` script is desired to run, set `container_enabled` to `true`, and set the `image_repository`
+and `image_container` variables.
 
-By default, this component acts as an "SSM Bastion", which is deployed to a private subnet and has SSM Enabled, allowing access via the AWS Console, AWS CLI, or SSM Session tools such as [aws-gate](https://github.com/xen0l/aws-gate). Alternatively, this component can be used as a regular SSH Bastion, deployed to a public subnet with Security Group Rules allowing inbound traffic over port 22.
+By default, this component acts as an "SSM Bastion", which is deployed to a private subnet and has SSM Enabled, allowing
+access via the AWS Console, AWS CLI, or SSM Session tools such as [aws-gate](https://github.com/xen0l/aws-gate).
+Alternatively, this component can be used as a regular SSH Bastion, deployed to a public subnet with Security Group
+Rules allowing inbound traffic over port 22.
 
 ## Usage
 
@@ -41,18 +53,19 @@ components:
         custom_bastion_hostname: bastion
         vanity_domain: example.com
         security_group_rules:
-          - type        : "ingress"
-            from_port   : 22
-            to_port     : 22
-            protocol    : tcp
-            cidr_blocks : ["1.2.3.4/32"]
-          - type        : "egress"
-            from_port   : 0
-            to_port     : 0
-            protocol    : -1
-            cidr_blocks : ["0.0.0.0/0"]
+          - type: "ingress"
+            from_port: 22
+            to_port: 22
+            protocol: tcp
+            cidr_blocks: ["1.2.3.4/32"]
+          - type: "egress"
+            from_port: 0
+            to_port: 0
+            protocol: -1
+            cidr_blocks: ["0.0.0.0/0"]
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -119,7 +132,7 @@ components:
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
-| <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A list of maps of Security Group rules.<br>The values of map is fully complated with `aws_security_group_rule` resource.<br>To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule . | `list(any)` | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": -1,<br>    "to_port": 0,<br>    "type": "egress"<br>  },<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 22,<br>    "protocol": "tcp",<br>    "to_port": 22,<br>    "type": "ingress"<br>  }<br>]</pre> | no |
+| <a name="input_security_group_rules"></a> [security\_group\_rules](#input\_security\_group\_rules) | A list of maps of Security Group rules.<br>The values of map is fully completed with `aws_security_group_rule` resource.<br>To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule . | `list(any)` | <pre>[<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 0,<br>    "protocol": -1,<br>    "to_port": 0,<br>    "type": "egress"<br>  },<br>  {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "from_port": 22,<br>    "protocol": "tcp",<br>    "to_port": 22,<br>    "type": "ingress"<br>  }<br>]</pre> | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
@@ -132,8 +145,11 @@ components:
 | <a name="output_iam_instance_profile"></a> [iam\_instance\_profile](#output\_iam\_instance\_profile) | Name of AWS IAM Instance Profile |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | ID on the AWS Security Group associated with the ASG |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/bastion) - Cloud Posse's upstream component
+
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/bastion) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

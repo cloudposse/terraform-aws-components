@@ -4,17 +4,12 @@ variable "admin_stack_label" {
   default     = "admin-stack-name"
 }
 
-variable "administrative" {
-  type        = bool
-  description = "Whether this stack can manage other stacks"
-  default     = false
-}
-
 variable "allow_public_workers" {
   type        = bool
   description = "Whether to allow public workers to be used for this stack"
   default     = false
 }
+
 variable "autodeploy" {
   type        = bool
   description = "Controls the Spacelift 'autodeploy' option for a stack"
@@ -111,7 +106,7 @@ variable "component_vars" {
 }
 
 variable "context_attachments" {
-  type        = set(string)
+  type        = list(string)
   description = "A list of context IDs to attach to this stack"
   default     = []
 }
@@ -126,6 +121,18 @@ variable "context_filters" {
     tags                = optional(map(string), {})
     administrative      = optional(bool)
     root_administrative = optional(bool)
+  })
+}
+
+variable "excluded_context_filters" {
+  description = "Context filters to exclude from stacks matching specific criteria of `var.context_filters`."
+  default     = {}
+  type = object({
+    namespaces   = optional(list(string), [])
+    environments = optional(list(string), [])
+    tenants      = optional(list(string), [])
+    stages       = optional(list(string), [])
+    tags         = optional(map(string), {})
   })
 }
 
@@ -189,18 +196,6 @@ variable "manage_state" {
   default     = false
 }
 
-variable "parent_space_id" {
-  type        = string
-  description = "If creating a dedicated space for this stack, specify the ID of the parent space in Spacelift."
-  default     = null
-}
-
-variable "policy_ids" {
-  type        = set(string)
-  default     = []
-  description = "Set of Rego policy IDs to attach to this stack"
-}
-
 variable "protect_from_deletion" {
   type        = bool
   description = "Flag to enable/disable deletion protection."
@@ -211,12 +206,6 @@ variable "pulumi" {
   type        = map(any)
   description = "Pulumi-specific configuration. Presence means this Stack is a Pulumi Stack."
   default     = null
-}
-
-variable "region" {
-  type        = string
-  description = "The AWS region to use"
-  default     = "us-east-1"
 }
 
 variable "repository" {
@@ -250,7 +239,7 @@ variable "showcase" {
 
 variable "space_id" {
   type        = string
-  description = "Place the stack in the specified space_id."
+  description = "Place the stack in the specified space_id"
   default     = "root"
 }
 
@@ -318,6 +307,17 @@ variable "terraform_version_map" {
   type        = map(string)
   description = "A map to determine which Terraform patch version to use for each minor version"
   default     = {}
+}
+
+variable "terraform_workflow_tool" {
+  type        = string
+  description = "Defines the tool that will be used to execute the workflow. This can be one of OPEN_TOFU, TERRAFORM_FOSS or CUSTOM. Defaults to TERRAFORM_FOSS."
+  default     = "TERRAFORM_FOSS"
+
+  validation {
+    condition     = contains(["OPEN_TOFU", "TERRAFORM_FOSS", "CUSTOM"], var.terraform_workflow_tool)
+    error_message = "Valid values for terraform_workflow_tool are (OPEN_TOFU, TERRAFORM_FOSS, CUSTOM)."
+  }
 }
 
 variable "terraform_workspace" {

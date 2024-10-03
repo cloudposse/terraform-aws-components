@@ -1,9 +1,16 @@
+---
+tags:
+  - component/datadog-lambda-forwarder
+  - layer/datadog
+  - provider/aws
+  - provider/datadog
+---
+
 # Component: `datadog-lambda-forwarder`
 
-This component is responsible for provision all the necessary infrastructure to
-deploy [Datadog Lambda forwarders](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring).  It depends on
-the `datadog-configuration` component to get the Datadog API keys.
-
+This component is responsible for provision all the necessary infrastructure to deploy
+[Datadog Lambda forwarders](https://github.com/DataDog/datadog-serverless-functions/tree/master/aws/logs_monitoring). It
+depends on the `datadog-configuration` component to get the Datadog API keys.
 
 ## Usage
 
@@ -44,6 +51,7 @@ components:
             filter_pattern: ""
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -85,7 +93,7 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
-| <a name="input_cloudwatch_forwarder_event_patterns"></a> [cloudwatch\_forwarder\_event\_patterns](#input\_cloudwatch\_forwarder\_event\_patterns) | Map of title => CloudWatch Event patterns to forward to Datadog. Event structure from here: <https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns><br>Example:<pre>hcl<br>cloudwatch_forwarder_event_rules = {<br>  "guardduty" = {<br>    source = ["aws.guardduty"]<br>    detail-type = ["GuardDuty Finding"]<br>  }<br>  "ec2-terminated" = {<br>    source = ["aws.ec2"]<br>    detail-type = ["EC2 Instance State-change Notification"]<br>    detail = {<br>      state = ["terminated"]<br>    }<br>  }<br>}</pre> | <pre>map(object({<br>    version     = optional(list(string))<br>    id          = optional(list(string))<br>    detail-type = optional(list(string))<br>    source      = optional(list(string))<br>    account     = optional(list(string))<br>    time        = optional(list(string))<br>    region      = optional(list(string))<br>    resources   = optional(list(string))<br>    detail      = optional(map(list(string)))<br>  }))</pre> | `{}` | no |
+| <a name="input_cloudwatch_forwarder_event_patterns"></a> [cloudwatch\_forwarder\_event\_patterns](#input\_cloudwatch\_forwarder\_event\_patterns) | Map of title to CloudWatch Event patterns to forward to Datadog. Event structure from here: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatchEventsandEventPatterns.html#CloudWatchEventsPatterns<br>Example:<pre>hcl<br>cloudwatch_forwarder_event_rules = {<br>  "guardduty" = {<br>    source = ["aws.guardduty"]<br>    detail-type = ["GuardDuty Finding"]<br>  }<br>  "ec2-terminated" = {<br>    source = ["aws.ec2"]<br>    detail-type = ["EC2 Instance State-change Notification"]<br>    detail = {<br>      state = ["terminated"]<br>    }<br>  }<br>}</pre> | <pre>map(object({<br>    version     = optional(list(string))<br>    id          = optional(list(string))<br>    detail-type = optional(list(string))<br>    source      = optional(list(string))<br>    account     = optional(list(string))<br>    time        = optional(list(string))<br>    region      = optional(list(string))<br>    resources   = optional(list(string))<br>    detail      = optional(map(list(string)))<br>  }))</pre> | `{}` | no |
 | <a name="input_cloudwatch_forwarder_log_groups"></a> [cloudwatch\_forwarder\_log\_groups](#input\_cloudwatch\_forwarder\_log\_groups) | Map of CloudWatch Log Groups with a filter pattern that the Lambda forwarder will send logs from. For example: { mysql1 = { name = "/aws/rds/maincluster", filter\_pattern = "" } | `map(map(string))` | `{}` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_context_tags"></a> [context\_tags](#input\_context\_tags) | List of context tags to add to each monitor | `set(string)` | <pre>[<br>  "namespace",<br>  "tenant",<br>  "environment",<br>  "stage"<br>]</pre> | no |
@@ -150,11 +158,12 @@ components:
 | <a name="output_lambda_forwarder_vpc_log_function_arn"></a> [lambda\_forwarder\_vpc\_log\_function\_arn](#output\_lambda\_forwarder\_vpc\_log\_function\_arn) | Datadog Lambda forwarder VPC Flow Logs function ARN |
 | <a name="output_lambda_forwarder_vpc_log_function_name"></a> [lambda\_forwarder\_vpc\_log\_function\_name](#output\_lambda\_forwarder\_vpc\_log\_function\_name) | Datadog Lambda forwarder VPC Flow Logs function name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/datadog-lambda-forwarder) - Cloud Posse's upstream component
 
+- Datadog's [documentation about provisioning keys](https://docs.datadoghq.com/account_management/api-app-keys)
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/datadog-lambda-forwarder) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

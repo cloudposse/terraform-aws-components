@@ -21,7 +21,7 @@ variable "name" {
 variable "region" {
   type        = string
   default     = ""
-  description = "AWS region for resources. Can be overriden by `resource_region` and `state_store_region`"
+  description = "AWS region for resources. Can be overridden by `resource_region` and `state_store_region`"
 }
 
 variable "state_store_region" {

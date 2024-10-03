@@ -44,7 +44,7 @@ variable "security_group_rules" {
   ]
   description = <<-EOT
     A list of maps of Security Group rules.
-    The values of map is fully complated with `aws_security_group_rule` resource.
+    The values of map is fully completed with `aws_security_group_rule` resource.
     To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule .
   EOT
 }

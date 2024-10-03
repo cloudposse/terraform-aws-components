@@ -1,6 +1,14 @@
+---
+tags:
+  - component/redshift
+  - layer/data
+  - provider/aws
+---
+
 # Component: `redshift`
 
-This component is responsible for provisioning a RedShift instance. It seeds relevant database information (hostnames, username, password, etc.) into AWS SSM Parameter Store.
+This component is responsible for provisioning a RedShift instance. It seeds relevant database information (hostnames,
+username, password, etc.) into AWS SSM Parameter Store.
 
 ## Usage
 
@@ -36,23 +44,23 @@ components:
             protocol: tcp
             cidr_blocks:
               - 10.0.0.0/8
-
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.17, <=4.67.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.17, <= 4.67.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.17, <=4.67.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.17, <= 4.67.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.0 |
 
 ## Modules
@@ -139,10 +147,11 @@ components:
 | <a name="output_redshift_database_ssm_key_prefix"></a> [redshift\_database\_ssm\_key\_prefix](#output\_redshift\_database\_ssm\_key\_prefix) | SSM prefix |
 | <a name="output_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#output\_vpc\_security\_group\_ids) | The VPC security group IDs associated with the cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/redshift) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/redshift) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
