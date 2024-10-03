@@ -1,6 +1,6 @@
 module "athena" {
   source  = "cloudposse/athena/aws"
-  version = "0.1.0"
+  version = "0.1.1"
 
   create_s3_bucket               = var.create_s3_bucket
   athena_s3_bucket_id            = var.athena_s3_bucket_id
@@ -13,7 +13,6 @@ module "athena" {
   enforce_workgroup_configuration    = var.enforce_workgroup_configuration
   publish_cloudwatch_metrics_enabled = var.publish_cloudwatch_metrics_enabled
   workgroup_encryption_option        = var.workgroup_encryption_option
-  encryption_option                  = var.encryption_option
   s3_output_path                     = var.s3_output_path
   workgroup_state                    = var.workgroup_state
   workgroup_force_destroy            = var.workgroup_force_destroy

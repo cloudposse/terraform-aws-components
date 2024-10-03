@@ -1,5 +1,5 @@
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 variable "enabled" {
@@ -8,29 +8,29 @@ variable "enabled" {
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "delimiter" {
-  type        = "string"
+  type        = string
   default     = "-"
   description = "Delimiter between `name`, `namespace`, `stage` and `attributes`"
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   description = "Additional attributes (_e.g._ \"1\")"
   default     = ["executor"]
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   description = "Additional tags (_e.g._ map(\"BusinessUnit\",\"ABC\")"
   default     = {}
 }

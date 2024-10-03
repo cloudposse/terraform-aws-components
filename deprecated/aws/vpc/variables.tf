@@ -1,40 +1,40 @@
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name to distinguish this VPC from others in this account"
   default     = "vpc"
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   description = "Additional attributes to distinguish this VPC from others in this account"
   default     = ["common"]
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 variable "region" {
-  type = "string"
+  type = string
 }
 
 variable "max_subnet_count" {
   default     = 0
-  description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every provided availablility zone (in `availability_zones` variable) within the region"
+  description = "Sets the maximum amount of subnets to deploy.  0 will deploy a subnet for every provided availability zone (in `availability_zones` variable) within the region"
 }
 
 variable "availability_zones" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "List of Availability Zones where subnets will be created. If empty, all zones will be used"
 }
@@ -55,7 +55,7 @@ variable "vpc_nat_instance_type" {
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Additional tags, for example map(`KubernetesCluster`,`us-west-2.prod.example.com`)"
 }

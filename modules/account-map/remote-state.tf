@@ -1,6 +1,6 @@
 module "accounts" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.0.0"
+  version = "1.5.0"
 
   component  = "account"
   privileged = true

@@ -2,26 +2,42 @@ type: "repository" # can be either 'organization' or 'repository'
 dind_enabled: true # If `true`, a Docker sidecar container will be deployed
 # To run Docker in Docker (dind), change image from summerwind/actions-runner to summerwind/actions-runner-dind
 image: summerwind/actions-runner-dind
-scope: "example/app"
-scale_down_delay_seconds: 300
-min_replicas: 1
-max_replicas: 2
-busy_metrics:
-  scale_up_threshold: 0.75
-  scale_down_threshold: 0.25
-  scale_up_factor: 2
-  scale_down_factor: 0.5
-resources:
-  limits:
-    cpu: 1.5
-    memory: 4Gi
-    ephemeral_storage: "10Gi"
-  requests:
-    cpu: 0.5
-    memory: 1Gi
-storage: "10Gi"
-webhook_driven_scaling_enabled: false
+
+#scope: "example/app"
+#scale_down_delay_seconds: 300
+#min_replicas: 1
+#max_replicas: 2
+#busy_metrics:
+#  scale_up_threshold: 0.75
+#  scale_down_threshold: 0.25
+#  scale_up_factor: 2
+#  scale_down_factor: 0.5
+#resources:
+#  limits:
+#    cpu: 1
+#    memory: 1Gi
+#    ephemeral_storage: "10Gi"
+#  requests:
+#    cpu: 500m
+#    memory: 512Mi
+#    ephemeral_storage: "1Gi"
+
+pvc_enabled: false
+webhook_driven_scaling_enabled: true
+max_duration: "90m"
 pull_driven_scaling_enabled: false
-labels:
-  - "Ubuntu"
-  - "core-example"
+#labels:
+#  - "Ubuntu"
+#  - "core-example"
+# Override minReplicas to 1 on weekends and during non-working hours
+#scheduled_overrides:
+#  - startTime: "2023-06-30T19:00:00+03:00"
+#    endTime: "2023-07-03T07:00:00+03:00"
+#    recurrenceRule:
+#      frequency: Weekly
+#    minReplicas: 1
+#  - startTime: "2023-07-03T19:00:00+03:00"
+#    endTime: "2023-07-04T07:00:00+03:00"
+#    recurrenceRule:
+#      frequency: Daily
+#    minReplicas: 1

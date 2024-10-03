@@ -3,10 +3,8 @@ locals {
 
   eks_security_group_enabled = local.enabled && var.eks_security_group_enabled
 
-  vpc_cidr = module.vpc.outputs.vpc_cidr
-
   allowed_cidr_blocks = concat(
-    [local.vpc_cidr],
+    var.allow_ingress_from_this_vpc ? [module.vpc.outputs.vpc_cidr] : [],
     var.ingress_cidr_blocks,
     [
       for k in keys(module.vpc_ingress) :
@@ -38,6 +36,7 @@ locals {
     vpc_id             = module.vpc.outputs.vpc_id
     subnets            = module.vpc.outputs.private_subnet_ids
     availability_zones = var.availability_zones
+    multi_az_enabled   = var.multi_az_enabled
 
     allowed_security_groups         = local.allowed_security_groups
     additional_security_group_rules = local.additional_security_group_rules
@@ -50,6 +49,7 @@ locals {
     transit_encryption_enabled       = var.transit_encryption_enabled
     apply_immediately                = var.apply_immediately
     automatic_failover_enabled       = var.automatic_failover_enabled
+    auto_minor_version_upgrade       = var.auto_minor_version_upgrade
     cloudwatch_metric_alarms_enabled = var.cloudwatch_metric_alarms_enabled
     auth_token_enabled               = var.auth_token_enabled
   }
@@ -65,13 +65,15 @@ module "redis_clusters" {
   cluster_name  = lookup(each.value, "cluster_name", replace(each.key, "_", "-"))
   dns_subdomain = join(".", [lookup(each.value, "cluster_name", replace(each.key, "_", "-")), module.this.environment])
 
-  instance_type      = each.value.instance_type
-  num_replicas       = lookup(each.value, "num_replicas", 1)
-  num_shards         = lookup(each.value, "num_shards", 0)
-  replicas_per_shard = lookup(each.value, "replicas_per_shard", 0)
-  engine_version     = each.value.engine_version
-  parameters         = each.value.parameters
-  cluster_attributes = local.cluster_attributes
+  instance_type          = each.value.instance_type
+  num_replicas           = lookup(each.value, "num_replicas", 1)
+  num_shards             = lookup(each.value, "num_shards", 0)
+  replicas_per_shard     = lookup(each.value, "replicas_per_shard", 0)
+  engine_version         = each.value.engine_version
+  create_parameter_group = lookup(each.value, "create_parameter_group", true)
+  parameters             = lookup(each.value, "parameters", null)
+  parameter_group_name   = lookup(each.value, "parameter_group_name", null)
+  cluster_attributes     = local.cluster_attributes
 
   context = module.this.context
 }

@@ -24,25 +24,25 @@ variable "views" {
 variable "database_grants" {
   type        = list(string)
   description = "A list of Grants to give to the database created with component."
-  default     = []
+  default     = ["MODIFY", "MONITOR", "USAGE"]
 }
 
 variable "schema_grants" {
   type        = list(string)
   description = "A list of Grants to give to the schema created with component."
-  default     = []
+  default     = ["MODIFY", "MONITOR", "USAGE", "CREATE TABLE", "CREATE VIEW"]
 }
 
 variable "table_grants" {
   type        = list(string)
   description = "A list of Grants to give to the tables created with component."
-  default     = []
+  default     = ["SELECT", "INSERT", "UPDATE", "DELETE", "TRUNCATE", "REFERENCES"]
 }
 
 variable "view_grants" {
   type        = list(string)
   description = "A list of Grants to give to the views created with component."
-  default     = []
+  default     = ["SELECT", "REFERENCES"]
 }
 
 variable "database_comment" {

@@ -5,7 +5,7 @@ terraform {
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 provider "aws" {
@@ -17,7 +17,7 @@ provider "aws" {
   region = "us-east-1"
 
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
@@ -27,24 +27,24 @@ variable "domain_name" {
 
 module "certificate" {
   source                           = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=tags/0.1.1"
-  domain_name                      = "${var.domain_name}"
+  domain_name                      = var.domain_name
   proces_domain_validation_options = "true"
   ttl                              = "300"
   subject_alternative_names        = ["*.${var.domain_name}"]
 }
 
 output "certificate_domain_name" {
-  value = "${var.domain_name}"
+  value = var.domain_name
 }
 
 output "certificate_id" {
-  value = "${module.certificate.id}"
+  value = module.certificate.id
 }
 
 output "certificate_arn" {
-  value = "${module.certificate.arn}"
+  value = module.certificate.arn
 }
 
 output "certificate_domain_validation_options" {
-  value = "${module.certificate.domain_validation_options}"
+  value = module.certificate.domain_validation_options
 }

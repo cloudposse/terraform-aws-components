@@ -1,0 +1,33 @@
+my-api-test:
+  name: "API Test"
+  message: "API Test Failed"
+  type: api
+  subtype: http
+  tags:
+    - "managed-by:Terraform"
+  status: "live"
+  request_definition:
+    url: "CHANGEME"
+    method: GET
+  request_headers:
+    Accept-Charset: "utf-8, iso-8859-1;q=0.5"
+    Accept: "text/json"
+  options_list:
+    tick_every: 1800
+    no_screenshot: false
+    follow_redirects: true
+    retry:
+      count: 2
+      interval: 10
+    monitor_options:
+      renotify_interval: 300
+  assertion:
+    - type: statusCode
+      operator: is
+      target: "200"
+    - type: body
+      operator: validatesJSONPath
+      targetjsonpath:
+        operator: is
+        targetvalue: true
+        jsonpath: foo.bar

@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.3"
+  version = "1.5.0"
 
   component = "vpc"
 
@@ -9,7 +9,7 @@ module "vpc" {
 
 module "eks" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.3"
+  version = "1.5.0"
 
   count = var.use_eks_security_group ? 1 : 0
 
@@ -20,7 +20,9 @@ module "eks" {
 
 module "dns_gbl_delegated" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "0.22.3"
+  version = "1.5.0"
+
+  count = var.use_dns_delegated ? 1 : 0
 
   component   = "dns-delegated"
   environment = var.dns_gbl_delegated_environment_name

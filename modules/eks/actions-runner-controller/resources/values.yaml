@@ -1,35 +1,34 @@
 authSecret:
   create: false
-  name: controller-manager
-replicaCount: 1
+  # Use default name, or set via var.existing_kubernetes_secret_name
 scope:
   # If true, the controller will only watch custom resources in a single namespace,
   # which by default is the namespace the controller is in.
   # This provides the ability to run multiple controllers in different namespaces
   # with different TOKENS to get around GitHub API rate limits, among other things.
   singleNamespace: true
-syncPeriod: 120s
+# syncPeriod sets the period in which the controller reconciles the desired runners count.
+# The default value is 60 seconds.
+# syncPeriod: 120s
 
 githubWebhookServer:
   enabled: false
-  syncPeriod: 120s
   secret:
     # Webhook secret, used to authenticate incoming webhook events from GitHub
     # When using Sops, stored in same SopsSecret as authSecret under key `github_webhook_secret_token`
+    # with name set via var.existing_kubernetes_secret_name. Otherwise, use default name.
     enabled: true
     create: false
-    name: "controller-manager"
   useRunnerGroupsVisibility: false
   ingress:
     enabled: false
     annotations:
       alb.ingress.kubernetes.io/backend-protocol: HTTP
-      alb.ingress.kubernetes.io/group.name: common
+      # Use the default ingress, or uncomment and set the group name to use a different one
+      # alb.ingress.kubernetes.io/group.name: common
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS":443}]'
-      alb.ingress.kubernetes.io/load-balancer-name: k8s-common
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/ssl-redirect: '443'
       alb.ingress.kubernetes.io/target-type: ip
-      kubernetes.io/ingress.class: alb
     podDisruptionBudget:
       maxUnavailable: "60%"

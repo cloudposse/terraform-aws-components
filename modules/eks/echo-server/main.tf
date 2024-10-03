@@ -1,12 +1,13 @@
 locals {
-  enabled               = module.this.enabled
   ingress_nginx_enabled = var.ingress_type == "nginx" ? true : false
   ingress_alb_enabled   = var.ingress_type == "alb" ? true : false
+
+  hostname = module.this.enabled ? format(var.hostname_template, var.tenant, var.stage, var.environment) : null
 }
 
 module "echo_server" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.7.0"
+  version = "0.10.1"
 
   name  = module.this.name
   chart = "${path.module}/charts/echo-server"
@@ -30,7 +31,7 @@ module "echo_server" {
   set = [
     {
       name  = "ingress.hostname"
-      value = format(var.hostname_template, var.tenant, var.stage, var.environment)
+      value = local.hostname
       type  = "auto"
     },
     {
@@ -52,4 +53,3 @@ module "echo_server" {
 
   context = module.this.context
 }
-

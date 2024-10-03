@@ -8,41 +8,41 @@ terraform {
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 variable "organization_feature_set" {
-  type        = "string"
+  type        = string
   default     = "ALL"
   description = "`ALL` (default) or `CONSOLIDATED_BILLING`"
 }
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
 resource "aws_organizations_organization" "default" {
-  feature_set = "${var.organization_feature_set}"
+  feature_set = var.organization_feature_set
 }
 
 output "organization_id" {
-  value = "${aws_organizations_organization.default.id}"
+  value = aws_organizations_organization.default.id
 }
 
 output "organization_arn" {
-  value = "${aws_organizations_organization.default.arn}"
+  value = aws_organizations_organization.default.arn
 }
 
 output "organization_master_account_id" {
-  value = "${aws_organizations_organization.default.master_account_id}"
+  value = aws_organizations_organization.default.master_account_id
 }
 
 output "organization_master_account_arn" {
-  value = "${aws_organizations_organization.default.master_account_arn}"
+  value = aws_organizations_organization.default.master_account_arn
 }
 
 output "organization_master_account_email" {
-  value = "${aws_organizations_organization.default.master_account_email}"
+  value = aws_organizations_organization.default.master_account_email
 }

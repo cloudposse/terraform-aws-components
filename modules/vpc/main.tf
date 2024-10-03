@@ -13,6 +13,24 @@ locals {
     )
   )
 
+  availability_zones = length(var.availability_zones) > 0 ? (
+    (substr(
+      var.availability_zones[0],
+      0,
+      length(var.region)
+    ) == var.region) ? var.availability_zones : formatlist("${var.region}%s", var.availability_zones)
+  ) : var.availability_zones
+
+  short_region = module.utils.region_az_alt_code_maps["to_short"][var.region]
+
+  availability_zone_ids = length(var.availability_zone_ids) > 0 ? (
+    (substr(
+      var.availability_zone_ids[0],
+      0,
+      length(local.short_region)
+    ) == local.short_region) ? var.availability_zone_ids : formatlist("${local.short_region}%s", var.availability_zone_ids)
+  ) : var.availability_zone_ids
+
   # required tags to make ALB ingress work https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
   # https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
   public_subnets_additional_tags = {
@@ -47,13 +65,22 @@ locals {
   } }
 }
 
+module "utils" {
+  source  = "cloudposse/utils/aws"
+  version = "1.3.0"
+}
+
 module "vpc" {
   source  = "cloudposse/vpc/aws"
-  version = "2.0.0-rc1"
+  version = "2.1.0"
 
   ipv4_primary_cidr_block          = var.ipv4_primary_cidr_block
   internet_gateway_enabled         = var.public_subnets_enabled
-  assign_generated_ipv6_cidr_block = false # disable IPv6
+  assign_generated_ipv6_cidr_block = var.assign_generated_ipv6_cidr_block
+
+  ipv4_primary_cidr_block_association     = var.ipv4_primary_cidr_block_association
+  ipv4_additional_cidr_block_associations = var.ipv4_additional_cidr_block_associations
+  ipv4_cidr_block_association_timeouts    = var.ipv4_cidr_block_association_timeouts
 
   # Required for DNS resolution of VPC Endpoint interfaces, and generally harmless
   # See https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support
@@ -72,7 +99,7 @@ module "endpoint_security_groups" {
   for_each = local.enabled && try(length(var.interface_vpc_endpoints), 0) > 0 ? toset([local.interface_endpoint_security_group_key]) : []
 
   source  = "cloudposse/security-group/aws"
-  version = "2.0.0-rc1"
+  version = "2.2.0"
 
   create_before_destroy      = true
   preserve_security_group_id = false
@@ -97,12 +124,11 @@ module "endpoint_security_groups" {
   context = module.this.context
 }
 
-
 module "vpc_endpoints" {
   source  = "cloudposse/vpc/aws//modules/vpc-endpoints"
-  version = "2.0.0-rc1"
+  version = "2.1.0"
 
-  enabled = (length(var.interface_vpc_endpoints) + length(var.gateway_vpc_endpoints)) > 0
+  enabled = local.enabled && (length(var.interface_vpc_endpoints) + length(var.gateway_vpc_endpoints)) > 0
 
   vpc_id                  = module.vpc.vpc_id
   gateway_vpc_endpoints   = local.gateway_endpoint_map
@@ -113,10 +139,10 @@ module "vpc_endpoints" {
 
 module "subnets" {
   source  = "cloudposse/dynamic-subnets/aws"
-  version = "2.0.4"
+  version = "2.4.2"
 
-  availability_zones              = var.availability_zones
-  availability_zone_ids           = var.availability_zone_ids
+  availability_zones              = local.availability_zones
+  availability_zone_ids           = local.availability_zone_ids
   ipv4_cidr_block                 = [module.vpc.vpc_cidr_block]
   ipv4_cidrs                      = var.ipv4_cidrs
   ipv6_enabled                    = false
@@ -126,10 +152,13 @@ module "subnets" {
   nat_gateway_enabled             = var.nat_gateway_enabled
   nat_instance_enabled            = var.nat_instance_enabled
   nat_instance_type               = var.nat_instance_type
+  nat_instance_ami_id             = var.nat_instance_ami_id
   public_subnets_enabled          = var.public_subnets_enabled
   public_subnets_additional_tags  = local.public_subnets_additional_tags
   private_subnets_additional_tags = local.private_subnets_additional_tags
   vpc_id                          = module.vpc.vpc_id
+  subnets_per_az_count            = var.subnets_per_az_count
+  subnets_per_az_names            = var.subnets_per_az_names
 
   context = module.this.context
 }

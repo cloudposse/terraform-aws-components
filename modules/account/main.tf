@@ -3,8 +3,10 @@ locals {
   organization = lookup(var.organization_config, "organization", {})
 
   # Organizational Units list and map configuration
-  organizational_units     = lookup(var.organization_config, "organizational_units", [])
-  organizational_units_map = { for ou in local.organizational_units : ou.name => ou }
+  organizational_units = lookup(var.organization_config, "organizational_units", [])
+  organizational_units_map = { for ou in local.organizational_units : ou.name => merge(ou, {
+    parent_ou = contains(keys(ou), "parent_ou") ? ou.parent_ou : "none"
+  }) }
 
   # Organization's Accounts list and map configuration
   organization_accounts     = lookup(var.organization_config, "accounts", [])
@@ -13,7 +15,7 @@ locals {
   # Organizational Units' Accounts list and map configuration
   organizational_units_accounts = flatten([
     for ou in local.organizational_units : [
-      for account in lookup(ou, "accounts", []) : merge(account, { "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format) })
+      for account in lookup(ou, "accounts", []) : merge({ "ou" = ou.name, "account_email_format" = lookup(ou, "account_email_format", var.account_email_format), parent_ou = contains(keys(ou), "parent_ou") ? ou.parent_ou : "none" }, account)
     ]
   ])
   organizational_units_accounts_map = { for acc in local.organizational_units_accounts : acc.name => acc }
@@ -22,13 +24,22 @@ locals {
   all_accounts = concat(local.organization_accounts, local.organizational_units_accounts)
 
   # List of Organizational Unit names
-  organizational_unit_names = values(aws_organizations_organizational_unit.this)[*]["name"]
+  organizational_unit_names = concat(
+    values(aws_organizations_organizational_unit.this)[*]["name"],
+    values(aws_organizations_organizational_unit.child)[*]["name"]
+  )
 
   # List of Organizational Unit ARNs
-  organizational_unit_arns = values(aws_organizations_organizational_unit.this)[*]["arn"]
+  organizational_unit_arns = concat(
+    values(aws_organizations_organizational_unit.this)[*]["arn"],
+    values(aws_organizations_organizational_unit.child)[*]["arn"]
+  )
 
   # List of Organizational Unit IDs
-  organizational_unit_ids = values(aws_organizations_organizational_unit.this)[*]["id"]
+  organizational_unit_ids = concat(
+    values(aws_organizations_organizational_unit.this)[*]["id"],
+    values(aws_organizations_organizational_unit.child)[*]["id"]
+  )
 
   # Map of account names to OU names (used for lookup `parent_id` for each account under an OU)
   account_names_organizational_unit_names_map = length(local.organizational_units) > 0 ? merge(
@@ -80,7 +91,7 @@ locals {
 # Convert all Service Control Policy statements from YAML config to Terraform list
 module "service_control_policy_statements_yaml_config" {
   source  = "cloudposse/config/yaml"
-  version = "1.0.1"
+  version = "1.0.2"
 
   list_config_local_base_path = path.module
   list_config_paths           = var.service_control_policies_config_paths
@@ -127,19 +138,26 @@ resource "aws_organizations_account" "organization_accounts" {
   }
 }
 
-# Provision Organizational Units
+# Provision Organizational Units w/o Child Orgs
 resource "aws_organizations_organizational_unit" "this" {
-  for_each  = local.organizational_units_map
+  for_each  = { for key, value in local.organizational_units_map : key => value if value.parent_ou == "none" }
   name      = each.value.name
   parent_id = local.organization_root_account_id
+}
+
+# Provision Child Organizational Units
+resource "aws_organizations_organizational_unit" "child" {
+  for_each  = { for key, value in local.organizational_units_map : key => value if value.parent_ou != "none" }
+  name      = each.value.name
+  parent_id = aws_organizations_organizational_unit.this[each.value.parent_ou].id
 }
 
 # Provision Accounts connected to Organizational Units
 resource "aws_organizations_account" "organizational_units_accounts" {
   for_each                   = local.organizational_units_accounts_map
   name                       = each.value.name
-  parent_id                  = aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
-  email                      = format(each.value.account_email_format, each.value.name)
+  parent_id                  = each.value.parent_ou != "none" ? aws_organizations_organizational_unit.child[each.value.ou].id : aws_organizations_organizational_unit.this[local.account_names_organizational_unit_names_map[each.value.name]].id
+  email                      = try(format(each.value.account_email_format, each.value.name), each.value.account_email_format)
   iam_user_access_to_billing = var.account_iam_user_access_to_billing
   tags                       = merge(module.this.tags, try(each.value.tags, {}), { Name : each.value.name })
 

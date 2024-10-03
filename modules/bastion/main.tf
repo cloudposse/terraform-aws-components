@@ -1,10 +1,13 @@
 locals {
-  enabled                = module.this.enabled
-  vpc_id                 = module.vpc.outputs.vpc_id
-  vpc_private_subnet_ids = module.vpc.outputs.private_subnet_ids
-  vpc_public_subnet_ids  = module.vpc.outputs.public_subnet_ids
+  enabled     = module.this.enabled
+  vpc_id      = module.vpc.outputs.vpc_id
+  vpc_outputs = module.vpc.outputs
+
+  # Get only the subnets that correspond to the AZs provided in `var.availability_zones` if set.
+  # `az_private_subnets_map` and `az_public_subnets_map` are a map of AZ names to list of subnet IDs in the AZs
+  vpc_private_subnet_ids = length(var.availability_zones) == 0 ? module.vpc.outputs.private_subnet_ids : flatten([for k, v in local.vpc_outputs.az_private_subnets_map : v if contains(var.availability_zones, k)])
+  vpc_public_subnet_ids  = length(var.availability_zones) == 0 ? module.vpc.outputs.public_subnet_ids : flatten([for k, v in local.vpc_outputs.az_public_subnets_map : v if contains(var.availability_zones, k)])
   vpc_subnet_ids         = var.associate_public_ip_address ? local.vpc_public_subnet_ids : local.vpc_private_subnet_ids
-  route52_enabled        = var.associate_public_ip_address && var.custom_bastion_hostname != null && var.vanity_domain != null
 
   userdata_template             = "${path.module}/templates/user-data.sh"
   container_template            = "${path.module}/templates/container.sh"
@@ -32,11 +35,10 @@ locals {
 
 module "sg" {
   source  = "cloudposse/security-group/aws"
-  version = "1.0.1"
+  version = "2.2.0"
 
-  security_group_description = "Security group for Bastion Hosts"
-  allow_all_egress           = true
-  vpc_id                     = local.vpc_id
+  rules  = var.security_group_rules
+  vpc_id = local.vpc_id
 
   context = module.this.context
 }
@@ -92,23 +94,23 @@ data "aws_ami" "bastion_image" {
 
 module "bastion_autoscale_group" {
   source  = "cloudposse/ec2-autoscale-group/aws"
-  version = "0.30.1"
+  version = "0.35.1"
 
-  image_id                    = join("", data.aws_ami.bastion_image.*.id)
+  image_id                    = join("", data.aws_ami.bastion_image[*].id)
   instance_type               = var.instance_type
-  subnet_ids                  = local.vpc_private_subnet_ids
+  subnet_ids                  = local.vpc_subnet_ids
   health_check_type           = "EC2"
   min_size                    = 1
   max_size                    = 2
   default_cooldown            = 300
   scale_down_cooldown_seconds = 300
   wait_for_capacity_timeout   = "10m"
-  user_data_base64            = join("", data.cloudinit_config.config[0].*.rendered)
+  user_data_base64            = join("", data.cloudinit_config.config[0][*].rendered)
   tags                        = module.this.tags
   security_group_ids          = [module.sg.id]
-  iam_instance_profile_name   = join("", aws_iam_instance_profile.default.*.name)
+  iam_instance_profile_name   = join("", aws_iam_instance_profile.default[*].name)
   block_device_mappings       = []
-  associate_public_ip_address = false
+  associate_public_ip_address = var.associate_public_ip_address
 
   # Auto-scaling policies and CloudWatch metric alarms
   autoscaling_policies_enabled           = true

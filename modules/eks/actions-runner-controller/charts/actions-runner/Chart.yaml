@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.0
+version: 0.3.2
 
 # This chart only deploys Resources for actions-runner-controller, so app version does not really apply.
 # We use Resource API version instead.

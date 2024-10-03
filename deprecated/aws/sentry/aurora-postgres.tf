@@ -4,7 +4,7 @@ variable "postgres_name" {
   default     = "postgres"
 }
 
-# Don't use `admin` 
+# Don't use `admin`
 # Read more: <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html>
 # ("MasterUsername admin cannot be used as it is a reserved word used by the engine")
 variable "postgres_admin_user" {
@@ -30,13 +30,13 @@ variable "postgres_db_name" {
 
 variable "aurora_postgres_engine_version" {
   type        = string
-  description = "Database Engine Version for Aurora PostgeSQL"
+  description = "Database Engine Version for Aurora postgresql"
   default     = "9.6.12"
 }
 
 variable "aurora_postgres_cluster_family" {
   type        = string
-  description = "Database Engine Version for Aurora PostgeSQL"
+  description = "Database Engine Version for Aurora postgresql"
   default     = "9.6.12"
 }
 

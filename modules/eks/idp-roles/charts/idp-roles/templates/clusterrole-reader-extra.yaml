@@ -1,0 +1,42 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "{{ .Values.reader_cluster_role }}-extra"
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-reader: "true"
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - list
+      - get
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - list
+      - get
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - list
+      - get
+  - apiGroups:
+      - karpenter.k8s.aws
+    resources:
+      - ec2nodeclasses
+    verbs:
+      - list
+      - get
+  - apiGroups:
+      - karpenter.sh
+    resources:
+      - nodepools
+    verbs:
+      - list
+      - get

@@ -15,4 +15,3 @@ apply console destroy graph plan output providers show: init
 ## Pass arguments through to terraform which do not require remote state
 get fmt validate version:
 	terraform $@
-

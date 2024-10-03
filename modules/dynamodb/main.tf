@@ -6,11 +6,13 @@ locals {
 
 module "dynamodb_table" {
   source  = "cloudposse/dynamodb/aws"
-  version = "0.29.2"
+  version = "0.36.0"
 
+  table_name          = var.table_name
   billing_mode        = var.billing_mode
   replicas            = var.replicas
   dynamodb_attributes = var.dynamodb_attributes
+  import_table        = var.import_table
 
   global_secondary_index_map = var.global_secondary_index_map
   local_secondary_index_map  = var.local_secondary_index_map
@@ -40,6 +42,8 @@ module "dynamodb_table" {
   ttl_attribute = var.ttl_attribute
 
   enable_point_in_time_recovery = var.point_in_time_recovery_enabled
+
+  deletion_protection_enabled = var.deletion_protection_enabled
 
   context = module.this.context
 }

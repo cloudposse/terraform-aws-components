@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.1.0"
+  version = "1.5.0"
 
   for_each = local.private_enabled ? local.vpc_environment_names : toset([])
 
@@ -12,7 +12,7 @@ module "vpc" {
 
 module "private_ca" {
   source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.1.0"
+  version = "1.5.0"
 
   count = local.private_ca_enabled && local.certificate_enabled ? 1 : 0
 

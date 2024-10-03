@@ -18,7 +18,7 @@ data "aws_subnets" "private" {
 
 module "az_abbreviation" {
   source  = "cloudposse/utils/aws"
-  version = "1.1.0"
+  version = "1.3.0"
 }
 
 locals {
@@ -28,11 +28,17 @@ locals {
   subnet_ids      = local.subnet_ids_test[0] == local.sentinel ? null : local.subnet_ids_test
   az_map          = var.cluster_context.az_abbreviation_type == "short" ? module.az_abbreviation.region_az_alt_code_maps.to_short : module.az_abbreviation.region_az_alt_code_maps.to_fixed
   az_attribute    = local.az_map[var.availability_zone]
+
+  before_cluster_joining_userdata = var.cluster_context.node_userdata.before_cluster_joining_userdata != null ? [trimspace(var.cluster_context.node_userdata.before_cluster_joining_userdata)] : []
+  bootstrap_extra_args            = var.cluster_context.node_userdata.bootstrap_extra_args != null ? [trimspace(var.cluster_context.node_userdata.bootstrap_extra_args)] : []
+  kubelet_extra_args              = var.cluster_context.node_userdata.kubelet_extra_args != null ? [trimspace(var.cluster_context.node_userdata.kubelet_extra_args)] : []
+  after_cluster_joining_userdata  = var.cluster_context.node_userdata.after_cluster_joining_userdata != null ? [trimspace(var.cluster_context.node_userdata.after_cluster_joining_userdata)] : []
+
 }
 
 module "eks_node_group" {
   source  = "cloudposse/eks-node-group/aws"
-  version = "2.6.0"
+  version = "3.0.1"
 
   enabled = local.enabled
 
@@ -57,13 +63,14 @@ module "eks_node_group" {
   resources_to_tag           = local.enabled ? var.cluster_context.resources_to_tag : null
   subnet_ids                 = local.enabled ? local.subnet_ids : null
 
-  block_device_mappings = local.enabled ? [{
-    device_name           = "/dev/xvda"
-    volume_size           = var.cluster_context.disk_size
-    volume_type           = "gp2"
-    encrypted             = var.cluster_context.disk_encryption_enabled
-    delete_on_termination = true
-  }] : []
+  # node_userdata
+  before_cluster_joining_userdata = local.enabled ? local.before_cluster_joining_userdata : []
+  bootstrap_additional_options    = local.enabled ? local.bootstrap_extra_args : []
+  kubelet_additional_options      = local.enabled ? local.kubelet_extra_args : []
+  after_cluster_joining_userdata  = local.enabled ? local.after_cluster_joining_userdata : []
+
+
+  block_device_map = local.enabled ? var.cluster_context.block_device_map : null
 
   # Prevent the node groups from being created before the Kubernetes aws-auth configMap
   module_depends_on = var.cluster_context.module_depends_on

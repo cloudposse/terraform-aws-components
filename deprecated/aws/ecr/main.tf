@@ -5,39 +5,39 @@ terraform {
 }
 
 variable "aws_assume_role_arn" {
-  type = "string"
+  type = string
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "cluster_name" {
-  type        = "string"
+  type        = string
   description = "kops cluster name"
 }
 
 variable "external_principals_full_access" {
-  type        = "list"
+  type        = list(string)
   description = "Principal ARN to provide with full access to the ECR"
   default     = []
 }
 
 variable "external_principals_readonly_access" {
-  type        = "list"
+  type        = list(string)
   description = "Principal ARN to provide with readonly access to the ECR"
   default     = []
 }
 
 provider "aws" {
   assume_role {
-    role_arn = "${var.aws_assume_role_arn}"
+    role_arn = var.aws_assume_role_arn
   }
 }
 
@@ -48,13 +48,13 @@ locals {
 
 module "label" {
   source    = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.5.4"
-  namespace = "${var.namespace}"
-  stage     = "${var.stage}"
+  namespace = var.namespace
+  stage     = var.stage
   name      = "ecr"
-  tags      = "${map("Cluster", var.cluster_name)}"
+  tags      = map("Cluster", var.cluster_name)
 }
 
 module "kops_metadata" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-iam.git?ref=tags/0.1.0"
-  cluster_name = "${var.cluster_name}"
+  cluster_name = var.cluster_name
 }
