@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 1.510.0
+
+
+
+<details>
+  <summary>`bugfix` ECS Service to use Datadog-Configuration Component #1135 @Benbentwo (#1138)</summary>
+## what
+
+* ECS Service to use Datadog-Configuration Component
+
+## why
+
+* Regression from #810 
+* Several Customers & PRs were incoming and ECS Service Component missed an opportunity to merge new functionality. 
+* No component anymore called `datadog_keys`
+
+## references
+
+ - #810 
+ - #1135 
+</details>
+
+<details>
+  <summary>Update Changelog for `1.509.0` @github-actions (#1137)</summary>
+Update Changelog for [`1.509.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.509.0)
+</details>
+
+
+
 ## 1.509.0
 
 
