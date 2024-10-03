@@ -3,10 +3,10 @@ variable "region" {
   description = "AWS Region"
 }
 
-variable "alias" {
-  type        = string
-  description = "The display name of the alias. The name must start with the word alias followed by a forward slash. If not specified, the alias name will be auto-generated."
-  default     = null
+variable "deletion_window_in_days" {
+  type        = number
+  default     = 10
+  description = "Duration in days after which the key is deleted after destruction of the resource"
 }
 
 variable "description" {
@@ -15,10 +15,10 @@ variable "description" {
   description = "The description for the KMS Key."
 }
 
-variable "deletion_window_in_days" {
-  type        = number
-  default     = 10
-  description = "Duration in days after which the key is deleted after destruction of the resource"
+variable "alias" {
+  type        = string
+  description = "The display name of the alias. The name must start with the word alias followed by a forward slash. If not specified, the alias name will be auto-generated."
+  default     = null
 }
 
 variable "enable_key_rotation" {
