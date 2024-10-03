@@ -27,6 +27,12 @@ variable "alias" {
   default     = null
 }
 
+variable "policy" {
+  type        = string
+  default     = ""
+  description = "A valid KMS policy JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a terraform plan. In this case, please make sure you use the verbose/specific version of the policy."
+}
+
 variable "key_usage" {
   type        = string
   default     = "ENCRYPT_DECRYPT"
@@ -53,12 +59,6 @@ variable "multi_region" {
   type        = bool
   default     = false
   description = "Indicates whether the KMS key is a multi-Region (true) or regional (false) key."
-}
-
-variable "policy" {
-  type        = string
-  default     = ""
-  description = "A valid KMS policy JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a terraform plan. In this case, please make sure you use the verbose/specific version of the policy."
 }
 
 variable "allowed_roles" {
