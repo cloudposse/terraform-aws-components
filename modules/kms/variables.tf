@@ -9,6 +9,12 @@ variable "deletion_window_in_days" {
   description = "Duration in days after which the key is deleted after destruction of the resource"
 }
 
+variable "enable_key_rotation" {
+  type        = bool
+  default     = true
+  description = "Specifies whether key rotation is enabled"
+}
+
 variable "description" {
   type        = string
   default     = "Parameter Store KMS master key"
@@ -19,12 +25,6 @@ variable "alias" {
   type        = string
   description = "The display name of the alias. The name must start with the word alias followed by a forward slash. If not specified, the alias name will be auto-generated."
   default     = null
-}
-
-variable "enable_key_rotation" {
-  type        = bool
-  default     = true
-  description = "Specifies whether key rotation is enabled"
 }
 
 variable "key_usage" {
