@@ -1,5 +1,115 @@
 # CHANGELOG
 
+## 1.509.0
+
+
+
+<details>
+  <summary>Restore Datadog-Configuration Support @Benbentwo (#1135)</summary>
+## what
+
+* ECS Service to use Datadog-Configuration Component
+
+## why
+
+* Regression from #810 
+* Several Customers & PRs were incoming and ECS Service Component missed an opportunity to merge new functionality. 
+* No component anymore called `datadog_keys`
+
+## references
+
+ - #810 
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.508.0` @github-actions (#1134)</summary>
+Update Changelog for [`1.508.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.508.0)
+</details>
+
+
+
+## 1.508.0
+
+
+
+<details>
+  <summary>chore(account-settings): upgrades budgets child-module to 0.5.1 @Gowiem (#1133)</summary>
+## what
+
+* Upgrades `terraform-aws-budgets` submodule usage in account-settings to 0.5.1
+
+## why
+
+* This enables passing `subscriber_email_addresses` to budgets for receiving emails
+
+## references
+
+* See fix in https://github.com/cloudposse/terraform-aws-budgets/pull/51
+</details>
+
+<details>
+  <summary>Update Changelog for `1.507.1` @github-actions (#1132)</summary>
+Update Changelog for [`1.507.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.507.1)
+</details>
+
+
+
+## 1.507.1
+
+
+
+<details>
+  <summary>Update Changelog for `1.506.0` @github-actions (#1130)</summary>
+Update Changelog for [`1.506.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.506.0)
+</details>
+
+
+## 🚀 Enhancements
+
+<details>
+  <summary>mq-broker: upgrade versions @johncblandii (#602)</summary>
+## what
+* Upgraded to the latest `terraform-aws-mq-broker`
+* Updated the `providers` to match the common pattern
+* Updated the module versions
+
+## why
+* The component was dated
+
+## references
+
+
+
+</details>
+
+
+
+## 1.506.0
+
+
+
+<details>
+  <summary>Add scheduled overrides feature @oleksiimorozenko (#750)</summary>
+## what
+* This pull request adds the scheduled overrides feature supported by ARC
+
+## why
+* It could be useful for pre-scaling during work hours and downscaling respectively when a work time ends coming back to `minReplicas`
+
+## references
+* Scheduled overrides section in [ARC Automatically scaling runners documentation](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides)
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.505.0` @github-actions (#1129)</summary>
+Update Changelog for [`1.505.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.505.0)
+</details>
+
+
+
 ## 1.505.0
 
 

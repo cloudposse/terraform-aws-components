@@ -142,14 +142,10 @@ data "jq_query" "service_domain_query" {
 
 module "datadog_configuration" {
   count   = var.datadog_agent_sidecar_enabled ? 1 : 0
-  source  = "cloudposse/stack-config/yaml//modules/remote-state"
-  version = "1.5.0"
-
-  component = "datadog_keys"
-
+  source  = "../datadog-configuration/modules/datadog_keys"
+  enabled = true
   context = module.this.context
 }
-
 
 # This is purely a check to ensure this zone exists
 # tflint-ignore: terraform_unused_declarations
