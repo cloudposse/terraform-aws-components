@@ -40,7 +40,7 @@ locals {
     logDriver = "awsfirelens"
     options = var.datadog_agent_sidecar_enabled ? {
       Name           = "datadog",
-      apikey         = module.datadog_configuration.datadog_app_key,
+      apikey         = module.datadog_configuration.datadog_api_key,
       Host           = format("http-intake.logs.%s", module.datadog_configuration.datadog_site)
       dd_service     = module.this.name,
       dd_tags        = local.all_dd_tags,
