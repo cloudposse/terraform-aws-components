@@ -38,12 +38,6 @@ variable "key_usage" {
   }
 }
 
-variable "multi_region" {
-  type        = bool
-  default     = false
-  description = "Indicates whether the KMS key is a multi-Region (true) or regional (false) key."
-}
-
 variable "customer_master_key_spec" {
   type        = string
   default     = "SYMMETRIC_DEFAULT"
@@ -53,6 +47,12 @@ variable "customer_master_key_spec" {
     condition     = contains(["SYMMETRIC_DEFAULT", "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1"], var.customer_master_key_spec)
     error_message = "Invalid customer_master_key_spec. Valid values are `SYMMETRIC_DEFAULT`, `RSA_2048`, `RSA_3072`, `RSA_4096`, `ECC_NIST_P256`, `ECC_NIST_P384`, `ECC_NIST_P521`, or `ECC_SECG_P256K1`."
   }
+}
+
+variable "multi_region" {
+  type        = bool
+  default     = false
+  description = "Indicates whether the KMS key is a multi-Region (true) or regional (false) key."
 }
 
 variable "policy" {
