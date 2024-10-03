@@ -1,0 +1,14 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+# Upstream changes from _extends are only recognized when modifications are made to this file in the default branch.
+_extends: .github
+repository:
+  # A URL with more information about the repository
+  homepage: https://docs.cloudposse.com/components/
+  # Either `true` to enable projects for this repository, or `false` to disable them.
+  # If projects are disabled for the organization, passing `true` will cause an API error.
+  has_projects: false
+  # Either `true` to enable the wiki for this repository, `false` to disable it.
+  has_wiki: false
+  name: terraform-aws-components
+  description: Opinionated, self-contained Terraform root modules that each solve one, specific problem
+  topics: terraform, terraform-module, geodesic, reference-implementation, reference-architecture, aws, service-catalog, catalog, library, examples, terraform-modules, stacks, blueprints, itil, catalogue, components, component-library

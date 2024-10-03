@@ -1,0 +1,13 @@
+[Unit]
+Description=Spacelift agent %i
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c "/usr/bin/spacelift-launcher 1>>/var/log/spacelift/info.log 2>>/var/log/spacelift/error.log"
+EnvironmentFile=/etc/spacelift/spacelift.env
+Restart=always
+RestartSec=20
+TimeoutStartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,21 +1,47 @@
 #!/bin/bash
 
-## WORK IN PROGRESS
+## Production ready, but still being developed and subject to frequent breaking changes.
 
-## Usage:
-##   aws-config saml > rootfs/etc/aws-config/aws-config-saml
+functions+=(help)
+function help() {
+    fns=($(printf '%s\n' "${functions[@]}" | sort | uniq))
+    # usage=${fns//$'\n'/ | }
+    printf "Usage: %s  <command>\n  Where <command> is one of:\n\n" "$(basename $0)"
+    printf '    %s\n' "${fns[@]}"
+    echo
+
+  cat <<'EOF'
+
+## Examples:
+##   aws-config teams > rootfs/etc/aws-config/aws-config-teams
 ##     Generates full `aws` CLI configuration for use in Geodesic
-##     based on SAML authentication and SAML roles.
+##     to access aws-teams and aws-team-roles.
 ##
-##   aws-config switch-roles > rootfs/etc/aws-config/aws-switch-roles
-##   aws-config switch-roles billing > rootfs/etc/aws-config/aws-switch-roles-billing
-##   aws-config switch-roles billing_admin > rootfs/etc/aws-config/aws-switch-roles-billing_admin
+##   aws-config switch-roles > rootfs/etc/aws-config/aws-extend-switch-roles
+##   aws-config switch-roles billing > rootfs/etc/aws-config/aws-extend-switch-roles-billing
+##   aws-config switch-roles billing_admin > rootfs/etc/aws-config/aws-extend-switch-roles-billing_admin
 ##     Generates configuration for AWS Extend Switch Roles browser plugin
 ##     https://github.com/tilfinltd/aws-extend-switch-roles
 ##
 ##   aws-config spacelift > rootfs/etc/aws-config/aws-config-spacelift
 ##     Generates `aws` CLI/SDK configuration for Spacelift workers to use
 ##
+
+EOF
+
+}
+
+# main needs to be defined before sourcing other files
+
+function main() {
+  if printf '%s\0' "${functions[@]}" | grep -Fxqz -- "$1"; then
+	  "$@"
+  else
+    help
+    exit 99
+  fi
+}
+
 
 ## TODO: maybe pull the source files from S3 rather than file system
 account_sources=("$ATMOS_BASE_PATH/"components/terraform/account-map/account-info/*sh)
@@ -90,6 +116,15 @@ function saml() {
   _saml "$@"
 }
 
+# Generate AWS config file for assuming `aws-teams` and `aws-team-roles` roles.
+# Will generate a profile for every role in every account, unless a role is specified,
+# in which case it will only generate a profile for that role in every account.
+# Usage: teams [<role-name>]
+functions+=(teams)
+function teams() {
+  saml "$@"
+}
+
 functions+=(switch-roles)
 function switch-roles() {
   local region="${AWS_REGION:-${AWS_DEFAULT_REGION}}"
@@ -128,7 +163,7 @@ function spacelift() {
 
   echo
   _no_source_profile=skip
-  saml admin terraform
+  saml admin terraform planner
 }
 
 functions+=(accounts)
@@ -142,32 +177,32 @@ case $1 in
     shift
     ;;
   -n*)
-    if [[ $x == ${x#*=} ]]; then
+    if [[ $1 == ${1#*=} ]]; then
       # -n namespace
       target_namespace=($2)
       shift 2
     else
       # -n=namespace
-      target_namespace=(${x#*=})
+      target_namespace=(${1#*=})
       shift
     fi
     ;;
-  account*)
+  *)
     if [[ -n $NAMESPACE ]]; then
       target_namespace=($NAMESPACE)
-    elif [[ ${#namespaces[@]} == 1 ]]; then
-      target_namespace=("${namespaces[0]}")
     else
-      echo "ERROR: NAMESPACE not set. Please set NAMESPACE or use -n <namespace> to specify the namespace to use."
-      exit 1
+      target_namespace=("${namespaces[@]}")
     fi
     ;;
-  *)
+esac
+
+case $1 in
+  # These commands automatically use all namespaces, so we don't need to loop over them.
+  spacelift|switch-roles|teams|saml)
     target_namespace=("${namespaces[0]}")
     ;;
 esac
 
-# Use main() from account-info script
 args=("$@")
 for namespace in "${target_namespace[@]}"; do
   source "$ATMOS_BASE_PATH/components/terraform/account-map/account-info/$namespace"*.sh

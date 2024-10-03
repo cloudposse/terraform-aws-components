@@ -9,14 +9,6 @@ dex:
   image:
     imagePullPolicy: IfNotPresent
     tag: v2.30.2
-%{ if enable_argo_workflows_auth ~}
-  env:
-      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: argo-workflows-sso
-            key: client-secret
-%{ endif ~}
 
 controller:
   replicas: 1
@@ -74,11 +66,15 @@ server:
     https: false
 
   service:
-    type: NodePort
+    type: ${service_type}
+
+  secret:
+    create: true
 
   config:
     url: https://${argocd_host}
     admin.enabled: "${admin_enabled}"
+    users.anonymous_enabled: "${anonymous_enabled}"
 
     # https://github.com/argoproj/argo-cd/issues/7835
     kustomize.buildOptions: --enable-helm

@@ -1,3 +1,11 @@
+---
+tags:
+  - component/dynamodb
+  - layer/data
+  - layer/gitops
+  - provider/aws
+---
+
 # Component: `dynamodb`
 
 This component is responsible for provisioning a DynamoDB table.
@@ -25,9 +33,9 @@ components:
         point_in_time_recovery_enabled: true
         streams_enabled: false
         ttl_enabled: false
-
 ```
 
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -44,7 +52,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | cloudposse/dynamodb/aws | 0.31.0 |
+| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | cloudposse/dynamodb/aws | 0.36.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -69,6 +77,7 @@ No resources.
 | <a name="input_autoscaler_tags"></a> [autoscaler\_tags](#input\_autoscaler\_tags) | Additional resource tags for the autoscaler module | `map(string)` | `{}` | no |
 | <a name="input_billing_mode"></a> [billing\_mode](#input\_billing\_mode) | DynamoDB Billing mode. Can be PROVISIONED or PAY\_PER\_REQUEST | `string` | `"PROVISIONED"` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
+| <a name="input_deletion_protection_enabled"></a> [deletion\_protection\_enabled](#input\_deletion\_protection\_enabled) | Enable/disable DynamoDB table deletion protection | `bool` | `false` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_dynamodb_attributes"></a> [dynamodb\_attributes](#input\_dynamodb\_attributes) | Additional DynamoDB attributes in the form of a list of mapped values | <pre>list(object({<br>    name = string<br>    type = string<br>  }))</pre> | `[]` | no |
@@ -79,8 +88,7 @@ No resources.
 | <a name="input_hash_key"></a> [hash\_key](#input\_hash\_key) | DynamoDB table Hash Key | `string` | n/a | yes |
 | <a name="input_hash_key_type"></a> [hash\_key\_type](#input\_hash\_key\_type) | Hash Key type, which must be a scalar type: `S`, `N`, or `B` for String, Number or Binary data, respectively. | `string` | `"S"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
+| <a name="input_import_table"></a> [import\_table](#input\_import\_table) | Import Amazon S3 data into a new table. | <pre>object({<br>    # Valid values are GZIP, ZSTD and NONE<br>    input_compression_type = optional(string, null)<br>    # Valid values are CSV, DYNAMODB_JSON, and ION.<br>    input_format = string<br>    input_format_options = optional(object({<br>      csv = object({<br>        delimiter   = string<br>        header_list = list(string)<br>      })<br>    }), null)<br>    s3_bucket_source = object({<br>      bucket       = string<br>      bucket_owner = optional(string)<br>      key_prefix   = optional(string)<br>    })<br>  })</pre> | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -98,6 +106,7 @@ No resources.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_stream_view_type"></a> [stream\_view\_type](#input\_stream\_view\_type) | When an item in the table is modified, what information is written to the stream | `string` | `""` | no |
 | <a name="input_streams_enabled"></a> [streams\_enabled](#input\_streams\_enabled) | Enable DynamoDB streams | `bool` | `false` | no |
+| <a name="input_table_name"></a> [table\_name](#input\_table\_name) | Table name. If provided, the bucket will be created with this name instead of generating the name from the context | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_ttl_attribute"></a> [ttl\_attribute](#input\_ttl\_attribute) | DynamoDB table TTL attribute | `string` | `""` | no |
@@ -108,17 +117,20 @@ No resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_global_secondary_index_names"></a> [global\_secondary\_index\_names](#output\_global\_secondary\_index\_names) | DynamoDB global secondary index names |
+| <a name="output_hash_key"></a> [hash\_key](#output\_hash\_key) | DynamoDB table hash key |
 | <a name="output_local_secondary_index_names"></a> [local\_secondary\_index\_names](#output\_local\_secondary\_index\_names) | DynamoDB local secondary index names |
+| <a name="output_range_key"></a> [range\_key](#output\_range\_key) | DynamoDB table range key |
 | <a name="output_table_arn"></a> [table\_arn](#output\_table\_arn) | DynamoDB table ARN |
 | <a name="output_table_id"></a> [table\_id](#output\_table\_id) | DynamoDB table ID |
 | <a name="output_table_name"></a> [table\_name](#output\_table\_name) | DynamoDB table name |
 | <a name="output_table_stream_arn"></a> [table\_stream\_arn](#output\_table\_stream\_arn) | DynamoDB table stream ARN |
 | <a name="output_table_stream_label"></a> [table\_stream\_label](#output\_table\_stream\_label) | DynamoDB table stream label |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-  * [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/dynamodb) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dynamodb) -
+  Cloud Posse's upstream component
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

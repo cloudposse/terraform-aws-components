@@ -37,6 +37,18 @@ variable "accepter_stage_name" {
   default     = null
 }
 
+variable "requester_vpc_id" {
+  type        = string
+  description = "Requester VPC ID, if not provided, it will be looked up by component using variable `requester_vpc_component_name`"
+  default     = null
+}
+
+variable "requester_role_arn" {
+  type        = string
+  description = "Requester AWS assume role ARN, if not provided it will be assumed to be the current terraform role."
+  default     = null
+}
+
 variable "requester_allow_remote_vpc_dns_resolution" {
   type        = bool
   description = "Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC"
@@ -45,6 +57,6 @@ variable "requester_allow_remote_vpc_dns_resolution" {
 
 variable "requester_vpc_component_name" {
   type        = string
-  description = "Requestor vpc component name"
+  description = "Requester vpc component name"
   default     = "vpc"
 }

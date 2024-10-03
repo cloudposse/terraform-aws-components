@@ -1,31 +1,38 @@
 my-browser-test:
-  name: "Browser Test"
-  message: "Browser Test Failed"
+  name: My Browser Test
+  status: live
   type: browser
-  subtype: http
-  device_ids:
-    - "laptop_large"
-  tags:
-    - "managed-by:Terraform"
-  status: "live"
-  request_definition:
-    url: "CHANGEME"
-    method: GET
-  request_headers:
-    Accept-Charset: "utf-8, iso-8859-1;q=0.5"
-    Accept: "text/html"
-  options_list:
-    tick_every: 1800
-    no_screenshot: false
-    follow_redirects: false
+  config:
+    request:
+      method: GET
+      headers: {}
+      url: https://example.com/login
+    setCookie: |-
+      DatadogTest=true
+  message: "My Browser Test Failed"
+  options:
+    device_ids:
+      - chrome.laptop_large
+      - edge.tablet
+      - firefox.mobile_small
+    ignoreServerCertificateError: false
+    disableCors: false
+    disableCsp: false
+    noScreenshot: false
+    tick_every: 86400
+    min_failure_duration: 0
+    min_location_failed: 1
     retry:
-      count: 2
-      interval: 10
+      count: 0
+      interval: 300
     monitor_options:
-      renotify_interval: 300
-  browser_step:
-    - name: "Check current URL"
-      type: assertCurrentUrl
-      params:
-        check: contains
-        value: "CHANGEME"
+      renotify_interval: 0
+    ci:
+      executionRule: non_blocking
+    rumSettings:
+      isEnabled: false
+    enableProfiling: false
+    enableSecurityTesting: false
+  locations:
+    - aws:us-east-1
+    - aws:us-west-2

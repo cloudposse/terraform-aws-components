@@ -1,15 +1,28 @@
+locals {
+  use_include_regions      = length(var.included_regions) > 0
+  all_regions              = data.aws_regions.all.names
+  excluded_list_by_include = setsubtract(local.use_include_regions ? local.all_regions : [], var.included_regions)
+}
+
+data "aws_regions" "all" {
+  all_regions = true
+}
+
 module "datadog_integration" {
   source  = "cloudposse/datadog-integration/aws"
-  version = "1.0.0"
+  version = "1.2.0"
 
-  count = module.this.enabled && length(var.integrations) > 0 ? 1 : 0
+  enabled = module.this.enabled && length(var.integrations) > 0
 
   datadog_aws_account_id           = var.datadog_aws_account_id
   integrations                     = var.integrations
   filter_tags                      = local.filter_tags
   host_tags                        = local.host_tags
-  excluded_regions                 = var.excluded_regions
+  excluded_regions                 = concat(var.excluded_regions, tolist(local.excluded_list_by_include))
   account_specific_namespace_rules = var.account_specific_namespace_rules
+  cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
+  metrics_collection_enabled       = var.metrics_collection_enabled
+  resource_collection_enabled      = var.resource_collection_enabled
 
   context = module.this.context
 }
@@ -28,9 +41,9 @@ locals {
 }
 
 module "store_write" {
-  count   = local.enabled ? 1 : 0
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.9.1"
+  version = "0.11.0"
+
   parameter_write = [
     {
       name        = "/datadog/datadog_external_id"

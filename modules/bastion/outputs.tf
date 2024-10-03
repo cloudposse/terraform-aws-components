@@ -4,7 +4,7 @@ output "autoscaling_group_id" {
 }
 
 output "iam_instance_profile" {
-  value       = join("", aws_iam_instance_profile.default.*.name)
+  value       = join("", aws_iam_instance_profile.default[*].name)
   description = "Name of AWS IAM Instance Profile"
 }
 

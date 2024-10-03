@@ -19,6 +19,7 @@ variable "datadog_site_url" {
     error_message = "Allowed values: null, `datadoghq.com`, `us3.datadoghq.com`, `us5.datadoghq.com`, `datadoghq.eu`, `ddog-gov.com`."
   }
 }
+
 variable "datadog_secrets_store_type" {
   type        = string
   description = "Secret Store type for Datadog API and app keys. Valid values: `SSM`, `ASM`"

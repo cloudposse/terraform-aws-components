@@ -47,7 +47,7 @@ module "bucket_policy" {
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "3.0.0"
+  version = "3.1.1"
 
   bucket_name = var.bucket_name
 
@@ -64,6 +64,7 @@ module "s3_bucket" {
   source_policy_documents      = [local.bucket_policy]
   privileged_principal_actions = var.privileged_principal_actions
   privileged_principal_arns    = var.privileged_principal_arns
+  s3_object_ownership          = var.s3_object_ownership
 
   # Static website configuration
   cors_configuration = var.cors_configuration

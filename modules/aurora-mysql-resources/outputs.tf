@@ -7,4 +7,3 @@ output "additional_grants" {
   value       = keys(module.additional_grants)
   description = "Additional DB users created"
 }
-

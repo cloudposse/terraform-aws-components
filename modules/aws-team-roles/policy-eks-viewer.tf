@@ -1,7 +1,5 @@
 locals {
   eks_viewer_enabled = contains(local.configured_policies, "eks_viewer")
-  account_name       = lookup(module.this.descriptors, "account_name", module.this.stage)
-  account_number     = module.account_map.outputs.full_account_map[local.account_name]
 }
 
 data "aws_iam_policy_document" "eks_view_access" {

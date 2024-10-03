@@ -104,4 +104,3 @@ variable "override_token" {
   default     = ""
   description = "Override Spotinst token"
 }
-

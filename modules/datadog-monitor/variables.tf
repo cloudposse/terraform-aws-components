@@ -39,42 +39,6 @@ variable "datadog_monitors_config_parameters" {
   default     = {}
 }
 
-variable "secrets_store_type" {
-  type        = string
-  description = "Secret store type for Datadog API and app keys. Valid values: `SSM`, `ASM`"
-  default     = "SSM"
-}
-
-variable "datadog_api_secret_key" {
-  type        = string
-  description = "The key of the Datadog API secret"
-  default     = "datadog/datadog_api_key"
-}
-
-variable "datadog_app_secret_key" {
-  type        = string
-  description = "The key of the Datadog Application secret"
-  default     = "datadog/datadog_app_key"
-}
-
-variable "role_paths" {
-  type        = list(string)
-  description = "List of paths to Datadog role configurations"
-  default     = []
-}
-
-variable "monitors_roles_map" {
-  type        = map(set(string))
-  description = "Map of Datadog monitor names to a set of Datadog role names to restrict access to the monitors"
-  default     = {}
-}
-
-variable "datadog_secrets_source_store_account" {
-  type        = string
-  description = "Account (stage) holding Secret Store for Datadog API and app keys."
-  default     = "corp"
-}
-
 variable "datadog_monitor_globals" {
   type        = any
   description = "Global parameters to add to each monitor"

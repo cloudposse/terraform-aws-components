@@ -4,7 +4,7 @@ variable "postgres_name" {
   default     = "postgres"
 }
 
-# Don't use `admin` 
+# Don't use `admin`
 # Read more: <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html>
 # ("MasterUsername admin cannot be used as it is a reserved word used by the engine")
 variable "postgres_admin_user" {

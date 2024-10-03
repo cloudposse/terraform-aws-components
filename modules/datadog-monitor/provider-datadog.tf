@@ -1,6 +1,6 @@
 module "datadog_configuration" {
   source  = "../datadog-configuration/modules/datadog_keys"
-  region  = var.region
+  enabled = true
   context = module.this.context
 }
 

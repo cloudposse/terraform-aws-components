@@ -3,7 +3,10 @@ locals {
 
   dns_enabled = local.enabled && var.route53_enabled
 
-  acm_certificate_domain = try(length(var.acm_certificate_domain_suffix) > 0, false) ? format("%s.%s.%s", var.acm_certificate_domain_suffix, var.environment, module.dns_delegated.outputs.default_domain_name) : coalesce(var.acm_certificate_domain, module.dns_delegated.outputs.default_domain_name)
+  # If var.acm_certificate_domain is defined, use it.
+  # Else if var.acm_certificate_domain_suffix is defined, use {{ var.acm_certificate_domain_suffix }}.{{ environment }}.{{ domain }}
+  # Else, use {{ environment }}.{{ domain }}
+  acm_certificate_domain = try(length(var.acm_certificate_domain) > 0, false) ? var.acm_certificate_domain : try(length(var.acm_certificate_domain_suffix) > 0, false) ? format("%s.%s.%s", var.acm_certificate_domain_suffix, var.environment, module.dns_delegated.outputs.default_domain_name) : format("%s.%s", var.environment, module.dns_delegated.outputs.default_domain_name)
 
   maintenance_page_fixed_response = {
     content_type = "text/html"
@@ -41,7 +44,7 @@ resource "aws_security_group_rule" "ingress_cidr" {
   to_port           = 65535
   protocol          = "tcp"
   cidr_blocks       = [each.value]
-  security_group_id = join("", aws_security_group.default.*.id)
+  security_group_id = join("", aws_security_group.default[*].id)
 }
 
 resource "aws_security_group_rule" "ingress_security_groups" {
@@ -51,7 +54,7 @@ resource "aws_security_group_rule" "ingress_security_groups" {
   to_port                  = 65535
   protocol                 = "tcp"
   source_security_group_id = each.value
-  security_group_id        = join("", aws_security_group.default.*.id)
+  security_group_id        = join("", aws_security_group.default[*].id)
 }
 
 resource "aws_security_group_rule" "egress" {
@@ -61,12 +64,12 @@ resource "aws_security_group_rule" "egress" {
   to_port           = 65535
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = join("", aws_security_group.default.*.id)
+  security_group_id = join("", aws_security_group.default[*].id)
 }
 
 module "cluster" {
   source  = "cloudposse/ecs-cluster/aws"
-  version = "0.2.2"
+  version = "0.4.1"
 
   context = module.this.context
 
@@ -78,7 +81,7 @@ module "cluster" {
     name => merge(
       provider,
       {
-        security_group_ids          = concat(aws_security_group.default.*.id, provider.security_group_ids)
+        security_group_ids          = concat(aws_security_group.default[*].id, provider.security_group_ids)
         subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
         associate_public_ip_address = !var.internal_enabled
       }
@@ -121,7 +124,7 @@ module "cluster" {
 #
 #  image_id                    = data.aws_ssm_parameter.ami.value
 #  instance_type               = "t3.medium"
-#  security_group_ids          = aws_security_group.default.*.id
+#  security_group_ids          = aws_security_group.default[*].id
 #  subnet_ids                  = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
 #  health_check_type           = "EC2"
 #  desired_capacity            = 1
@@ -162,12 +165,12 @@ data "aws_acm_certificate" "default" {
 
 module "alb" {
   source  = "cloudposse/alb/aws"
-  version = "1.5.0"
+  version = "1.11.1"
 
   for_each = local.enabled ? var.alb_configuration : {}
 
   vpc_id          = module.vpc.outputs.vpc_id
-  subnet_ids      = var.internal_enabled ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
+  subnet_ids      = lookup(each.value, "internal_enabled", var.internal_enabled) ? module.vpc.outputs.private_subnet_ids : module.vpc.outputs.public_subnet_ids
   ip_address_type = lookup(each.value, "ip_address_type", "ipv4")
 
   internal = lookup(each.value, "internal_enabled", var.internal_enabled)
@@ -185,9 +188,8 @@ module "alb" {
   https_ingress_cidr_blocks = lookup(each.value, "https_ingress_cidr_blocks", var.alb_ingress_cidr_blocks_https)
   certificate_arn           = lookup(each.value, "certificate_arn", one(data.aws_acm_certificate.default[*].arn))
 
-  access_logs_enabled                             = lookup(each.value, "access_logs_enabled", true)
-  alb_access_logs_s3_bucket_force_destroy         = lookup(each.value, "alb_access_logs_s3_bucket_force_destroy", true)
-  alb_access_logs_s3_bucket_force_destroy_enabled = lookup(each.value, "alb_access_logs_s3_bucket_force_destroy_enabled", true)
+  access_logs_enabled                     = lookup(each.value, "access_logs_enabled", true)
+  alb_access_logs_s3_bucket_force_destroy = lookup(each.value, "alb_access_logs_s3_bucket_force_destroy", true)
 
   lifecycle_rule_enabled = lookup(each.value, "lifecycle_rule_enabled", true)
 
@@ -224,4 +226,26 @@ module "alb" {
   attributes = lookup(each.value, "attributes", [each.key])
 
   context = module.this.context
+}
+
+locals {
+  # formats the load-balancer configuration data to be:
+  # { "${alb_configuration key}_${additional_cert_entry}" => "additional_cert_entry" }
+  certificate_domains = merge([
+    for config_key, config in var.alb_configuration :
+    { for domain in config.additional_certs :
+    "${config_key}_${domain}" => domain } if length(lookup(config, "additional_certs", [])) > 0
+  ]...)
+}
+
+resource "aws_lb_listener_certificate" "additional_certs" {
+  for_each = local.certificate_domains
+
+  listener_arn    = module.alb[split("_", each.key)[0]].https_listener_arn
+  certificate_arn = data.aws_acm_certificate.additional_certs[each.key].arn
+}
+data "aws_acm_certificate" "additional_certs" {
+  for_each = local.certificate_domains
+
+  domain = each.value
 }

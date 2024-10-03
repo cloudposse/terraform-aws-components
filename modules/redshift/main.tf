@@ -56,7 +56,7 @@ module "redshift_sg" {
   count = local.enabled && var.custom_sg_enabled ? 1 : 0
 
   source  = "cloudposse/security-group/aws"
-  version = "2.0.0-rc1"
+  version = "2.2.0"
 
   create_before_destroy      = true
   preserve_security_group_id = true

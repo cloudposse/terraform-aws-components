@@ -10,6 +10,27 @@ spec:
     name: {{ .Values.release_name }}
   minReplicas: {{ .Values.min_replicas }}
   maxReplicas: {{ .Values.max_replicas }}
+  {{- with .Values.scheduled_overrides }}
+  scheduledOverrides:
+    {{- range . }}
+    - startTime: "{{ .start_time }}"
+      endTime: "{{ .end_time }}"
+      {{- with .recurrence_rule }}
+      recurrenceRule:
+        frequency: {{ .frequency }}
+        {{- if .until_time }}
+        untilTime: "{{ .until_time }}"
+        {{- end }}
+      {{- end }}
+      {{- with .min_replicas }}
+      minReplicas: {{ . }}
+      {{- end }}
+      {{- with .max_replicas }}
+      maxReplicas: {{ . }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
   {{- if .Values.pull_driven_scaling_enabled }}
   metrics:
     - type: PercentageRunnersBusy
@@ -31,5 +52,11 @@ spec:
   - githubEvent:
       workflowJob: {}
     amount: 1
-    duration: "{{ .Values.webhook_startup_timeout }}"
+    {{- if .Values.max_duration }}
+    duration: "{{ .Values.max_duration }}"
+    {{- end }}
+  {{- end }}
+  {{- if .Values.scheduled_overrides }}
+  scheduledOverrides:
+  {{- with $.Values.scheduled_overrides }}{{ toYaml . | trim | nindent 8 }}{{- end }}
   {{- end }}

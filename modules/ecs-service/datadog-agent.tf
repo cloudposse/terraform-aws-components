@@ -40,7 +40,7 @@ locals {
     logDriver = "awsfirelens"
     options = var.datadog_agent_sidecar_enabled ? {
       Name           = "datadog",
-      apikey         = one(module.datadog_configuration[*].datadog_api_key),
+      apikey         = one(module.datadog_configuration[*].datadog_app_key),
       Host           = format("http-intake.logs.%s", one(module.datadog_configuration[*].datadog_site))
       dd_service     = module.this.name,
       dd_tags        = local.all_dd_tags,
@@ -57,7 +57,7 @@ module "datadog_sidecar_logs" {
   version = "0.6.6"
 
   # if we are using datadog firelens we don't need to create a log group
-  count = local.enabled && var.datadog_sidecar_containers_logs_enabled ? 1 : 0
+  count = local.enabled && var.datadog_agent_sidecar_enabled && var.datadog_sidecar_containers_logs_enabled ? 1 : 0
 
   stream_names      = lookup(var.logs, "stream_names", [])
   retention_in_days = lookup(var.logs, "retention_in_days", 90)
@@ -153,11 +153,4 @@ module "datadog_fluent_bit_container_definition" {
       "awslogs-stream-prefix" = "datadog-log-router"
     }
   } : null
-}
-
-module "datadog_configuration" {
-  count   = var.datadog_agent_sidecar_enabled ? 1 : 0
-  source  = "../datadog-configuration/modules/datadog_keys"
-  region  = var.region
-  context = module.this.context
 }

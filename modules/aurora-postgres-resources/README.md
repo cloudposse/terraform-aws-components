@@ -1,6 +1,14 @@
+---
+tags:
+  - component/aurora-postgres-resources
+  - layer/data
+  - provider/aws
+---
+
 # Component: `aurora-postgres-resources`
 
-This component is responsible for provisioning Aurora Postgres resources: additional databases, users, permissions, grants, etc.
+This component is responsible for provisioning Aurora Postgres resources: additional databases, users, permissions,
+grants, etc.
 
 ## Usage
 
@@ -19,12 +27,53 @@ components:
             db_user: example
             db_password: ""
             grants:
-              - grant: [ "ALL" ]
+              - grant: ["ALL"]
                 db: example
                 object_type: database
-                schema: null
+                schema: ""
 ```
 
+## PostgreSQL Quick Reference on Grants
+
+GRANTS can be on database, schema, role, table, and other database objects (e.g. columns in a table for fine control).
+Database and schema do not have much to grant. The `object_type` field in the input determines which kind of object the
+grant is being applied to. The `db` field is always required. The `schema` field is required unless the `object_type` is
+`db`, in which case it should be set to the empty string (`""`).
+
+The keyword PUBLIC indicates that the privileges are to be granted to all roles, including those that might be created
+later. PUBLIC can be thought of as an implicitly defined group that always includes all roles. Any particular role will
+have the sum of privileges granted directly to it, privileges granted to any role it is presently a member of, and
+privileges granted to PUBLIC.
+
+When an object is created, it is assigned an owner. The owner is normally the role that executed the creation statement.
+For most kinds of objects, the initial state is that only the owner (or a superuser) can do anything with the object. To
+allow other roles to use it, privileges must be granted. (When using AWS managed RDS, you cannot have access to any
+superuser roles; superuser is reserved for AWS to use to manage the cluster.)
+
+PostgreSQL grants privileges on some types of objects to PUBLIC by default when the objects are created. No privileges
+are granted to PUBLIC by default on tables, table columns, sequences, foreign data wrappers, foreign servers, large
+objects, schemas, or tablespaces. For other types of objects, the default privileges granted to PUBLIC are as follows:
+CONNECT and TEMPORARY (create temporary tables) privileges for databases; EXECUTE privilege for functions and
+procedures; and USAGE privilege for languages and data types (including domains). The object owner can, of course,
+REVOKE both default and expressly granted privileges. (For maximum security, issue the REVOKE in the same transaction
+that creates the object; then there is no window in which another user can use the object.) Also, these default
+privilege settings can be overridden using the ALTER DEFAULT PRIVILEGES command.
+
+The CREATE privilege:
+
+- For databases, allows new schemas and publications to be created within the database, and allows trusted extensions to
+  be installed within the database.
+- For schemas, allows new objects to be created within the schema. To rename an existing object, you must own the object
+  and have this privilege for the containing schema.
+
+For databases and schemas, there are not a lot of other privileges to grant, and all but CREATE are granted by default,
+so you might as well grant "ALL". For tables etc., the creator has full control. You grant access to other users via
+explicit grants. This component does not allow fine-grained grants. You have to specify the database, and unless the
+grant is on the database, you have to specify the schema. For any other object type (table, sequence, function,
+procedure, routine, foreign_data_wrapper, foreign_server, column), the component applies the grants to all objects of
+that type in the specified schema.
+
+<!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -47,7 +96,7 @@ components:
 |------|--------|---------|
 | <a name="module_additional_grants"></a> [additional\_grants](#module\_additional\_grants) | ./modules/postgresql-user | n/a |
 | <a name="module_additional_users"></a> [additional\_users](#module\_additional\_users) | ./modules/postgresql-user | n/a |
-| <a name="module_aurora_postgres"></a> [aurora\_postgres](#module\_aurora\_postgres) | cloudposse/stack-config/yaml//modules/remote-state | 1.4.1 |
+| <a name="module_aurora_postgres"></a> [aurora\_postgres](#module\_aurora\_postgres) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
@@ -66,7 +115,7 @@ components:
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | Additional databases to be created with the cluster | `set(string)` | `[]` | no |
 | <a name="input_additional_grants"></a> [additional\_grants](#input\_additional\_grants) | Create additional database user with specified grants.<br>If `var.ssm_password_source` is set, passwords will be retrieved from SSM parameter store,<br>otherwise, passwords will be generated and stored in SSM parameter store under the service's key. | <pre>map(list(object({<br>    grant : list(string)<br>    db : string<br>  })))</pre> | `{}` | no |
-| <a name="input_additional_schemas"></a> [additional\_schemas](#input\_additional\_schemas) | Create additonal schemas for a given database.<br>If no database is given, the schema will use the database used by the provider configuration | <pre>map(object({<br>    database : string<br>  }))</pre> | `{}` | no |
+| <a name="input_additional_schemas"></a> [additional\_schemas](#input\_additional\_schemas) | Create additional schemas for a given database.<br>If no database is given, the schema will use the database used by the provider configuration | <pre>map(object({<br>    database : string<br>  }))</pre> | `{}` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
 | <a name="input_additional_users"></a> [additional\_users](#input\_additional\_users) | Create additional database user for a service, specifying username, grants, and optional password.<br>If no password is specified, one will be generated. Username and password will be stored in<br>SSM parameter store under the service's key. | <pre>map(object({<br>    db_user : string<br>    db_password : string<br>    grants : list(object({<br>      grant : list(string)<br>      db : string<br>      schema : string<br>      object_type : string<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_admin_password"></a> [admin\_password](#input\_admin\_password) | postgresql password for the admin user | `string` | `""` | no |
@@ -80,8 +129,6 @@ components:
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| <a name="input_import_profile_name"></a> [import\_profile\_name](#input\_import\_profile\_name) | AWS Profile name to use when importing a resource | `string` | `null` | no |
-| <a name="input_import_role_arn"></a> [import\_role\_arn](#input\_import\_role\_arn) | IAM Role ARN to use when importing a resource | `string` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
@@ -106,10 +153,15 @@ components:
 | <a name="output_additional_schemas"></a> [additional\_schemas](#output\_additional\_schemas) | Additional schemas |
 | <a name="output_additional_users"></a> [additional\_users](#output\_additional\_users) | Additional users |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
+<!-- prettier-ignore-end -->
 
 ## References
-* [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/master/modules/aurora-postgres-resources) - Cloud Posse's upstream component
 
+- [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/aurora-postgres-resources) -
+  Cloud Posse's upstream component
+
+- PostgreSQL references (select the correct version of PostgreSQL at the top of the page):
+  - [GRANT command](https://www.postgresql.org/docs/14/sql-grant.html)
+  - [Privileges that can be GRANTed](https://www.postgresql.org/docs/14/ddl-priv.html)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

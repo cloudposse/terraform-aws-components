@@ -18,20 +18,21 @@ resource "kubernetes_namespace" "default" {
 # https://external-secrets.io/v0.5.9/guides-getting-started/
 module "external_secrets_operator" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.10.1"
 
-  name        = "" # avoids hitting length restrictions on IAM Role names
-  description = "External Secrets Operator is a Kubernetes operator that integrates external secret management systems including AWS SSM, Parameter Store, Hasicorp Vault, 1Password Secrets Automation, etc. It reads values from external vaults and injects values as a Kubernetes Secret"
+  name        = "" # avoid redundant release name in IAM role: ...-ekc-cluster-external-secrets-operator-external-secrets-operator@secrets
+  description = var.chart_description
 
-  repository           = "https://charts.external-secrets.io"
-  chart                = "external-secrets"
-  chart_version        = "0.6.0-rc1" # using RC to address this bug https://github.com/external-secrets/external-secrets/issues/1511
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
+  repository           = var.chart_repository
+  chart                = var.chart
+  chart_version        = var.chart_version
+  kubernetes_namespace = join("", kubernetes_namespace.default[*].id)
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic
   cleanup_on_fail      = var.cleanup_on_fail
   timeout              = var.timeout
+  verify               = var.verify
 
   eks_cluster_oidc_issuer_url = replace(module.eks.outputs.eks_cluster_identity_oidc_issuer, "https://", "")
 
@@ -39,26 +40,45 @@ module "external_secrets_operator" {
   service_account_namespace = var.kubernetes_namespace
 
   iam_role_enabled = true
-  iam_policy_statements = {
-    ReadParameterStore = {
-      effect = "Allow"
-      actions = [
-        "ssm:GetParameter*"
-      ]
-      resources = [for parameter_store_path in var.parameter_store_paths : (
-        "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
-      )]
-    }
-    DescribeParameters = {
-      effect = "Allow"
-      actions = [
-        "ssm:DescribeParameter*"
-      ]
-      resources = [
-        "arn:aws:ssm:${var.region}:${local.account}:*"
-      ]
-    }
-  }
+  iam_policy = [{
+    statements = concat([
+      {
+        sid    = "ReadParameterStore"
+        effect = "Allow"
+        actions = [
+          "ssm:GetParameter*"
+        ]
+        resources = concat(
+          [for parameter_store_path in var.parameter_store_paths : (
+            "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}/*"
+          )],
+          [for parameter_store_path in var.parameter_store_paths : (
+            "arn:aws:ssm:${var.region}:${local.account}:parameter/${parameter_store_path}"
+        )])
+      },
+      {
+        sid    = "DescribeParameters"
+        effect = "Allow"
+        actions = [
+          "ssm:DescribeParameter*"
+        ]
+        resources = [
+          "arn:aws:ssm:${var.region}:${local.account}:*"
+        ]
+      }],
+      local.overridable_additional_iam_policy_statements,
+      length(var.kms_aliases_allow_decrypt) > 0 ? [
+        {
+          sid    = "DecryptKMS"
+          effect = "Allow"
+          actions = [
+            "kms:Decrypt"
+          ]
+          resources = local.kms_aliases_target_arns
+        }
+      ] : []
+    )
+  }]
 
   values = compact([
     yamlencode({
@@ -68,21 +88,31 @@ module "external_secrets_operator" {
       rbac = {
         create = var.rbac_enabled
       }
-    })
+    }),
+    # additional values
+    yamlencode(var.chart_values)
   ])
 
   context = module.this.context
 }
 
+data "kubernetes_resources" "crd" {
+  api_version    = "apiextensions.k8s.io/v1"
+  kind           = "CustomResourceDefinition"
+  field_selector = "metadata.name==externalsecrets.external-secrets.io"
+}
+
 module "external_ssm_secrets" {
   source  = "cloudposse/helm-release/aws"
-  version = "0.5.0"
+  version = "0.10.1"
 
-  name        = "ssm" # avoids hitting length restrictions on IAM Role names
+  enabled = local.enabled && length(data.kubernetes_resources.crd.objects) > 0
+
+  name        = "ssm" # distinguish from external_secrets_operator
   description = "This Chart uses creates a SecretStore and ExternalSecret to pull variables (under a given path) from AWS SSM Parameter Store into a Kubernetes secret."
 
   chart                = "${path.module}/charts/external-ssm-secrets"
-  kubernetes_namespace = join("", kubernetes_namespace.default.*.id)
+  kubernetes_namespace = join("", kubernetes_namespace.default[*].id)
   create_namespace     = false
   wait                 = var.wait
   atomic               = var.atomic
@@ -118,3 +148,11 @@ module "external_ssm_secrets" {
   ]
 }
 
+data "aws_kms_alias" "kms_aliases" {
+  for_each = { for i, v in var.kms_aliases_allow_decrypt : v => v }
+  name     = each.value
+}
+
+locals {
+  kms_aliases_target_arns = [for k, v in data.aws_kms_alias.kms_aliases : data.aws_kms_alias.kms_aliases[k].target_key_arn]
+}

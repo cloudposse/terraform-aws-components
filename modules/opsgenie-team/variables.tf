@@ -46,10 +46,18 @@ variable "integrations_enabled" {
   description = "Whether to enable the integrations submodule or not"
 }
 
-variable "team" {
-  type        = map(any)
+variable "team_options" {
+  type = object({
+    description              = optional(string)
+    ignore_members           = optional(bool, false)
+    delete_default_resources = optional(bool, false)
+  })
+  description = <<-EOT
+    Configure the team options.
+    See `opsgenie_team` Terraform resource [documentation](https://registry.terraform.io/providers/opsgenie/opsgenie/latest/docs/resources/team#argument-reference) for more details.
+    EOT
   default     = {}
-  description = "Configure the team inputs"
+  nullable    = false
 }
 
 variable "escalations" {

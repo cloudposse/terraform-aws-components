@@ -1,19 +1,20 @@
 locals {
-  lookup_teams = distinct(flatten([
+  enabled = module.this.enabled && var.escalation != null && length(var.escalation.rules) > 0
+  lookup_teams = local.enabled ? distinct(flatten([
     for rule in var.escalation.rules :
     rule.recipient.name
     if rule.recipient.type == "team"
-  ]))
-  lookup_users = distinct(flatten([
+  ])) : []
+  lookup_users = local.enabled ? distinct(flatten([
     for rule in var.escalation.rules :
     rule.recipient.name
     if rule.recipient.type == "user"
-  ]))
-  lookup_schedules = distinct(flatten([
+  ])) : []
+  lookup_schedules = local.enabled ? distinct(flatten([
     for rule in var.escalation.rules :
     format(var.team_naming_format, var.team_name, rule.recipient.name)
     if rule.recipient.type == "schedule" && module.this.enabled
-  ]))
+  ])) : []
 }
 
 data "opsgenie_team" "recipient" {

@@ -35,15 +35,15 @@ components:
           # Override the default Role for accessing the backend, because SuperAdmin is not allowed to assume that role
           role_arn: null
       vars:
-        # Historically there was a practical difference between the Primary Roles defined in 
-        # `primary_roles_config` and the Delegated Roles defined in `delegated_roles_config`, 
+        # Historically there was a practical difference between the Primary Roles defined in
+        # `primary_roles_config` and the Delegated Roles defined in `delegated_roles_config`,
         # but now the difference is mainly for documentation and bookkeeping.
-        
+
         # `primary_roles_config` is for roles that only appear in the identity account.
         # A role in the identity account should be thought of as an IAM access group.
         # By giving someone access to an identity account role, you are actually
         # giving them access to a set of roles in a set of accounts.
-        
+
         # delegated_roles_config is for roles that appear in all (or most) accounts.
         # Delegated roles correspond more closely to job functions.
 

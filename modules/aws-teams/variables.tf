@@ -13,6 +13,7 @@ variable "teams_config" {
     role_description        = string
     role_policy_arns        = list(string)
     aws_saml_login_enabled  = bool
+    allowed_roles           = optional(map(list(string)), {})
     trusted_teams           = list(string)
     trusted_permission_sets = list(string)
     trusted_role_arns       = list(string)

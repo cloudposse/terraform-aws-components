@@ -29,19 +29,38 @@ variable "default_annotations" {
     "alb.ingress.kubernetes.io/target-type"  = "ip"
     "kubernetes.io/ingress.class"            = "alb"
     "alb.ingress.kubernetes.io/listen-ports" = "[{\"HTTP\": 80}, {\"HTTPS\": 443}]"
+    "alb.ingress.kubernetes.io/ssl-policy"   = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   }
+}
+
+variable "eks_component_name" {
+  type        = string
+  description = "The name of the `eks` component"
+  default     = "eks/cluster"
+}
+
+variable "global_accelerator_component_name" {
+  type        = string
+  description = "The name of the `global_accelerator` component"
+  default     = "global-accelerator"
+}
+
+variable "dns_delegated_component_name" {
+  type        = string
+  description = "The name of the `dns_delegated` component"
+  default     = "dns-delegated"
+}
+
+variable "waf_component_name" {
+  type        = string
+  description = "The name of the `waf` component"
+  default     = "waf"
 }
 
 variable "dns_delegated_environment_name" {
   type        = string
   description = "Global environment name"
   default     = "gbl"
-}
-
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/cluster"
 }
 
 variable "global_accelerator_enabled" {
