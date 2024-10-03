@@ -1,10 +1,6 @@
 locals {
   account_id        = data.aws_caller_identity.current.account_id
-  account_principal = "arn:aws:iam::${local.account_id}:root"
-
-  administration_principals = [
-    local.account_principal
-  ]
+  account_principal = "arn:${data.aws_partition.current.partition}:iam::${local.account_id}:root"
 
   principals = sort(distinct(concat(
     var.allowed_principal_arns,
@@ -13,6 +9,8 @@ locals {
 }
 
 data "aws_caller_identity" "current" {}
+
+data "aws_partition" "current" {}
 
 module "allowed_role_map" {
   source = "../account-map/modules/roles-to-principals"
@@ -25,7 +23,7 @@ module "allowed_role_map" {
 
 module "kms_key" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.12.1"
+  version = "0.12.2"
 
   alias                    = var.alias == null ? "alias/${module.this.id}" : var.alias
   description              = var.description == null ? "${module.this.id} KMS Key. Managed by Terraform." : var.description
@@ -54,7 +52,7 @@ data "aws_iam_policy_document" "key_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = local.administration_principals
+      identifiers = [local.account_principal]
     }
   }
 
