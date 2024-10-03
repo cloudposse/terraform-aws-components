@@ -8,6 +8,7 @@ variable "spaces" {
       body             = optional(string),
       body_url         = optional(string),
       body_url_version = optional(string, "master"),
+      body_file_path   = optional(string),
       type             = optional(string),
       labels           = optional(set(string), []),
     })), {}),

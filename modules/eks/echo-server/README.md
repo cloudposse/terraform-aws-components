@@ -1,3 +1,11 @@
+---
+tags:
+  - component/eks/echo-server
+  - layer/eks
+  - provider/aws
+  - provider/echo-server
+---
+
 # Component: `eks/echo-server`
 
 This is copied from

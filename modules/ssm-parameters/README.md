@@ -1,3 +1,10 @@
+---
+tags:
+  - component/ssm-parameters
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `ssm-parameters`
 
 This component is responsible for provisioning Parameter Store resources against AWS SSM. It supports normal parameter

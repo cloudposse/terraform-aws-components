@@ -1,16 +1,23 @@
+---
+tags:
+  - component/eks/cluster
+  - layer/eks
+  - provider/aws
+---
+
 # Component: `eks/cluster`
 
 This component is responsible for provisioning an end-to-end EKS Cluster, including managed node groups and Fargate
 profiles.
 
-:::note Windows not supported
-
-This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
-Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
-would need to be resolved for this component to properly configure the upstream modules for Windows nodes. If you need
-Windows nodes, please experiment and be on the lookout for issues, and then report any issues to Cloud Posse.
-
-:::
+> [!NOTE]
+>
+> #### Windows not supported
+>
+> This component has not been tested with Windows worker nodes of any launch type. Although upstream modules support
+> Windows nodes, there are likely issues around incorrect or insufficient IAM permissions or other configuration that
+> would need to be resolved for this component to properly configure the upstream modules for Windows nodes. If you need
+> Windows nodes, please experiment and be on the lookout for issues, and then report any issues to Cloud Posse.
 
 ## Usage
 
@@ -18,16 +25,14 @@ Windows nodes, please experiment and be on the lookout for issues, and then repo
 
 Here's an example snippet for how to use this component.
 
-This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/reference-architecture/)
-Identity and Network designs deployed for mapping users to EKS service roles and granting access in a private network.
-In addition, this example has the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster
-nodes.
+This example expects the [Cloud Posse Reference Architecture](https://docs.cloudposse.com/) Identity and Network designs
+deployed for mapping users to EKS service roles and granting access in a private network. In addition, this example has
+the GitHub OIDC integration added and makes use of Karpenter to dynamically scale cluster nodes.
 
-For more on these requirements, see
-[Identity Reference Architecture](https://docs.cloudposse.com/reference-architecture/quickstart/iam-identity/),
-[Network Reference Architecture](https://docs.cloudposse.com/reference-architecture/scaffolding/setup/network/), the
-[GitHub OIDC component](https://docs.cloudposse.com/components/catalog/aws/github-oidc-provider/), and the
-[Karpenter component](https://docs.cloudposse.com/components/catalog/aws/eks/karpenter/).
+For more on these requirements, see [Identity Reference Architecture](https://docs.cloudposse.com/layers/identity/),
+[Network Reference Architecture](https://docs.cloudposse.com/layers/network/), the
+[GitHub OIDC component](https://docs.cloudposse.com/components/library/aws/github-oidc-provider/), and the
+[Karpenter component](https://docs.cloudposse.com/components/library/aws/eks/karpenter/).
 
 ### Mixin pattern for Kubernetes version
 
@@ -186,6 +191,14 @@ components:
               # Tune the instance type according to your baseload requirements.
               - c7a.medium
             ami_type: AL2_x86_64 # use "AL2_x86_64" for standard instances, "AL2_x86_64_GPU" for GPU instances
+            node_userdata:
+              # WARNING: node_userdata is alpha status and will likely change in the future.
+              #          Also, it is only supported for AL2 and some Windows AMIs, not BottleRocket or AL2023.
+              # Kubernetes docs: https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/
+              kubelet_extra_args: >-
+                --kube-reserved cpu=100m,memory=0.6Gi,ephemeral-storage=1Gi --system-reserved
+                cpu=100m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard
+                memory.available<200Mi,nodefs.available<10%,imagefs.available<15%
             block_device_map:
               # EBS volume for local ephemeral storage
               # IGNORED if legacy `disk_encryption_enabled` or `disk_size` are set!
@@ -286,14 +299,12 @@ You can also view the release and support timeline for
 EKS clusters support “Addons” that can be automatically installed on a cluster. Install these addons with the
 [`var.addons` input](https://docs.cloudposse.com/components/library/aws/eks/cluster/#input_addons).
 
-:::info
-
-Run the following command to see all available addons, their type, and their publisher. You can also see the URL for
-addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster. See
-[Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for more
-details.
-
-:::
+> [!TIP]
+>
+> Run the following command to see all available addons, their type, and their publisher. You can also see the URL for
+> addons that are available through the AWS Marketplace. Replace 1.27 with the version of your cluster. See
+> [Creating an addon](https://docs.aws.amazon.com/eks/latest/userguide/managing-add-ons.html#creating-an-add-on) for
+> more details.
 
 ```shell
 EKS_K8S_VERSION=1.29 # replace with your cluster version
@@ -301,12 +312,10 @@ aws eks describe-addon-versions --kubernetes-version $EKS_K8S_VERSION \
   --query 'addons[].{MarketplaceProductUrl: marketplaceInformation.productUrl, Name: addonName, Owner: owner Publisher: publisher, Type: type}' --output table
 ```
 
-:::info
-
-You can see which versions are available for each addon by executing the following commands. Replace 1.29 with the
-version of your cluster.
-
-:::
+> [!TIP]
+>
+> You can see which versions are available for each addon by executing the following commands. Replace 1.29 with the
+> version of your cluster.
 
 ```shell
 EKS_K8S_VERSION=1.29 # replace with your cluster version
@@ -386,19 +395,17 @@ addons:
     addon_version: "v1.8.7-eksbuild.1"
 ```
 
-:::warning
-
-Addons may not be suitable for all use-cases! For example, if you are deploying Karpenter to Fargate and using Karpenter
-to provision all nodes, these nodes will never be available before the cluster component is deployed if you are using
-the CoreDNS addon (for example).
-
-This is one of the reasons we recommend deploying a managed node group: to ensure that the addons will become fully
-functional during deployment of the cluster.
-
-:::
+> [!WARNING]
+>
+> Addons may not be suitable for all use-cases! For example, if you are deploying Karpenter to Fargate and using
+> Karpenter to provision all nodes, these nodes will never be available before the cluster component is deployed if you
+> are using the CoreDNS addon (for example).
+>
+> This is one of the reasons we recommend deploying a managed node group: to ensure that the addons will become fully
+> functional during deployment of the cluster.
 
 For more information on upgrading EKS Addons, see
-["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons/)
+["How to Upgrade EKS Cluster Addons"](https://docs.cloudposse.com/learn/maintenance/upgrades/how-to-upgrade-eks-cluster-addons/)
 
 ### Adding and Configuring a new EKS Addon
 
@@ -494,7 +501,6 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="module_aws_ebs_csi_driver_fargate_profile"></a> [aws\_ebs\_csi\_driver\_fargate\_profile](#module\_aws\_ebs\_csi\_driver\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_aws_efs_csi_driver_eks_iam_role"></a> [aws\_efs\_csi\_driver\_eks\_iam\_role](#module\_aws\_efs\_csi\_driver\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.1.1 |
 | <a name="module_coredns_fargate_profile"></a> [coredns\_fargate\_profile](#module\_coredns\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
-| <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 4.1.0 |
 | <a name="module_fargate_pod_execution_role"></a> [fargate\_pod\_execution\_role](#module\_fargate\_pod\_execution\_role) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
 | <a name="module_fargate_profile"></a> [fargate\_profile](#module\_fargate\_profile) | cloudposse/eks-fargate-profile/aws | 1.3.0 |
@@ -565,7 +571,6 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_deploy_addons_to_fargate"></a> [deploy\_addons\_to\_fargate](#input\_deploy\_addons\_to\_fargate) | Set to `true` (not recommended) to deploy addons to Fargate instead of initial node pool | `bool` | `false` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
-| <a name="input_eks_component_name"></a> [eks\_component\_name](#input\_eks\_component\_name) | The name of the eks component | `string` | `"eks/cluster"` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_enabled_cluster_log_types"></a> [enabled\_cluster\_log\_types](#input\_enabled\_cluster\_log\_types) | A list of the desired control plane logging to enable. For more information, see https://docs.aws.amazon.com/en_us/eks/latest/userguide/control-plane-logs.html. Possible values [`api`, `audit`, `authenticator`, `controllerManager`, `scheduler`] | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
@@ -587,8 +592,8 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 | <a name="input_map_additional_worker_roles"></a> [map\_additional\_worker\_roles](#input\_map\_additional\_worker\_roles) | (Deprecated) AWS IAM Role ARNs of unmanaged Linux worker nodes to grant access to the EKS cluster.<br>In earlier versions, this could be used to grant access to worker nodes of any type<br>that were not managed by the EKS cluster. Now EKS requires that unmanaged worker nodes<br>be classified as Linux or Windows servers, in this input is temporarily retained<br>with the assumption that all worker nodes are Linux servers. (It is likely that<br>earlier versions did not work properly with Windows worker nodes anyway.)<br>This input is deprecated and will be removed in a future release.<br>In the future, this component will either have a way to separate Linux and Windows worker nodes,<br>or drop support for unmanaged worker nodes entirely. | `list(string)` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_node_group_defaults"></a> [node\_group\_defaults](#input\_node\_group\_defaults) | Defaults for node groups in the cluster | <pre>object({<br>    ami_release_version        = optional(string, null)<br>    ami_type                   = optional(string, null)<br>    attributes                 = optional(list(string), null)<br>    availability_zones         = optional(list(string)) # set to null to use var.availability_zones<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    create_before_destroy      = optional(bool, null)<br>    desired_group_size         = optional(number, null)<br>    instance_types             = optional(list(string), null)<br>    kubernetes_labels          = optional(map(string), {})<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), [])<br>    kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version<br>    max_group_size     = optional(number, null)<br>    min_group_size     = optional(number, null)<br>    resources_to_tag   = optional(list(string), null)<br>    tags               = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 50)   # disk  size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br>  })</pre> | <pre>{<br>  "block_device_map": {<br>    "/dev/xvda": {<br>      "ebs": {<br>        "encrypted": true,<br>        "volume_size": 20,<br>        "volume_type": "gp2"<br>      }<br>    }<br>  },<br>  "desired_group_size": 1,<br>  "instance_types": [<br>    "t3.medium"<br>  ],<br>  "kubernetes_version": null,<br>  "max_group_size": 100<br>}</pre> | no |
-| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of objects defining a node group for the cluster | <pre>map(object({<br>    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").<br>    ami_release_version = optional(string, null)<br>    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group<br>    ami_type = optional(string, null)<br>    # Additional attributes (e.g. `1`) for the node group<br>    attributes = optional(list(string), null)<br>    # will create 1 auto scaling group in each specified availability zone<br>    # or all AZs with subnets if none are specified anywhere<br>    availability_zones = optional(list(string), null)<br>    # Whether to enable Node Group to scale its AutoScaling Group<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    # True to create new node_groups before deleting old ones, avoiding a temporary outage<br>    create_before_destroy = optional(bool, null)<br>    # Desired number of worker nodes when initially provisioned<br>    desired_group_size = optional(number, null)<br>    # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.<br>    instance_types = optional(list(string), null)<br>    # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed<br>    kubernetes_labels = optional(map(string), null)<br>    # List of objects describing Kubernetes taints.<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), null)<br>    # Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br>    kubernetes_version = optional(string, null)<br>    # The maximum size of the AutoScaling Group<br>    max_group_size = optional(number, null)<br>    # The minimum size of the AutoScaling Group<br>    min_group_size = optional(number, null)<br>    # List of auto-launched resource types to tag<br>    resources_to_tag = optional(list(string), null)<br>    tags             = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional.<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 20)   # Disk size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED:<br>    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)<br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br><br>  }))</pre> | `{}` | no |
+| <a name="input_node_group_defaults"></a> [node\_group\_defaults](#input\_node\_group\_defaults) | Defaults for node groups in the cluster | <pre>object({<br>    ami_release_version        = optional(string, null)<br>    ami_type                   = optional(string, null)<br>    attributes                 = optional(list(string), null)<br>    availability_zones         = optional(list(string)) # set to null to use var.availability_zones<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    create_before_destroy      = optional(bool, null)<br>    desired_group_size         = optional(number, null)<br>    instance_types             = optional(list(string), null)<br>    kubernetes_labels          = optional(map(string), {})<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), [])<br>    node_userdata = optional(object({<br>      before_cluster_joining_userdata = optional(string)<br>      bootstrap_extra_args            = optional(string)<br>      kubelet_extra_args              = optional(string)<br>      after_cluster_joining_userdata  = optional(string)<br>    }), {})<br>    kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version<br>    max_group_size     = optional(number, null)<br>    min_group_size     = optional(number, null)<br>    resources_to_tag   = optional(list(string), null)<br>    tags               = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 50)   # disk  size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br>  })</pre> | <pre>{<br>  "block_device_map": {<br>    "/dev/xvda": {<br>      "ebs": {<br>        "encrypted": true,<br>        "volume_size": 20,<br>        "volume_type": "gp2"<br>      }<br>    }<br>  },<br>  "desired_group_size": 1,<br>  "instance_types": [<br>    "t3.medium"<br>  ],<br>  "kubernetes_version": null,<br>  "max_group_size": 100<br>}</pre> | no |
+| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of objects defining a node group for the cluster | <pre>map(object({<br>    # EKS AMI version to use, e.g. "1.16.13-20200821" (no "v").<br>    ami_release_version = optional(string, null)<br>    # Type of Amazon Machine Image (AMI) associated with the EKS Node Group<br>    ami_type = optional(string, null)<br>    # Additional attributes (e.g. `1`) for the node group<br>    attributes = optional(list(string), null)<br>    # will create 1 auto scaling group in each specified availability zone<br>    # or all AZs with subnets if none are specified anywhere<br>    availability_zones = optional(list(string), null)<br>    # Whether to enable Node Group to scale its AutoScaling Group<br>    cluster_autoscaler_enabled = optional(bool, null)<br>    # True to create new node_groups before deleting old ones, avoiding a temporary outage<br>    create_before_destroy = optional(bool, null)<br>    # Desired number of worker nodes when initially provisioned<br>    desired_group_size = optional(number, null)<br>    # Set of instance types associated with the EKS Node Group. Terraform will only perform drift detection if a configuration value is provided.<br>    instance_types = optional(list(string), null)<br>    # Key-value mapping of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed<br>    kubernetes_labels = optional(map(string), null)<br>    # List of objects describing Kubernetes taints.<br>    kubernetes_taints = optional(list(object({<br>      key    = string<br>      value  = string<br>      effect = string<br>    })), null)<br>    node_userdata = optional(object({<br>      before_cluster_joining_userdata = optional(string)<br>      bootstrap_extra_args            = optional(string)<br>      kubelet_extra_args              = optional(string)<br>      after_cluster_joining_userdata  = optional(string)<br>    }), {})<br>    # Desired Kubernetes master version. If you do not specify a value, the latest available version is used<br>    kubernetes_version = optional(string, null)<br>    # The maximum size of the AutoScaling Group<br>    max_group_size = optional(number, null)<br>    # The minimum size of the AutoScaling Group<br>    min_group_size = optional(number, null)<br>    # List of auto-launched resource types to tag<br>    resources_to_tag = optional(list(string), null)<br>    tags             = optional(map(string), null)<br><br>    # block_device_map copied from cloudposse/terraform-aws-eks-node-group<br>    # Keep in sync via copy and paste, but make optional.<br>    # Most of the time you want "/dev/xvda". For BottleRocket, use "/dev/xvdb".<br>    block_device_map = optional(map(object({<br>      no_device    = optional(bool, null)<br>      virtual_name = optional(string, null)<br>      ebs = optional(object({<br>        delete_on_termination = optional(bool, true)<br>        encrypted             = optional(bool, true)<br>        iops                  = optional(number, null)<br>        kms_key_id            = optional(string, null)<br>        snapshot_id           = optional(string, null)<br>        throughput            = optional(number, null) # for gp3, MiB/s, up to 1000<br>        volume_size           = optional(number, 20)   # Disk size in GB<br>        volume_type           = optional(string, "gp3")<br><br>        # Catch common camel case typos. These have no effect, they just generate better errors.<br>        # It would be nice to actually use these, but volumeSize in particular is a number here<br>        # and in most places it is a string with a unit suffix (e.g. 20Gi)<br>        # Without these defined, they would be silently ignored and the default values would be used instead,<br>        # which is difficult to debug.<br>        deleteOnTermination = optional(any, null)<br>        kmsKeyId            = optional(any, null)<br>        snapshotId          = optional(any, null)<br>        volumeSize          = optional(any, null)<br>        volumeType          = optional(any, null)<br>      }))<br>    })), null)<br><br>    # DEPRECATED:<br>    # Enable disk encryption for the created launch template (if we aren't provided with an existing launch template)<br>    # DEPRECATED: disk_encryption_enabled is DEPRECATED, use `block_device_map` instead.<br>    disk_encryption_enabled = optional(bool, null)<br>    # Disk size in GiB for worker nodes. Terraform will only perform drift detection if a configuration value is provided.<br>    # DEPRECATED: disk_size is DEPRECATED, use `block_device_map` instead.<br>    disk_size = optional(number, null)<br><br>  }))</pre> | `{}` | no |
 | <a name="input_oidc_provider_enabled"></a> [oidc\_provider\_enabled](#input\_oidc\_provider\_enabled) | Create an IAM OIDC identity provider for the cluster, then you can create IAM roles to associate with a service account in the cluster, instead of using kiam or kube2iam. For more information, see https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html | `bool` | `true` | no |
 | <a name="input_public_access_cidrs"></a> [public\_access\_cidrs](#input\_public\_access\_cidrs) | Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
@@ -630,13 +635,7 @@ If the new addon requires an EKS IAM Role for Kubernetes Service Account, perfor
 
 ## Related How-to Guides
 
-- [How to Load Test in AWS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-load-test-in-aws)
-- [How to Tune EKS with AWS Managed Node Groups](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-eks-with-aws-managed-node-groups)
-- [How to Keep Everything Up to Date](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-keep-everything-up-to-date)
-- [How to Tune SpotInst Parameters for EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/tutorials/how-to-tune-spotinst-parameters-for-eks)
-- [How to Upgrade EKS Cluster Addons](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks-cluster-addons)
-- [How to Upgrade EKS](https://docs.cloudposse.com/reference-architecture/how-to-guides/upgrades/how-to-upgrade-eks)
-- [EBS CSI Migration FAQ](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html)
+- [EKS Foundational Platform](https://docs.cloudposse.com/layers/eks/)
 
 ## References
 

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/elasticache-redis
+  - layer/data
+  - provider/aws
+---
+
 # Component: `elasticache-redis`
 
 This component is responsible for provisioning [ElastiCache Redis](https://aws.amazon.com/elasticache/redis/) clusters.

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/alb
+  - layer/ecs
+  - provider/aws
+---
+
 # Component: `alb`
 
 This component is responsible for provisioning a generic Application Load Balancer. It depends on the `vpc` and

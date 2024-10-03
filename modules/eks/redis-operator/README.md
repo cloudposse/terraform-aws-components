@@ -1,3 +1,12 @@
+---
+tags:
+  - component/eks/redis-operator
+  - layer/eks
+  - layer/data
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/redis-operator`
 
 This component installs `redis-operator` for EKS clusters. Redis Operator creates/configures/manages high availability

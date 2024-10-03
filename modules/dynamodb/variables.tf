@@ -128,6 +128,12 @@ variable "autoscaler_tags" {
   description = "Additional resource tags for the autoscaler module"
 }
 
+variable "table_name" {
+  type        = string
+  default     = null
+  description = "Table name. If provided, the bucket will be created with this name instead of generating the name from the context"
+}
+
 variable "dynamodb_attributes" {
   type = list(object({
     name = string
@@ -166,6 +172,12 @@ variable "replicas" {
   type        = list(string)
   default     = []
   description = "List of regions to create a replica table in"
+}
+
+variable "deletion_protection_enabled" {
+  type        = bool
+  default     = false
+  description = "Enable/disable DynamoDB table deletion protection"
 }
 
 variable "import_table" {

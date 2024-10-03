@@ -1,3 +1,11 @@
+---
+tags:
+  - component/datadog-configuration
+  - layer/datadog
+  - provider/datadog
+  - provider/aws
+---
+
 # Component: `datadog-configuration`
 
 This component is responsible for provisioning SSM or ASM entries for Datadog API keys.

@@ -1,14 +1,61 @@
-## Breaking Changes: Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
+## Release 1.468.0
+
+PR [#1072](https://github.com/cloudposse/terraform-aws-components/pull/1072)
+
+Bugfix:
+
+- Correctly map AWS SSO Permission Sets referenced by `aws_sso_permission_sets_rbac` to IAM Role ARNs.
+- Broken in Release 1.431.1: Update to use AWS Auth API
+
+## Release 1.467.0
+
+PR [#1071](https://github.com/cloudposse/terraform-aws-components/pull/1071)
+
+Bugfix: Update `cloudposse/eks-node-group/aws` to v3.0.1.
+
+- Fixes failure to create userdata for AL2 and Windows when using it to run `bootstrap.sh`.
+
+## Release 1.465.0
+
+Components PR [#1069](https://github.com/cloudposse/terraform-aws-components/pull/1069)
+
+Update `cloudposse/eks-node-group/aws` to v3.0.0
+
+- Enable use of Amazon Linux 2023
+- Other bug fixes and improvements
+- See https://github.com/cloudposse/terraform-aws-eks-node-group/releases/tag/3.0.0
+
+## Release 1.455.1
+
+Components PR [#1057](https://github.com/cloudposse/terraform-aws-components/pull/1057)
+
+Fixed "Invalid count argument" argument when creating new cluster
+
+## Release 1.452.0
+
+Components PR [#1046](https://github.com/cloudposse/terraform-aws-components/pull/1046)
+
+Added support for passing extra arguments to `kubelet` and other startup modifications supported by EKS on Amazon Linux
+2 via the
+[`bootstrap.sh`](https://github.com/awslabs/amazon-eks-ami/blob/d87c6c49638216907cbd6630b6cadfd4825aed20/templates/al2/runtime/bootstrap.sh)
+script.
+
+This support should be considered an `alpha` version, as it may change when support for Amazon Linux 2023 is added, and
+does not work with Bottlerocket.
+
+## Release 1.431.1: Breaking Changes
+
+Components PR [#1033](https://github.com/cloudposse/terraform-aws-components/pull/1033)
 
 ### Major Breaking Changes
 
-:::warning Major Breaking Changes, Manual Intervention Required
-
-This release includes a major breaking change that requires manual intervention to migrate existing clusters. The change
-is necessary to support the new AWS Access Control API, which is more secure and more reliable than the old `aws-auth`
-ConfigMap.
-
-:::
+> [!WARNING]
+>
+> #### Major Breaking Changes, Manual Intervention Required
+>
+> This release includes a major breaking change that requires manual intervention to migrate existing clusters. The
+> change is necessary to support the new AWS Access Control API, which is more secure and more reliable than the old
+> `aws-auth` ConfigMap.
 
 This release drops support for the `aws-auth` ConfigMap and switches to managing access control with the new AWS Access
 Control API. This change allows for more secure and reliable access control, and removes the requirement that Terraform
@@ -18,18 +65,18 @@ In this release, this component only supports assigning "team roles" to Kubernet
 Access Policies is not yet implemented. However, if you specify `system:masters` as a group, that will be translated
 into assigning the `AmazonEKSClusterAdminPolicy` to the role. Any other `system:*` group will cause an error.
 
-:::tip Network Access Considerations
-
-Previously, this component required network access to the EKS control plane to manage the `aws-auth` ConfigMap. This
-meant having the EKS control plane accessible from the public internet, or using a bastion host or VPN to access the
-control plane. With the new AWS Access Control API, Terraform operations on the EKS cluster no longer require network
-access to the EKS control plane.
-
-This may seem like it makes it easier to secure the EKS control plane, but Terraform users will still require network
-access to the EKS control plane to manage any deployments or other Kubernetes resources in the cluster. This means that
-this upgrade does not substantially change the need for network access.
-
-:::
+> [!TIP]
+>
+> #### Network Access Considerations
+>
+> Previously, this component required network access to the EKS control plane to manage the `aws-auth` ConfigMap. This
+> meant having the EKS control plane accessible from the public internet, or using a bastion host or VPN to access the
+> control plane. With the new AWS Access Control API, Terraform operations on the EKS cluster no longer require network
+> access to the EKS control plane.
+>
+> This may seem like it makes it easier to secure the EKS control plane, but Terraform users will still require network
+> access to the EKS control plane to manage any deployments or other Kubernetes resources in the cluster. This means
+> that this upgrade does not substantially change the need for network access.
 
 ### Minor Changes
 
@@ -47,12 +94,10 @@ Full details of the migration process can be found in the `cloudposse/terraform-
 [migration document](https://github.com/cloudposse/terraform-aws-eks-cluster/blob/main/docs/migration-v3-v4.md). This
 section is a streamlined version for users of this `eks/cluster` component.
 
-:::important
-
-The commands below assume the component is named "eks/cluster". If you are using a different name, replace "eks/cluster"
-with the correct component name.
-
-:::
+> [!IMPORTANT]
+>
+> The commands below assume the component is named "eks/cluster". If you are using a different name, replace
+> "eks/cluster" with the correct component name.
 
 #### Prepare for Migration
 
@@ -91,18 +136,18 @@ rakkess
 See this error:
 
 ```plaintext
-To work with module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0] (orphan) its original provider configuration
+To work with module.eks_cluster.kubernetes_config_map.aws_auth[0] (orphan) its original provider configuration
 ```
 
 Note, in other documentation, the exact "address" of the orphaned resource may be different, and the documentation may
 say to refer to the address of the resource in the error message. In this case, because we are using this component as
-the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth[0]` instead of
-`aws_auth_ignore_changes[0]`.)
+the root module, the address should be exactly as shown above. (Possibly ending with `aws_auth_ignore_changes[0]`
+instead of `aws_auth[0]`.)
 
 3. Remove the orphaned resource from the state file with
 
 ```
-atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth_ignore_changes[0]' -s <stack_name>
+atmos terraform state rm eks/cluster 'module.eks_cluster.kubernetes_config_map.aws_auth[0]' -s <stack_name>
 ```
 
 4. `atmos terraform plan eks/cluster -s <stack_name>`
@@ -379,7 +424,7 @@ Previously, this module added `identity` roles configured by the `aws_teams_rbac
 This never worked, and so now `aws_teams_rbac` is ignored. When upgrading, you may see these roles being removed from
 the `aws-auth`: this is expected and harmless.
 
-### Better support for Manged Node Group Block Device Specifications
+### Better support for Managed Node Group Block Device Specifications
 
 Previously, this module only supported specifying the disk size and encryption state for the root volume of Managed Node
 Groups. Now, the full set of block device specifications is supported, including the ability to specify the device name.
@@ -421,7 +466,7 @@ these steps:
    [eks/storage-class](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/eks/storage-class)
    module to create a replacement EFS StorageClass `efs-sc`. This component is new and you may need to add it to your
    cluster.
-4. Deploy the EFS CSI Driver Add-On by adding `aws-efs-csi-driver` to the `addons` map (see [README](./README.md)).
+4. Deploy the EFS CSI Driver Add-On by adding `aws-efs-csi-driver` to the `addons` map (see `README`).
 5. Restore the Deployments you modified in step 1.
 
 ### More options for specifying Availability Zones

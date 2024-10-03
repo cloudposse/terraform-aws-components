@@ -26,7 +26,7 @@ variable "chart_repository" {
 variable "chart_version" {
   type        = string
   description = "Specify the exact chart version to install. If this is not specified, the latest version is installed."
-  default     = "5.19.12"
+  default     = "5.55.0"
 }
 
 variable "resources" {

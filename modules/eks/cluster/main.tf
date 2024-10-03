@@ -1,6 +1,5 @@
 locals {
   enabled     = module.this.enabled
-  eks_outputs = module.eks.outputs
   vpc_outputs = module.vpc.outputs
 
   attributes = flatten(concat(module.this.attributes, [var.color]))
@@ -56,7 +55,7 @@ locals {
   # If Karpenter IAM role is enabled, give it access to the cluster to allow the nodes launched by Karpenter to join the EKS cluster
   karpenter_role_arn = one(aws_iam_role.karpenter[*].arn)
 
-  linux_worker_role_arns = compact(concat(
+  linux_worker_role_arns = local.enabled ? concat(
     var.map_additional_worker_roles,
     # As of Karpenter v0.35.0, there is no entry in the official Karpenter documentation
     # stating how to configure Karpenter node roles via EKS Access Entries.
@@ -65,8 +64,8 @@ locals {
     # does not work if they are Windows nodes, but at the moment, this component
     # probably has other deficiencies that would prevent it from working with Windows nodes,
     # so we will stick with just saying Windows is not supported until we have some need for it.
-    [local.karpenter_role_arn],
-  ))
+    local.karpenter_iam_role_enabled ? [local.karpenter_role_arn] : [],
+  ) : []
 
   # For backwards compatibility, we need to add the unmanaged worker role ARNs, but
   # historically we did not care whether they were LINUX or WINDOWS.

@@ -49,6 +49,7 @@ locals {
     transit_encryption_enabled       = var.transit_encryption_enabled
     apply_immediately                = var.apply_immediately
     automatic_failover_enabled       = var.automatic_failover_enabled
+    auto_minor_version_upgrade       = var.auto_minor_version_upgrade
     cloudwatch_metric_alarms_enabled = var.cloudwatch_metric_alarms_enabled
     auth_token_enabled               = var.auth_token_enabled
   }

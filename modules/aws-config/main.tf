@@ -40,15 +40,37 @@ module "utils" {
   context = module.this.context
 }
 
+locals {
+  packs         = [for pack in var.conformance_packs : merge(pack, { scope = coalesce(pack.scope, var.default_scope) })]
+  account_packs = { for pack in local.packs : pack.name => pack if pack.scope == "account" }
+  org_packs     = { for pack in local.packs : pack.name => pack if pack.scope == "organization" }
+}
+
 module "conformance_pack" {
   source  = "cloudposse/config/aws//modules/conformance-pack"
   version = "1.1.0"
 
-  count = local.enabled ? length(var.conformance_packs) : 0
+  for_each = local.enabled ? local.account_packs : {}
 
-  name                = var.conformance_packs[count.index].name
-  conformance_pack    = var.conformance_packs[count.index].conformance_pack
-  parameter_overrides = var.conformance_packs[count.index].parameter_overrides
+  name                = each.key
+  conformance_pack    = each.value.conformance_pack
+  parameter_overrides = each.value.parameter_overrides
+
+  depends_on = [
+    module.aws_config
+  ]
+
+  context = module.this.context
+}
+
+module "org_conformance_pack" {
+  source = "./modules/org-conformance-pack"
+
+  for_each = local.enabled ? local.org_packs : {}
+
+  name                = each.key
+  conformance_pack    = each.value.conformance_pack
+  parameter_overrides = each.value.parameter_overrides
 
   depends_on = [
     module.aws_config

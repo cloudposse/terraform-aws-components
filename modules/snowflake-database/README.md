@@ -1,3 +1,11 @@
+---
+tags:
+  - component/snowflake-database
+  - layer/unassigned
+  - provider/aws
+  - provider/snowflake
+---
+
 # Component: `snowflake-database`
 
 All data in Snowflake is stored in database tables, logically structured as collections of columns and rows. This

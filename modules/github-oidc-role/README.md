@@ -1,3 +1,11 @@
+---
+tags:
+  - component/github-oidc-role
+  - layer/github
+  - provider/aws
+  - privileged
+---
+
 # Component: `github-oidc-role`
 
 This component is responsible for creating IAM roles for GitHub Actions to assume.

@@ -27,7 +27,10 @@ repos:
               deprecated/github-actions-runner/runners/actions-runner/chart/templates/.*.yaml |
               modules/eks/cert-manager/cert-manager-issuer/templates/.*.yaml |
               modules/strongdm/charts/strongdm/templates/.*.yaml |
-              modules/eks/.*/charts/.*/templates/.*.yaml
+              modules/eks/.*/charts/.*/templates/.*.yaml |
+              modules/eks/.*/charts/.*/templates/.*.yml |
+              modules/eks/promtail/scrape_config/.*.yaml |
+              modules/eks/promtail/scrape_config/.*.yml
           )$
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform

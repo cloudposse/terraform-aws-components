@@ -66,6 +66,29 @@ variable "s3_object_ownership" {
   description = "Specifies the S3 object ownership control on the origin bucket. Valid values are `ObjectWriter`, `BucketOwnerPreferred`, and 'BucketOwnerEnforced'."
 }
 
+variable "s3_origins" {
+  type = list(object({
+    domain_name = string
+    origin_id   = string
+    origin_path = string
+    s3_origin_config = object({
+      origin_access_identity = string
+    })
+  }))
+  default     = []
+  description = <<-EOT
+    A list of S3 [origins](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#origin-arguments) (in addition to the one created by this component) for this distribution.
+    S3 buckets configured as websites are `custom_origins`, not `s3_origins`.
+    Specifying `s3_origin_config.origin_access_identity` as `null` or `""` will have it translated to the `origin_access_identity` used by the origin created by this component.
+    EOT
+}
+
+variable "origin_bucket" {
+  type        = string
+  default     = null
+  description = "Name of an existing S3 bucket to use as the origin. If this is not provided, this component will create a new s3 bucket using `var.name` and other context related inputs"
+}
+
 variable "origin_s3_access_logging_enabled" {
   type        = bool
   default     = null
@@ -398,8 +421,10 @@ variable "ordered_cache" {
     trusted_signers    = list(string)
     trusted_key_groups = list(string)
 
-    cache_policy_id          = string
-    origin_request_policy_id = string
+    cache_policy_name          = optional(string)
+    cache_policy_id            = optional(string)
+    origin_request_policy_name = optional(string)
+    origin_request_policy_id   = optional(string)
 
     viewer_protocol_policy     = string
     min_ttl                    = number
@@ -428,6 +453,8 @@ variable "ordered_cache" {
     An ordered list of [cache behaviors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#cache-behavior-arguments) resource for this distribution.
     List in order of precedence (first match wins). This is in addition to the default cache policy.
     Set `target_origin_id` to `""` to specify the S3 bucket origin created by this module.
+    Set `cache_policy_id` to `""` to use `cache_policy_name` for creating a new policy. At least one of the two must be set.
+    Set `origin_request_policy_id` to `""` to use `origin_request_policy_name` for creating a new policy. At least one of the two must be set.
     EOT
 }
 
@@ -548,4 +575,16 @@ variable "lambda_edge_destruction_delay" {
   For more information, see: https://github.com/hashicorp/terraform-provider-aws/issues/1721.
   EOT
   default     = "20m"
+}
+
+variable "http_version" {
+  type        = string
+  default     = "http2"
+  description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3 and http3"
+}
+
+variable "comment" {
+  type        = string
+  description = "Any comments you want to include about the distribution."
+  default     = "Managed by Terraform"
 }

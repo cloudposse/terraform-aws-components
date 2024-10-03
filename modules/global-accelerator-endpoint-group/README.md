@@ -1,4 +1,11 @@
-# Component: `global-accelerator`
+---
+tags:
+  - component/global-accelerator-endpoint-group
+  - layer/unassigned
+  - provider/aws
+---
+
+# Component: `global-accelerator-endpoint-group`
 
 This component is responsible for provisioning a Global Accelerator Endpoint Group.
 

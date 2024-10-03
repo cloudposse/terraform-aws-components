@@ -1,3 +1,10 @@
+---
+tags:
+  - component/sqs-queue
+  - layer/addons
+  - provider/aws
+---
+
 # Component: `sqs-queue`
 
 This component is responsible for creating an SQS queue.

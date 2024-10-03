@@ -1,11 +1,18 @@
+---
+tags:
+  - component/github-runners
+  - layer/github
+  - provider/aws
+---
+
 # Component: `github-runners`
 
 This component is responsible for provisioning EC2 instances for GitHub runners.
 
-:::info We also have a similar component based on
-[actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) for Kubernetes.
-
-:::
+> [!TIP]
+>
+> We also have a similar component based on
+> [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) for Kubernetes.
 
 ## Requirements
 
@@ -177,11 +184,11 @@ permissions “mode” for Self-hosted runners to Read-Only. The instructions fo
 
 ### Creating Registration Token
 
-:::info We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the
-Registration Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store
-encrypted with KMS.
-
-:::
+> [!TIP]
+>
+> We highly recommend using a GitHub Application with the github-action-token-rotator module to generate the
+> Registration Token. This will ensure that the token is rotated and that the token is stored in SSM Parameter Store
+> encrypted with KMS.
 
 #### GitHub Application
 
@@ -220,11 +227,9 @@ and skip the rest. Otherwise, complete the private key setup in `core-<default-r
    any basic value, such as "foo". This will be overwritten by the rotator.
 1. Update the GitHub App ID and Installation ID in the `github-action-token-rotator` catalog.
 
-:::info
-
-If you change the Private Key saved in SSM, redeploy `github-action-token-rotator`
-
-:::
+> [!TIP]
+>
+> If you change the Private Key saved in SSM, redeploy `github-action-token-rotator`
 
 #### (ClickOps) Obtain the Runner Registration Token
 
@@ -269,7 +274,7 @@ following tips:
 
 ## The GitHub Registration Token is valid, but the Runners are not registering with GitHub
 
-If you first deployed the `github-action-token-rotator` component initally with an invalid configuration and then
+If you first deployed the `github-action-token-rotator` component initially with an invalid configuration and then
 deployed the `github-runners` component, the instance runners will have failed to register with GitHub.
 
 After you correct `github-action-token-rotator` and have a valid GitHub Registration Token in SSM, _destroy and

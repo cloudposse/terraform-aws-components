@@ -83,3 +83,8 @@ output "psql_helper" {
   value       = local.psql_access_enabled ? local.psql_message : ""
   description = "A helper output to use with psql for connecting to this RDS instance."
 }
+
+output "kms_key_alias" {
+  value       = module.kms_key_rds.alias_name
+  description = "The KMS key alias"
+}

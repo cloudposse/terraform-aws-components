@@ -9,7 +9,7 @@ variable "admin_delegated" {
   default     = false
   description = <<DOC
   A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty
-  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
+  Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the
   Deployment section of the README for more information.
   DOC
 }
@@ -214,5 +214,35 @@ variable "subscribers" {
   raw_message_delivery:
     Boolean indicating whether or not to enable raw message delivery (the original message is directly passed, not
     wrapped in JSON with the original message in the message property). Default is false.
+  DOC
+}
+
+variable "detector_features" {
+  type = map(object({
+    feature_name = string
+    status       = string
+    additional_configuration = optional(object({
+      addon_name = string
+      status     = string
+    }), null)
+  }))
+  default     = {}
+  nullable    = false
+  description = <<-DOC
+  A map of detector features for streaming foundational data sources to detect communication with known malicious domains and IP addresses and identify anomalous behavior.
+
+  For more information, see:
+  https://docs.aws.amazon.com/guardduty/latest/ug/guardduty-features-activation-model.html#guardduty-features
+
+  feature_name:
+    The name of the detector feature. Possible values include: S3_DATA_EVENTS, EKS_AUDIT_LOGS, EBS_MALWARE_PROTECTION, RDS_LOGIN_EVENTS, EKS_RUNTIME_MONITORING, LAMBDA_NETWORK_LOGS, RUNTIME_MONITORING. Specifying both EKS Runtime Monitoring (EKS_RUNTIME_MONITORING) and Runtime Monitoring (RUNTIME_MONITORING) will cause an error. You can add only one of these two features because Runtime Monitoring already includes the threat detection for Amazon EKS resources. For more information, see: https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DetectorFeatureConfiguration.html.
+  status:
+    The status of the detector feature. Valid values include: ENABLED or DISABLED.
+  additional_configuration:
+    Optional information about the additional configuration for a feature in your GuardDuty account. For more information, see: https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DetectorAdditionalConfiguration.html.
+  addon_name:
+    The name of the add-on for which the configuration applies. Possible values include: EKS_ADDON_MANAGEMENT, ECS_FARGATE_AGENT_MANAGEMENT, and EC2_AGENT_MANAGEMENT. For more information, see: https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DetectorAdditionalConfiguration.html.
+  status:
+    The status of the add-on. Valid values include: ENABLED or DISABLED.
   DOC
 }

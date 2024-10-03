@@ -1,3 +1,10 @@
+---
+tags:
+  - component/philips-labs-github-runners
+  - layer/github
+  - provider/aws
+---
+
 # Component: `philips-labs-github-runners`
 
 This component is responsible for provisioning the surrounding infrastructure for the github runners.
@@ -93,13 +100,13 @@ the component, and available via the `webhook` output under `endpoint`.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_github_runner"></a> [github\_runner](#module\_github\_runner) | philips-labs/github-runner/aws | 5.4.0 |
+| <a name="module_github_runner"></a> [github\_runner](#module\_github\_runner) | philips-labs/github-runner/aws | 5.4.2 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_module_artifact"></a> [module\_artifact](#module\_module\_artifact) | cloudposse/module-artifact/external | 0.8.0 |
 | <a name="module_store_read"></a> [store\_read](#module\_store\_read) | cloudposse/ssm-parameter-store/aws | 0.11.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_webhook_github_app"></a> [webhook\_github\_app](#module\_webhook\_github\_app) | ./modules/webhook-github-app | n/a |
+| <a name="module_webhook_github_app"></a> [webhook\_github\_app](#module\_webhook\_github\_app) | philips-labs/github-runner/aws//modules/webhook-github-app | 5.4.2 |
 
 ## Resources
 

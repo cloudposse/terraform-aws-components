@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/workflow
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/workflow`
 
 This component provisions Glue workflows.

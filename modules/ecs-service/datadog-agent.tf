@@ -40,8 +40,8 @@ locals {
     logDriver = "awsfirelens"
     options = var.datadog_agent_sidecar_enabled ? {
       Name           = "datadog",
-      apikey         = one(module.datadog_configuration[*].outputs.datadog_api_key),
-      Host           = format("http-intake.logs.%s", one(module.datadog_configuration[*].outputs.datadog_site))
+      apikey         = one(module.datadog_configuration[*].datadog_app_key),
+      Host           = format("http-intake.logs.%s", one(module.datadog_configuration[*].datadog_site))
       dd_service     = module.this.name,
       dd_tags        = local.all_dd_tags,
       dd_source      = "ecs",
@@ -87,8 +87,8 @@ module "datadog_container_definition" {
   essential        = true
   map_environment = {
     "ECS_FARGATE"                          = var.task.launch_type == "FARGATE" ? true : false
-    "DD_API_KEY"                           = one(module.datadog_configuration[*].outputs.datadog_api_key)
-    "DD_SITE"                              = one(module.datadog_configuration[*].outputs.datadog_site)
+    "DD_API_KEY"                           = one(module.datadog_configuration[*].datadog_api_key)
+    "DD_SITE"                              = one(module.datadog_configuration[*].datadog_site)
     "DD_ENV"                               = module.this.stage
     "DD_LOGS_ENABLED"                      = true
     "DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL" = true

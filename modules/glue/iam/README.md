@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/iam
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/iam`
 
 This component provisions IAM roles for AWS Glue.

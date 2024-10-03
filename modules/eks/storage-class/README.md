@@ -1,3 +1,12 @@
+---
+tags:
+  - component/eks
+  - layer/eks
+  - layer/data
+  - provider/aws
+  - provider/helm
+---
+
 # Component: `eks/storage-class`
 
 This component is responsible for provisioning `StorageClasses` in an EKS cluster. See the list of guides and references

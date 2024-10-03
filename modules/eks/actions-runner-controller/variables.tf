@@ -25,6 +25,12 @@ variable "chart_version" {
   default     = null
 }
 
+variable "controller_replica_count" {
+  type        = number
+  description = "The number of replicas of the runner-controller to run."
+  default     = 2
+}
+
 variable "resources" {
   type = object({
     limits = object({
@@ -86,33 +92,6 @@ variable "rbac_enabled" {
   description = "Service Account for pods."
 }
 
-# Runner-specific settings
-
-/*
-variable "account_map_environment_name" {
-  type        = string
-  description = "The name of the environment where `account_map` is provisioned"
-  default     = "gbl"
-}
-
-variable "account_map_stage_name" {
-  type        = string
-  description = "The name of the stage where `account_map` is provisioned"
-  default     = "root"
-}
-
-variable "account_map_tenant_name" {
-  type        = string
-  description = <<-EOT
-  The name of the tenant where `account_map` is provisioned.
-
-  If the `tenant` label is not used, leave this as `null`.
-  EOT
-  default     = "core"
-}
-
-*/
-
 variable "existing_kubernetes_secret_name" {
   type        = string
   description = <<-EOT
@@ -153,19 +132,13 @@ variable "runners" {
   ```hcl
   organization_runner = {
     type = "organization" # can be either 'organization' or 'repository'
-    dind_enabled: false # A Docker sidecar container will be deployed
-    image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'
+    dind_enabled: true # A Docker daemon will be started in the runner Pod
+    image: summerwind/actions-runner-dind # If dind_enabled=false, set this to 'summerwind/actions-runner'
     scope = "ACME"  # org name for Organization runners, repo name for Repository runners
     group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.
     scale_down_delay_seconds = 300
     min_replicas = 1
     max_replicas = 5
-    busy_metrics = {
-      scale_up_threshold = 0.75
-      scale_down_threshold = 0.25
-      scale_up_factor = 2
-      scale_down_factor = 0.5
-    }
     labels = [
       "Ubuntu",
       "core-automation",
@@ -175,22 +148,44 @@ variable "runners" {
   EOT
 
   type = map(object({
-    type            = string
-    scope           = string
-    group           = optional(string, null)
-    image           = optional(string, "")
-    dind_enabled    = bool
-    node_selector   = optional(map(string), {})
-    pod_annotations = optional(map(string), {})
+    type                = string
+    scope               = string
+    group               = optional(string, null)
+    image               = optional(string, "summerwind/actions-runner-dind")
+    auto_update_enabled = optional(bool, true)
+    dind_enabled        = optional(bool, true)
+    node_selector       = optional(map(string), {})
+    pod_annotations     = optional(map(string), {})
+
+    # running_pod_annotations are only applied to the pods once they start running a job
+    running_pod_annotations = optional(map(string), {})
+
+    # affinity is too complex to model. Whatever you assigned affinity will be copied
+    # to the runner Pod spec.
+    affinity = optional(any)
+
     tolerations = optional(list(object({
       key      = string
       operator = string
       value    = optional(string, null)
       effect   = string
     })), [])
-    scale_down_delay_seconds = number
+    scale_down_delay_seconds = optional(number, 300)
     min_replicas             = number
     max_replicas             = number
+    # Scheduled overrides. See https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides
+    # Order is important. The earlier entry is prioritized higher than later entries. So you usually define
+    # one-time overrides at the top of your list, then yearly, monthly, weekly, and lastly daily overrides.
+    scheduled_overrides = optional(list(object({
+      start_time   = string # ISO 8601 format, eg,  "2021-06-01T00:00:00+09:00"
+      end_time     = string # ISO 8601 format, eg,  "2021-06-01T00:00:00+09:00"
+      min_replicas = optional(number)
+      max_replicas = optional(number)
+      recurrence_rule = optional(object({
+        frequency  = string           # One of Daily, Weekly, Monthly, Yearly
+        until_time = optional(string) # ISO 8601 format time after which the schedule will no longer apply
+      }))
+    })), [])
     busy_metrics = optional(object({
       scale_up_threshold    = string
       scale_down_threshold  = string
@@ -199,23 +194,53 @@ variable "runners" {
       scale_up_factor       = optional(string)
       scale_down_factor     = optional(string)
     }))
-    webhook_driven_scaling_enabled = bool
-    webhook_startup_timeout        = optional(string, null)
-    pull_driven_scaling_enabled    = bool
-    labels                         = list(string)
-    storage                        = optional(string, null)
-    pvc_enabled                    = optional(bool, false)
-    resources = object({
-      limits = object({
-        cpu               = string
-        memory            = string
-        ephemeral_storage = optional(string, null)
-      })
-      requests = object({
-        cpu    = string
-        memory = string
-      })
-    })
+    webhook_driven_scaling_enabled = optional(bool, true)
+    # max_duration is the duration after which a job will be considered completed,
+    # even if the webhook has not received a "job completed" event.
+    # This is to ensure that if an event is missed, it does not leave the runner running forever.
+    # Set it long enough to cover the longest job you expect to run and then some.
+    # See https://github.com/actions/actions-runner-controller/blob/9afd93065fa8b1f87296f0dcdf0c2753a0548cb7/docs/automatically-scaling-runners.md?plain=1#L264-L268
+    # Defaults to 1 hour programmatically (to be able to detect if both max_duration and webhook_startup_timeout are set).
+    max_duration = optional(string)
+    # The name `webhook_startup_timeout` was misleading and has been deprecated.
+    # It has been renamed `max_duration`.
+    webhook_startup_timeout = optional(string)
+    # Adjust the time (in seconds) to wait for the Docker in Docker daemon to become responsive.
+    wait_for_docker_seconds     = optional(string, "")
+    pull_driven_scaling_enabled = optional(bool, false)
+    labels                      = optional(list(string), [])
+    # If not null, `docker_storage` specifies the size (as `go` string) of
+    # an ephemeral (default storage class) Persistent Volume to allocate for the Docker daemon.
+    # Takes precedence over `tmpfs_enabled` for the Docker daemon storage.
+    docker_storage = optional(string, null)
+    # storage is deprecated in favor of docker_storage, since it is only storage for the Docker daemon
+    storage = optional(string, null)
+    # If `pvc_enabled` is true, a Persistent Volume Claim will be created for the runner
+    # and mounted at /home/runner/work/shared. This is useful for sharing data between runners.
+    pvc_enabled = optional(bool, false)
+    # If `tmpfs_enabled` is `true`, both the runner and the docker daemon will use a tmpfs volume,
+    # meaning that all data will be stored in RAM rather than on disk, bypassing disk I/O limitations,
+    # but what would have been disk usage is now additional memory usage. You must specify memory
+    # requests and limits when using tmpfs or else the Pod will likely crash the Node.
+    tmpfs_enabled = optional(bool)
+    resources = optional(object({
+      limits = optional(object({
+        cpu    = optional(string, "1")
+        memory = optional(string, "1Gi")
+        # ephemeral-storage is the Kubernetes name, but `ephemeral_storage` is the gomplate name,
+        # so allow either. If both are specified, `ephemeral-storage` takes precedence.
+        ephemeral-storage = optional(string)
+        ephemeral_storage = optional(string, "10Gi")
+      }), {})
+      requests = optional(object({
+        cpu    = optional(string, "500m")
+        memory = optional(string, "256Mi")
+        # ephemeral-storage is the Kubernetes name, but `ephemeral_storage` is the gomplate name,
+        # so allow either. If both are specified, `ephemeral-storage` takes precedence.
+        ephemeral-storage = optional(string)
+        ephemeral_storage = optional(string, "1Gi")
+      }), {})
+    }), {})
   }))
 }
 
@@ -223,19 +248,19 @@ variable "webhook" {
   type = object({
     enabled           = bool
     hostname_template = string
-    queue_limit       = optional(number, 100)
+    queue_limit       = optional(number, 1000)
   })
   description = <<-EOT
     Configuration for the GitHub Webhook Server.
     `hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"
     Typically something like `"echo.%[3]v.%[2]v.example.com"`.
-    `queue_limit` is the maximum number of webhook events that can be queued up processing by the autoscaler.
+    `queue_limit` is the maximum number of webhook events that can be queued up for processing by the autoscaler.
     When the queue gets full, webhook events will be dropped (status 500).
   EOT
   default = {
     enabled           = false
     hostname_template = null
-    queue_limit       = 100
+    queue_limit       = 1000
   }
 }
 

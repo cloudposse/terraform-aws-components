@@ -49,7 +49,8 @@ resource "github_repository" "default" {
   description = var.description
   auto_init   = true # will create a 'main' branch
 
-  visibility = "private"
+  visibility           = "private"
+  vulnerability_alerts = var.vulnerability_alerts_enabled
 }
 
 resource "github_branch_default" "default" {
@@ -85,9 +86,17 @@ resource "github_branch_protection" "default" {
     }
   }
 
-  push_restrictions = var.push_restrictions_enabled ? [
-    join("", data.github_user.automation_user[*].node_id),
-  ] : []
+  restrict_pushes {
+    push_allowances = var.push_restrictions_enabled ? [
+      join("", data.github_user.automation_user[*].node_id),
+    ] : []
+  }
+
+  lifecycle {
+    ignore_changes = [
+      restrict_pushes[0].push_allowances
+    ]
+  }
 }
 
 data "github_team" "default" {

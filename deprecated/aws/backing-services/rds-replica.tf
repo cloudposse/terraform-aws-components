@@ -45,7 +45,7 @@ variable "rds_replica_snapshot" {
 variable "rds_replica_multi_az" {
   type        = string
   default     = "false"
-  description = "Run instaces in multiple az"
+  description = "Run instances in multiple az"
 }
 
 variable "rds_replica_storage_type" {

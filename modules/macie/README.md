@@ -1,3 +1,10 @@
+---
+tags:
+  - component/macie
+  - layer/security-and-compliance
+  - provider/aws
+---
+
 # Component: `macie`
 
 This component is responsible for configuring Macie within an AWS Organization.
@@ -61,7 +68,7 @@ atmos terraform apply macie/delegated-administrator -s core-ue1-security
 ### Deploy to Organization Management (root) Account
 
 Next, the component is deployed to the AWS Organization Management, a/k/a `root`, Account in order to set the AWS
-Organization Designated Admininstrator account.
+Organization Designated Administrator account.
 
 Note that you must `SuperAdmin` permissions as we are deploying to the AWS Organization Management account. Since we are
 using the `SuperAdmin` user, it will already have access to the state bucket, so we set the `role_arn` of the backend
@@ -154,7 +161,7 @@ atmos terraform apply macie/org-settings/ue1 -s core-ue1-security
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_map_tenant"></a> [account\_map\_tenant](#input\_account\_map\_tenant) | The tenant where the `account_map` component required by remote-state is deployed | `string` | `"core"` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br>  Admininstrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br>  Deployment section of the README for more information. | `bool` | `false` | no |
+| <a name="input_admin_delegated"></a> [admin\_delegated](#input\_admin\_delegated) | A flag to indicate if the AWS Organization-wide settings should be created. This can only be done after the GuardDuty<br>  Administrator account has already been delegated from the AWS Org Management account (usually 'root'). See the<br>  Deployment section of the README for more information. | `bool` | `false` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delegated_admininstrator_component_name"></a> [delegated\_admininstrator\_component\_name](#input\_delegated\_admininstrator\_component\_name) | The name of the component that created the Macie account. | `string` | `"macie/delegated-administrator"` | no |

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/crawler
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/crawler`
 
 This component provisions Glue crawlers.

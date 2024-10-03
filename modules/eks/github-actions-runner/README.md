@@ -1,4 +1,12 @@
-# Component: `github-actions-runner`
+---
+tags:
+  - component/eks/github-actions-runner
+  - layer/github
+  - provider/aws
+  - provider/helm
+---
+
+# Component: `eks/github-actions-runner`
 
 This component deploys self-hosted GitHub Actions Runners and a
 [Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller#introduction)
@@ -27,8 +35,10 @@ NodeJS or `dcarbone/install-jq-action` to install `jq`. You can also install pac
 `awalsh128/cache-apt-pkgs-action`, which has the advantage of being able to skip the installation if the package is
 already installed, so you can more efficiently run the same workflow on GitHub hosted as well as self-hosted runners.
 
-:::info There are (as of this writing) open feature requests to add some commonly needed packages to the official Runner
-Sets runner image. You can upvote these requests
+:::info
+
+There are (as of this writing) open feature requests to add some commonly needed packages to the official Runner Sets
+runner image. You can upvote these requests
 [here](https://github.com/actions/actions-runner-controller/discussions/3168) and
 [here](https://github.com/orgs/community/discussions/80868) to help get them implemented.
 

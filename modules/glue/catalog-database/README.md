@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/catalog-database
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/catalog-database`
 
 This component provisions Glue catalog databases.

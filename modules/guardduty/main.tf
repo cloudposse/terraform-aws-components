@@ -76,7 +76,7 @@ module "guardduty" {
   version = "0.5.0"
 
   finding_publishing_frequency              = var.finding_publishing_frequency
-  create_sns_topic                          = var.create_sns_topic
+  create_sns_topic                          = local.create_sns_topic
   findings_notification_arn                 = var.findings_notification_arn
   subscribers                               = var.subscribers
   enable_cloudwatch                         = var.cloudwatch_enabled
@@ -118,6 +118,22 @@ resource "aws_guardduty_organization_configuration_feature" "this" {
     content {
       auto_enable = var.auto_enable_guardduty_organization_features_additional_configurations
       name        = additional_configuration.value
+    }
+  }
+}
+
+resource "aws_guardduty_detector_feature" "this" {
+  for_each = { for k, v in var.detector_features : k => v if local.create_org_configuration }
+
+  detector_id = module.guardduty_delegated_detector[0].outputs.guardduty_detector_id
+  name        = each.value.feature_name
+  status      = each.value.status
+
+  dynamic "additional_configuration" {
+    for_each = each.value.additional_configuration != null ? [each.value.additional_configuration] : []
+    content {
+      name   = additional_configuration.value.addon_name
+      status = additional_configuration.value.status
     }
   }
 }

@@ -1,3 +1,10 @@
+---
+tags:
+  - component/glue/catalog-table
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `glue/catalog-table`
 
 This component provisions Glue catalog tables.

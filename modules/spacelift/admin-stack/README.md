@@ -1,3 +1,11 @@
+---
+tags:
+  - component/spacelift/admin-stack
+  - layer/spacelift
+  - provider/aws
+  - provider/spacelift
+---
+
 # Component: `spacelift/admin-stack`
 
 This component is responsible for creating an administrative [stack](https://docs.spacelift.io/concepts/stack/) and its

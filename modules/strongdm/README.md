@@ -1,3 +1,10 @@
+---
+tags:
+  - component/strongdm
+  - layer/unassigned
+  - provider/aws
+---
+
 # Component: `strongdm`
 
 This component provisions [strongDM](https://www.strongdm.com/) gateway, relay and roles

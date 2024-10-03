@@ -223,6 +223,12 @@ variable "node_groups" {
       value  = string
       effect = string
     })), null)
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
     # Desired Kubernetes master version. If you do not specify a value, the latest available version is used
     kubernetes_version = optional(string, null)
     # The maximum size of the AutoScaling Group
@@ -295,6 +301,12 @@ variable "node_group_defaults" {
       value  = string
       effect = string
     })), [])
+    node_userdata = optional(object({
+      before_cluster_joining_userdata = optional(string)
+      bootstrap_extra_args            = optional(string)
+      kubelet_extra_args              = optional(string)
+      after_cluster_joining_userdata  = optional(string)
+    }), {})
     kubernetes_version = optional(string, null) # set to null to use cluster_kubernetes_version
     max_group_size     = optional(number, null)
     min_group_size     = optional(number, null)
@@ -341,7 +353,7 @@ variable "node_group_defaults" {
   default = {
     desired_group_size = 1
     # t3.medium is kept as the default for backward compatibility.
-    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavoir.
+    # Recommendation as of 2023-08-08 is c6a.large to provide reserve HA capacity regardless of Karpenter behavior.
     instance_types     = ["t3.medium"]
     kubernetes_version = null # set to null to use cluster_kubernetes_version
     max_group_size     = 100
@@ -431,13 +443,6 @@ variable "allow_ingress_from_vpc_accounts" {
 
   default  = []
   nullable = false
-}
-
-variable "eks_component_name" {
-  type        = string
-  description = "The name of the eks component"
-  default     = "eks/cluster"
-  nullable    = false
 }
 
 variable "vpc_component_name" {

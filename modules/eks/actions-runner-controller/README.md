@@ -1,4 +1,12 @@
-# Component: `actions-runner-controller`
+---
+tags:
+  - component/eks/actions-runner-controller
+  - layer/github
+  - provider/aws
+  - provider/helm
+---
+
+# Component: `eks/actions-runner-controller`
 
 This component creates a Helm release for
 [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller) on an EKS cluster.
@@ -26,7 +34,7 @@ components:
         name: "actions-runner" # avoids hitting name length limit on IAM role
         chart: "actions-runner-controller"
         chart_repository: "https://actions-runner-controller.github.io/actions-runner-controller"
-        chart_version: "0.22.0"
+        chart_version: "0.23.7"
         kubernetes_namespace: "actions-runner-system"
         create_namespace: true
         kubeconfig_exec_auth_api_version: "client.authentication.k8s.io/v1beta1"
@@ -73,20 +81,30 @@ components:
               kubernetes.io/os: "linux"
               kubernetes.io/arch: "amd64"
             type: "repository" # can be either 'organization' or 'repository'
-            dind_enabled: false # If `true`, a Docker sidecar container will be deployed
+            dind_enabled: true # If `true`, a Docker daemon will be started in the runner Pod.
             # To run Docker in Docker (dind), change image to summerwind/actions-runner-dind
             # If not running Docker, change image to summerwind/actions-runner use a smaller image
             image: summerwind/actions-runner-dind
             # `scope` is org name for Organization runners, repo name for Repository runners
             scope: "org/infra"
-            # We can trade the fast-start behavior of min_replicas > 0 for the better guarantee
-            # that Karpenter will not terminate the runner while it is running a job.
-            #  # Tell Karpenter not to evict this pod. This is only safe when min_replicas is 0.
-            #  # If we do not set this, Karpenter will feel free to terminate the runner while it is running a job.
-            #  pod_annotations:
-            #    karpenter.sh/do-not-evict: "true"
-            min_replicas: 1
+            min_replicas: 0 # Default, overridden by scheduled_overrides below
             max_replicas: 20
+            # Scheduled overrides. See https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides
+            # Order is important. The earlier entry is prioritized higher than later entries. So you usually define
+            # one-time overrides at the top of your list, then yearly, monthly, weekly, and lastly daily overrides.
+            scheduled_overrides:
+              # Override the daily override on the weekends
+              - start_time: "2024-07-06T00:00:00-08:00" # Start of Saturday morning Pacific Standard Time
+                end_time: "2024-07-07T23:59:59-07:00" # End of Sunday night Pacific Daylight Time
+                min_replicas: 0
+                recurrence_rule:
+                  frequency: "Weekly"
+              # Keep a warm pool of runners during normal working hours
+              - start_time: "2024-07-01T09:00:00-08:00" # 9am Pacific Standard Time (8am PDT), start of workday
+                end_time: "2024-07-01T17:00:00-07:00" # 5pm Pacific Daylight Time (6pm PST), end of workday
+                min_replicas: 2
+                recurrence_rule:
+                  frequency: "Daily"
             scale_down_delay_seconds: 100
             resources:
               limits:
@@ -96,7 +114,13 @@ components:
                 cpu: 100m
                 memory: 128Mi
             webhook_driven_scaling_enabled: true
-            webhook_startup_timeout: "30m"
+            # max_duration is the duration after which a job will be considered completed,
+            # (and the runner killed) even if the webhook has not received a "job completed" event.
+            # This is to ensure that if an event is missed, it does not leave the runner running forever.
+            # Set it long enough to cover the longest job you expect to run and then some.
+            # See https://github.com/actions/actions-runner-controller/blob/9afd93065fa8b1f87296f0dcdf0c2753a0548cb7/docs/automatically-scaling-runners.md?plain=1#L264-L268
+            max_duration: "90m"
+            # Pull-driven scaling is obsolete and should not be used.
             pull_driven_scaling_enabled: false
             # Labels are not case-sensitive to GitHub, but *are* case-sensitive
             # to the webhook based autoscaler, which requires exact matches
@@ -134,11 +158,12 @@ components:
           #  # `scope` is org name for Organization runners, repo name for Repository runners
           #  scope: "org/infra"
           #  group: "ArmRunners"
-          #  # Tell Karpenter not to evict this pod. This is only safe when min_replicas is 0.
-          #  # If we do not set this, Karpenter will feel free to terminate the runner while it is running a job.
-          #  pod_annotations:
-          #    karpenter.sh/do-not-evict: "true"
-          #  min_replicas: 0
+          #  # Tell Karpenter not to evict this pod while it is running a job.
+          #  # If we do not set this, Karpenter will feel free to terminate the runner while it is running a job,
+          #  # as part of its consolidation efforts, even when using "on demand" instances.
+          #  running_pod_annotations:
+          #    karpenter.sh/do-not-disrupt: "true"
+          #  min_replicas: 0 # Set to so that no ARM instance is running idle, set to 1 for faster startups
           #  max_replicas: 20
           #  scale_down_delay_seconds: 100
           #  resources:
@@ -149,7 +174,7 @@ components:
           #      cpu: 100m
           #      memory: 128Mi
           #  webhook_driven_scaling_enabled: true
-          #  webhook_startup_timeout: "30m"
+          #  max_duration: "90m"
           #  pull_driven_scaling_enabled: false
           #  # Labels are not case-sensitive to GitHub, but *are* case-sensitive
           #  # to the webhook based autoscaler, which requires exact matches
@@ -315,8 +340,10 @@ can assign one or more Runner pools (from the `runners` map) to groups (only one
 
 ### Using Webhook Driven Autoscaling (recommended)
 
-We recommend using Webhook Driven Autoscaling until GitHub releases their own autoscaling solution (said to be "in the
-works" as of April 2023).
+We recommend using Webhook Driven Autoscaling until GitHub's own autoscaling solution is as capable as the Summerwind
+solution this component deploys. See
+[this discussion](https://github.com/actions/actions-runner-controller/discussions/3340) for some perspective on why the
+Summerwind solution is currently (summer 2024) considered superior.
 
 To use the Webhook Driven Autoscaling, in addition to setting `webhook_driven_scaling_enabled` to `true`, you must also
 install the GitHub organization-level webhook after deploying the component (specifically, the webhook server). The URL
@@ -344,8 +371,8 @@ is a delivery (of a "ping" event) with a green check mark. If not, verify all th
 
 The `HorizontalRunnerAutoscaler scaleUpTriggers.duration` (see [Webhook Driven Scaling documentation](https://github.
 com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#webhook-driven-scaling)) is
-controlled by the `webhook_startup_timeout` setting for each Runner. The purpose of this timeout is to ensure, in case a
-job cancellation or termination event gets missed, that the resulting idle runner eventually gets terminated.
+controlled by the `max_duration` setting for each Runner. The purpose of this timeout is to ensure, in case a job
+cancellation or termination event gets missed, that the resulting idle runner eventually gets terminated.
 
 #### How the Autoscaler Determines the Desired Runner Pool Size
 
@@ -362,50 +389,49 @@ will scale down the pool by 2 instead of 1: once because the capacity reservatio
 finished. This will also cause starvation of waiting jobs, because the next in line will have its timeout timer started
 but will not actually start running because no runner is available. And if `minReplicas` is set to zero, the pool will
 scale down to zero before finishing all the jobs, leaving some waiting indefinitely. This is why it is important to set
-the `webhook_startup_timeout` to a time long enough to cover the full time a job may have to wait between the time it is
-queued and the time it finishes, assuming that the HRA scales up the pool by 1 and runs the job on the new runner.
+the `max_duration` to a time long enough to cover the full time a job may have to wait between the time it is queued and
+the time it finishes, assuming that the HRA scales up the pool by 1 and runs the job on the new runner.
 
-:::info If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start
-on the capacity reservation until enough reservations ahead of it are removed for it to be considered as representing
-and active job. Although there are some edge cases regarding `webhook_startup_timeout` that seem not to be covered
-properly (see
-[actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)), they only
-merit adding a few extra minutes to the timeout.
+> [!TIP]
+>
+> If there are more jobs queued than there are runners allowed by `maxReplicas`, the timeout timer does not start on the
+> capacity reservation until enough reservations ahead of it are removed for it to be considered as representing and
+> active job. Although there are some edge cases regarding `max_duration` that seem not to be covered properly (see
+> [actions-runner-controller issue #2466](https://github.com/actions/actions-runner-controller/issues/2466)), they only
+> merit adding a few extra minutes to the timeout.
 
-:::
+### Recommended `max_duration` Duration
 
-### Recommended `webhook_startup_timeout` Duration
+#### Consequences of Too Short of a `max_duration` Duration
 
-#### Consequences of Too Short of a `webhook_startup_timeout` Duration
-
-If you set `webhook_startup_timeout` to too short a duration, the Horizontal Runner Autoscaler will cancel capacity
-reservations for jobs that have not yet finished, and the pool will become too small. This will be most serious if you
-have set `minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
+If you set `max_duration` to too short a duration, the Horizontal Runner Autoscaler will cancel capacity reservations
+for jobs that have not yet finished, and the pool will become too small. This will be most serious if you have set
+`minReplicas = 0` because in this case, jobs will be left in the queue indefinitely. With a higher value of
 `minReplicas`, the pool will eventually make it through all the queued jobs, but not as quickly as intended due to the
 incorrectly reduced capacity.
 
-#### Consequences of Too Long of a `webhook_startup_timeout` Duration
+#### Consequences of Too Long of a `max_duration` Duration
 
 If the Horizontal Runner Autoscaler misses a scale-down event (which can happen because events do not have delivery
-guarantees), a runner may be left running idly for as long as the `webhook_startup_timeout` duration. The only problem
-with this is the added expense of leaving the idle runner running.
+guarantees), a runner may be left running idly for as long as the `max_duration` duration. The only problem with this is
+the added expense of leaving the idle runner running.
 
 #### Recommendation
 
-As a result, we recommend setting `webhook_startup_timeout` to a period long enough to cover:
+As a result, we recommend setting `max_duration` to a period long enough to cover:
 
 - The time it takes for the HRA to scale up the pool and make a new runner available
 - The time it takes for the runner to pick up the job from GitHub
 - The time it takes for the job to start running on the new runner
 - The maximum time a job might take
 
-Because the consequences of expiring a capacity reservation before the job is finished are so severe, we recommend
-setting `webhook_startup_timeout` to a period at least 30 minutes longer than you expect the longest job to take.
-Remember, when everything works properly, the HRA will scale down the pool as jobs finish, so there is little cost to
-setting a long duration, and the cost looks even smaller by comparison to the cost of having too short a duration.
+Because the consequences of expiring a capacity reservation before the job is finished can be severe, we recommend
+setting `max_duration` to a period at least 30 minutes longer than you expect the longest job to take. Remember, when
+everything works properly, the HRA will scale down the pool as jobs finish, so there is little cost to setting a long
+duration, and the cost looks even smaller by comparison to the cost of having too short a duration.
 
-For lightly used runner pools expecting only short jobs, you can set `webhook_startup_timeout` to `"30m"`. As a rule of
-thumb, we recommend setting `maxReplicas` high enough that jobs never wait on the queue more than an hour.
+For lightly used runner pools expecting only short jobs, you can set `max_duration` to `"30m"`. As a rule of thumb, we
+recommend setting `maxReplicas` high enough that jobs never wait on the queue more than an hour.
 
 ### Interaction with Karpenter or other EKS autoscaling solutions
 
@@ -424,7 +450,7 @@ spec:
   template:
     metadata:
       annotations:
-        karpenter.sh/do-not-evict: "true"
+        karpenter.sh/do-not-disrupt: "true"
 ```
 
 When you set this annotation on the Pod, Karpenter will not evict it. This means that the Pod will stay on the Node it
@@ -437,14 +463,14 @@ Since the Runner Pods terminate at the end of the job, this is not a problem for
 However, if you have set `minReplicas > 0`, then you have some Pods that are just idling, waiting for jobs to be
 assigned to them. These Pods are exactly the kind of Pods you want terminated and moved when the cluster is
 underutilized. Therefore, when you set `minReplicas > 0`, you should **NOT** set `karpenter.sh/do-not-evict: "true"` on
-the Pod.
+the Pod via the `pod_annotations` attribute of the `runners` input. (**But wait**, _there is good news_!)
 
 We have [requested a feature](https://github.com/actions/actions-runner-controller/issues/2562) that will allow you to
-set `karpenter.sh/do-not-evict: "true"` and `minReplicas > 0` at the same time by only annotating Pods running jobs.
-Meanwhile, another option is to set `minReplicas = 0` on a schedule using an ARC Autoscaler
-[scheduled override](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides).
-At present, this component does not support that option, but it could be added in the future if our preferred solution
-is not implemented.
+set `karpenter.sh/do-not-disrupt: "true"` and `minReplicas > 0` at the same time by only annotating Pods running jobs.
+Meanwhile, **we have implemented this for you** using a job startup hook. This hook will set annotations on the Pod when
+the job starts. When the job finishes, the Pod will be deleted by the controller, so the annotations will not need to be
+removed. Configure annotations that apply only to Pods running jobs in the `running_pod_annotations` attribute of the
+`runners` input.
 
 ### Updating CRDs
 
@@ -485,8 +511,8 @@ documentation for further details.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.10.0 |
-| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.10.0 |
+| <a name="module_actions_runner"></a> [actions\_runner](#module\_actions\_runner) | cloudposse/helm-release/aws | 0.10.1 |
+| <a name="module_actions_runner_controller"></a> [actions\_runner\_controller](#module\_actions\_runner\_controller) | cloudposse/helm-release/aws | 0.10.1 |
 | <a name="module_eks"></a> [eks](#module\_eks) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../../account-map/modules/iam-roles | n/a |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
@@ -515,6 +541,7 @@ documentation for further details.
 | <a name="input_cleanup_on_fail"></a> [cleanup\_on\_fail](#input\_cleanup\_on\_fail) | Allow deletion of new resources created in this upgrade when upgrade fails. | `bool` | `true` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_context_tags_enabled"></a> [context\_tags\_enabled](#input\_context\_tags\_enabled) | Whether or not to include all context tags as labels for each runner | `bool` | `false` | no |
+| <a name="input_controller_replica_count"></a> [controller\_replica\_count](#input\_controller\_replica\_count) | The number of replicas of the runner-controller to run. | `number` | `2` | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Create the namespace if it does not yet exist. Defaults to `false`. | `bool` | `null` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
@@ -549,7 +576,7 @@ documentation for further details.
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Terraform regular expression (regex) string.<br>Characters matching the regex will be removed from the ID elements.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region. | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | The cpu and memory of the deployment's limits and requests. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: false # A Docker sidecar container will be deployed<br>  image: summerwind/actions-runner # If dind_enabled=true, set this to 'summerwind/actions-runner-dind'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  busy_metrics = {<br>    scale_up_threshold = 0.75<br>    scale_down_threshold = 0.25<br>    scale_up_factor = 2<br>    scale_down_factor = 0.5<br>  }<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type            = string<br>    scope           = string<br>    group           = optional(string, null)<br>    image           = optional(string, "")<br>    dind_enabled    = bool<br>    node_selector   = optional(map(string), {})<br>    pod_annotations = optional(map(string), {})<br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = optional(string, null)<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = number<br>    min_replicas             = number<br>    max_replicas             = number<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = bool<br>    webhook_startup_timeout        = optional(string, null)<br>    pull_driven_scaling_enabled    = bool<br>    labels                         = list(string)<br>    storage                        = optional(string, null)<br>    pvc_enabled                    = optional(bool, false)<br>    resources = object({<br>      limits = object({<br>        cpu               = string<br>        memory            = string<br>        ephemeral_storage = optional(string, null)<br>      })<br>      requests = object({<br>        cpu    = string<br>        memory = string<br>      })<br>    })<br>  }))</pre> | n/a | yes |
+| <a name="input_runners"></a> [runners](#input\_runners) | Map of Action Runner configurations, with the key being the name of the runner. Please note that the name must be in<br>kebab-case.<br><br>For example:<pre>hcl<br>organization_runner = {<br>  type = "organization" # can be either 'organization' or 'repository'<br>  dind_enabled: true # A Docker daemon will be started in the runner Pod<br>  image: summerwind/actions-runner-dind # If dind_enabled=false, set this to 'summerwind/actions-runner'<br>  scope = "ACME"  # org name for Organization runners, repo name for Repository runners<br>  group = "core-automation" # Optional. Assigns the runners to a runner group, for access control.<br>  scale_down_delay_seconds = 300<br>  min_replicas = 1<br>  max_replicas = 5<br>  labels = [<br>    "Ubuntu",<br>    "core-automation",<br>  ]<br>}</pre> | <pre>map(object({<br>    type                = string<br>    scope               = string<br>    group               = optional(string, null)<br>    image               = optional(string, "summerwind/actions-runner-dind")<br>    auto_update_enabled = optional(bool, true)<br>    dind_enabled        = optional(bool, true)<br>    node_selector       = optional(map(string), {})<br>    pod_annotations     = optional(map(string), {})<br><br>    # running_pod_annotations are only applied to the pods once they start running a job<br>    running_pod_annotations = optional(map(string), {})<br><br>    # affinity is too complex to model. Whatever you assigned affinity will be copied<br>    # to the runner Pod spec.<br>    affinity = optional(any)<br><br>    tolerations = optional(list(object({<br>      key      = string<br>      operator = string<br>      value    = optional(string, null)<br>      effect   = string<br>    })), [])<br>    scale_down_delay_seconds = optional(number, 300)<br>    min_replicas             = number<br>    max_replicas             = number<br>    # Scheduled overrides. See https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides<br>    # Order is important. The earlier entry is prioritized higher than later entries. So you usually define<br>    # one-time overrides at the top of your list, then yearly, monthly, weekly, and lastly daily overrides.<br>    scheduled_overrides = optional(list(object({<br>      start_time   = string # ISO 8601 format, eg,  "2021-06-01T00:00:00+09:00"<br>      end_time     = string # ISO 8601 format, eg,  "2021-06-01T00:00:00+09:00"<br>      min_replicas = optional(number)<br>      max_replicas = optional(number)<br>      recurrence_rule = optional(object({<br>        frequency  = string           # One of Daily, Weekly, Monthly, Yearly<br>        until_time = optional(string) # ISO 8601 format time after which the schedule will no longer apply<br>      }))<br>    })), [])<br>    busy_metrics = optional(object({<br>      scale_up_threshold    = string<br>      scale_down_threshold  = string<br>      scale_up_adjustment   = optional(string)<br>      scale_down_adjustment = optional(string)<br>      scale_up_factor       = optional(string)<br>      scale_down_factor     = optional(string)<br>    }))<br>    webhook_driven_scaling_enabled = optional(bool, true)<br>    # max_duration is the duration after which a job will be considered completed,<br>    # even if the webhook has not received a "job completed" event.<br>    # This is to ensure that if an event is missed, it does not leave the runner running forever.<br>    # Set it long enough to cover the longest job you expect to run and then some.<br>    # See https://github.com/actions/actions-runner-controller/blob/9afd93065fa8b1f87296f0dcdf0c2753a0548cb7/docs/automatically-scaling-runners.md?plain=1#L264-L268<br>    # Defaults to 1 hour programmatically (to be able to detect if both max_duration and webhook_startup_timeout are set).<br>    max_duration = optional(string)<br>    # The name `webhook_startup_timeout` was misleading and has been deprecated.<br>    # It has been renamed `max_duration`.<br>    webhook_startup_timeout = optional(string)<br>    # Adjust the time (in seconds) to wait for the Docker in Docker daemon to become responsive.<br>    wait_for_docker_seconds     = optional(string, "")<br>    pull_driven_scaling_enabled = optional(bool, false)<br>    labels                      = optional(list(string), [])<br>    # If not null, `docker_storage` specifies the size (as `go` string) of<br>    # an ephemeral (default storage class) Persistent Volume to allocate for the Docker daemon.<br>    # Takes precedence over `tmpfs_enabled` for the Docker daemon storage.<br>    docker_storage = optional(string, null)<br>    # storage is deprecated in favor of docker_storage, since it is only storage for the Docker daemon<br>    storage = optional(string, null)<br>    # If `pvc_enabled` is true, a Persistent Volume Claim will be created for the runner<br>    # and mounted at /home/runner/work/shared. This is useful for sharing data between runners.<br>    pvc_enabled = optional(bool, false)<br>    # If `tmpfs_enabled` is `true`, both the runner and the docker daemon will use a tmpfs volume,<br>    # meaning that all data will be stored in RAM rather than on disk, bypassing disk I/O limitations,<br>    # but what would have been disk usage is now additional memory usage. You must specify memory<br>    # requests and limits when using tmpfs or else the Pod will likely crash the Node.<br>    tmpfs_enabled = optional(bool)<br>    resources = optional(object({<br>      limits = optional(object({<br>        cpu    = optional(string, "1")<br>        memory = optional(string, "1Gi")<br>        # ephemeral-storage is the Kubernetes name, but `ephemeral_storage` is the gomplate name,<br>        # so allow either. If both are specified, `ephemeral-storage` takes precedence.<br>        ephemeral-storage = optional(string)<br>        ephemeral_storage = optional(string, "10Gi")<br>      }), {})<br>      requests = optional(object({<br>        cpu    = optional(string, "500m")<br>        memory = optional(string, "256Mi")<br>        # ephemeral-storage is the Kubernetes name, but `ephemeral_storage` is the gomplate name,<br>        # so allow either. If both are specified, `ephemeral-storage` takes precedence.<br>        ephemeral-storage = optional(string)<br>        ephemeral_storage = optional(string, "1Gi")<br>      }), {})<br>    }), {})<br>  }))</pre> | n/a | yes |
 | <a name="input_s3_bucket_arns"></a> [s3\_bucket\_arns](#input\_s3\_bucket\_arns) | List of ARNs of S3 Buckets to which the runners will have read-write access to. | `list(string)` | `[]` | no |
 | <a name="input_ssm_docker_config_json_path"></a> [ssm\_docker\_config\_json\_path](#input\_ssm\_docker\_config\_json\_path) | SSM path to the Docker config JSON | `string` | `null` | no |
 | <a name="input_ssm_github_secret_path"></a> [ssm\_github\_secret\_path](#input\_ssm\_github\_secret\_path) | The path in SSM to the GitHub app private key file contents or GitHub PAT token. | `string` | `""` | no |
@@ -559,7 +586,7 @@ documentation for further details.
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | Time in seconds to wait for any individual kubernetes operation (like Jobs for hooks). Defaults to `300` seconds | `number` | `null` | no |
 | <a name="input_wait"></a> [wait](#input\_wait) | Will wait until all resources are in a ready state before marking the release as successful. It will wait for as long as `timeout`. Defaults to `true`. | `bool` | `null` | no |
-| <a name="input_webhook"></a> [webhook](#input\_webhook) | Configuration for the GitHub Webhook Server.<br>`hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"<br>Typically something like `"echo.%[3]v.%[2]v.example.com"`.<br>`queue_limit` is the maximum number of webhook events that can be queued up processing by the autoscaler.<br>When the queue gets full, webhook events will be dropped (status 500). | <pre>object({<br>    enabled           = bool<br>    hostname_template = string<br>    queue_limit       = optional(number, 100)<br>  })</pre> | <pre>{<br>  "enabled": false,<br>  "hostname_template": null,<br>  "queue_limit": 100<br>}</pre> | no |
+| <a name="input_webhook"></a> [webhook](#input\_webhook) | Configuration for the GitHub Webhook Server.<br>`hostname_template` is the `format()` string to use to generate the hostname via `format(var.hostname_template, var.tenant, var.stage, var.environment)`"<br>Typically something like `"echo.%[3]v.%[2]v.example.com"`.<br>`queue_limit` is the maximum number of webhook events that can be queued up for processing by the autoscaler.<br>When the queue gets full, webhook events will be dropped (status 500). | <pre>object({<br>    enabled           = bool<br>    hostname_template = string<br>    queue_limit       = optional(number, 1000)<br>  })</pre> | <pre>{<br>  "enabled": false,<br>  "hostname_template": null,<br>  "queue_limit": 1000<br>}</pre> | no |
 
 ## Outputs
 

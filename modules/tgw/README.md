@@ -1,4 +1,11 @@
-# Transit Gateway: `tgw`
+---
+tags:
+  - component/tgw
+  - layer/network
+  - provider/aws
+---
+
+# Component: `tgw`
 
 AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub.
 This connection simplifies your network and puts an end to complex peering relationships. Transit Gateway acts as a
@@ -367,7 +374,7 @@ component.
 :::info Pro Tip!
 
 [Atmos Workflows](https://atmos.tools/core-concepts/workflows/) make applying and destroying Transit Gateway much
-easier! For example, to destroy components in the correct order, use a workflow similiar to the following:
+easier! For example, to destroy components in the correct order, use a workflow similar to the following:
 
 ```yaml
 # stacks/workflows/network.yaml
