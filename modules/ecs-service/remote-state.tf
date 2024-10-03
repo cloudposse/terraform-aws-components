@@ -141,7 +141,6 @@ data "jq_query" "service_domain_query" {
 }
 
 module "datadog_configuration" {
-  count   = var.datadog_agent_sidecar_enabled ? 1 : 0
   source  = "../datadog-configuration/modules/datadog_keys"
   enabled = true
   context = module.this.context
