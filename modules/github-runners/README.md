@@ -254,6 +254,62 @@ and skip the rest. Otherwise, complete the private key setup in `core-<default-r
 chamber write github token <value>
 ```
 
+## Using in conjunction with ECR
+
+You'll notice that `ecr-login` is no longer configured with this component. That's because there are two main ways to configure ECR access for your runners:
+- Store the credentials with Docker
+- Get the credentials from the AWS SDK
+
+There is [a long standing issue](https://github.com/awslabs/amazon-ecr-credential-helper/issues/181) with `amazon-ecr-credential-helper`
+which prevents it from being configured to use `credential_source = Environment`. As such, using the AWS SDK for storage
+leans on either:
+- giving the instance an IAM role with ECR access
+- assuming a role with ECR access
+  - Can be done with the action [aws-actions/configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials) which uses env variables.
+  - Can be configured with the `awscli` via `$HOME/.aws/config` and `$HOME/.aws/credentials`
+
+When issue 181 gets resolved, we should be able to have one configuration/user-data that supports almost all methods.
+Until then, since [amazon-ecr-credential-helper does not support storage](https://github.com/awslabs/amazon-ecr-credential-helper/pull/315)
+`Add` and `Delete`, we've opted to best support the [aws-actions/amazon-ecr-login](https://github.com/aws-actions/amazon-ecr-login),
+which can be easily configured to use the AWS SDK or base Docker credential storage.
+
+The following is a quick example of a docker-build workflow that uses both the `configure-aws-credentials` action and the `amazon-ecr-login` action.
+
+```yaml
+name: Build and Push Docker Image
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials for ECR
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.GHA_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ steps.ecr.outputs.registry }}/user/app:latest
+```
+
+We've found that this basic example can work with OIDC roles, instance roles, and cross-account roles
+without having to reconfigure the github-runners.
+
+
 # FAQ
 
 ## The GitHub Registration Token is not updated in SSM
@@ -306,7 +362,7 @@ permissions:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9.0 |
 | <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | >= 2.2 |
 
@@ -322,7 +378,7 @@ permissions:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_map"></a> [account\_map](#module\_account\_map) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
-| <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.35.1 |
+| <a name="module_autoscale_group"></a> [autoscale\_group](#module\_autoscale\_group) | cloudposse/ec2-autoscale-group/aws | 0.36.0 |
 | <a name="module_graceful_scale_in"></a> [graceful\_scale\_in](#module\_graceful\_scale\_in) | ./modules/graceful_scale_in | n/a |
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
 | <a name="module_sg"></a> [sg](#module\_sg) | cloudposse/security-group/aws | 1.0.1 |
@@ -351,7 +407,7 @@ permissions:
 | <a name="input_account_map_stage_name"></a> [account\_map\_stage\_name](#input\_account\_map\_stage\_name) | The name of the stage where `account_map` is provisioned | `string` | `"root"` | no |
 | <a name="input_account_map_tenant_name"></a> [account\_map\_tenant\_name](#input\_account\_map\_tenant\_name) | The name of the tenant where `account_map` is provisioned.<br><br>If the `tenant` label is not used, leave this as `null`. | `string` | `null` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.<br>This is for some rare cases where resources want additional configuration of tags<br>and therefore take a list of maps with tag key, value, and additional configuration. | `map(string)` | `{}` | no |
-| <a name="input_ami_filter"></a> [ami\_filter](#input\_ami\_filter) | Map of lists used to look up the AMI which will be used for the GitHub Actions Runner. | `map(list(string))` | <pre>{<br>  "name": [<br>    "amzn2-ami-hvm-2.*-x86_64-ebs"<br>  ]<br>}</pre> | no |
+| <a name="input_ami_filter"></a> [ami\_filter](#input\_ami\_filter) | Map of lists used to look up the AMI which will be used for the GitHub Actions Runner. | `map(list(string))` | <pre>{<br>  "name": [<br>    "al2023-ami-2023.*-x86_64"<br>  ],<br>  "root-device-type": [<br>    "ebs"<br>  ],<br>  "virtualization-type": [<br>    "hvm"<br>  ]<br>}</pre> | no |
 | <a name="input_ami_owners"></a> [ami\_owners](#input\_ami\_owners) | The list of owners used to select the AMI of action runner instances. | `list(string)` | <pre>[<br>  "amazon"<br>]</pre> | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_block_device_mappings"></a> [block\_device\_mappings](#input\_block\_device\_mappings) | Specify volumes to attach to the instance besides the volumes specified by the AMI | <pre>list(object({<br>    device_name  = string<br>    no_device    = bool<br>    virtual_name = string<br>    ebs = object({<br>      delete_on_termination = bool<br>      encrypted             = bool<br>      iops                  = number<br>      kms_key_id            = string<br>      snapshot_id           = string<br>      volume_size           = number<br>      volume_type           = string<br>    })<br>  }))</pre> | `[]` | no |
@@ -370,11 +426,13 @@ permissions:
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_github_scope"></a> [github\_scope](#input\_github\_scope) | Scope of the runner (e.g. `cloudposse/example` for repo or `cloudposse` for org) | `string` | n/a | yes |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
+| <a name="input_instance_refresh"></a> [instance\_refresh](#input\_instance\_refresh) | The instance refresh definition. If this block is configured, an Instance Refresh will be started when the Auto Scaling Group is updated | <pre>object({<br>    strategy = string<br>    preferences = object({<br>      instance_warmup              = optional(number, null)<br>      min_healthy_percentage       = optional(number, null)<br>      skip_matching                = optional(bool, null)<br>      auto_rollback                = optional(bool, null)<br>      scale_in_protected_instances = optional(string, null)<br>      standby_instances            = optional(string, null)<br>    })<br>    triggers = optional(list(string))<br>  })</pre> | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Default instance type for the action runner. | `string` | `"m5.large"` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
 | <a name="input_label_value_case"></a> [label\_value\_case](#input\_label\_value\_case) | Controls the letter case of ID elements (labels) as included in `id`,<br>set as tag values, and output by this module individually.<br>Does not affect values of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper` and `none` (no transformation).<br>Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.<br>Default value: `lower`. | `string` | `null` | no |
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
+| <a name="input_launch_template_version"></a> [launch\_template\_version](#input\_launch\_template\_version) | Launch template version to use for workers. Note: This interacts strangely with `instance_refresh`. [See docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#triggers) | `string` | `"$Latest"` | no |
 | <a name="input_max_instance_lifetime"></a> [max\_instance\_lifetime](#input\_max\_instance\_lifetime) | The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds | `number` | `null` | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | The maximum size of the autoscale group | `number` | n/a | yes |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | The minimum size of the autoscale group | `number` | n/a | yes |
