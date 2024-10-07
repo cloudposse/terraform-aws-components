@@ -157,6 +157,12 @@ variable "vulnerability_alerts_enabled" {
   default     = false
 }
 
+variable "restrict_pushes_blocks_creations" {
+  type        = bool
+  description = "Setting this to `false` allows people, teams, or apps to create new branches matching this rule"
+  default     = true
+}
+
 variable "slack_notifications_channel" {
   type        = string
   default     = ""
@@ -184,4 +190,10 @@ variable "github_notifications" {
 
     The default value given uses the same notification template names as defined in the `eks/argocd` component. If want to add additional notifications, include any existing notifications from this list that you want to keep in addition.
   EOT
+}
+
+variable "web_commit_signoff_required" {
+  type        = bool
+  description = "Require contributors to sign off on web-based commits"
+  default     = false
 }
