@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## 1.512.0
+
+
+
+<details>
+  <summary>Upstream `RunsOn` @Benbentwo (#1141)</summary>
+## what
+
+- RunsOn Component and how to setup TGW Connnections
+
+## why
+
+ - RunsOn simplifies the Github Action Runner setup
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.511.0` @github-actions (#1140)</summary>
+Update Changelog for [`1.511.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.511.0)
+</details>
+
+
+
 ## 1.511.0
 
 
