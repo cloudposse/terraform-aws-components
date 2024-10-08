@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 1.514.0
+
+
+
+<details>
+  <summary>upstream fixes for site-to-site-vpn @Benbentwo (#1147)</summary>
+## what
+
+ - Couple issues remained
+   - `null` variable (when set to `nullable=false`)
+   - misnamed module
+## why
+
+ - Bugfixes
+
+## references
+
+#1144 
+</details>
+
+
+
 ## 1.511.0
 
 
