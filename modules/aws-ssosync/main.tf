@@ -47,7 +47,7 @@ resource "null_resource" "extract_my_tgz" {
   count = local.enabled ? 1 : 0
 
   provisioner "local-exec" {
-    command = "tar -xzf ${module.ssosync_artifact.file} -C dist"
+    command = "tar -xzf ${path.module}/${local.download_artifact} -C dist"
   }
 
   depends_on = [module.ssosync_artifact]
