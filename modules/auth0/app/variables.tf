@@ -9,6 +9,12 @@ variable "callbacks" {
   default     = []
 }
 
+variable "cross_origin_auth" {
+  type        = bool
+  description = "Whether this client can be used to make cross-origin authentication requests (true) or it is not allowed to make such requests (false)."
+  default     = false
+}
+
 variable "allowed_origins" {
   type        = list(string)
   description = "Allowed Origins"
