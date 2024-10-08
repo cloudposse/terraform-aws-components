@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 1.513.0
+
+
+
+<details>
+  <summary>update `site-to-site-vpn` module version @Benbentwo (#1144)</summary>
+## what
+
+Bumps VPN Module version to `1.3.1`
+
+## why
+
+Includes a bugfix for when TGW is enabled.
+
+## references
+
+ - https://github.com/cloudposse/terraform-aws-vpn-connection/pull/51
+</details>
+
+
+
 ## 1.511.0
 
 
