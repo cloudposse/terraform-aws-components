@@ -47,7 +47,7 @@ resource "null_resource" "extract_my_tgz" {
   count = local.enabled ? 1 : 0
 
   provisioner "local-exec" {
-    command = "tar -xzf ${path.module}/${local.download_artifact} -C dist"
+    command = "tar -xzf ${path.module}/${local.download_artifact} -C ${path.module}/dist"
   }
 
   depends_on = [module.ssosync_artifact]
@@ -57,7 +57,7 @@ data "archive_file" "lambda" {
   count = local.enabled ? 1 : 0
 
   type        = "zip"
-  source_file = "dist/ssosync"
+  source_file = "${path.module}/dist/ssosync"
   output_path = "ssosync.zip"
 
   depends_on = [null_resource.extract_my_tgz]
