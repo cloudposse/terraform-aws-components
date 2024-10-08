@@ -17,7 +17,7 @@ locals {
 
 module "site_to_site_vpn" {
   source  = "cloudposse/vpn-connection/aws"
-  version = "1.3.0"
+  version = "1.3.1"
 
   vpc_id                                              = local.vpc_outputs.vpc_id
   vpn_gateway_amazon_side_asn                         = var.vpn_gateway_amazon_side_asn
