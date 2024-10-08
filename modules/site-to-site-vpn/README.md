@@ -136,9 +136,9 @@ atmos terraform apply site-to-site-vpn -s <stack>
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_iam_roles"></a> [iam\_roles](#module\_iam\_roles) | ../account-map/modules/iam-roles | n/a |
-| <a name="module_site_to_site_vpn"></a> [site\_to\_site\_vpn](#module\_site\_to\_site\_vpn) | cloudposse/vpn-connection/aws | 1.3.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | cloudposse/stack-config/yaml//modules/remote-state | 1.5.0 |
+| <a name="module_vpn_connection"></a> [vpn\_connection](#module\_vpn\_connection) | cloudposse/vpn-connection/aws | 1.3.1 |
 
 ## Resources
 

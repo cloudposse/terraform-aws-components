@@ -15,7 +15,7 @@ locals {
   ) : null
 }
 
-module "site_to_site_vpn" {
+module "vpn_connection" {
   source  = "cloudposse/vpn-connection/aws"
   version = "1.3.1"
 

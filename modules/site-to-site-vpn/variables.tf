@@ -27,7 +27,6 @@ variable "vpn_gateway_amazon_side_asn" {
   type        = number
   description = "The Autonomous System Number (ASN) for the Amazon side of the VPN Gateway. If you don't specify an ASN, the Virtual Private Gateway is created with the default ASN"
   default     = null
-  nullable    = false
 }
 
 variable "vpn_connection_static_routes_only" {
