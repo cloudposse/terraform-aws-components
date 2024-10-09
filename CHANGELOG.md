@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## 1.516.0
+
+
+
+## 🚀 Enhancements
+
+<details>
+  <summary>feat: Configurable origin request policies for `spa-s3-cloudfront` @korenyoni (#1151)</summary>
+## what
+
+* Allow origin request policies to be configured (backwards compatible).
+
+## why
+
+* Origin request behaviors should not be hardcoded to `none`.
+
+## references
+
+N/A
+
+</details>
+
+
+
 ## 1.511.0
 
 
