@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## 1.517.0
+
+
+
+<details>
+  <summary>feat: add additional github repository options for argocd @RoseSecurity (#1143)</summary>
+## what
+
+- Add additional granular controls for ArgoCD repositories by supporting commit signing requirements and branch protection rules
+
+## why
+
+- Add more flexibility and security into the existing Argo repo
+
+## testing
+
+- [X] This contribution is actively deployed within our downstream component library
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.512.0` @github-actions (#1142)</summary>
+Update Changelog for [`1.512.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.512.0)
+</details>
+
+
+
 ## 1.512.0
 
 
