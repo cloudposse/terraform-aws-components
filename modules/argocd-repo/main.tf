@@ -51,6 +51,8 @@ resource "github_repository" "default" {
 
   visibility           = "private"
   vulnerability_alerts = var.vulnerability_alerts_enabled
+
+  web_commit_signoff_required = var.web_commit_signoff_required
 }
 
 resource "github_branch_default" "default" {
@@ -87,6 +89,7 @@ resource "github_branch_protection" "default" {
   }
 
   restrict_pushes {
+    blocks_creations = var.restrict_pushes_blocks_creations
     push_allowances = var.push_restrictions_enabled ? [
       join("", data.github_user.automation_user[*].node_id),
     ] : []

@@ -447,6 +447,16 @@ variable "ordered_cache" {
       event_type   = string
       function_arn = string
     }))
+
+    origin_request_policy = optional(object({
+      cookie_behavior       = optional(string, "none")
+      header_behavior       = optional(string, "none")
+      query_string_behavior = optional(string, "none")
+
+      cookies       = optional(list(string), [])
+      headers       = optional(list(string), [])
+      query_strings = optional(list(string), [])
+    }), {})
   }))
   default     = []
   description = <<-EOT
