@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## 1.517.1
+
+
+
+<details>
+  <summary>feat: Add cross_origin_auth variable to auth0_client @wavemoran (#1149)</summary>
+## what
+
+- Adds the `cross_origin_auth` variable to the `auth0_client` resource
+
+## why
+
+- Variable to allow cross-origin auth requests which is useful in CORS-heavy setups
+
+## references
+
+- https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/client#cross_origin_auth
+
+</details>
+
+
+## 🤖 Automatic Updates
+
+<details>
+  <summary>Update Changelog for `1.517.0` @github-actions (#1153)</summary>
+Update Changelog for [`1.517.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.517.0)
+</details>
+
+
+
 ## 1.517.0
 
 
