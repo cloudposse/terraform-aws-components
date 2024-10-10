@@ -1,6 +1,7 @@
 ---
 tags:
-  - component/cloudformation-stack
+  - component/runs-on
+  - layer/github
   - provider/aws
 ---
 
