@@ -149,6 +149,7 @@ module "subnets" {
   igw_id                          = var.public_subnets_enabled ? [module.vpc.igw_id] : []
   map_public_ip_on_launch         = var.map_public_ip_on_launch
   max_subnet_count                = local.max_subnet_count
+  max_nats                        = var.max_nats
   nat_gateway_enabled             = var.nat_gateway_enabled
   nat_instance_enabled            = var.nat_instance_enabled
   nat_instance_type               = var.nat_instance_type
