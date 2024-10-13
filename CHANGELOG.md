@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 1.520.0
+
+
+
+<details>
+  <summary>[vpc] Add `max_nats` configuration @Nuru (#1158)</summary>
+## what
+
+- [vpc] Add `max_nats` configuration
+
+## why
+
+- Allow budget-conscious users (e.g. test environments) to use fewer NAT gateways
+
+</details>
+
+
+
 ## 1.517.1
 
 
