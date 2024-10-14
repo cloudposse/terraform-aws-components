@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_ssm_parameter" "tunnel1_preshared_key" {
-  count = local.ssm_enabled && local.preshared_key_enabled ? 0 : 1
+  count = local.ssm_enabled && local.preshared_key_enabled ? 1 : 0
 
   name        = format("%s/%s", var.ssm_path_prefix, "tunnel1_preshared_key")
   value       = local.tunnel1_preshared_key
@@ -14,7 +14,7 @@ resource "aws_ssm_parameter" "tunnel1_preshared_key" {
 }
 
 resource "aws_ssm_parameter" "tunnel2_preshared_key" {
-  count = local.ssm_enabled && local.preshared_key_enabled ? 0 : 1
+  count = local.ssm_enabled && local.preshared_key_enabled ? 1 : 0
 
   name        = format("%s/%s", var.ssm_path_prefix, "tunnel2_preshared_key")
   value       = local.tunnel2_preshared_key
