@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 1.519.0
+
+
+
+<details>
+  <summary>fix: Frontmatter for `run-ons` @milldr (#1156)</summary>
+## what
+- Update frontmatter in runs-on module
+
+## why
+- Correct tags
+
+## references
+- https://github.com/cloudposse/docs/actions/runs/11278466395/job/31366989761
+</details>
+
+<details>
+  <summary>Update Changelog for `1.517.1` @github-actions (#1154)</summary>
+Update Changelog for [`1.517.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.517.1)
+</details>
+
+
+
 ## 1.517.1
 
 
