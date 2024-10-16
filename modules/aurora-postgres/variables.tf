@@ -354,7 +354,7 @@ variable "backup_window" {
 }
 
 variable "ssm_cluster_name_override" {
-  type    = bool
-  default = false
-  description = "If set to true, we don't set cluster name into ssm parameter store name"
+  type        = string
+  default     = ""
+  description = "Set a cluster name to in the ssm path prefix"
 }
