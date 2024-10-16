@@ -14,7 +14,7 @@ depends on the `datadog-configuration` component to get the Datadog API keys.
 
 ## Usage
 
-**Stack Level**: Global
+**Stack Level**: Regional
 
 Here's an example snippet for how to use this component:
 
@@ -49,6 +49,32 @@ components:
           transfer-sftp:
             name: "/aws/transfer/s-xxxxxxxxxxxx"
             filter_pattern: ""
+```
+
+Note for other regions, you need to deploy the `datadog-configuration` component in the respective region - the datadog
+configuration will be moving to a regional implementation.
+
+For example if you usually deploy to us-west-2 (and DD Configuration is `gbl`), deploy it to the new region and then
+deploy the lambda forwarder.
+
+```yaml
+import:
+  - orgs/acme/plat/dev/_defaults
+  - mixins/region/us-east-1
+  - catalog/datadog/configuration
+  - catalog/datadog/lambda-forwarder
+
+components:
+  terraform:
+    datadog-configuration:
+      vars:
+        datadog_secrets_store_type: SSM
+        datadog_secrets_source_store_account_stage: auto
+        datadog_secrets_source_store_account_region: "us-west-2"
+
+    datadog-lambda-forwarder:
+      vars:
+        datadog_configuration_environment: "use1"
 ```
 
 <!-- prettier-ignore-start -->
