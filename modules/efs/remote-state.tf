@@ -23,7 +23,7 @@ module "gbl_dns_delegated" {
   version = "1.5.0"
 
   component   = "dns-delegated"
-  environment = "gbl"
+  environment = var.dns_gbl_delegated_environment_name
 
   context = module.this.context
 }

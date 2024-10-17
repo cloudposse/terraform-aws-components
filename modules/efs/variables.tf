@@ -59,3 +59,9 @@ variable "additional_security_group_rules" {
     To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule .
     EOT
 }
+
+variable "dns_gbl_delegated_environment_name" {
+  type        = string
+  description = "The name of the environment where global `dns_delegated` is provisioned"
+  default     = "gbl"
+}
