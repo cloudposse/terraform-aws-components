@@ -104,3 +104,9 @@ variable "eks_component_names" {
   description = "The names of the eks components"
   default     = []
 }
+
+variable "dns_gbl_delegated_environment_name" {
+  type        = string
+  description = "The name of the environment where global `dns_delegated` is provisioned"
+  default     = "gbl"
+}
