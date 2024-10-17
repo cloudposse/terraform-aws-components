@@ -72,8 +72,6 @@ vars:
         - runs-on
 ```
 
-<details><summary>Click to show full stack configuration</summary>
-
 ```yaml
 components:
 terraform:
