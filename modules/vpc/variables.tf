@@ -104,6 +104,16 @@ variable "public_subnets_enabled" {
   default     = true
 }
 
+variable "max_nats" {
+  type        = number
+  description = <<-EOT
+    Upper limit on number of NAT Gateways/Instances to create.
+    Set to 1 or 2 for cost savings at the expense of availability.
+    Default creates a NAT Gateway in each public subnet.
+    EOT
+  default     = null
+}
+
 variable "nat_gateway_enabled" {
   type        = bool
   description = "Flag to enable/disable NAT gateways"
