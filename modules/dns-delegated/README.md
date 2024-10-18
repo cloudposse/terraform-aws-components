@@ -15,7 +15,7 @@ This component also provisions a wildcard ACM certificate for the given subdomai
 
 ## Usage
 
-**Stack Level**: Global or Regional
+**Stack Level**: Global
 
 Here's an example snippet for how to use this component. Use this component in global or regional stacks for any
 accounts where you host services that need DNS records on a given subdomain (e.g. delegated zone) of the root domain
