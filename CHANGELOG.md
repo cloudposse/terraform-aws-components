@@ -1,5 +1,49 @@
 # CHANGELOG
 
+## 1.521.0
+
+
+
+<details>
+  <summary>[eks/spacelift-worker-pool], [eks/spacelift-worker-pool-controller] Initial commit @Nuru (#1168)</summary>
+## what
+
+- [eks/spacelift-worker-pool] Initial commit
+- [eks/spacelift-worker-pool-controller] Initial commit
+
+## why
+
+- Support deployment of the [Kubernetes Operator](https://docs.spacelift.io/concepts/worker-pools/kubernetes-workers) for [Spacelift Worker Pools](https://docs.spacelift.io/concepts/worker-pools#kubernetes) to an EKS cluster
+
+
+</details>
+
+<details>
+  <summary>[dns-delegated] Fix README.md to remove suggestion of deploying regionally @Nuru (#1167)</summary>
+## what
+
+- Remove suggestion from README that it can be deployed regionally
+- Add details and references about using `dns-delegated` and `dns-primary`
+
+## why
+
+- Old information was wrong and lacking in detail, causing confusion
+</details>
+
+<details>
+  <summary>fix: Runs-On README @milldr (#1166)</summary>
+## what
+- Remove unclosed / unused summary
+
+## why
+- This is breaking the cloudposse/docs release pipelines
+
+## references
+- https://github.com/cloudposse/docs/actions/runs/11380845724
+</details>
+
+
+
 ## 1.517.1
 
 
