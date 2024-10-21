@@ -30,6 +30,10 @@ more information.
 
 **Stack Level**: Global
 
+> [!WARNING] This is subject to change from a **Global** to a **Regional** stack level. This is because we need the keys
+> in each region where we deploy datadog resources - so that we don't need to configure extra AWS Providers (which would
+> need to be dynamic - which we cannot do). This is a limitation of Terraform.
+
 This component should be deployed to every account where you want to provision datadog resources. This is usually every
 account except `root` and `identity`
 
