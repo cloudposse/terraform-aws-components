@@ -14,12 +14,12 @@ variable "create_parameter_group" {
 variable "engine" {
   type        = string
   default     = "redis"
-  description = "Name of the cache engine"
+  description = "Name of the cache engine to use: either `redis` or `valkey`"
 }
 
 variable "engine_version" {
   type        = string
-  description = "Redis Version"
+  description = "Version of the cache engine to use"
   default     = "6.0.5"
 }
 
