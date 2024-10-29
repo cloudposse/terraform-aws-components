@@ -10,7 +10,7 @@ locals {
 
 module "redis" {
   source  = "cloudposse/elasticache-redis/aws"
-  version = "1.4.1"
+  version = "1.7.0"
 
   name = var.cluster_name
 
@@ -29,6 +29,7 @@ module "redis" {
   cluster_mode_replicas_per_node_group = var.replicas_per_shard
   cluster_size                         = var.num_replicas
   dns_subdomain                        = var.dns_subdomain
+  engine                               = var.engine
   engine_version                       = var.engine_version
   family                               = var.cluster_attributes.family
   instance_type                        = var.instance_type
