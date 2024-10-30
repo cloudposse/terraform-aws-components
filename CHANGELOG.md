@@ -1,5 +1,59 @@
 # CHANGELOG
 
+## 1.522.0
+
+
+
+## 🚀 Enhancements
+
+<details>
+  <summary>feat(elasticache-redis): add engine input for valkey support @nitrocode (#1170)</summary>
+## what
+
+<!--
+- Describe high-level what changed as a result of these commits (i.e. in plain-english, what do these changes mean?)
+- Use bullet points to be concise and to the point.
+-->
+- add engine input for valkey support
+
+## why
+
+<!--
+- Provide the justifications for the changes (e.g. business case).
+- Describe why these changes were made (e.g. why do these commits fix the problem?)
+- Use bullet points to be concise and to the point.
+-->
+- Valkey is far cheaper than redis
+
+<details><summary>Notes</summary>
+
+- Design options
+    1. Add a new key to `local.cluster_attributes` and add a variable to the component, default it to `redis`, and pass as an argument to the module as-is
+        - We could shy away from the pattern to using `engine = var.engine` in the `local`.
+    1. Allow `var.redis_clusters` to supply `engine` with a default for `redis` and pass to module as-is
+    1. Same as option 2 but allow `local.cluster_attributes` to overwrite it
+        - This might be best of both worlds however no other argument does this so it would be breaking the pattern
+- Went with option 2 so the argument isn't a new requirement for everyone and it doesn't break consistency
+
+</details>
+
+## references
+
+<!--
+- Link to any supporting github issues or helpful documentation to add some context (e.g. stackoverflow).
+- Use `closes #123`, if this PR closes a GitHub issue `#123`
+-->
+- https://github.com/cloudposse/terraform-aws-elasticache-redis/releases/tag/v1.7.0
+- https://aws.amazon.com/blogs/opensource/why-aws-supports-valkey/
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_replication_group#engine
+- https://github.com/hashicorp/terraform-provider-aws/issues/39641
+- https://github.com/hashicorp/terraform-provider-aws/releases/tag/v5.73.0
+- https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Clusters.Create.html
+- https://www.lastweekinaws.com/blog/aws-valkey-play-when-a-fork-becomes-a-price-cut/
+</details>
+
+
+
 ## 1.517.1
 
 
