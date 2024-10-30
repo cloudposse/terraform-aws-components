@@ -69,6 +69,9 @@ components:
                 value: lK
 ```
 
+The `engine` can either be `redis` or `valkey`. For more information, see
+[why aws supports valkey](https://aws.amazon.com/blogs/opensource/why-aws-supports-valkey/).
+
 <!-- prettier-ignore-start -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
