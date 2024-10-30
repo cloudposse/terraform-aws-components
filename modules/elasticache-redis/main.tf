@@ -69,6 +69,7 @@ module "redis_clusters" {
   num_replicas           = lookup(each.value, "num_replicas", 1)
   num_shards             = lookup(each.value, "num_shards", 0)
   replicas_per_shard     = lookup(each.value, "replicas_per_shard", 0)
+  engine                 = lookup(each.value, "engine", "redis")
   engine_version         = each.value.engine_version
   create_parameter_group = lookup(each.value, "create_parameter_group", true)
   parameters             = lookup(each.value, "parameters", null)
