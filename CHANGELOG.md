@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 1.523.0
+
+
+
+<details>
+  <summary>feat: Support `enabled` flag for EKS Storage Classes @milldr (#1173)</summary>
+## what
+- Add support for enabled flag in storage class variables
+
+## why
+- Create option to disable a given storage-class if it's include in an imported default component catalog
+
+## references
+- n/a
+</details>
+
+
+
 ## 1.517.1
 
 
