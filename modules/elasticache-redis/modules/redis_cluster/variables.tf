@@ -11,9 +11,15 @@ variable "create_parameter_group" {
   description = "Whether new parameter group should be created. Set to false if you want to use existing parameter group"
 }
 
+variable "engine" {
+  type        = string
+  default     = "redis"
+  description = "Name of the cache engine to use: either `redis` or `valkey`"
+}
+
 variable "engine_version" {
   type        = string
-  description = "Redis Version"
+  description = "Version of the cache engine to use"
   default     = "6.0.5"
 }
 
