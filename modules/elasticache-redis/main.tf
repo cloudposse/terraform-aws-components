@@ -52,6 +52,7 @@ locals {
     auto_minor_version_upgrade       = var.auto_minor_version_upgrade
     cloudwatch_metric_alarms_enabled = var.cloudwatch_metric_alarms_enabled
     auth_token_enabled               = var.auth_token_enabled
+    snapshot_retention_limit         = var.snapshot_retention_limit
   }
 
   clusters = module.redis_clusters

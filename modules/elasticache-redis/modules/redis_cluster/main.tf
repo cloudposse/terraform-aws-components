@@ -39,6 +39,7 @@ module "redis" {
   port                                 = var.cluster_attributes.port
   subnets                              = var.cluster_attributes.subnets
   transit_encryption_enabled           = var.cluster_attributes.transit_encryption_enabled
+  snapshot_retention_limit             = var.cluster_attributes.snapshot_retention_limit
   vpc_id                               = var.cluster_attributes.vpc_id
   zone_id                              = var.cluster_attributes.zone_id
 

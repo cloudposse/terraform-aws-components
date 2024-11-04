@@ -68,6 +68,7 @@ variable "cluster_attributes" {
     automatic_failover_enabled      = bool
     auto_minor_version_upgrade      = bool
     auth_token_enabled              = bool
+    snapshot_retention_limit        = number
   })
   description = "Cluster attributes"
 }
