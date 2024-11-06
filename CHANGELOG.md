@@ -1,5 +1,57 @@
 # CHANGELOG
 
+## 1.526.0
+
+
+
+<details>
+  <summary>feat(kms): updates with embedded policy creation - part2 @Gowiem (#1136)</summary>
+## what
+
+* Updates the KMS module to support embedded policy creation
+
+
+## why
+
+* This allows for easy wiring in of aws-team-role roles into the KMS policy, so we do something like "Admins in the dev account have access to use this Key"
+
+## references
+
+* This is a continuation of PR #523 which I could not continue as I no longer have access to push to Cloud Posse except as a fork 😢 
+  * @nitrocode did a great review with some solid suggestions in #523. I have completed my work from that review as part of this newer PR. 
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.524.0` @github-actions (#1179)</summary>
+Update Changelog for [`1.524.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.524.0)
+</details>
+
+
+
+## 1.524.0
+
+
+
+<details>
+  <summary>Announce code freeze @goruha (#1178)</summary>
+## what
+* Announce code freeze on readme
+
+## why
+* Readme is more informative than issue (while issue will be emailed)
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/issues/1177
+</details>
+
+<details>
+  <summary>Update Changelog for `1.523.1` @github-actions (#1176)</summary>
+Update Changelog for [`1.523.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.523.1)
+</details>
+
+
+
 ## 1.523.1
 
 
