@@ -20,11 +20,12 @@ resource "auth0_client" "this" {
     alg                 = var.jwt_alg
   }
 
-  callbacks       = var.callbacks
-  allowed_origins = var.allowed_origins
-  web_origins     = var.web_origins
-  grant_types     = var.grant_types
-  logo_uri        = var.logo_uri
+  callbacks         = var.callbacks
+  cross_origin_auth = var.cross_origin_auth
+  allowed_origins   = var.allowed_origins
+  web_origins       = var.web_origins
+  grant_types       = var.grant_types
+  logo_uri          = var.logo_uri
 
 }
 

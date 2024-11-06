@@ -29,13 +29,31 @@ resource "aws_cloudfront_origin_request_policy" "created_origin_request_policies
   comment = var.comment
   name    = each.value.origin_request_policy_name
   cookies_config {
-    cookie_behavior = "none"
+    cookie_behavior = each.value.origin_request_policy.cookie_behavior
+    dynamic "cookies" {
+      for_each = length(each.value.origin_request_policy.cookies) > 0 ? [each.value.origin_request_policy.cookies] : []
+      content {
+        items = cookies.value
+      }
+    }
   }
   headers_config {
-    header_behavior = "none"
+    header_behavior = each.value.origin_request_policy.header_behavior
+    dynamic "headers" {
+      for_each = length(each.value.origin_request_policy.headers) > 0 ? [each.value.origin_request_policy.headers] : []
+      content {
+        items = headers.value
+      }
+    }
   }
   query_strings_config {
-    query_string_behavior = "none"
+    query_string_behavior = each.value.origin_request_policy.query_string_behavior
+    dynamic "query_strings" {
+      for_each = length(each.value.origin_request_policy.query_strings) > 0 ? [each.value.origin_request_policy.query_strings] : []
+      content {
+        items = query_strings.value
+      }
+    }
   }
 }
 
