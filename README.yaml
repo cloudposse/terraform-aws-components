@@ -67,7 +67,7 @@ description: |-
   > [!WARNING]  
   > ## Upcoming Migration of Components to a New GitHub Organization (CODE FREEZE 11/12 - 11/17)
   > We’re excited to announce that starting on November 12, 2024, we will begin migrating each component in the 
-  > cloudposse/terraform-aws-components repository to individual repositories under a new GitHub organization. 
+  > this repository to individual repositories under a new GitHub organization. 
   > This change aims to improve the stability, maintainability, and usability of our components.
   >  
   > [Read more about the migration](https://github.com/cloudposse/terraform-aws-components/issues/1177)
