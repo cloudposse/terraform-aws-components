@@ -265,3 +265,9 @@ variable "datadog_forwarder_lambda_environment_variables" {
   default     = {}
   description = "Map of environment variables to pass to the Lambda Function"
 }
+
+variable "datadog_configuration_environment" {
+  type        = string
+  description = "AWS region where the Datadog configuration is deployed, useful for multi region setups, null uses default (gbl)"
+  default     = null
+}
