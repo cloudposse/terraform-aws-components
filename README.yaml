@@ -64,6 +64,14 @@ related:
 
 # Short description of this project
 description: |-
+  > [!WARNING]  
+  > ## Upcoming Migration of Components to a New GitHub Organization (CODE FREEZE 11/12 - 11/17)
+  > We’re excited to announce that starting on November 12, 2024, we will begin migrating each component in the 
+  > this repository to individual repositories under a new GitHub organization. 
+  > This change aims to improve the stability, maintainability, and usability of our components.
+  >  
+  > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
+
   This is a collection of reusable [AWS Terraform components](https://atmos.tools/core-concepts/components/) for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
   They work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
 
