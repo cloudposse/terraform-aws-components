@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 1.524.0
+
+
+
+<details>
+  <summary>Announce code freeze @goruha (#1178)</summary>
+## what
+* Announce code freeze on readme
+
+## why
+* Readme is more informative than issue (while issue will be emailed)
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/issues/1177
+</details>
+
+<details>
+  <summary>Update Changelog for `1.523.1` @github-actions (#1176)</summary>
+Update Changelog for [`1.523.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.523.1)
+</details>
+
+
+
 ## 1.523.1
 
 
