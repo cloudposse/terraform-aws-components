@@ -1,5 +1,51 @@
 # CHANGELOG
 
+## 1.527.0
+
+
+
+<details>
+  <summary>update dd lambda to allow specifying region for configuration component @Benbentwo (#1163)</summary>
+## what
+
+- allows datadog-lambda forwarder to specify a global region override for environment
+
+## why
+
+ - since we cannot do dynamic providers we should make `datadog_configuration` be regional
+
+Example Stack configuration
+```yaml
+import:
+  - orgs/acme/plat/dev/_defaults
+  - mixins/region/us-east-1
+  - catalog/datadog/configuration
+  - catalog/datadog/lambda-forwarder
+
+components:
+  terraform:
+    datadog-configuration:
+      vars:
+        datadog_secrets_store_type: SSM
+        datadog_secrets_source_store_account_stage: auto
+        datadog_secrets_source_store_account_region: "us-west-2"
+
+    datadog-lambda-forwarder:
+      vars:
+        datadog_configuration_environment: "use1"
+
+```
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.526.0` @github-actions (#1181)</summary>
+Update Changelog for [`1.526.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.526.0)
+</details>
+
+
+
 ## 1.526.0
 
 
