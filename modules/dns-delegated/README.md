@@ -7,17 +7,34 @@ tags:
 
 # Component: `dns-delegated`
 
-This component is responsible for provisioning a DNS zone which delegates nameservers to the DNS zone in the primary DNS
+This component is responsible for provisioning a DNS zone which manages subdomains delegated from a DNS zone in the primary DNS
 account. The primary DNS zone is expected to already be provisioned via
 [the `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary).
 
+If you are deploying a root zone (e.g `example.com`) rather than a subdomain delegated from a root zone (e.g `prod.example.com`),
+and only a single account needs to manage or update the zone you are deploying, then you should use `dns-primary` instead to deploy 
+that root zone into the target account. See 
+[Why not use dns-delegated for all vanity domains?](https://docs.cloudposse.com/layers/network/faq/#why-not-use-dns-delegated-for-all-vanity-domains)
+for more details on that.
+
 This component also provisions a wildcard ACM certificate for the given subdomain.
+
+This component should only be deployed globally, which is to say once per account. See 
+[Why should the dns-delegated component be deployed globally rather than regionally?](https://docs.cloudposse.com/layers/network/faq/#why-should-the-dns-delegated-component-be-deployed-globally-rather-than-regionally)
+for details on why. 
+
+Note that once you delegate a subdomain (e.g. `prod.example.com`) to an account, that 
+account can deploy multiple levels of sub-subdomains (e.g. `api.use1.prod.example.com`) without further configuration,
+although you will need to create additional TLS certificates, as the wildcard in a wildcard TLS certificate
+only matches a single level. You can use [our `acm` component](https://github.com/cloudposse/terraform-aws-components/tree/readme-global-only/modules/acm)
+for that.
 
 ## Usage
 
-**Stack Level**: Global or Regional
+**Stack Level**: Global
 
-Here's an example snippet for how to use this component. Use this component in global or regional stacks for any
+
+Here's an example snippet for how to use this component. Use this component in global stacks for any
 accounts where you host services that need DNS records on a given subdomain (e.g. delegated zone) of the root domain
 (e.g. primary zone).
 
@@ -243,5 +260,10 @@ Takeaway
 
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-delegated) -
   Cloud Posse's upstream component
+- [The `dns-primary` component](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/dns-primary).
+- [The `acm` component](https://github.com/cloudposse/terraform-aws-components/tree/readme-global-only/modules/acm)
+component for that.
+- [Why not use dns-delegated for all vanity domains?](https://docs.cloudposse.com/layers/network/faq/#why-not-use-dns-delegated-for-all-vanity-domains)
+- [Why should the dns-delegated component be deployed globally rather than regionally?](https://docs.cloudposse.com/layers/network/faq/#why-should-the-dns-delegated-component-be-deployed-globally-rather-than-regionally)
 
 [<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)

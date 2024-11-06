@@ -1,8 +1,14 @@
 locals {
   enabled = module.this.enabled
 
-  efs_components = local.enabled ? toset([for k, v in var.efs_storage_classes : v.efs_component_name]) : []
+  efs_storage_classes = {
+    for k, v in var.efs_storage_classes : k => v if v.enabled
+  }
+  efs_components = local.enabled ? toset([for k, v in local.efs_storage_classes : v.efs_component_name]) : []
 
+  ebs_storage_classes = {
+    for k, v in var.ebs_storage_classes : k => v if v.enabled
+  }
   # In order to use `optional()`, the variable must be an object, but
   # object keys must be valid identifiers and cannot be like "csi.storage.k8s.io/fstype"
   # See https://github.com/hashicorp/terraform/issues/22681
@@ -24,7 +30,7 @@ locals {
 }
 
 resource "kubernetes_storage_class_v1" "ebs" {
-  for_each = local.enabled ? var.ebs_storage_classes : {}
+  for_each = local.enabled ? local.ebs_storage_classes : {}
 
   metadata {
     name = each.key
@@ -69,7 +75,7 @@ resource "kubernetes_storage_class_v1" "ebs" {
 }
 
 resource "kubernetes_storage_class_v1" "efs" {
-  for_each = local.enabled ? var.efs_storage_classes : {}
+  for_each = local.enabled ? local.efs_storage_classes : {}
 
   metadata {
     name = each.key
