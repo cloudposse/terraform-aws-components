@@ -12,6 +12,7 @@ variable "eks_component_name" {
 
 variable "ebs_storage_classes" {
   type = map(object({
+    enabled                    = optional(bool, true)
     make_default_storage_class = optional(bool, false)
     include_tags               = optional(bool, true) # If true, StorageClass will set our tags on created EBS volumes
     labels                     = optional(map(string), null)
@@ -57,6 +58,7 @@ variable "ebs_storage_classes" {
 
 variable "efs_storage_classes" {
   type = map(object({
+    enabled                    = optional(bool, true)
     make_default_storage_class = optional(bool, false)
     labels                     = optional(map(string), null)
     efs_component_name         = optional(string, "eks/efs")

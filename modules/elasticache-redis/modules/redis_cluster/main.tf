@@ -10,7 +10,7 @@ locals {
 
 module "redis" {
   source  = "cloudposse/elasticache-redis/aws"
-  version = "1.4.1"
+  version = "1.7.0"
 
   name = var.cluster_name
 
@@ -29,6 +29,7 @@ module "redis" {
   cluster_mode_replicas_per_node_group = var.replicas_per_shard
   cluster_size                         = var.num_replicas
   dns_subdomain                        = var.dns_subdomain
+  engine                               = var.engine
   engine_version                       = var.engine_version
   family                               = var.cluster_attributes.family
   instance_type                        = var.instance_type
@@ -38,6 +39,7 @@ module "redis" {
   port                                 = var.cluster_attributes.port
   subnets                              = var.cluster_attributes.subnets
   transit_encryption_enabled           = var.cluster_attributes.transit_encryption_enabled
+  snapshot_retention_limit             = var.cluster_attributes.snapshot_retention_limit
   vpc_id                               = var.cluster_attributes.vpc_id
   zone_id                              = var.cluster_attributes.zone_id
 

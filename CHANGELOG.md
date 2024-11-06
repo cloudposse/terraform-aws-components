@@ -1,5 +1,97 @@
 # CHANGELOG
 
+## 1.523.1
+
+
+
+<details>
+  <summary>feat(elasticache-redis): add snapshot retention limit @nitrocode (#1171)</summary>
+## what
+
+<!--
+- Describe high-level what changed as a result of these commits (i.e. in plain-english, what do these changes mean?)
+- Use bullet points to be concise and to the point.
+-->
+- add snapshot retention limit
+
+## why
+
+<!--
+- Provide the justifications for the changes (e.g. business case).
+- Describe why these changes were made (e.g. why do these commits fix the problem?)
+- Use bullet points to be concise and to the point.
+-->
+- Resolves [ElastiCache.1](https://docs.aws.amazon.com/securityhub/latest/userguide/elasticache-controls.html#elasticache-1) (ElastiCache (Redis OSS) clusters should have automatic backups enabled) securityhub control by giving the ability to set this value to a number greater than 0
+
+## references
+
+<!--
+- Link to any supporting github issues or helpful documentation to add some context (e.g. stackoverflow).
+- Use `closes #123`, if this PR closes a GitHub issue `#123`
+-->
+- Default is 0 https://github.com/cloudposse/terraform-aws-elasticache-redis/blob/9104d9a6a120ae9c90f59c5eb4ea711cc2d2c6bb/variables.tf#L223-L227
+- Module received the feature 5 years ago so no need to update the module version https://github.com/cloudposse/terraform-aws-elasticache-redis/pull/45
+- Related PR #1170 which upgrades the module
+</details>
+
+
+## 🤖 Automatic Updates
+
+<details>
+  <summary>Update Changelog for `1.523.0` @github-actions (#1174)</summary>
+Update Changelog for [`1.523.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.523.0)
+</details>
+
+
+
+## 1.523.0
+
+
+
+<details>
+  <summary>feat: Support `enabled` flag for EKS Storage Classes @milldr (#1173)</summary>
+## what
+- Add support for enabled flag in storage class variables
+
+## why
+- Create option to disable a given storage-class if it's include in an imported default component catalog
+
+## references
+- n/a
+</details>
+
+
+
+## 1.517.1
+
+
+
+<details>
+  <summary>feat: Add cross_origin_auth variable to auth0_client @wavemoran (#1149)</summary>
+## what
+
+- Adds the `cross_origin_auth` variable to the `auth0_client` resource
+
+## why
+
+- Variable to allow cross-origin auth requests which is useful in CORS-heavy setups
+
+## references
+
+- https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/client#cross_origin_auth
+
+</details>
+
+
+## 🤖 Automatic Updates
+
+<details>
+  <summary>Update Changelog for `1.517.0` @github-actions (#1153)</summary>
+Update Changelog for [`1.517.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.517.0)
+</details>
+
+
+
 ## 1.517.0
 
 

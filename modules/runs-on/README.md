@@ -1,6 +1,7 @@
 ---
 tags:
-  - component/cloudformation-stack
+  - component/runs-on
+  - layer/github
   - provider/aws
 ---
 
@@ -70,8 +71,6 @@ vars:
         - vpc
         - runs-on
 ```
-
-<details><summary>Click to show full stack configuration</summary>
 
 ```yaml
 components:
