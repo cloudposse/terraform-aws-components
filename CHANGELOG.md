@@ -1,5 +1,80 @@
 # CHANGELOG
 
+## 1.527.0
+
+
+
+<details>
+  <summary>update dd lambda to allow specifying region for configuration component @Benbentwo (#1163)</summary>
+## what
+
+- allows datadog-lambda forwarder to specify a global region override for environment
+
+## why
+
+ - since we cannot do dynamic providers we should make `datadog_configuration` be regional
+
+Example Stack configuration
+```yaml
+import:
+  - orgs/acme/plat/dev/_defaults
+  - mixins/region/us-east-1
+  - catalog/datadog/configuration
+  - catalog/datadog/lambda-forwarder
+
+components:
+  terraform:
+    datadog-configuration:
+      vars:
+        datadog_secrets_store_type: SSM
+        datadog_secrets_source_store_account_stage: auto
+        datadog_secrets_source_store_account_region: "us-west-2"
+
+    datadog-lambda-forwarder:
+      vars:
+        datadog_configuration_environment: "use1"
+
+```
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.526.0` @github-actions (#1181)</summary>
+Update Changelog for [`1.526.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.526.0)
+</details>
+
+
+
+## 1.526.0
+
+
+
+<details>
+  <summary>feat(kms): updates with embedded policy creation - part2 @Gowiem (#1136)</summary>
+## what
+
+* Updates the KMS module to support embedded policy creation
+
+
+## why
+
+* This allows for easy wiring in of aws-team-role roles into the KMS policy, so we do something like "Admins in the dev account have access to use this Key"
+
+## references
+
+* This is a continuation of PR #523 which I could not continue as I no longer have access to push to Cloud Posse except as a fork 😢 
+  * @nitrocode did a great review with some solid suggestions in #523. I have completed my work from that review as part of this newer PR. 
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.524.0` @github-actions (#1179)</summary>
+Update Changelog for [`1.524.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.524.0)
+</details>
+
+
+
 ## 1.524.0
 
 

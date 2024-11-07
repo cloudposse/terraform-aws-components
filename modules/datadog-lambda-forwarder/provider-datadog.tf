@@ -1,7 +1,8 @@
 module "datadog_configuration" {
-  source  = "../datadog-configuration/modules/datadog_keys"
-  enabled = true
-  context = module.this.context
+  source                  = "../datadog-configuration/modules/datadog_keys"
+  enabled                 = true
+  context                 = module.this.context
+  global_environment_name = var.datadog_configuration_environment
 }
 
 provider "datadog" {
