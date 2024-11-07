@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 1.528.0
+
+
+
+<details>
+  <summary>Allow removal of cluster name from aurora ssm parameter @darrenl33 (#1162)</summary>
+## what
+
+- ssm parameter is prefixed with the cluster name, adding an cluster_name_override to not set
+- allows prefix to follow naming convention for other parameters by only using ssm_path_prefix
+</details>
+
+<details>
+  <summary>Update Changelog for `1.527.0` @github-actions (#1182)</summary>
+Update Changelog for [`1.527.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.527.0)
+</details>
+
+
+
 ## 1.527.0
 
 

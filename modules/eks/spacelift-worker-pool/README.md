@@ -41,7 +41,7 @@ components:
       # aws_config_file is the path in the Docker container to the AWS_CONFIG_FILE.
       # "/etc/aws-config/aws-config-spacelift" is the usual path in the "infrastructure" image.
       aws_config_file: "/etc/aws-config/aws-config-spacelift"
-      spacelift_api_endpoint: "https://1898andco.app.spacelift.io"
+      spacelift_api_endpoint: "https://yourcompany.app.spacelift.io"
       eks_component_name: "eks/cluster"
       worker_pool_size: 40
       kubernetes_namespace: "spacelift-worker-pool"
