@@ -1,5 +1,5 @@
 locals {
-  ssm_path_prefix = format("/%s/%s", var.ssm_path_prefix, module.cluster.id)
+  ssm_path_prefix = length(var.ssm_cluster_name_override) > 0  ? format("/%s/%s", var.ssm_path_prefix, var.ssm_cluster_name_override) : format("/%s/%s", var.ssm_path_prefix, module.cluster.id)
 
   admin_user_key     = format("%s/%s/%s", local.ssm_path_prefix, "admin", "user")
   admin_password_key = format("%s/%s/%s", local.ssm_path_prefix, "admin", "password")

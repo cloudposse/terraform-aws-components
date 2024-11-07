@@ -352,3 +352,9 @@ variable "backup_window" {
   default     = "07:00-09:00"
   description = "Daily time range during which the backups happen, UTC"
 }
+
+variable "ssm_cluster_name_override" {
+  type        = string
+  default     = ""
+  description = "Set a cluster name into the ssm path prefix"
+}
