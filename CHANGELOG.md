@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 1.531.0
+
+
+
+<details>
+  <summary>Enable mergify @goruha (#1188)</summary>
+## what
+* Enable mergify
+
+## why
+* Support code freeze mergify rules
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/issues/1177
+</details>
+
+<details>
+  <summary>Update Changelog for `1.530.0` @github-actions (#1186)</summary>
+Update Changelog for [`1.530.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.530.0)
+</details>
+
+
+
 ## 1.530.0
 
 
