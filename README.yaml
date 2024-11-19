@@ -72,7 +72,7 @@ description: |-
   >  
   > 
   > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
-
+  >
   > | Component                                | New repository                                                                                                       |
   > |------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
   > | access-analyzer                          | [cloudposse-terraform-components/aws-access-analyzer](https://github.com/cloudposse-terraform-components/aws-access-analyzer)                          |
@@ -158,6 +158,8 @@ description: |-
   > | eks/redis-operator                       | [cloudposse-terraform-components/aws-eks-redis-operator](https://github.com/cloudposse-terraform-components/aws-eks-redis-operator)                       |
   > | eks/reloader                             | [cloudposse-terraform-components/aws-eks-reloader](https://github.com/cloudposse-terraform-components/aws-eks-reloader)                             |
   > | eks/storage-class                        | [cloudposse-terraform-components/aws-eks-storage-class](https://github.com/cloudposse-terraform-components/aws-eks-storage-class)                        |
+  > | eks/spacelift-worker-pool-controller     | [cloudposse-terraform-components/aws-eks-spacelift-worker-pool-controller](https://github.com/cloudposse-terraform-components/aws-eks-spacelift-worker-pool-controller)     |
+  > | eks/spacelift-worker-pool                | [cloudposse-terraform-components/aws-eks-spacelift-worker-pool](https://github.com/cloudposse-terraform-components/aws-eks-spacelift-worker-pool)                |
   > | eks/tailscale                            | [cloudposse-terraform-components/aws-eks-tailscale](https://github.com/cloudposse-terraform-components/aws-eks-tailscale)                            |
   > | elasticache-redis                        | [cloudposse-terraform-components/aws-elasticache-redis](https://github.com/cloudposse-terraform-components/aws-elasticache-redis)                        |
   > | elasticsearch                            | [cloudposse-terraform-components/aws-elasticsearch](https://github.com/cloudposse-terraform-components/aws-elasticsearch)                            |
@@ -218,8 +220,6 @@ description: |-
   > | spacelift/admin-stack                     | [cloudposse-terraform-components/aws-spacelift-admin-stack](https://github.com/cloudposse-terraform-components/aws-spacelift-admin-stack)                     |
   > | spacelift/spaces                          | [cloudposse-terraform-components/aws-spacelift-spaces](https://github.com/cloudposse-terraform-components/aws-spacelift-spaces)                          |
   > | spacelift/worker-pool                    | [cloudposse-terraform-components/aws-spacelift-worker-pool-asg](https://github.com/cloudposse-terraform-components/aws-spacelift-worker-pool-asg)                    |
-  > | eks/spacelift-worker-pool-controller     | [cloudposse-terraform-components/aws-eks-spacelift-worker-pool-controller](https://github.com/cloudposse-terraform-components/aws-eks-spacelift-worker-pool-controller)     |
-  > | eks/spacelift-worker-pool                | [cloudposse-terraform-components/aws-eks-spacelift-worker-pool](https://github.com/cloudposse-terraform-components/aws-eks-spacelift-worker-pool)                |
   > | sqs-queue                                 | [cloudposse-terraform-components/aws-sqs-queue](https://github.com/cloudposse-terraform-components/aws-sqs-queue)                                 |
   > | ssm-parameters                           | [cloudposse-terraform-components/aws-ssm-parameters](https://github.com/cloudposse-terraform-components/aws-ssm-parameters)                           |
   > | sso-saml-provider                        | [cloudposse-terraform-components/aws-sso-saml-provider](https://github.com/cloudposse-terraform-components/aws-sso-saml-provider)                        |
