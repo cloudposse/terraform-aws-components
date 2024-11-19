@@ -27,12 +27,175 @@
 
 -->
 
-> [!WARNING]  
-> ## Migration of Components to a New GitHub Organization (CODE FREEZE 11/12 - 11/17)
-> We are in the process of migrating each component in this repository to individual repositories under a new GitHub organization.
-> This change aims to improve the stability, maintainability, and usability of our components.  
->  
-> [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
+  > [!WARNING]
+  > ## Migration Complete: Repository Is Now Read-Only
+  > We’re excited to announce that the migration of components to individual repositories under the new GitHub organization is now complete! 🎉
+  > As part of this process, this repository has been set to read-only mode. All future updates, contributions, and issues should be directed 
+  > to the respective component repositories in the new organization.
+  >  
+  > 
+  > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
+
+  > | Component                                | New repository                                                                                                       |
+  > |------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+  > | access-analyzer                          | [cloudposse-terraform-components/aws-access-analyzer](https://github.com/cloudposse-terraform-components/aws-access-analyzer)                          |
+  > | account                                  | [cloudposse-terraform-components/aws-account](https://github.com/cloudposse-terraform-components/aws-account)                                  |
+  > | account-map                              | [cloudposse-terraform-components/aws-account-map](https://github.com/cloudposse-terraform-components/aws-account-map)                              |
+  > | account-quotas                           | [cloudposse-terraform-components/aws-account-quotas](https://github.com/cloudposse-terraform-components/aws-account-quotas)                           |
+  > | account-settings                         | [cloudposse-terraform-components/aws-account-settings](https://github.com/cloudposse-terraform-components/aws-account-settings)                         |
+  > | acm                                      | [cloudposse-terraform-components/aws-acm](https://github.com/cloudposse-terraform-components/aws-acm)                                      |
+  > | alb                                      | [cloudposse-terraform-components/aws-alb](https://github.com/cloudposse-terraform-components/aws-alb)                                      |
+  > | amplify                                  | [cloudposse-terraform-components/aws-amplify](https://github.com/cloudposse-terraform-components/aws-amplify)                                  |
+  > | api-gateway-account-settings             | [cloudposse-terraform-components/aws-api-gateway-account-settings](https://github.com/cloudposse-terraform-components/aws-api-gateway-account-settings)             |
+  > | api-gateway-rest-api                     | [cloudposse-terraform-components/aws-api-gateway-rest-api](https://github.com/cloudposse-terraform-components/aws-api-gateway-rest-api)                     |
+  > | athena                                   | [cloudposse-terraform-components/aws-athena](https://github.com/cloudposse-terraform-components/aws-athena)                                   |
+  > | aurora-mysql                             | [cloudposse-terraform-components/aws-aurora-mysql](https://github.com/cloudposse-terraform-components/aws-aurora-mysql)                             |
+  > | aurora-mysql-resources                   | [cloudposse-terraform-components/aws-aurora-mysql-resources](https://github.com/cloudposse-terraform-components/aws-aurora-mysql-resources)                   |
+  > | aurora-postgres                          | [cloudposse-terraform-components/aws-aurora-postgres](https://github.com/cloudposse-terraform-components/aws-aurora-postgres)                          |
+  > | aurora-postgres-resources                | [cloudposse-terraform-components/aws-aurora-postgres-resources](https://github.com/cloudposse-terraform-components/aws-aurora-postgres-resources)                |
+  > | auth0/app                                | [cloudposse-terraform-components/aws-auth0-app](https://github.com/cloudposse-terraform-components/aws-auth0-app)                                |
+  > | auth0/connection                         | [cloudposse-terraform-components/aws-auth0-connection](https://github.com/cloudposse-terraform-components/aws-auth0-connection)                         |
+  > | auth0/tenant                             | [cloudposse-terraform-components/aws-auth0-tenant](https://github.com/cloudposse-terraform-components/aws-auth0-tenant)                             |
+  > | aws-backup                               | [cloudposse-terraform-components/aws-backup](https://github.com/cloudposse-terraform-components/aws-backup)                               |
+  > | aws-config                               | [cloudposse-terraform-components/aws-config](https://github.com/cloudposse-terraform-components/aws-config)                               |
+  > | aws-inspector                            | [cloudposse-terraform-components/aws-inspector](https://github.com/cloudposse-terraform-components/aws-inspector)                            |
+  > | aws-inspector2                           | [cloudposse-terraform-components/aws-inspector2](https://github.com/cloudposse-terraform-components/aws-inspector2)                           |
+  > | aws-saml                                 | [cloudposse-terraform-components/aws-saml](https://github.com/cloudposse-terraform-components/aws-saml)                                 |
+  > | aws-shield                               | [cloudposse-terraform-components/aws-shield](https://github.com/cloudposse-terraform-components/aws-shield)                               |
+  > | aws-sso                                  | [cloudposse-terraform-components/aws-identity-center](https://github.com/cloudposse-terraform-components/aws-identity-center)                                  |
+  > | aws-ssosync                              | [cloudposse-terraform-components/aws-ssosync](https://github.com/cloudposse-terraform-components/aws-ssosync)                              |
+  > | aws-teams                                | [cloudposse-terraform-components/aws-teams](https://github.com/cloudposse-terraform-components/aws-teams)                                |
+  > | aws-team-roles                           | [cloudposse-terraform-components/aws-team-roles](https://github.com/cloudposse-terraform-components/aws-team-roles)                           |
+  > | bastion                                  | [cloudposse-terraform-components/aws-bastion](https://github.com/cloudposse-terraform-components/aws-bastion)                                  |
+  > | cloudmap-namespace                       | [cloudposse-terraform-components/aws-cloudmap-namespace](https://github.com/cloudposse-terraform-components/aws-cloudmap-namespace)                       |
+  > | cloudtrail                               | [cloudposse-terraform-components/aws-cloudtrail](https://github.com/cloudposse-terraform-components/aws-cloudtrail)                               |
+  > | cloudtrail-bucket                        | [cloudposse-terraform-components/aws-cloudtrail-bucket](https://github.com/cloudposse-terraform-components/aws-cloudtrail-bucket)                        |
+  > | cloudwatch-logs                          | [cloudposse-terraform-components/aws-cloudwatch-logs](https://github.com/cloudposse-terraform-components/aws-cloudwatch-logs)                          |
+  > | cognito                                  | [cloudposse-terraform-components/aws-cognito](https://github.com/cloudposse-terraform-components/aws-cognito)                                  |
+  > | config-bucket                            | [cloudposse-terraform-components/aws-config-bucket](https://github.com/cloudposse-terraform-components/aws-config-bucket)                            |
+  > | datadog-configuration                    | [cloudposse-terraform-components/aws-datadog-credentials](https://github.com/cloudposse-terraform-components/aws-datadog-credentials)                    |
+  > | datadog-integration                       | [cloudposse-terraform-components/aws-datadog-integration](https://github.com/cloudposse-terraform-components/aws-datadog-integration)                       |
+  > | datadog-lambda-forwarder                 | [cloudposse-terraform-components/aws-datadog-lambda-forwarder](https://github.com/cloudposse-terraform-components/aws-datadog-lambda-forwarder)                 |
+  > | datadog-logs-archive                     | [cloudposse-terraform-components/aws-datadog-logs-archive](https://github.com/cloudposse-terraform-components/aws-datadog-logs-archive)                     |
+  > | datadog-monitor                          | [cloudposse-terraform-components/aws-datadog-monitor](https://github.com/cloudposse-terraform-components/aws-datadog-monitor)                          |
+  > | datadog-private-location-ecs             | [cloudposse-terraform-components/aws-datadog-private-location-ecs](https://github.com/cloudposse-terraform-components/aws-datadog-private-location-ecs)             |
+  > | datadog-synthetics                       | [cloudposse-terraform-components/aws-datadog-synthetics](https://github.com/cloudposse-terraform-components/aws-datadog-synthetics)                       |
+  > | datadog-synthetics-private-location      | [cloudposse-terraform-components/aws-datadog-synthetics-private-location](https://github.com/cloudposse-terraform-components/aws-datadog-synthetics-private-location)      |
+  > | dms/endpoint                             | [cloudposse-terraform-components/aws-dms-endpoint](https://github.com/cloudposse-terraform-components/aws-dms-endpoint)                             |
+  > | dms/iam                                  | [cloudposse-terraform-components/aws-dms-iam](https://github.com/cloudposse-terraform-components/aws-dms-iam)                                  |
+  > | dms/replication-instance                 | [cloudposse-terraform-components/aws-dms-replication-instance](https://github.com/cloudposse-terraform-components/aws-dms-replication-instance)                 |
+  > | dms/replication-task                     | [cloudposse-terraform-components/aws-dms-replication-task](https://github.com/cloudposse-terraform-components/aws-dms-replication-task)                     |
+  > | dns-delegated                            | [cloudposse-terraform-components/aws-dns-delegated](https://github.com/cloudposse-terraform-components/aws-dns-delegated)                            |
+  > | dns-primary                              | [cloudposse-terraform-components/aws-dns-primary](https://github.com/cloudposse-terraform-components/aws-dns-primary)                              |
+  > | documentdb                               | [cloudposse-terraform-components/aws-documentdb](https://github.com/cloudposse-terraform-components/aws-documentdb)                               |
+  > | dynamodb                                 | [cloudposse-terraform-components/aws-dynamodb](https://github.com/cloudposse-terraform-components/aws-dynamodb)                                 |
+  > | ec2-client-vpn                           | [cloudposse-terraform-components/aws-ec2-client-vpn](https://github.com/cloudposse-terraform-components/aws-ec2-client-vpn)                           |
+  > | ec2-instance                             | [cloudposse-terraform-components/aws-ec2-instance](https://github.com/cloudposse-terraform-components/aws-ec2-instance)                             |
+  > | ecr                                      | [cloudposse-terraform-components/aws-ecr](https://github.com/cloudposse-terraform-components/aws-ecr)                                      |
+  > | ecs                                      | [cloudposse-terraform-components/aws-ecs](https://github.com/cloudposse-terraform-components/aws-ecs)                                      |
+  > | ecs-service                               | [cloudposse-terraform-components/aws-ecs-service](https://github.com/cloudposse-terraform-components/aws-ecs-service)                               |
+  > | efs                                      | [cloudposse-terraform-components/aws-efs](https://github.com/cloudposse-terraform-components/aws-efs)                                      |
+  > | eks/actions-runner-controller            | [cloudposse-terraform-components/aws-eks-actions-runner-controller](https://github.com/cloudposse-terraform-components/aws-eks-actions-runner-controller)            |
+  > | eks/alb-controller                       | [cloudposse-terraform-components/aws-eks-alb-controller](https://github.com/cloudposse-terraform-components/aws-eks-alb-controller)                       |
+  > | eks/alb-controller-ingress-class         | [cloudposse-terraform-components/aws-eks-alb-controller-ingress-class](https://github.com/cloudposse-terraform-components/aws-eks-alb-controller-ingress-class)         |
+  > | eks/alb-controller-ingress-group         | [cloudposse-terraform-components/aws-eks-alb-controller-ingress-group](https://github.com/cloudposse-terraform-components/aws-eks-alb-controller-ingress-group)         |
+  > | argocd-repo                              | [cloudposse-terraform-components/aws-argocd-github-repo](https://github.com/cloudposse-terraform-components/aws-argocd-github-repo)                              |
+  > | eks/argocd                               | [cloudposse-terraform-components/aws-eks-argocd](https://github.com/cloudposse-terraform-components/aws-eks-argocd)                               |
+  > | eks/aws-node-termination-handler         | [cloudposse-terraform-components/aws-eks-node-termination-handler](https://github.com/cloudposse-terraform-components/aws-eks-node-termination-handler)         |
+  > | eks/cert-manager                         | [cloudposse-terraform-components/aws-eks-cert-manager](https://github.com/cloudposse-terraform-components/aws-eks-cert-manager)                         |
+  > | eks/cluster                              | [cloudposse-terraform-components/aws-eks-cluster](https://github.com/cloudposse-terraform-components/aws-eks-cluster)                              |
+  > | eks/datadog-agent                        | [cloudposse-terraform-components/aws-eks-datadog-agent](https://github.com/cloudposse-terraform-components/aws-eks-datadog-agent)                        |
+  > | eks/echo-server                          | [cloudposse-terraform-components/aws-eks-echo-server](https://github.com/cloudposse-terraform-components/aws-eks-echo-server)                          |
+  > | eks/external-dns                         | [cloudposse-terraform-components/aws-eks-external-dns](https://github.com/cloudposse-terraform-components/aws-eks-external-dns)                         |
+  > | eks/external-secrets-operator            | [cloudposse-terraform-components/aws-eks-external-secrets-operator](https://github.com/cloudposse-terraform-components/aws-eks-external-secrets-operator)            |
+  > | eks/github-actions-runner                | [cloudposse-terraform-components/aws-eks-github-actions-runner](https://github.com/cloudposse-terraform-components/aws-eks-github-actions-runner)                |
+  > | eks/idp-roles                            | [cloudposse-terraform-components/aws-eks-idp-roles](https://github.com/cloudposse-terraform-components/aws-eks-idp-roles)                            |
+  > | eks/karpenter                            | [cloudposse-terraform-components/aws-eks-karpenter-controller](https://github.com/cloudposse-terraform-components/aws-eks-karpenter-controller)                            |
+  > | eks/karpenter-node-pool                  | [cloudposse-terraform-components/aws-eks-karpenter-node-pool](https://github.com/cloudposse-terraform-components/aws-eks-karpenter-node-pool)                  |
+  > | eks/keda                                 | [cloudposse-terraform-components/aws-eks-keda](https://github.com/cloudposse-terraform-components/aws-eks-keda)                                 |
+  > | eks/loki                                 | [cloudposse-terraform-components/aws-eks-loki](https://github.com/cloudposse-terraform-components/aws-eks-loki)                                 |
+  > | eks/metrics-server                       | [cloudposse-terraform-components/aws-eks-metrics-server](https://github.com/cloudposse-terraform-components/aws-eks-metrics-server)                       |
+  > | eks/prometheus-scraper                   | [cloudposse-terraform-components/aws-eks-prometheus-scraper](https://github.com/cloudposse-terraform-components/aws-eks-prometheus-scraper)                   |
+  > | eks/promtail                             | [cloudposse-terraform-components/aws-eks-promtail](https://github.com/cloudposse-terraform-components/aws-eks-promtail)                             |
+  > | eks/redis                                | [cloudposse-terraform-components/aws-eks-redis](https://github.com/cloudposse-terraform-components/aws-eks-redis)                                |
+  > | eks/redis-operator                       | [cloudposse-terraform-components/aws-eks-redis-operator](https://github.com/cloudposse-terraform-components/aws-eks-redis-operator)                       |
+  > | eks/reloader                             | [cloudposse-terraform-components/aws-eks-reloader](https://github.com/cloudposse-terraform-components/aws-eks-reloader)                             |
+  > | eks/storage-class                        | [cloudposse-terraform-components/aws-eks-storage-class](https://github.com/cloudposse-terraform-components/aws-eks-storage-class)                        |
+  > | eks/tailscale                            | [cloudposse-terraform-components/aws-eks-tailscale](https://github.com/cloudposse-terraform-components/aws-eks-tailscale)                            |
+  > | elasticache-redis                        | [cloudposse-terraform-components/aws-elasticache-redis](https://github.com/cloudposse-terraform-components/aws-elasticache-redis)                        |
+  > | elasticsearch                            | [cloudposse-terraform-components/aws-elasticsearch](https://github.com/cloudposse-terraform-components/aws-elasticsearch)                            |
+  > | eventbridge                              | [cloudposse-terraform-components/aws-eventbridge](https://github.com/cloudposse-terraform-components/aws-eventbridge)                              |
+  > | github-action-token-rotator              | [cloudposse-terraform-components/aws-github-action-token-rotator](https://github.com/cloudposse-terraform-components/aws-github-action-token-rotator)              |
+  > | github-oidc-provider                     | [cloudposse-terraform-components/aws-github-oidc-provider](https://github.com/cloudposse-terraform-components/aws-github-oidc-provider)                     |
+  > | github-oidc-role                         | [cloudposse-terraform-components/aws-github-oidc-role](https://github.com/cloudposse-terraform-components/aws-github-oidc-role)                         |
+  > | github-runners                           | [cloudposse-terraform-components/aws-github-runners](https://github.com/cloudposse-terraform-components/aws-github-runners)                           |
+  > | github-webhook                           | [cloudposse-terraform-components/aws-github-webhook](https://github.com/cloudposse-terraform-components/aws-github-webhook)                           |
+  > | global-accelerator                       | [cloudposse-terraform-components/aws-global-accelerator](https://github.com/cloudposse-terraform-components/aws-global-accelerator)                       |
+  > | global-accelerator-endpoint-group        | [cloudposse-terraform-components/aws-global-accelerator-endpoint-group](https://github.com/cloudposse-terraform-components/aws-global-accelerator-endpoint-group)        |
+  > | glue/catalog-database                    | [cloudposse-terraform-components/aws-glue-catalog-database](https://github.com/cloudposse-terraform-components/aws-glue-catalog-database)                    |
+  > | glue/catalog-table                       | [cloudposse-terraform-components/aws-glue-catalog-table](https://github.com/cloudposse-terraform-components/aws-glue-catalog-table)                       |
+  > | glue/connection                          | [cloudposse-terraform-components/aws-glue-connection](https://github.com/cloudposse-terraform-components/aws-glue-connection)                          |
+  > | glue/crawler                             | [cloudposse-terraform-components/aws-glue-crawler](https://github.com/cloudposse-terraform-components/aws-glue-crawler)                             |
+  > | glue/iam                                 | [cloudposse-terraform-components/aws-glue-iam](https://github.com/cloudposse-terraform-components/aws-glue-iam)                                 |
+  > | glue/job                                 | [cloudposse-terraform-components/aws-glue-job](https://github.com/cloudposse-terraform-components/aws-glue-job)                                 |
+  > | glue/registry                            | [cloudposse-terraform-components/aws-glue-registry](https://github.com/cloudposse-terraform-components/aws-glue-registry)                            |
+  > | glue/schema                              | [cloudposse-terraform-components/aws-glue-schema](https://github.com/cloudposse-terraform-components/aws-glue-schema)                              |
+  > | glue/trigger                             | [cloudposse-terraform-components/aws-glue-trigger](https://github.com/cloudposse-terraform-components/aws-glue-trigger)                             |
+  > | glue/workflow                            | [cloudposse-terraform-components/aws-glue-workflow](https://github.com/cloudposse-terraform-components/aws-glue-workflow)                            |
+  > | guardduty                                | [cloudposse-terraform-components/aws-guardduty](https://github.com/cloudposse-terraform-components/aws-guardduty)                                |
+  > | iam-role                                  | [cloudposse-terraform-components/aws-iam-role](https://github.com/cloudposse-terraform-components/aws-iam-role)                                  |
+  > | iam-service-linked-roles                 | [cloudposse-terraform-components/aws-iam-service-linked-roles](https://github.com/cloudposse-terraform-components/aws-iam-service-linked-roles)                 |
+  > | ipam                                      | [cloudposse-terraform-components/aws-ipam](https://github.com/cloudposse-terraform-components/aws-ipam)                                      |
+  > | kinesis-stream                           | [cloudposse-terraform-components/aws-kinesis-stream](https://github.com/cloudposse-terraform-components/aws-kinesis-stream)                           |
+  > | kms                                       | [cloudposse-terraform-components/aws-kms](https://github.com/cloudposse-terraform-components/aws-kms)                                       |
+  > | lakeformation                             | [cloudposse-terraform-components/aws-lakeformation](https://github.com/cloudposse-terraform-components/aws-lakeformation)                             |
+  > | lambda                                    | [cloudposse-terraform-components/aws-lambda](https://github.com/cloudposse-terraform-components/aws-lambda)                                    |
+  > | macie                                     | [cloudposse-terraform-components/aws-macie](https://github.com/cloudposse-terraform-components/aws-macie)                                     |
+  > | managed-grafana/api-key                  | [cloudposse-terraform-components/aws-managed-grafana-api-key](https://github.com/cloudposse-terraform-components/aws-managed-grafana-api-key)                  |
+  > | managed-grafana/dashboard                 | [cloudposse-terraform-components/aws-managed-grafana-dashboard](https://github.com/cloudposse-terraform-components/aws-managed-grafana-dashboard)                 |
+  > | managed-grafana/data-source/loki         | [cloudposse-terraform-components/aws-managed-grafana-data-source-loki](https://github.com/cloudposse-terraform-components/aws-managed-grafana-data-source-loki)         |
+  > | managed-grafana/data-source/managed-prometheus | [cloudposse-terraform-components/aws-managed-grafana-data-source-managed-prometheus](https://github.com/cloudposse-terraform-components/aws-managed-grafana-data-source-managed-prometheus) |
+  > | managed-grafana/workspace                | [cloudposse-terraform-components/aws-managed-grafana-workspace](https://github.com/cloudposse-terraform-components/aws-managed-grafana-workspace)                |
+  > | managed-prometheus/workspace             | [cloudposse-terraform-components/aws-managed-prometheus-workspace](https://github.com/cloudposse-terraform-components/aws-managed-prometheus-workspace)             |
+  > | memorydb                                  | [cloudposse-terraform-components/aws-memorydb](https://github.com/cloudposse-terraform-components/aws-memorydb)                                  |
+  > | mq-broker                                 | [cloudposse-terraform-components/aws-mq-broker](https://github.com/cloudposse-terraform-components/aws-mq-broker)                                 |
+  > | msk                                       | [cloudposse-terraform-components/aws-msk](https://github.com/cloudposse-terraform-components/aws-msk)                                       |
+  > | mwaa                                      | [cloudposse-terraform-components/aws-mwaa](https://github.com/cloudposse-terraform-components/aws-mwaa)                                      |
+  > | network-firewall                          | [cloudposse-terraform-components/aws-network-firewall](https://github.com/cloudposse-terraform-components/aws-network-firewall)                          |
+  > | opsgenie-team                             | [cloudposse-terraform-components/aws-opsgenie-team](https://github.com/cloudposse-terraform-components/aws-opsgenie-team)                             |
+  > | philips-labs-github-runners               | [cloudposse-terraform-components/aws-philips-labs-github-runners](https://github.com/cloudposse-terraform-components/aws-philips-labs-github-runners)               |
+  > | rds                                       | [cloudposse-terraform-components/aws-rds](https://github.com/cloudposse-terraform-components/aws-rds)                                       |
+  > | redshift                                  | [cloudposse-terraform-components/aws-redshift](https://github.com/cloudposse-terraform-components/aws-redshift)                                  |
+  > | redshift-serverless                       | [cloudposse-terraform-components/aws-redshift-serverless](https://github.com/cloudposse-terraform-components/aws-redshift-serverless)                       |
+  > | route53-resolver-dns-firewall            | [cloudposse-terraform-components/aws-route53-resolver-dns-firewall](https://github.com/cloudposse-terraform-components/aws-route53-resolver-dns-firewall)            |
+  > | runs-on                                   | [cloudposse-terraform-components/aws-runs-on](https://github.com/cloudposse-terraform-components/aws-runs-on)                                   |
+  > | s3-bucket                                 | [cloudposse-terraform-components/aws-s3-bucket](https://github.com/cloudposse-terraform-components/aws-s3-bucket)                                 |
+  > | security-hub                              | [cloudposse-terraform-components/aws-security-hub](https://github.com/cloudposse-terraform-components/aws-security-hub)                              |
+  > | ses                                       | [cloudposse-terraform-components/aws-ses](https://github.com/cloudposse-terraform-components/aws-ses)                                       |
+  > | sftp                                      | [cloudposse-terraform-components/aws-sftp](https://github.com/cloudposse-terraform-components/aws-sftp)                                      |
+  > | site-to-site-vpn                          | [cloudposse-terraform-components/aws-site-to-site-vpn](https://github.com/cloudposse-terraform-components/aws-site-to-site-vpn)                          |
+  > | snowflake-account                         | [cloudposse-terraform-components/aws-snowflake-account](https://github.com/cloudposse-terraform-components/aws-snowflake-account)                         |
+  > | snowflake-database                        | [cloudposse-terraform-components/aws-snowflake-database](https://github.com/cloudposse-terraform-components/aws-snowflake-database)                        |
+  > | sns-topic                                 | [cloudposse-terraform-components/aws-sns-topic](https://github.com/cloudposse-terraform-components/aws-sns-topic)                                 |
+  > | spa-s3-cloudfront                         | [cloudposse-terraform-components/aws-spa-s3-cloudfront](https://github.com/cloudposse-terraform-components/aws-spa-s3-cloudfront)                         |
+  > | spacelift/admin-stack                     | [cloudposse-terraform-components/aws-spacelift-admin-stack](https://github.com/cloudposse-terraform-components/aws-spacelift-admin-stack)                     |
+  > | spacelift/spaces                          | [cloudposse-terraform-components/aws-spacelift-spaces](https://github.com/cloudposse-terraform-components/aws-spacelift-spaces)                          |
+  > | spacelift/worker-pool                    | [cloudposse-terraform-components/aws-spacelift-worker-pool-asg](https://github.com/cloudposse-terraform-components/aws-spacelift-worker-pool-asg)                    |
+  > | eks/spacelift-worker-pool-controller     | [cloudposse-terraform-components/aws-eks-spacelift-worker-pool-controller](https://github.com/cloudposse-terraform-components/aws-eks-spacelift-worker-pool-controller)     |
+  > | eks/spacelift-worker-pool                | [cloudposse-terraform-components/aws-eks-spacelift-worker-pool](https://github.com/cloudposse-terraform-components/aws-eks-spacelift-worker-pool)                |
+  > | sqs-queue                                 | [cloudposse-terraform-components/aws-sqs-queue](https://github.com/cloudposse-terraform-components/aws-sqs-queue)                                 |
+  > | ssm-parameters                           | [cloudposse-terraform-components/aws-ssm-parameters](https://github.com/cloudposse-terraform-components/aws-ssm-parameters)                           |
+  > | sso-saml-provider                        | [cloudposse-terraform-components/aws-sso-saml-provider](https://github.com/cloudposse-terraform-components/aws-sso-saml-provider)                        |
+  > | strongdm                                  | [cloudposse-terraform-components/aws-strongdm](https://github.com/cloudposse-terraform-components/aws-strongdm)                                  |
+  > | tfstate-backend                          | [cloudposse-terraform-components/aws-tfstate-backend](https://github.com/cloudposse-terraform-components/aws-tfstate-backend)                          |
+  > | tgw/cross-region-hub-connector           | [cloudposse-terraform-components/aws-tgw-hub-connector](https://github.com/cloudposse-terraform-components/aws-tgw-hub-connector)           |
+  > | tgw/hub                                   | [cloudposse-terraform-components/aws-tgw-hub](https://github.com/cloudposse-terraform-components/aws-tgw-hub)                                   |
+  > | tgw/spoke                                 | [cloudposse-terraform-components/aws-tgw-spoke](https://github.com/cloudposse-terraform-components/aws-tgw-spoke)                                 |
+  > | vpc                                      | [cloudposse-terraform-components/aws-vpc](https://github.com/cloudposse-terraform-components/aws-vpc)                                      |
+  > | vpc-flow-logs-bucket                     | [cloudposse-terraform-components/aws-vpc-flow-logs-bucket](https://github.com/cloudposse-terraform-components/aws-vpc-flow-logs-bucket)                     |
+  > | vpc-peering                               | [cloudposse-terraform-components/aws-vpc-peering](https://github.com/cloudposse-terraform-components/aws-vpc-peering)                               |
+  > | waf                                       | [cloudposse-terraform-components/aws-waf](https://github.com/cloudposse-terraform-components/aws-waf)                                       |
+  > | zscaler                                   | [cloudposse-terraform-components/aws-zscaler](https://github.com/cloudposse-terraform-components/aws-zscaler)                                   |
 
 This is a collection of reusable [AWS Terraform components](https://atmos.tools/core-concepts/components/) for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
 They work really well with [Atmos](https://atmos.tools), our open-source tool for managing infrastructure as code with Terraform.
