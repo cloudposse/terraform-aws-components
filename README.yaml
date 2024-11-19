@@ -70,9 +70,6 @@ description: |-
   > As part of this process, this repository has been set to read-only mode. All future updates, contributions, and issues should be directed 
   > to the respective component repositories in the new organization.
   >  
-  > 
-  > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
-  >
   > | Component                                | New repository                                                                                                       |
   > |------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
   > | access-analyzer                          | [cloudposse-terraform-components/aws-access-analyzer](https://github.com/cloudposse-terraform-components/aws-access-analyzer)                          |
@@ -233,6 +230,10 @@ description: |-
   > | vpc-peering                               | [cloudposse-terraform-components/aws-vpc-peering](https://github.com/cloudposse-terraform-components/aws-vpc-peering)                               |
   > | waf                                       | [cloudposse-terraform-components/aws-waf](https://github.com/cloudposse-terraform-components/aws-waf)                                       |
   > | zscaler                                   | [cloudposse-terraform-components/aws-zscaler](https://github.com/cloudposse-terraform-components/aws-zscaler)                                   |
+  > 
+  > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration.
+  >
+
 
 
   This is a collection of reusable [AWS Terraform components](https://atmos.tools/core-concepts/components/) for provisioning infrastructure used by the Cloud Posse [reference architectures](https://cloudposse.com).
