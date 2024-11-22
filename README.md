@@ -29,11 +29,13 @@
 
   > [!WARNING]
   > ## Migration Complete: Repository Is Now Read-Only
-  > We’re excited to announce that the migration of components to individual repositories under the new GitHub organization is now complete! 🎉
-  > As part of this process, this repository has been set to read-only mode. All future updates, contributions, and issues should be directed 
+  > We've migrated all the components in this repository to individual repositories under a [dedicated GitHub organization](https://github.com/cloudposse-terraform-components).
+  > As a result, this repository has been set to read-only mode and will eventually be archived. All future updates, contributions, and issues should be directed 
   > to the respective component repositories in the new organization.
   >  
+  > Thank you!
   > 
+  > - The Cloud Posse Team
   > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
 
   > | Component                                | New repository                                                                                                       |
