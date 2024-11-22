@@ -28,7 +28,7 @@
 -->
 
   > [!WARNING]
-  > ## Migration Complete: Repository Is Now Read-Only
+  > ## The Components In This Repository Have Moved!
   > We've migrated all the components in this repository to individual repositories under a [dedicated GitHub organization](https://github.com/cloudposse-terraform-components).
   > As a result, this repository has been set to read-only mode and will eventually be archived. All future updates, contributions, and issues should be directed 
   > to the respective component repositories in the new organization.
