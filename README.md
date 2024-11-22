@@ -38,7 +38,6 @@
   > Thank you!
   > 
   > — The Cloud Posse Team
-  > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177)  about the migration and what to expect.
 
   > | Component                                | New repository                                                                                                       |
   > |------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
