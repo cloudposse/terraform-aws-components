@@ -33,6 +33,8 @@
   > As a result, this repository has been set to read-only mode and will eventually be archived. All future updates, contributions, and issues should be directed 
   > to the respective component repositories in the new organization.
   >  
+  > [Learn more](https://github.com/cloudposse/terraform-aws-components/issues/1177) about the migration and what to expect.
+  >
   > Thank you!
   > 
   > — The Cloud Posse Team
