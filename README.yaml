@@ -95,6 +95,7 @@ description: |-
   | aurora-mysql-resources                    | [cloudposse-terraform-components/aws-aurora-mysql-resources](https://github.com/cloudposse-terraform-components/aws-aurora-mysql-resources)                   |
   | aurora-postgres                           | [cloudposse-terraform-components/aws-aurora-postgres](https://github.com/cloudposse-terraform-components/aws-aurora-postgres)                          |
   | aurora-postgres-resources                 | [cloudposse-terraform-components/aws-aurora-postgres-resources](https://github.com/cloudposse-terraform-components/aws-aurora-postgres-resources)                |
+  | argocd-repo                               | [cloudposse-terraform-components/aws-argocd-github-repo](https://github.com/cloudposse-terraform-components/aws-argocd-github-repo)                              |
   | auth0/app                                 | [cloudposse-terraform-components/aws-auth0-app](https://github.com/cloudposse-terraform-components/aws-auth0-app)                                |
   | auth0/connection                          | [cloudposse-terraform-components/aws-auth0-connection](https://github.com/cloudposse-terraform-components/aws-auth0-connection)                         |
   | auth0/tenant                              | [cloudposse-terraform-components/aws-auth0-tenant](https://github.com/cloudposse-terraform-components/aws-auth0-tenant)                             |
@@ -141,7 +142,6 @@ description: |-
   | eks/alb-controller                        | [cloudposse-terraform-components/aws-eks-alb-controller](https://github.com/cloudposse-terraform-components/aws-eks-alb-controller)                       |
   | eks/alb-controller-ingress-class          | [cloudposse-terraform-components/aws-eks-alb-controller-ingress-class](https://github.com/cloudposse-terraform-components/aws-eks-alb-controller-ingress-class)         |
   | eks/alb-controller-ingress-group          | [cloudposse-terraform-components/aws-eks-alb-controller-ingress-group](https://github.com/cloudposse-terraform-components/aws-eks-alb-controller-ingress-group)         |
-  | argocd-repo                               | [cloudposse-terraform-components/aws-argocd-github-repo](https://github.com/cloudposse-terraform-components/aws-argocd-github-repo)                              |
   | eks/argocd                                | [cloudposse-terraform-components/aws-eks-argocd](https://github.com/cloudposse-terraform-components/aws-eks-argocd)                               |
   | eks/aws-node-termination-handler          | [cloudposse-terraform-components/aws-eks-node-termination-handler](https://github.com/cloudposse-terraform-components/aws-eks-node-termination-handler)         |
   | eks/cert-manager                          | [cloudposse-terraform-components/aws-eks-cert-manager](https://github.com/cloudposse-terraform-components/aws-eks-cert-manager)                         |
