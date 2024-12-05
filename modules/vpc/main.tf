@@ -63,6 +63,8 @@ locals {
     security_group_ids  = [module.endpoint_security_groups[local.interface_endpoint_security_group_key].id]
     subnet_ids          = module.subnets.private_subnet_ids
   } }
+
+  vpc_ipv6_cidr_blocks = compact(concat([module.vpc.vpc_ipv6_cidr_block], module.vpc.additional_ipv6_cidr_blocks))
 }
 
 module "utils" {
@@ -114,7 +116,7 @@ module "endpoint_security_groups" {
       to_port          = 65535
       protocol         = "-1" # allow ping
       cidr_blocks      = compact(concat([module.vpc.vpc_cidr_block], module.vpc.additional_cidr_blocks))
-      ipv6_cidr_blocks = compact(concat([module.vpc.vpc_ipv6_cidr_block], module.vpc.additional_ipv6_cidr_blocks))
+      ipv6_cidr_blocks = local.vpc_ipv6_cidr_blocks
       description      = "Ingress from VPC to ${each.value}"
     }]
   }
@@ -145,7 +147,8 @@ module "subnets" {
   availability_zone_ids           = local.availability_zone_ids
   ipv4_cidr_block                 = [module.vpc.vpc_cidr_block]
   ipv4_cidrs                      = var.ipv4_cidrs
-  ipv6_enabled                    = false
+  ipv6_enabled                    = length(local.vpc_ipv6_cidr_blocks) > 0
+  ipv6_cidrs                      = local.vpc_ipv6_cidr_blocks
   igw_id                          = var.public_subnets_enabled ? [module.vpc.igw_id] : []
   map_public_ip_on_launch         = var.map_public_ip_on_launch
   max_subnet_count                = local.max_subnet_count
