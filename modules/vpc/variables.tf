@@ -89,6 +89,18 @@ variable "ipv4_cidrs" {
   }
 }
 
+variable "disable_private_ipv6" {
+  type        = bool
+  default     = false
+  description = "Allow for selectively disabling IPv6 addresses in private subnets only"
+}
+
+variable "disable_private_ipv6" {
+  type        = bool
+  default     = false
+  description = "Allow for selectively disabling IPv6 addresses in public subnets only"
+}
+
 variable "assign_generated_ipv6_cidr_block" {
   type        = bool
   description = "When `true`, assign AWS generated IPv6 CIDR block to the VPC.  Conflicts with `ipv6_ipam_pool_id`."
