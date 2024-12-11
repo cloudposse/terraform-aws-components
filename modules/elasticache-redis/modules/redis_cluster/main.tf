@@ -37,6 +37,7 @@ module "redis" {
   parameter                            = var.parameters
   parameter_group_name                 = var.parameter_group_name
   port                                 = var.cluster_attributes.port
+  replication_group_id                 = var.replication_group_id
   subnets                              = var.cluster_attributes.subnets
   transit_encryption_enabled           = var.cluster_attributes.transit_encryption_enabled
   snapshot_retention_limit             = var.cluster_attributes.snapshot_retention_limit

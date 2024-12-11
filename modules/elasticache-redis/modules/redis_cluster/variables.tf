@@ -91,3 +91,9 @@ variable "kms_alias_name_ssm" {
   default     = "alias/aws/ssm"
   description = "KMS alias name for SSM"
 }
+
+variable "replication_group_id" {
+  default     = ""
+  type        = string
+  description = "Name for the replication group id to be created"
+}

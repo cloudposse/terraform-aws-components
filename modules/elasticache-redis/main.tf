@@ -76,6 +76,7 @@ module "redis_clusters" {
   parameters             = lookup(each.value, "parameters", null)
   parameter_group_name   = lookup(each.value, "parameter_group_name", null)
   cluster_attributes     = local.cluster_attributes
+  replication_group_id   = lookup(each.value, "replication_group_id", null)
 
   context = module.this.context
 }
