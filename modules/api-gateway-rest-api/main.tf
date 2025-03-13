@@ -10,7 +10,7 @@ locals {
 
 module "api_gateway_rest_api" {
   source  = "cloudposse/api-gateway/aws"
-  version = "0.3.1"
+  version = "0.7.2"
 
   enabled = local.enabled
 
@@ -22,6 +22,9 @@ module "api_gateway_rest_api" {
   access_log_format        = var.access_log_format
   rest_api_policy          = var.rest_api_policy
   private_link_target_arns = module.nlb[*].nlb_arn
+  stage_name               = var.stage_name
+  throttling_burst_limit   = var.throttling_burst_limit
+  throttling_rate_limit    = var.throttling_rate_limit
 
   context = module.this.context
 }
