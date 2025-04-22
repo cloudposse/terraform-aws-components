@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.536.0
+
+
+
+<details>
+  <summary>Update PULL_REQUEST_TEMPLATE.md @goruha (#1199)</summary>
+Update PULL_REQUEST_TEMPLATE.md
+</details>
+
+
+
 ## 1.530.0
 
 
