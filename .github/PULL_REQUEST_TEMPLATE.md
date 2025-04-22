@@ -1,14 +1,12 @@
 # 🚫 Pull Requests Are No Longer Accepted
 
 > [!WARNING]
-> ## This Repository Has Been Migrated!
+> ## This Repository Has Migrated!
 > All components have been migrated to the [Cloud Posse Terraform Components GitHub organization](https://github.com/cloudposse-terraform-components).  
 >  
 > **Please open pull requests there instead.**
 
-This repository is in read-only mode.
 
-***Please do not open pull requests here.***
 
 ## ✅  What to Do Instead
 1. Identify the individual component(s) related to your change.
