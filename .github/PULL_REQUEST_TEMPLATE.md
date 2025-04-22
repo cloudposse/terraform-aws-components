@@ -1,21 +1,19 @@
-## what
+# 🚫 Pull Requests Are No Longer Accepted for This Repository
 
-<!--
-- Describe high-level what changed as a result of these commits (i.e. in plain-english, what do these changes mean?)
-- Use bullet points to be concise and to the point.
--->
+> ![WARNING]
+> ## This Repository Has Been Migrated!
+> All components previously housed in this repository have been migrated to individual repositories under the [Cloud Posse Terraform Components GitHub organization](https://github.com/cloudposse-terraform-components).
 
-## why
+This repository is now in read-only mode and will eventually be archived.
 
-<!--
-- Provide the justifications for the changes (e.g. business case).
-- Describe why these changes were made (e.g. why do these commits fix the problem?)
-- Use bullet points to be concise and to the point.
--->
+***Please do not open pull requests here.***
 
-## references
+## What Should You Do Instead?
+- Identify the specific component related to your change.
+- Visit the new repository for that component in the [dedicated GitHub organization](https://github.com/cloudposse-terraform-components).
+- Submit your pull request there.
 
-<!--
-- Link to any supporting github issues or helpful documentation to add some context (e.g. stackoverflow).
-- Use `closes #123`, if this PR closes a GitHub issue `#123`
--->
+For more information about this migration, see the [official announcement and migration details](https://github.com/cloudposse/terraform-aws-components/issues/1177).
+
+Thank you for your understanding and cooperation!  
+— The Cloud Posse Team
