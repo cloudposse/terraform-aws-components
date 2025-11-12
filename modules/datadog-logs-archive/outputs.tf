@@ -42,3 +42,13 @@ output "catchall_id" {
   value       = local.enabled && var.catchall_enabled ? datadog_logs_archive.catchall_archive[0].id : ""
   description = "The ID of the catchall log archive"
 }
+
+output "cloudtrail_kms_key_arn" {
+  value       = local.kms_key_arn
+  description = "The ARN of the KMS key used for CloudTrail encryption"
+}
+
+output "cloudtrail_kms_key_id" {
+  value       = local.create_kms_key ? module.kms_key_cloudtrail[0].key_id : ""
+  description = "The ID of the KMS key used for CloudTrail encryption"
+}

@@ -62,3 +62,21 @@ variable "s3_force_destroy" {
   description = "Set to true to delete non-empty buckets when enabled is set to false"
   default     = false
 }
+
+variable "enable_kms_encryption" {
+  type        = bool
+  description = "Enable KMS encryption for CloudTrail logs"
+  default     = true
+}
+
+variable "kms_key_arn" {
+  type        = string
+  description = "KMS key ARN to use for CloudTrail encryption. If not provided and create_kms_key is true, a new key will be created"
+  default     = null
+}
+
+variable "create_kms_key" {
+  type        = bool
+  description = "Create a new KMS key for CloudTrail encryption. Only used if kms_key_arn is not provided"
+  default     = true
+}

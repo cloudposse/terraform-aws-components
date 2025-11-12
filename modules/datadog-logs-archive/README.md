@@ -20,6 +20,18 @@ to the s3_buckets key for our datadog-lambda-forwarder component.
 
 Both buckets support object lock, with overridable defaults of COMPLIANCE mode with a duration of 7 days.
 
+### KMS Encryption
+
+By default, this component creates a KMS key and configures the CloudTrail to use it for log encryption. This ensures
+compliance with security policies that require SSE-KMS encryption for CloudTrail logs. The KMS key policy allows:
+- The account root to manage the key
+- CloudTrail service to encrypt logs
+
+You can customize KMS encryption behavior with the following variables:
+- `enable_kms_encryption` - Enable/disable KMS encryption (default: `true`)
+- `create_kms_key` - Create a new KMS key (default: `true`)
+- `kms_key_arn` - Use an existing KMS key instead of creating a new one (default: `null`)
+
 ## Prerequisites
 
 - Datadog integration set up in target environment
@@ -107,9 +119,12 @@ components:
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ---------------- |
 | additional_query_tags       | Additional tags to include in query for logs for this archive                                                           | `list`   | []           | no               |
 | catchall                    | Set to true to enable a catchall for logs unmatched by any queries. This should only be used in one environment/account | `bool`   | false        | no               |
+| create_kms_key              | Create a new KMS key for CloudTrail encryption. Only used if kms_key_arn is not provided                                | `bool`   | true         | no               |
 | datadog_aws_account_id      | The AWS account ID Datadog's integration servers use for all integrations                                               | `string` | 464622532012 | no               |
 | enable_glacier_transition   | Enable/disable transition to glacier. Has no effect unless `lifecycle_rules_enabled` set to true                        | `bool`   | true         | no               |
+| enable_kms_encryption       | Enable KMS encryption for CloudTrail logs                                                                                | `bool`   | true         | no               |
 | glacier_transition_days     | Number of days after which to transition objects to glacier storage                                                     | `number` | 365          | no               |
+| kms_key_arn                 | KMS key ARN to use for CloudTrail encryption. If not provided and create_kms_key is true, a new key will be created     | `string` | null         | no               |
 | lifecycle_rules_enabled     | Enable/disable lifecycle management rules for s3 objects                                                                | `bool`   | true         | no               |
 | object_lock_days_archive    | Set duration of archive bucket object lock                                                                              | `number` | 7            | yes              |
 | object_lock_days_cloudtrail | Set duration of cloudtrail bucket object lock                                                                           | `number` | 7            | yes              |
@@ -126,10 +141,12 @@ components:
 | bucket_domain_name            | The FQDN of the bucket used for log archive storage         |
 | bucket_id                     | The ID (name) of the bucket used for log archive storage    |
 | bucket_region                 | The region of the bucket used for log archive storage       |
+| catchall_id                   | The ID of the catchall log archive                          |
 | cloudtrail_bucket_arn         | The ARN of the bucket used for cloudtrail log storage       |
 | cloudtrail_bucket_domain_name | The FQDN of the bucket used for cloudtrail log storage      |
 | cloudtrail_bucket_id          | The ID (name) of the bucket used for cloudtrail log storage |
-| catchall_id                   | The ID of the catchall log archive                          |
+| cloudtrail_kms_key_arn        | The ARN of the KMS key used for CloudTrail encryption       |
+| cloudtrail_kms_key_id         | The ID of the KMS key used for CloudTrail encryption        |
 
 ## References
 

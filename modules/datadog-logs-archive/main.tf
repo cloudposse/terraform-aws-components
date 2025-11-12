@@ -302,6 +302,7 @@ module "cloudtrail" {
   enabled                       = local.enabled
   enable_logging                = true
   s3_bucket_name                = module.cloudtrail_s3_bucket[0].bucket_id
+  kms_key_arn                   = local.kms_key_arn
 
   event_selector = [
     {
